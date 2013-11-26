@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="true" />
+
+    <package name="com.maggie.ssh1" namespace="/" extends="struts-default">
+
+        <default-action-ref name="index" />
+        <global-results>
+            <result name="error">/error.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+		
+		<action name="userlogin" class="com.asso.action.UserLogin">  
+			<result name="success">loginSuccess.jsp</result>
+			<result name="failure">loginFail.jsp</result>  
+		</action>
+		<action name="userbuilt" class="com.asso.action.UserLogin" method="save">  
+			<result name="save">loginSuccess.jsp</result>			 
+		</action>
+		<action name="checksession" class="com.asso.action.CheckSession" >  
+			<result name="success">loginSuccess.jsp</result>			 
+		</action>
+		<action name="userlogout" class="com.asso.action.UserLogout" >  
+			<result name="success">hello.html</result>			 
+		</action>
+		
+		
+		<action name="newexam" class="com.asso.action.ExamItemsList" method="addExam">  
+			<result name="save">inputExam.jsp?examsave=1</result>			 
+		</action>
+		<action name="newitem" class="com.asso.action.ExamItemsList" method="addItem">  
+			<result name="save">inputExam.jsp?examsave=2</result>			 
+		</action>
+		<action name="manageritemlist" class="com.asso.action.ExamItemsList" method="loadItemlistFByExamId">  
+			<result name="list">examItemsList.jsp</result>		                     	 
+		</action>
+		 
+    </package>
+
+    <include file="example.xml"/>
+<!-- TEST URLs
+
+
+
+ -->
+    <!-- Add packages here -->
+
+</struts>

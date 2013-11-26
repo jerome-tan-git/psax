@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd//hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.asso.model.Member" table="member" catalog="asso">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="userid" type="int">
+            <column name="userid" length="11" />
+        </property>
+        <property name="mlevel" type="int">
+            <column name="mlevel" length="11" />
+        </property>
+        <property name="groupid" type="int">
+            <column name="groupid" length="11" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

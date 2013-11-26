@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd//hibernate-mapping-3.0.dtd">
+
+<!-- Generated 2013-10-11 19:44:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.asso.model.Exam" table="exam" catalog="asso">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" length="80" />
+        </property>
+        <property name="groupid" type="int">
+            <column name="groupid" length="11" />
+        </property>
+        <property name="targetdate" type="int">
+            <column name="targetdate" length="11" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd//hibernate-mapping-3.0.dtd">
+
+<!-- Generated 2013-10-11 19:44:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.asso.model.ExamRef" table="examref" catalog="asso">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="ref" type="java.lang.String">
+            <column name="ref" length="200" />
+        </property>
+        <property name="istrue" type="int">
+            <column name="istrue" length="11" />
+        </property>
+        <property name="itemid" type="int">
+            <column name="itemid" length="11" />
+        </property>
+    </class>
+</hibernate-mapping>
