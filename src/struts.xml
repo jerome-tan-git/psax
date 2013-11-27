@@ -6,7 +6,7 @@
 <struts>
 
     <constant name="struts.enable.DynamicMethodInvocation" value="true" />
-    <constant name="struts.devMode" value="true" />
+    <constant name="struts.devMode" value="false" />
 
     <package name="com.maggie.ssh1" namespace="/" extends="struts-default">
 
@@ -36,7 +36,7 @@
 		<action name="newexam" class="com.asso.action.ExamItemsList" method="addExam">  
 			<result name="save">inputExam.jsp?examsave=1</result>			 
 		</action>
-		<action name="newitem" class="com.asso.action.ExamItemsList" method="addItem">  
+		<action name="newitem" class="com.asso.action.ExamItemsList" method="addItem">   
 			<result name="save">inputExam.jsp?examsave=2</result>			 
 		</action>
 		<action name="manageritemlist" class="com.asso.action.ExamItemsList" method="loadItemlistFByExamId">  

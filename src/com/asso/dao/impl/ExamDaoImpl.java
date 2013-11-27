@@ -115,6 +115,7 @@ public class ExamDaoImpl implements ExamDao {
 		 s.beginTransaction();
 		 s.save(exam);
 		 s.getTransaction().commit();
+		 s.close();
 	}	
 	@Override
 	public void save(ExamItem examitem) {
@@ -123,21 +124,35 @@ public class ExamDaoImpl implements ExamDao {
 		 s.beginTransaction();
 		 s.save(examitem);
 		 s.getTransaction().commit();
-		 
+		 s.close();
 	}
 	@Override
 	public void save(List<ExamRef> refs) {
-		Session s = sessionFactory.openSession(); 
+		long a = System.currentTimeMillis();
+		Session s = sessionFactory.openSession();
+		long b = System.currentTimeMillis();
 //		Session s = sessionFactory.getCurrentSession(); 
 //		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 	    s.beginTransaction();
+	    long c = System.currentTimeMillis();
 		for(ExamRef ref:refs){
 		     s.save(ref);		       
 		}	
-		s.flush(); 
+		long d = System.currentTimeMillis();
+		s.flush();
+		long e = System.currentTimeMillis();
 	    s.clear();
 		s.getTransaction().commit();
+		long f = System.currentTimeMillis();
 		s.close();
+		long g = System.currentTimeMillis();
+		System.out.println("=================================================");
+		System.out.println("openSession:       "+(b-a));
+		System.out.println("beginTransaction:  "+(c-b));
+		System.out.println("s.flush():         "+(d-c));
+		System.out.println("s.clear()+commit():"+(e-d));
+		System.out.println("s.close():         "+(g-f));
+		System.out.println("=================================================");
 	}
 	@Override
 	public void update(ExamItem examitem) {
@@ -146,6 +161,7 @@ public class ExamDaoImpl implements ExamDao {
 	     s.beginTransaction();
 	     s.update(examitem);
 	     s.getTransaction().commit();
+	     s.close();
 	}
 	@Override
 	public void update(ExamRef ref) {
@@ -153,7 +169,8 @@ public class ExamDaoImpl implements ExamDao {
 		Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
 		s.update(ref);
-		s.getTransaction().commit();		
+		s.getTransaction().commit();
+		s.close();
 	}
 	@Override
 	public void update(List<ExamRef> refs) {
@@ -162,11 +179,13 @@ public class ExamDaoImpl implements ExamDao {
 	}
 	@Override
 	public void delete(ExamItem examitem) {
+		
 		Session s = sessionFactory.openSession(); 
 //		Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
 		s.delete(examitem);		
-		s.getTransaction().commit();		
+		s.getTransaction().commit();	
+		s.close();
 	}
 	@Override
 	public void delete(ExamRef ref) {
@@ -174,7 +193,8 @@ public class ExamDaoImpl implements ExamDao {
 //		Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
 		s.delete(ref);		
-		s.getTransaction().commit();		
+		s.getTransaction().commit();
+		s.close();
 	}
 	@Override
 	public void deleteRefs(ExamItem examitem) {		

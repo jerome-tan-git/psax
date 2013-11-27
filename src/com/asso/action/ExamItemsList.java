@@ -119,14 +119,16 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 	}
 	
 	public String addItem(){
+		ExamItem ei = null;
+		long a = System.currentTimeMillis();
 		try {
-			this.addExamItem();
+			ei = this.addExamItem();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		long b = System.currentTimeMillis();
 		int newItemId = 0;
 		try {
 			newItemId = this.loadItemByQ();
@@ -135,19 +137,31 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("----- New added ItemId-----"+newItemId);
-		System.out.println("----- New added refs-----"+this.eInfo.getRefs());
-		this.addExamRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
-		
+		long c = System.currentTimeMillis();
+		System.out.println("----- New added ItemId -----"+newItemId);
+		System.out.println("----- New added refs -------"+this.eInfo.getRefs());
+		if(ei.getCategory()==1){
+			this.addExamYesNoRefs(newItemId, this.eInfo.getAnswers());
+		}else
+//			this.addExamRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
+			this.addExamChoiceRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
+		long d = System.currentTimeMillis();
+		System.out.println("---------------------------addItem-------------------------");
+		System.out.println("time(addExamItem): "+(b-a));
+		System.out.println("time(loadItemByQ): "+(c-b));
+		System.out.println("time(addExamRefs): "+(d-c));
+		System.out.println("time(total):       "+(d-a));
+		System.out.println("------------------------------------------------------------");
 		return "save";
 	}
 	
-	private void addExamItem() throws ClassNotFoundException, SQLException{
+	private ExamItem addExamItem() throws ClassNotFoundException, SQLException{
 		ExamItem ei = new ExamItem();
 		ei.setExamid(this.eInfo.getExamid());
 		ei.setCategory(this.eInfo.getCategory());
 		ei.setQuestion(this.eInfo.getQuestion());
 		em.add(ei);
+		return ei;
 	}
 	
 	private HashSet<Integer> getRefAnsByInputString(){
@@ -246,6 +260,56 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 		
 	}
 	
+	private void addExamChoiceRefs(int _itemid, String _refstring,String _answers){
+		System.out.println("_itemid, _refstring,_answer="+_itemid+":"+_refstring+":"+_answers);
+		HashSet<Integer> ans = this.getRefAnsByInputString(_answers);
+		List<ExamRef> refs = new ArrayList<ExamRef>();
+//		List<String> refQs = this.getRefQsByInputString();
+		List<String> refQs = this.getRefQsByInputString(_refstring);
+		for(int i=0; i<refQs.size(); i++){
+			ExamRef e_ref = new ExamRef();
+			
+			e_ref.setRef(refQs.get(i));
+			e_ref.setItemid(_itemid);
+			if(ans.contains(i+1))
+				e_ref.setIstrue(1);
+			else
+				e_ref.setIstrue(0);
+			refs.add(e_ref);			
+		}
+
+		try {
+			em.add(refs);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	private void addExamYesNoRefs(int _itemid, String _answers){
+		System.out.println("_itemid, _answer="+_itemid+":"+_answers);
+		int ans = Integer.parseInt(_answers);
+		List<ExamRef> refs = new ArrayList<ExamRef>();
+		ExamRef e_ref = new ExamRef();
+		e_ref.setItemid(_itemid);
+		e_ref.setRef("");
+		if (ans==1)
+			e_ref.setIstrue(1);
+		else
+			e_ref.setIstrue(0);
+		refs.add(e_ref);		
+		
+		try {
+			em.add(refs);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	private void editExamItem() throws ClassNotFoundException, SQLException{
 		ExamItem ei = new ExamItem();
 		ei.setId(this.eInfo.getExamitemid());
@@ -306,9 +370,11 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 	}
 	private List<ExamRef> addSeq4Reflist(List<ExamRef> _erlist) {		
 		for(int i=0; i<_erlist.size(); i++){
-			String ref =CONSTANT.alphas[i]+") "+ _erlist.get(i).getRef();
-			System.out.println("-----Updated REF="+ref); 
-			_erlist.get(i).setRef(ref);
+			if(_erlist.get(i).getRef()!=null && _erlist.get(i).getRef().length()>0){
+				String ref =CONSTANT.alphas[i]+") "+ _erlist.get(i).getRef();
+				System.out.println("-----Updated REF="+ref); 
+				_erlist.get(i).setRef(ref);
+			}			
 		}
 		return _erlist;
 	}
@@ -362,13 +428,67 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 		List<HashMap<ExamItem,List<ExamRef>>> list = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
 		List<ExamItem> ilist = new ArrayList<ExamItem>();
 		ilist = em.loadItemlistByExamid(this.eInfo.getExamid());
-		System.out.println("after em.loadItemlistByExamid, size="+ilist.size());
+		ilist = this.dedupeEIlist(ilist);
+		ilist = this.randomEIlist(ilist);
+		System.out.println("---------after em.loadItemlistByExamid,dedupe,random size="+ilist.size());
 		for(ExamItem i:ilist){
 //			list.add(this.loadItemfWithId(i.getId()));
 			list.add(this.loadItemfWithItem(i));
 		}		
 		this.setItemlistf(list);
 		return "list";
+	}
+	
+	private List<ExamItem> dedupeEIlist(List<ExamItem> _eil){
+		System.out.println("------Before dedupe, size="+_eil.size());
+		List<ExamItem> eil = new ArrayList<ExamItem>();
+		List<Integer> seq = new ArrayList<Integer>();
+		HashSet<Integer> itemidList = new HashSet<Integer>();
+		for(ExamItem ei:_eil){
+			int size1 = itemidList.size();
+			itemidList.add(ei.getId());
+			int size2 = itemidList.size();
+			if(size2>size1)
+				eil.add(ei);
+		}
+		System.out.println("-------After dedupe, size="+eil.size());
+		return eil;
+	}
+	
+	private List<ExamItem> randomEIlist(List<ExamItem> _eil){
+		int size = _eil.size();
+		List<ExamItem> sc = new ArrayList<ExamItem>();
+		List<ExamItem> mc = new ArrayList<ExamItem>();
+		List<ExamItem> jg = new ArrayList<ExamItem>();
+		ArrayList<Integer> seq_jg = new ArrayList<Integer>();
+		ArrayList<Integer> seq_sc = new ArrayList<Integer>();
+		ArrayList<Integer> seq_mc = new ArrayList<Integer>();
+		for(int i=0; i<size; i++){
+			ExamItem _ei = _eil.get(i);
+			if(_ei.getCategory()==1){
+				jg.add(_ei);	
+				seq_jg.add(i);
+			}
+			else if(_ei.getCategory()==2){
+				sc.add(_ei);
+				seq_sc.add(i);
+			}
+			else if(_ei.getCategory()==3){
+				mc.add(_ei);
+				seq_mc.add(i);
+			}
+		}
+		System.out.println("seq_jg size="+seq_jg.size()+", seq_sc size="+seq_sc.size()+", seq_mc size="+seq_mc.size());
+		ArrayList<ExamItem> eil =  new ArrayList<ExamItem>();
+		ArrayList<Integer> seq_all = new ArrayList<Integer>();
+		seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.judgeNum, seq_jg));
+		seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.singleChoiceNum, seq_sc));
+		seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.multipleChoiceNum, seq_mc));
+		for(Integer s:seq_all){
+			System.out.println("---SEQ---"+s+",cat="+_eil.get(s).getCategory()+",Q="+_eil.get(s).getQuestion());
+			eil.add(_eil.get(s));
+		}
+		return eil;
 	}
 	
 	@Override

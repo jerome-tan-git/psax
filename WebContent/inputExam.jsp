@@ -40,7 +40,7 @@ if(request.getParameter("examsave").equals("1")){
 }
 %>	
 添加考题
-	 <form method="post" action="newitem.action">
+	 <form method="post" action="newitem.action?profiling=true">
 	考试：  <select name="examid">
         <option value="3" selected>中级食品检验工</option> 
         <option value="2">食品添加剂考试</option> 
