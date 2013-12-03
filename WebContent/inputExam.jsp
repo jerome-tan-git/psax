@@ -69,6 +69,18 @@ if(request.getParameter("examsave").equals("1")){
 	 	<input type="submit" value="所有考题">	 
 	</form>
 	 <br>
+	 
+模拟考试<br>	
+	<form method="post" action="intoexam.action">
+	考试：  <select name="examid">
+        <option value="3" selected>中级食品检验工</option> 
+        <option value="2">食品添加剂考试</option> 
+        <option value="1 ">法律法规</option> 
+         <option value="0">热身题</option> 
+        </select>   	
+	 	<input type="submit" value="开始考试，go">	 
+	</form>
+	 <br>
 
  编辑考题 
 	 <form method="post" action="itemslist.action">	 

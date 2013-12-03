@@ -18,8 +18,13 @@
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
 		
+		<action name="memberedit" class="com.asso.action.MemberEdit">  
+			<result name="success">success.html</result>			 
+		</action>
+		
 		<action name="userlogin" class="com.asso.action.UserLogin">  
-			<result name="success">loginSuccess.jsp</result>
+			<!-- <result name="success">loginSuccess.jsp</result>  -->
+			<result name="success"  type="freemarker">/WEB-INF/ftl/examItemList.ftl</result>
 			<result name="failure">loginFail.jsp</result>  
 		</action>
 		<action name="userbuilt" class="com.asso.action.UserLogin" method="save">  
@@ -41,6 +46,13 @@
 		</action>
 		<action name="manageritemlist" class="com.asso.action.ExamItemsList" method="loadItemlistFByExamId">  
 			<result name="list">examItemsList.jsp</result>		                     	 
+		</action>
+		 
+		<action name="intoexam" class="com.asso.action.ExamItemsList" method="loadItemlistFByExamId">  
+			<result name="list" type="redirect">switchexampage.action?currentpage=1</result>		                     	 
+		</action>		
+		<action name="switchexampage" class="com.asso.action.SwitchExamPage" >  
+			<result name="success">examPage.jsp</result>		                     	 
 		</action>
 		 
     </package>

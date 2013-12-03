@@ -39,13 +39,11 @@ public class ExamDaoImpl implements ExamDao {
 	private ExamItem loadExamItemsWithExamItemId(int eid) {				
 		List<ExamItem> items = new ArrayList<ExamItem>();		
 		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
-//	     s.beginTransaction();
-	     
+//		Session s = sessionFactory.getCurrentSession();      
 	     String hql = "from examitem where id=?";      
 	     Query query = s.createQuery(hql); 
 	     query.setString(0, ""+eid); 
-			
+//	     query.setCacheable(true); 	
 	     items = query.list();    
 	     s.close();
 		 
@@ -57,10 +55,9 @@ public class ExamDaoImpl implements ExamDao {
 		List<ExamRef> refs = new ArrayList<ExamRef>();		
 		 Session s = sessionFactory.openSession(); 
 //		Session s = sessionFactory.getCurrentSession(); 
-//	     s.beginTransaction();
-	     
-	     String hql = "from ExamRef where itemid=?";      
+		 String hql = "from ExamRef where itemid=?";      
 	     Query query = s.createQuery(hql); 
+//	     query.setCacheable(true); //////////////////////////////
 	     query.setString(0, ""+itemid);			
 	     refs = query.list();    
 	     s.close();
@@ -68,16 +65,16 @@ public class ExamDaoImpl implements ExamDao {
 	     System.out.println("Get item="+itemid+", examrefs list size="+refs.size());
 	     return refs;
 	}
-	private int getExamidByGroupid(int groupid){
+	private int loadExamidByGroupid(int groupid){
 		 int eid = 0;
 	     Session s = sessionFactory.openSession(); 
-//			Session s = sessionFactory.getCurrentSession(); 
-//		 s.beginTransaction();
-		
+		//Session s = sessionFactory.getCurrentSession(); 
+
 	     Query query = s.createQuery("select id from exam e where e.groupid = ?")
 			    		.setParameter(0, groupid);
-        List<Object> list = query.list();  
-        s.close();
+//	     query.setCacheable(true); 
+         List<Object> list = query.list();  
+         s.close();
 			    
 	     if(list.size() > 0) {
 			  eid = (Integer) list.get(0);
@@ -87,33 +84,35 @@ public class ExamDaoImpl implements ExamDao {
 		 return eid;
 	}
 	
-	private List<Integer> getItemidsByExamid(int eid){
+	private List<Integer> loadItemidsByExamid(int eid){
 		List<Integer> itemids = new ArrayList<Integer>();
 	     Session s = sessionFactory.openSession(); 
 //		Session s = sessionFactory.getCurrentSession(); 
 	     Query query = s.createQuery("select id from examitem er where er.examid = ?")
 			    		.setParameter(0, eid);
-       List<Object> list = query.list();  
-       s.close();
+//	     query.setCacheable(true); 
+        List<Object> list = query.list();  
+        s.close();
 			    
-	     if(list.size() > 0) {
+	    if(list.size() > 0) {
 	    	 for(Object o:list){
 			   int itemid = (Integer) o;
 			  System.out.println(itemid + " : " +eid);
 			  itemids.add(itemid);
 	    	 }
-	     }else
+	    }else
 	    	 System.out.println("No examid selected...");		 
-		 return itemids;
+		return itemids;
 		
 	}
 	
 	@Override
 	public void save(Exam exam) {
-//		 Session s = sessionFactory.openSession(); 
-		 Session s = sessionFactory.getCurrentSession(); 
+		 Session s = sessionFactory.openSession(); 
+//		 Session s = sessionFactory.getCurrentSession(); 
 		 s.beginTransaction();
 		 s.save(exam);
+		 s.flush();
 		 s.getTransaction().commit();
 		 s.close();
 	}	
@@ -123,16 +122,16 @@ public class ExamDaoImpl implements ExamDao {
 //		 Session s = sessionFactory.getCurrentSession(); 
 		 s.beginTransaction();
 		 s.save(examitem);
+		 s.flush();
 		 s.getTransaction().commit();
 		 s.close();
+		 
 	}
 	@Override
 	public void save(List<ExamRef> refs) {
 		long a = System.currentTimeMillis();
 		Session s = sessionFactory.openSession();
-		long b = System.currentTimeMillis();
-//		Session s = sessionFactory.getCurrentSession(); 
-//		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		long b = System.currentTimeMillis(); 
 	    s.beginTransaction();
 	    long c = System.currentTimeMillis();
 		for(ExamRef ref:refs){
@@ -140,8 +139,7 @@ public class ExamDaoImpl implements ExamDao {
 		}	
 		long d = System.currentTimeMillis();
 		s.flush();
-		long e = System.currentTimeMillis();
-	    s.clear();
+		long e = System.currentTimeMillis();	    
 		s.getTransaction().commit();
 		long f = System.currentTimeMillis();
 		s.close();
@@ -150,7 +148,7 @@ public class ExamDaoImpl implements ExamDao {
 		System.out.println("openSession:       "+(b-a));
 		System.out.println("beginTransaction:  "+(c-b));
 		System.out.println("s.flush():         "+(d-c));
-		System.out.println("s.clear()+commit():"+(e-d));
+		System.out.println("commit():"+(e-d));
 		System.out.println("s.close():         "+(g-f));
 		System.out.println("=================================================");
 	}
@@ -165,8 +163,8 @@ public class ExamDaoImpl implements ExamDao {
 	}
 	@Override
 	public void update(ExamRef ref) {
-//		Session s = sessionFactory.openSession(); 
-		Session s = sessionFactory.getCurrentSession(); 
+		Session s = sessionFactory.openSession(); 
+//		Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
 		s.update(ref);
 		s.getTransaction().commit();
@@ -294,8 +292,8 @@ public class ExamDaoImpl implements ExamDao {
 	@Override
 	public HashMap<ExamItem, List<ExamRef>> loadItemsByGroupid(int groupid) {
 		HashMap<ExamItem, List<ExamRef>> itemmap =  new HashMap<ExamItem, List<ExamRef>>();		
-		int eid = this.getExamidByGroupid(groupid);
-		List<Integer> itemids = this.getItemidsByExamid(eid);
+		int eid = this.loadExamidByGroupid(groupid);
+		List<Integer> itemids = this.loadItemidsByExamid(eid);
 		for(Integer itemid:itemids){
 			itemmap.put((ExamItem) this.loadExamItemsWithExamItemId(itemid),
 					this.loadExamRefsWithExamItemid(itemid));			

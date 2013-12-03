@@ -47,7 +47,11 @@
                 <prop key="hibernate.jdbc.fetch_size">50</prop>  
                 <prop key="hibernate.jdbc.batch_size">50</prop>  
                 <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
-                  
+                <!-- 
+                <prop key="hibernate.cache.use_second_level_cache">true</prop> 
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+                <prop key="hibernate.cache.use_query_cache">true</prop>  
+                   -->
 			</props>
 		</property>
 	</bean>
@@ -76,7 +80,17 @@
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
 			<tx:method name="exists" read-only="true" />
+			<tx:method name="check*" read-only="true" />
+			<tx:method name="get*" read-only="true" /> 
+            <tx:method name="find*" read-only="true"/> 
+            <tx:method name="load*" read-only="true"/> 
+           
 			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+						
+			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
 

@@ -5,9 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -19,18 +24,22 @@ import com.asso.manager.ExamManager;
 import com.asso.model.Exam;
 import com.asso.model.ExamItem;
 import com.asso.model.ExamRef;
+import com.asso.model.User;
 import com.asso.vo.ExamBuiltInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 @Scope("prototype")
 @Component("examitemslist") 
-public class ExamItemsList extends ActionSupport implements ModelDriven {
+public class ExamItemsList extends ActionSupport implements ModelDriven,ServletRequestAware {
 	
+//	private Map session;
 	private ExamBuiltInfo eInfo = new ExamBuiltInfo();
 	private ExamManager em;
 	private ApplicationContext ctx;	
-
+	private HttpServletRequest request;	
+	
+	
 	public ExamItemsList(){
 		ctx = new ClassPathXmlApplicationContext("beans.xml");
 		em = (ExamManager) ctx.getBean("examManager");
@@ -109,6 +118,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 		this.itemlistf = itemlistf;
 	}
 
+
+	
 	public String addExam() throws ClassNotFoundException, SQLException{
 		System.out.println("GET examname--->"+this.eInfo.getExamname());
 		Exam e = new Exam();
@@ -436,6 +447,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 			list.add(this.loadItemfWithItem(i));
 		}		
 		this.setItemlistf(list);
+		this.setSession2();
 		return "list";
 	}
 	
@@ -457,24 +469,24 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 	
 	private List<ExamItem> randomEIlist(List<ExamItem> _eil){
 		int size = _eil.size();
-		List<ExamItem> sc = new ArrayList<ExamItem>();
-		List<ExamItem> mc = new ArrayList<ExamItem>();
-		List<ExamItem> jg = new ArrayList<ExamItem>();
+//		List<ExamItem> sc = new ArrayList<ExamItem>();
+//		List<ExamItem> mc = new ArrayList<ExamItem>();
+//		List<ExamItem> jg = new ArrayList<ExamItem>();
 		ArrayList<Integer> seq_jg = new ArrayList<Integer>();
 		ArrayList<Integer> seq_sc = new ArrayList<Integer>();
 		ArrayList<Integer> seq_mc = new ArrayList<Integer>();
 		for(int i=0; i<size; i++){
 			ExamItem _ei = _eil.get(i);
 			if(_ei.getCategory()==1){
-				jg.add(_ei);	
+//				jg.add(_ei);	
 				seq_jg.add(i);
 			}
 			else if(_ei.getCategory()==2){
-				sc.add(_ei);
+//				sc.add(_ei);
 				seq_sc.add(i);
 			}
 			else if(_ei.getCategory()==3){
-				mc.add(_ei);
+//				mc.add(_ei);
 				seq_mc.add(i);
 			}
 		}
@@ -490,6 +502,12 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 		}
 		return eil;
 	}
+	private void setSession2() {				
+		 request.getSession().setAttribute("elist", this.itemlistf);
+		 System.out.println("setSession2----Session().elist----"+
+				 request.getSession().getAttribute("elist").toString());
+	}
+
 	
 	@Override
 	public String execute(){
@@ -549,6 +567,12 @@ public class ExamItemsList extends ActionSupport implements ModelDriven {
 	public Object getModel() {
 		// TODO Auto-generated method stub
 		return this.eInfo;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		 this.request=request;		
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.asso.model;
 
-public class ExamItem {
+public class ExamItem implements java.io.Serializable{
 	
+	
+	private static final long serialVersionUID = -1423792775403696553L;
 	private int id;
 	private int examid;
 	private String question;

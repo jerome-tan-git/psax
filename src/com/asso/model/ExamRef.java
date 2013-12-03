@@ -1,7 +1,8 @@
 package com.asso.model;
 
-public class ExamRef {
+public class ExamRef implements java.io.Serializable{
 	
+	private static final long serialVersionUID = 3728014518147956291L;
 	private int id;
 	private int itemid;
 	private String ref;

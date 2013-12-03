@@ -26,9 +26,7 @@
 		 <input type="submit" value="删除">
 	 </form>
 	
-	<a href="beginexam.action">编辑考题</a>
-	<a href="beginexam.action">删除考题</a>
-	
+
 	<br>
 	<a href="beginexam.action">开始考试</a>
 	<br>

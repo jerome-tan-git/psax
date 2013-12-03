@@ -11,6 +11,9 @@ public class CONSTANT {
 	public final static int multipleChoiceNum = 5;
 	public final static int judgeNum = 5;
 	
+	public final static int pageNum = 5;
+	public final static int pageSize = 3;
+	
 	public static HashMap<String,Integer> seq;
 	public final static String[] alphas = {
 		"a","b","c","d","e",
@@ -35,7 +38,11 @@ public class CONSTANT {
 						break;
 			}  
 		}  
-			
+		
+		System.out.println("");
+		for(Integer or:_orlist)		
+			System.out.print(or+"::");
+		System.out.println("");
 		for(Integer rz:rzlist){			
 			System.out.print(rz+"::");
 			result.add(rz);

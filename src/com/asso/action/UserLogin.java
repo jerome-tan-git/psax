@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -125,25 +126,20 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		  this.request=request;		
-		  System.out.println("Struts REQUEST info----"+this.request.getRequestedSessionId()
-			
-				  +"$$$"+this.request.getRequestURI()); 
-//		  /test_asso1/userlogin.action
+		  System.out.println("Struts REQUEST info----"+this.request.getRequestedSessionId()			
+				  +"   $$$   "+this.request.getRequestURI()); 
 		  System.out.println("request.getSession()----"+request.getSession());
-//		  System.out.println("this.uInfo.getUsername()---"+this.uInfo.getUsername());
-		  
-//		  User u = new User();
-//		  u.setUsername(this.uInfo.getUsername());
-//		  request.getSession().setAttribute("user_", u);
-//		  System.out.println("request.getSession().username----"+request.getSession().getAttribute("user_").toString());
 	}
 
 	@Override
-	public void setSession(Map session) {
-		  this.session=session;				
-		  System.out.println("Struts SESSION info_1----"+this.session.toString());
-//		  System.out.println(this.session);
-		  
+	public void setSession(Map session) {	  	
+
+		  User u = new User();
+		  u.setId(10);
+		  u.setUsername("ggg");
+		  u.setLevel(3);
+		  request.getSession().setAttribute("user", u);		  
+		  System.out.println("Struts SESSION info_1_after----"+request.getSession().getAttribute("user").toString());
 		  
 	}
 

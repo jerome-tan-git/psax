@@ -8,6 +8,8 @@
 <title>×¢²á</title>
 </head>
 <body>
+
+
   <table border="1">
      <s:iterator value="itemlistf" id="item" status="of">
           <s:iterator value="#item" id="map" >
@@ -43,11 +45,17 @@
   </table>
  -->  
   <br><br><br>	
+  
+  <br><br><br>	
+  <a href="./switchexampage.action?currentpage=1">1</a>
+  <a href="./switchexampage.action?currentpage=2">2</a>
+  <a href="./switchexampage.action?currentpage=3">3</a>
+  <a href="./switchexampage.action?currentpage=4">4</a>
+  <a href="./switchexampage.action?currentpage=5">5</a>
+  
+  
 	 <form method="post" action="userlogin.action">
-		 <input type="submit" value="¸üÐÂ">
-	 </form>
-	 <form method="post" action="userlogin.action">
-		 <input type="submit" value="É¾³ý">
+		 <input type="submit" value="±£´æ">
 	 </form>
 	
 	

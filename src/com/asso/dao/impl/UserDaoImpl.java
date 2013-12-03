@@ -38,20 +38,19 @@ public class UserDaoImpl implements UserDao {
 	     s.beginTransaction();
 	     s.save(user);
 	     s.getTransaction().commit();
+	     s.close();
 	}
 	
 	@Override
 	public int checkUserExistsWithNamePassword(User user) {
 //		  Session s = sessionFactory.getCurrentSession(); 
 		Session s = sessionFactory.openSession(); 
-		  s.beginTransaction();
-		  
-		  System.out.println("Into checkUserExistsWithNamePassword...");
-	  
+  
 		    Query query = s.createQuery("select username,password from User u where u.username = ?")
 		    		.setParameter(0, user.getUsername());
 		    List<Object[]> list = query.list();  
 		    s.getTransaction().commit();
+		    s.close();
 		    System.out.println("  checkUserExistsWithNamePassword  rz="+list.size());
 		    if(list.size() > 0) {
 		    	for(Object[] object : list){     
@@ -73,14 +72,14 @@ public class UserDaoImpl implements UserDao {
 		 
 		 int id = 0;
 	     Session s = sessionFactory.openSession(); 
-//			Session s = sessionFactory.getCurrentSession(); 
-		 s.beginTransaction();
+//		 Session s = sessionFactory.getCurrentSession(); 
+//		 s.beginTransaction();
 		
 	     Query query = s.createQuery("select id from User u where u.username = ?")
 			    		.setParameter(0, user.getUsername());
         List<Object> list = query.list();  
 	     s.getTransaction().commit();
-			    
+	     s.close();    
 	     if(list.size() > 0) {
 			  id = (Integer) list.get(0);
 			  System.out.println(user.getUsername() + " : " + id);
@@ -94,14 +93,14 @@ public class UserDaoImpl implements UserDao {
 		 
 		 int id = 0;
 	     Session s = sessionFactory.openSession(); 
-//			Session s = sessionFactory.getCurrentSession(); 
-		 s.beginTransaction();
+//		 Session s = sessionFactory.getCurrentSession(); 
+//		 s.beginTransaction();
 		
 	     Query query = s.createQuery("select id from Member m where m.userid = ?")
 			    		.setParameter(0, userId);
         List<Object> list = query.list();  
 	     s.getTransaction().commit();
-			    
+	     s.close();	    
 	     if(list.size() > 0) {
 			  id = (Integer) list.get(0);
 			  System.out.println(id + " : " + userId);
@@ -128,6 +127,7 @@ public class UserDaoImpl implements UserDao {
 		s.beginTransaction();
 		s.save(member);
 		s.getTransaction().commit();
+		s.close();
 		int memid = this.getMemberIdWithUserId(id);
 	    this.saveMemberInfo(memid,user);
 	}
@@ -142,7 +142,8 @@ public class UserDaoImpl implements UserDao {
 //			Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
 		s.save(memberinfo);
-		s.getTransaction().commit();	    
+		s.getTransaction().commit();	
+		s.close();
 	}
 	@Override
 	public void updateMemberInfoWithId(MemberInfo minfo) {
@@ -156,12 +157,12 @@ public class UserDaoImpl implements UserDao {
 		System.out.println("Member input infomation p_mp------"+minfo.getP_mp());
 		System.out.println("Member input infomation c_tel------"+minfo.getP_tel());
 		
-		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
-	     s.beginTransaction();
-	     s.update(minfo);
-	     s.getTransaction().commit();
-		
+//		 Session s = sessionFactory.openSession(); 
+////		Session s = sessionFactory.getCurrentSession(); 
+//	     s.beginTransaction();
+//	     s.update(minfo);
+//	     s.getTransaction().commit();
+//	     s.close();
 	}
 	@Override
 	public List<MemberInfo> loadMemberInfoWithUserId(User user) {
@@ -171,7 +172,7 @@ public class UserDaoImpl implements UserDao {
 		
 		 Session s = sessionFactory.openSession(); 
 //		Session s = sessionFactory.getCurrentSession(); 
-	     s.beginTransaction();
+//	     s.beginTransaction();
 	     
 	     String hql = "from MemberInfo where id=?";      
 	     Query query = s.createQuery(hql); 
@@ -179,7 +180,7 @@ public class UserDaoImpl implements UserDao {
 			
 	     minfos = query.list();    
 	     s.getTransaction().commit();
-		 
+	     s.close();
 	     System.out.println("Get list size="+minfos.size());
 	     System.out.println("member selected info----\n"+minfos.get(0).toString());
 		

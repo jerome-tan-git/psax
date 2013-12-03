@@ -2,8 +2,9 @@ package com.asso.model;
 
 import java.sql.Date;
 
-public class Exam {
+public class Exam implements java.io.Serializable{
 	
+	private static final long serialVersionUID = -7323032372076449024L;
 	private int id;
 	private String name;
 	private int groupid;
