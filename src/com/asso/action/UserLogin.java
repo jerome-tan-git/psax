@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import util.SpringFactory;
+
 import com.asso.manager.UserManager;
 import com.asso.model.User;
 import com.asso.vo.UserRegisterInfo;
@@ -30,7 +32,7 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 	private UserManager um;	
 	private User user; 
 	
-	private ApplicationContext ctx;
+//	private ApplicationContext ctx;
 	private HttpServletRequest request;	
 	private Map session;
 
@@ -43,8 +45,9 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 	}
 
 	public UserLogin(){
-		ctx = new ClassPathXmlApplicationContext("beans.xml");
-		um = (UserManager) ctx.getBean("userManager");
+//		ctx = new ClassPathXmlApplicationContext("beans.xml");
+//		um = (UserManager) ctx.getBean("userManager");
+		um = (UserManager) SpringFactory.getObject("userManager");
 	}
 	
 	public UserManager getUm() {
@@ -139,7 +142,7 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 		  u.setUsername("ggg");
 		  u.setLevel(3);
 		  request.getSession().setAttribute("user", u);		  
-		  System.out.println("Struts SESSION info_1_after----"+request.getSession().getAttribute("user").toString());
+		  System.out.println("setSESSION1----after----"+request.getSession().getAttribute("user").toString());
 		  
 	}
 

@@ -25,11 +25,12 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Scope("prototype")
 @Component("switchexampage") 
-public class SwitchExamPage extends ActionSupport implements ServletRequestAware {
+public class SwitchExamPage extends ActionSupport implements ServletRequestAware,SessionAware {
 	
 
 	private static final long serialVersionUID = -3599357601671496317L;
 	private HttpServletRequest request;	
+	private Map session;
 	private List<HashMap<ExamItem,List<ExamRef>>> itemlistf;
 	private List<Integer> errorList;
 	private List<Integer> answerList;//itemid
@@ -46,19 +47,32 @@ public class SwitchExamPage extends ActionSupport implements ServletRequestAware
 	private void keepAnswers(){
 		
 	}
-
-	@Override
-	public String execute(){
-//	this.hello(session);
-			return "success";	
-	}
-
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
 		this.itemlistf = (List<HashMap<ExamItem, List<ExamRef>>>) this.request.getSession().getAttribute("elist");
+		System.out.println("----------------------------switchexampage-2-------------------------------------");
 		System.out.println("setSession3----Session().elist----"+
 				 request.getSession().getAttribute("elist").toString());
+		
+	}
+
+	@Override
+	public String execute(){
+//	this.hello(session);
+		this.session.put("elist", this.itemlistf);
+		System.out.println("REAL-----Session().elist----"+
+				this.session.get("elist").toString());
+			return "success";	
+	}
+	@Override
+	public void setSession(Map session) {
+		this.session = session;
+		System.out.println("----------------------------switchexampage-1-------------------------------------");
+//		System.out.println("setSESSION----after----"+request.getSession().getAttribute("user").toString());
+//		this.session.put("elist", (List<HashMap<ExamItem, List<ExamRef>>>) this.request.getSession().getAttribute("elist"));
+		System.out.println("REAL-setSession----Session().elist----"+
+				this.session.get("elist").toString());
 	}
 
 }

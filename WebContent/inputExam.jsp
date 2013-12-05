@@ -14,6 +14,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>考试系统管理</title>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#btn1").click(function(){
+	  $(".abc").append("选项：<input type='textarea' name='refs'><br>");
+  });
+
+});
+</script>
+
+<style type="text/css">
+.abc {}
+</style>
+
 </head>
 <body>
 
@@ -51,12 +66,14 @@ if(request.getParameter("examsave").equals("1")){
 	 类型：<input type="radio" name="category" value=1> 判断
 		<input type="radio" name="category" value=2> 单选 
 		<input type="radio" name="category" value=3> 多选<br> 
-	参考选项：<input type="textarea" name="refs" ><br>
+	<div class="abc">
+	选项：<input type="textarea" name="refs" /><br>
+	</div>
 	参考答案：<input type="textarea" name="answers" ><br>
-	 <input type="submit" value="提交">
+	<input type="button" id="btn1" value="追加选项" />	<input type="submit" value="提交">
 	 
-	 </form>
-	 <br>
+	</form>
+	<br>
 
 查看<br>	
 	<form method="post" action="manageritemlist.action">

@@ -25,48 +25,98 @@
 			itemlistf.add(null);
 	}
 	System.out.println("New itemlistf size="+itemlistf.size());
+	
+	
 	request.setAttribute("itemlistf", itemlistf);
 	request.setAttribute("pi",pi );
 	request.setAttribute("index0",index0 );
+	int c1hasTitle = 1;//是非题开始序号
+	int c2hasTitle = 6;//选择题开始序号
+	int c3hasTitle = 11;//多选题开始序号
+	request.setAttribute("c1hasTitle", c1hasTitle);
+	request.setAttribute("c2hasTitle", c2hasTitle);
+	request.setAttribute("c3hasTitle", c3hasTitle);
 %>
- <!-- 
+<!-- <form method="post" action="userlogin.action"> -->	
+
   <table border="1">
+ <!--  <s:form action="examsubmit">    -->	
+ <form method="post" action="examsubmit.action">
      <s:iterator value="#request.itemlistf" id="item" status="of">
           <s:iterator value="#item" id="map" >
-    		   <s:property value="#of.count"/>.
-    		   <s:property value='key.question'/><br>    		   
-    		   <s:iterator value='value' id="ref">
-            	    <s:property value="#ref.ref"/>
-            	    <s:property value="#ref.istrue"/><br>
-    		   </s:iterator>                        
-          </s:iterator><br>
-      </s:iterator>
-  </table>
-  -->
-  <table border="1">
-     <s:iterator value="#request.itemlistf" id="item" status="of">
-          <s:iterator value="#item" id="map" >
-          	<s:if test="%{#of.count>=#request.index0}">
+          		<s:if test="%{#of.count==#request.c1hasTitle}">
+    		    	<br>是非题：
+  	    		</s:if>  
+	    		<s:elseif test="%{#of.count==#request.c2hasTitle}">
+	    			<br>单选题：
+	    		</s:elseif>
+	    		<s:elseif test="%{#of.count==#request.c3hasTitle}">
+	    			<br>多选题：
+	    		</s:elseif>
+          
+          	 <s:if test="%{#of.count>=#request.index0}">
           		<br>
-    		   <s:property value="#of.count"/>.
-    		   <s:property value='key.question'/><br>    		   
-    		   <s:iterator value='value' id="ref">
-            	    <s:property value="#ref.ref"/>
-            	    <s:property value="#ref.istrue"/><br>
-    		   </s:iterator>
+          		 
+    		    <s:property value="#of.count"/>
+    		    <s:property value='key.question'/><br>    		   
+    		    
+    		    <s:if test="%{key.category==1}">
+    		   
+    		    	<input type="radio" checked="checked" name='ANS_<s:property value="#of.count"/>' value="1" />是<br>
+	    		    <input type="radio" name='ANS_<s:property value="#of.count"/>' value="0" />否<br>
+	    		     <!-- 
+	    		    <input type="radio" checked="checked" name="ansref.istrue" value="1" />是<br>
+	    		    <input type="radio" name="ansref.istrue" value="0" />否<br>
+	    		   -->
+    		    	<!--<s:iterator value='value' id="ref">	   
+    		    		<s:radio name="ansref" list="{'是','否'}"/>   
+    		     		<br>参考答案： <s:property value="#ref.istrue"/><br>
+	               
+	    		   	</s:iterator>
+	    		   	-->
+	    		</s:if>   
+				<s:elseif test="%{key.category==2}">
+					
+	    			<s:iterator value='value' id="ref">	   
+    		     		   		
+	            	    <s:property value="#ref.ref"/>
+	            	    <s:property value="#ref.istrue"/><br>
+	               
+	    		   	</s:iterator>
+	    		</s:elseif>
+	    		<s:else>
+		    		
+					<s:iterator value='value' id="ref">	  
+					  	   		
+	            	    <s:property value="#ref.ref"/>
+	            	    <s:property value="#ref.istrue"/><br>
+	            	 
+	    		   	</s:iterator>
+				</s:else>
+				
     		 </s:if>                        
           </s:iterator>
       </s:iterator>
+      
+      <br><br><br>
+      	<input type="submit" value="保存">
+  		<input type="reset" value="重写"/>
+ <!-- </s:form> -->	
+   </form>
   </table>
+   
    <br><br><br>
    current page---<s:property value="#request.pi"/><br>
    page index0----<s:property value="#request.index0"/><br>
    page i0----<s:property value="#i0"/><br>
- 	 
-	  <form method="post" action="userlogin.action">		 
-		 <input type="reset" value="重写"/>
-		 <input type="submit" value="提交">
-	  </form>  
+
+<!--   
+  <input type="submit" value="保存并继续">
+  <input type="reset" value="重写"/>
+  <input type="submit" value="结束考试">
+
+   -->
+
 	  &nbsp;&nbsp;
   	  <a href="./switchexampage.action?currentpage=1">1</a>
 	  <a href="./switchexampage.action?currentpage=2">2</a>
@@ -74,10 +124,7 @@
 	  <a href="./switchexampage.action?currentpage=4">4</a>
 	  <a href="./switchexampage.action?currentpage=5">5</a>
 	  &nbsp;&nbsp;
-  	  <form method="post" action="userlogin.action">
-		 <input type="submit" value="结束考试，查看分数.">		 
-	  </form>
-  	
+
   <br><br><br>	
   
 </body>

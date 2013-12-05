@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import util.SpringFactory;
+
 import com.asso.manager.UserManager;
 import com.asso.model.User;
 import com.asso.vo.UserRegisterInfo;
@@ -21,12 +23,13 @@ public class UserBuilt extends ActionSupport implements ModelDriven {
 	private UserRegisterInfo uInfo = new UserRegisterInfo();
 
 	private UserManager um;
-	private ApplicationContext ctx;
+//	private ApplicationContext ctx;
 	
 
 	public UserBuilt(){
-		ctx = new ClassPathXmlApplicationContext("beans.xml");
-		um = (UserManager) ctx.getBean("userManager");
+//		ctx = new ClassPathXmlApplicationContext("beans.xml");
+//		um = (UserManager) ctx.getBean("userManager");
+		um = (UserManager) SpringFactory.getObject("userManager");
 	}
 	
 	public UserManager getUm() {

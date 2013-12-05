@@ -54,6 +54,10 @@
 		<action name="switchexampage" class="com.asso.action.SwitchExamPage" >  
 			<result name="success">examPage.jsp</result>		                     	 
 		</action>
+		<action name="examsubmit" class="com.asso.action.ExamSubmit" >  
+			<result name="success">examPage.jsp</result>		                     	 
+		</action>
+		
 		 
     </package>
 

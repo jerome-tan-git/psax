@@ -16,6 +16,7 @@ import com.asso.vo.MemberUpdateInfo;
 import com.asso.vo.UserRegisterInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import util.SpringFactory;
 
 
 @Scope("prototype")
@@ -29,9 +30,9 @@ public class MemberEdit extends ActionSupport implements ModelDriven {
 	private ApplicationContext ctx;
 	
 	public MemberEdit(){
-		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		
-		um = (UserManager) ctx.getBean("userManager");
+//		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");		
+//		um = (UserManager) ctx.getBean("userManager");
+		um = (UserManager) SpringFactory.getObject("userManager");
 	}
 	
 	public UserManager getUm() {

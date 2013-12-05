@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import util.CONSTANT;
 
 import com.asso.manager.ExamManager;
+import com.asso.manager.UserManager;
 import com.asso.model.Exam;
 import com.asso.model.ExamItem;
 import com.asso.model.ExamRef;
@@ -28,6 +29,7 @@ import com.asso.model.User;
 import com.asso.vo.ExamBuiltInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import util.SpringFactory;
 
 @Scope("prototype")
 @Component("examitemslist") 
@@ -41,8 +43,10 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 	
 	
 	public ExamItemsList(){
-		ctx = new ClassPathXmlApplicationContext("beans.xml");
-		em = (ExamManager) ctx.getBean("examManager");
+//		ctx = new ClassPathXmlApplicationContext("beans.xml");
+//		em = (ExamManager) ctx.getBean("examManager");
+		em = (ExamManager) SpringFactory.getObject("examManager");
+		
 		CONSTANT.seq = new HashMap<String, Integer>();
 		CONSTANT.seq.put("a",1);
 		CONSTANT.seq.put("b",2);
