@@ -44,7 +44,7 @@
 	request.setAttribute("c3hasTitle", c3hasTitle);
 %>
 
- <table border="1">
+
  <!--  <s:form action="examsubmit">    -->	
  <form method="post" action="examsubmit.action">
      <s:iterator value="#request.itemlistf" id="item" status="of">
@@ -63,11 +63,13 @@
           		<br>
           		 
     		    <s:property value="#of.count"/>
-    		    <s:property value='key.question'/><br>    		   
+    		    <s:property value='key.question'/><br/>    		   
     		    
     		    <s:if test="%{key.category==1}">    	
-    		    	<s:iterator value='value' id="ref" status="off">	   
-    		    	<input type="radio" checked="checked" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />是<br/>
+    		    	<s:iterator value='value' id="ref" status="off">	  
+    		    	
+    		    	<input type="radio" checked="" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />是<br/> 
+    		    	<!-- <input type="radio" checked="checked" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />是<br/> -->
 	    		    <input type="radio" name='ANS_<s:property value="#of.count"/>' value='0_<s:property value="#ref.id"/>' />否<br/>
 	    		    </s:iterator>	    	
 	    		</s:if>   
@@ -91,17 +93,17 @@
           </s:iterator>
       </s:iterator>
       
-      <br><br><br>
-      	<input type="submit" value="保存">
+      <br/><br/><br/>
+      	<input type="submit" value="保存"/>
   		<input type="reset" value="重写"/>
  <!-- </s:form> -->	
    </form>
-  </table>
+
    
-   <br><br><br>
-   current page---<s:property value="#request.pi"/><br>
-   page index0----<s:property value="#request.index0"/><br>
-   page i0----<s:property value="#i0"/><br>
+   <br/><br/><br/>
+   current page---<s:property value="#request.pi"/><br/>
+   page index0----<s:property value="#request.index0"/><br/>
+   page i0----<s:property value="#i0"/><br/>
 
 
 	  &nbsp;&nbsp;
@@ -112,7 +114,7 @@
 	  <a href="./switchexampage.action?currentpage=5">5</a>
 	  &nbsp;&nbsp;
 
-  <br><br><br>	
+  	
   
 </body>
 </html>

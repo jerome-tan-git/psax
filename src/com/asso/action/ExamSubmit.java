@@ -103,17 +103,44 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 								if(ans.contains("_")){
 									int a_refid = Integer.parseInt(ans.substring(ans.indexOf("_")+1,ans.length()));
 									int a = Integer.parseInt(ans.substring(0,ans.indexOf("_")));
-									System.out.println("--------calculatePageScore------");
-									System.out.println("-----refid="+refid+"-----answer="+a);
-									if(a_refid==refid){
-										if(refIsTrue==a)
-											this.scorePlus +=1;
-									}
+//									System.out.println("--------calculatePageScore-cat1-----");
+//									System.out.println("----a-refid="+a_refid+"-----answer="+a);
+									if(a_refid==refid && a==refIsTrue)
+										this.scorePlus +=1;							
 								}
-							}
-								
+							}								
 						}else
 							System.out.println("@@-DB data ERROR! Pls INV...");
+					}
+					if(cat==2){
+						for(String ans:this.chosenRefIds){
+							if(ans.contains("_"))
+								continue;
+							for(ExamRef ref:refs){		
+//								System.out.println("--------calculatePageScore-cat2-----");
+//								System.out.println("-----refid="+ref.getId()+", isTrue="+ref.getIstrue()
+//										+", a_refid="+Integer.parseInt(ans));
+								if(ref.getId()==Integer.parseInt(ans) && ref.getIstrue()==1)
+									this.scorePlus +=1;								
+							}
+						}						
+					}
+					if(cat==3){
+						int shouldmatch = 0;
+						int realmatch = 0;
+						for(ExamRef ref:refs){
+							if(ref.getIstrue()==1){
+								shouldmatch += 1;
+								for(String ans:this.chosenRefIds){
+									if(ans.contains("_"))
+										continue;
+									if(Integer.parseInt(ans)==ref.getId())
+										realmatch +=1;
+								}
+							}
+						}
+						if(shouldmatch==realmatch && realmatch>0)
+							this.scorePlus +=2;
 					}
 				}
 				
