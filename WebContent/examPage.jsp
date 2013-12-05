@@ -9,7 +9,11 @@
 </head>
 <body>
 
-<%	int pi = Integer.parseInt( request.getParameter("currentpage") );
+<%	int pi = 0;
+	if(request.getParameter("currentpage")!=null)
+		pi=Integer.parseInt( request.getParameter("currentpage") );
+	if(pi==0)
+		pi = (Integer)request.getSession().getAttribute("pi") ;
 	System.out.println("Current Page Number="+pi);
 	System.out.println("itemlistf="+request.getSession().getAttribute("elist").toString());
 	System.out.println("CONSTANT.pageSize="+3);////3£¿£¿£¿£¿´«Öµ£¿
@@ -25,7 +29,7 @@
 			itemlistf.add(null);
 	}
 	System.out.println("New itemlistf size="+itemlistf.size());
-	
+	request.getSession().setAttribute("pi",pi);
 	
 	request.setAttribute("itemlistf", itemlistf);
 	request.setAttribute("pi",pi );

@@ -13,6 +13,8 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import util.CONSTANT;
+
 import com.asso.model.ExamItem;
 import com.asso.model.ExamRef;
 import com.opensymphony.xwork2.ActionSupport;
@@ -32,6 +34,8 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	private Map session;
 	private List<HashMap<ExamItem,List<ExamRef>>> pageitemlistf; //items on that page
 	private ExamRef[] ansref;    //answer in the form of ExamRef to calculate the score
+//	private String[] ANS = {"","","","","","","","","",""};
+	private int dpi;//dealing page index
 	
 	
 	public List<HashMap<ExamItem, List<ExamRef>>> getPageitemlistf() {
@@ -49,21 +53,33 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	}
 
 
+	private void setANS(){	
+		String[] ANS = {"","","","","","","","","",""};
+		for(int i=0; i<10; i++){
+			ANS[i] =  this.request.getParameter("ANS_"+(i+1));
+			System.out.println("ANS-"+ANS[i]);
+		}
+		this.session.put("EPage"+this.dpi, ANS);
+		System.out.println(""+this.session.get("EPage"+this.dpi).toString());
+	}
 
+	private void countPage(){
+		System.out.println("setServletRequest----examPage="+this.request.getSession().getAttribute("pi"));
+		int nextExamPage = (Integer) this.request.getSession().getAttribute("pi");		
+		if(nextExamPage<CONSTANT.pageNum)
+			nextExamPage += 1;
+		System.out.println("setServletRequest----nextExamPage="+nextExamPage);		
+		this.request.getSession().setAttribute("pi", nextExamPage);
+	}
 
 	@Override
 	public String execute(){
-		this.session.put("elist", this.pageitemlistf);
+		this.dpi = (Integer) this.request.getSession().getAttribute("pi");
+//		this.session.put("elist", this.pageitemlistf);
 		System.out.println("EXCUTION preparing.........");
-		String a1 = this.request.getParameter("ANS_1");
-		String a2 = this.request.getParameter("ANS_2");
-		String a3 = this.request.getParameter("ANS_3");
-		System.out.println("a1="+a1+", a2="+a2+", a3="+a3);
-//		HashSet<Object> keys = (HashSet<Object>) params.keySet();
-//		for(Object key:keys)
-//			System.out.println(""+params.get(key).toString());
-//		for(ExamRef an:ansref)
-//			System.out.println("------ansref--"+an.toString());
+		this.setANS();
+		this.countPage();
+		
 		return "success";
 	
 	}
@@ -74,9 +90,10 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	@Override
 	public void setSession(Map session) {
 		this.session = session;
+		this.session.put("eirlist", this.pageitemlistf);
 		System.out.println("------------------------------Exam-Submit-1--setSession-----------------------------------");
-//		System.out.println("setSession----Session().elist----"+
-//				 request.getSession().getAttribute("elist").toString());
+		System.out.println("setSession----Session().elist----"+
+				this.session.get("eirlist").toString());
 		
 	}
 
@@ -85,10 +102,13 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		// TODO Auto-generated method stub
 		this.request=request;		
 		System.out.println("------------------------------Exam-Submit-2-------------------------------------");
-		this.pageitemlistf = (List<HashMap<ExamItem, List<ExamRef>>>) this.request.getSession().getAttribute("elist");		
-		System.out.println("setServletRequest----Session().elist----"+
-				 request.getSession().getAttribute("elist").toString());
-		 
+		this.pageitemlistf = (List<HashMap<ExamItem, List<ExamRef>>>) 
+				this.request.getSession().getAttribute("elist");		
+//		System.out.println("setServletRequest----Session().elist----"+
+//				 request.getSession().getAttribute("elist").toString());
+		System.out.println("setServletRequest----this.pageitemlistf.size----"+
+				this.pageitemlistf.size());		
+		
 	}
 
 //	@Override
