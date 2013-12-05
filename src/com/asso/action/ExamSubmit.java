@@ -1,10 +1,11 @@
 package com.asso.action;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,6 +37,8 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	private ExamRef[] ansref;    //answer in the form of ExamRef to calculate the score
 //	private String[] ANS = {"","","","","","","","","",""};
 	private int dpi;//dealing page index
+	private ArrayList<String> chosenRefIds;
+	private int scorePlus =0;
 	
 	
 	public List<HashMap<ExamItem, List<ExamRef>>> getPageitemlistf() {
@@ -54,15 +57,75 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 
 
 	private void setANS(){	
-		String[] ANS = {"","","","","","","","","",""};
-		for(int i=0; i<10; i++){
-			ANS[i] =  this.request.getParameter("ANS_"+(i+1));
-			System.out.println("ANS-"+ANS[i]);
+//		String[] ANS = new String[CONSTANT.pageNum*CONSTANT.pageSize] ;
+		ArrayList<String> chosenRefIds = new ArrayList<String>();
+		for(int i=0; i<CONSTANT.pageNum*CONSTANT.pageSize; i++){
+			
+			if ( this.request.getParameterValues("ANS_"+(i+1))!=null 
+					&& this.request.getParameterValues("ANS_"+(i+1)).length>1){
+				String[] multi = this.request.getParameterValues("ANS_"+(i+1));
+				for(String m:multi){
+//					System.out.println("ANS-["+i+"]="+m);
+					chosenRefIds.add(m);
+				}
+				continue;
+			}else if(this.request.getParameter("ANS_"+(i+1))!=null ){
+				chosenRefIds.add(this.request.getParameter("ANS_"+(i+1)));
+//				ANS[i] =  this.request.getParameter("ANS_"+(i+1));				
+//				System.out.println("ANS-["+i+"]="+this.request.getParameter("ANS_"+(i+1)));
+			}			
+			
 		}
-		this.session.put("EPage"+this.dpi, ANS);
-		System.out.println(""+this.session.get("EPage"+this.dpi).toString());
+		for(String refans:chosenRefIds)
+			System.out.println("chosenRefIds---------"+refans);
+		this.session.put("EPage"+this.dpi, chosenRefIds);
+		this.chosenRefIds = chosenRefIds;
+//		List<String> sss = (List<String>) this.session.get("EPage"+this.dpi);
+//		for(String refans:sss)
+//			System.out.println("chosenRefIds---------"+refans);
+//		
 	}
 
+	private void calculatePageScore(){
+		for(HashMap<ExamItem,List<ExamRef>> examitem : this.pageitemlistf){
+			if( examitem!=null){
+				Set<ExamItem> ks = examitem.keySet();		
+				if(ks.size()>1)
+					System.out.println("@@-Dirty DATA, Pls INV....");
+				for(ExamItem k:ks){
+					List<ExamRef> refs = examitem.get(k);
+					int cat = k.getCategory();					
+					if(cat==1){
+						if(refs.size()==1){
+							int refIsTrue = refs.get(0).getIstrue();//0|1
+							int refid = refs.get(0).getId();
+							for(String ans:this.chosenRefIds){
+								if(ans.contains("_")){
+									int a_refid = Integer.parseInt(ans.substring(ans.indexOf("_")+1,ans.length()));
+									int a = Integer.parseInt(ans.substring(0,ans.indexOf("_")));
+									System.out.println("--------calculatePageScore------");
+									System.out.println("-----refid="+refid+"-----answer="+a);
+									if(a_refid==refid){
+										if(refIsTrue==a)
+											this.scorePlus +=1;
+									}
+								}
+							}
+								
+						}else
+							System.out.println("@@-DB data ERROR! Pls INV...");
+					}
+				}
+				
+			}else
+				continue;
+		}
+		
+		System.out.println("---------Got score in this page="+this.scorePlus);
+		
+		
+	}
+	
 	private void countPage(){
 		System.out.println("setServletRequest----examPage="+this.request.getSession().getAttribute("pi"));
 		int nextExamPage = (Integer) this.request.getSession().getAttribute("pi");		
@@ -78,6 +141,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 //		this.session.put("elist", this.pageitemlistf);
 		System.out.println("EXCUTION preparing.........");
 		this.setANS();
+		this.calculatePageScore();
 		this.countPage();
 		
 		return "success";
@@ -103,7 +167,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		this.request=request;		
 		System.out.println("------------------------------Exam-Submit-2-------------------------------------");
 		this.pageitemlistf = (List<HashMap<ExamItem, List<ExamRef>>>) 
-				this.request.getSession().getAttribute("elist");		
+				this.request.getSession().getAttribute("itemlistf");		
 //		System.out.println("setServletRequest----Session().elist----"+
 //				 request.getSession().getAttribute("elist").toString());
 		System.out.println("setServletRequest----this.pageitemlistf.size----"+

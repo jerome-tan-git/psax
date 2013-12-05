@@ -424,8 +424,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 	private HashMap<ExamItem,List<ExamRef>> loadItemfWithItem(ExamItem _item) throws ClassNotFoundException, SQLException{
 		HashMap<ExamItem,List<ExamRef>> family = new HashMap<ExamItem,List<ExamRef>>();
 		
-		//family.put(_item,this.loadReflistByItemid(_item.getId()));
-		family.put(_item,this.addSeq4Reflist(this.loadReflistByItemid(_item.getId())) );
+		family.put(_item,this.loadReflistByItemid(_item.getId()));
+//		family.put(_item,this.addSeq4Reflist(this.loadReflistByItemid(_item.getId())) );
 		return family;
 	}
 	private void loadItemlistf() throws ClassNotFoundException, SQLException{

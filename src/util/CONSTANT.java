@@ -10,9 +10,13 @@ public class CONSTANT {
 	public final static int singleChoiceNum = 5;
 	public final static int multipleChoiceNum = 5;
 	public final static int judgeNum = 5;
+	public final static int scorePerSingle = 1;
+	public final static int scorePerMulti = 2;
+	public final static int scorePerJudge = 1;
 	
 	public final static int pageNum = 5;
 	public final static int pageSize = 3;
+	
 	
 	public static HashMap<String,Integer> seq;
 	public final static String[] alphas = {

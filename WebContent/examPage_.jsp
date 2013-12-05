@@ -15,12 +15,12 @@
 	if(pi==0)
 		pi = (Integer)request.getSession().getAttribute("pi") ;
 	System.out.println("Current Page Number="+pi);
-	
+	System.out.println("itemlistf="+request.getSession().getAttribute("elist").toString());
+	System.out.println("CONSTANT.pageSize="+3);////3？？？？传值？
 	
 	List<HashMap<ExamItem,List<ExamRef>>> itemlistf = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
 	List<HashMap<ExamItem,List<ExamRef>>> sessionlist = (List<HashMap<ExamItem,List<ExamRef>>>)request.getSession().getAttribute("elist");
 	int index0 = (pi-1)*3;////3？？？？
-	
 	for(int i=0; i<index0+3; i++){		
 		if(i>=index0)
 			itemlistf.add(sessionlist.get(i));
@@ -28,10 +28,8 @@
 			//itemlistf.add(new HashMap<ExamItem,List<ExamRef>>());
 			itemlistf.add(null);
 	}
-	System.out.println("New itemlistf size="+itemlistf.size());	
-	
+	System.out.println("New itemlistf size="+itemlistf.size());
 	request.getSession().setAttribute("pi",pi);
-	request.getSession().setAttribute("itemlistf",itemlistf);
 	
 	request.setAttribute("itemlistf", itemlistf);
 	request.setAttribute("pi",pi );
@@ -43,8 +41,9 @@
 	request.setAttribute("c2hasTitle", c2hasTitle);
 	request.setAttribute("c3hasTitle", c3hasTitle);
 %>
+<!-- <form method="post" action="userlogin.action"> -->	
 
- <table border="1">
+  <table border="1">
  <!--  <s:form action="examsubmit">    -->	
  <form method="post" action="examsubmit.action">
      <s:iterator value="#request.itemlistf" id="item" status="of">
@@ -65,25 +64,37 @@
     		    <s:property value="#of.count"/>
     		    <s:property value='key.question'/><br>    		   
     		    
-    		    <s:if test="%{key.category==1}">    	
-    		    	<s:iterator value='value' id="ref" status="off">	   
-    		    	<input type="radio" checked="checked" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />是<br/>
-	    		    <input type="radio" name='ANS_<s:property value="#of.count"/>' value='0_<s:property value="#ref.id"/>' />否<br/>
-	    		    </s:iterator>	    	
+    		    <s:if test="%{key.category==1}">
+    		   
+    		    	<input type="radio" checked="checked" name='ANS_<s:property value="#of.count"/>' value="1" />是<br>
+	    		    <input type="radio" name='ANS_<s:property value="#of.count"/>' value="0" />否<br>
+	    		     <!-- 
+	    		    <input type="radio" checked="checked" name="ansref.istrue" value="1" />是<br>
+	    		    <input type="radio" name="ansref.istrue" value="0" />否<br>
+	    		   -->
+    		    	<!--<s:iterator value='value' id="ref">	   
+    		    		<s:radio name="ansref" list="{'是','否'}"/>   
+    		     		<br>参考答案： <s:property value="#ref.istrue"/><br>
+	               
+	    		   	</s:iterator>
+	    		   	-->
 	    		</s:if>   
-				<s:elseif test="%{key.category==2}">					
-	    			<s:iterator value='value' id="ref" status="off">	       		     	
-    		     	<!-- <input type="radio" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#off.count"/>'/> -->
-    		     	<input type="radio" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#ref.id"/>'/>
-    		     		<s:property value="#ref.ref"/><br/>	               
+				<s:elseif test="%{key.category==2}">
+					
+	    			<s:iterator value='value' id="ref">	   
+    		     		   		
+	            	    <s:property value="#ref.ref"/>
+	            	    <s:property value="#ref.istrue"/><br>
+	               
 	    		   	</s:iterator>
 	    		</s:elseif>
-	    		<s:else>		    		
-					<s:iterator value='value' id="ref" status="off">	  
-					<!-- <input type="checkbox" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#off.count"/>'/> -->
-	            	    <input type="checkbox" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#ref.id"/>'/>
-	            	    <s:property value="#ref.ref"/><br/>
-	            	    <!-- <s:property value="#ref.istrue"/><br/> -->	            	 
+	    		<s:else>
+		    		
+					<s:iterator value='value' id="ref">	  
+					  	   		
+	            	    <s:property value="#ref.ref"/>
+	            	    <s:property value="#ref.istrue"/><br>
+	            	 
 	    		   	</s:iterator>
 				</s:else>
 				
@@ -103,6 +114,12 @@
    page index0----<s:property value="#request.index0"/><br>
    page i0----<s:property value="#i0"/><br>
 
+<!--   
+  <input type="submit" value="保存并继续">
+  <input type="reset" value="重写"/>
+  <input type="submit" value="结束考试">
+
+   -->
 
 	  &nbsp;&nbsp;
   	  <a href="./switchexampage.action?currentpage=1">1</a>
