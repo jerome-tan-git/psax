@@ -28,6 +28,7 @@ public interface ExamDao {
 	List<ExamItem> loadExamItemByCatId(int cid);
 	List<ExamItem> loadExamItemByExamId(int eid);
 	List<ExamItem> loadExamItemByQ(String question);
+	List<Exam> loadExams();
 	
 	
 	

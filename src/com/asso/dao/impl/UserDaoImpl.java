@@ -45,12 +45,18 @@ public class UserDaoImpl implements UserDao {
 	public int checkUserExistsWithNamePassword(User user) {
 //		  Session s = sessionFactory.getCurrentSession(); 
 		Session s = sessionFactory.openSession(); 
+			
   
-		    Query query = s.createQuery("select username,password from User u where u.username = ?")
-		    		.setParameter(0, user.getUsername());
-		    List<Object[]> list = query.list();  
-		    s.getTransaction().commit();
-		    s.close();
+//		    Query query = s.createQuery("select username,password from User u where u.username = ?0")
+//		    		.setParameter(0, user.getUsername());
+//			Query query = s.createQuery("select username,password from User u where u.username = '"
+//					+user.getUsername()+"'");
+			Query query = s.createQuery("select username,password from User u where u.username = :un")
+		    		.setParameter("un", user.getUsername());
+		    		
+		    
+		    List<Object[]> list = query.list();		    
+		    s.close();		    
 		    System.out.println("  checkUserExistsWithNamePassword  rz="+list.size());
 		    if(list.size() > 0) {
 		    	for(Object[] object : list){     
@@ -77,8 +83,7 @@ public class UserDaoImpl implements UserDao {
 		
 	     Query query = s.createQuery("select id from User u where u.username = ?")
 			    		.setParameter(0, user.getUsername());
-        List<Object> list = query.list();  
-	     s.getTransaction().commit();
+        List<Object> list = query.list();
 	     s.close();    
 	     if(list.size() > 0) {
 			  id = (Integer) list.get(0);
@@ -99,7 +104,6 @@ public class UserDaoImpl implements UserDao {
 	     Query query = s.createQuery("select id from Member m where m.userid = ?")
 			    		.setParameter(0, userId);
         List<Object> list = query.list();  
-	     s.getTransaction().commit();
 	     s.close();	    
 	     if(list.size() > 0) {
 			  id = (Integer) list.get(0);
@@ -179,7 +183,6 @@ public class UserDaoImpl implements UserDao {
 	     query.setString(0, ""+mid); 
 			
 	     minfos = query.list();    
-	     s.getTransaction().commit();
 	     s.close();
 	     System.out.println("Get list size="+minfos.size());
 	     System.out.println("member selected info----\n"+minfos.get(0).toString());

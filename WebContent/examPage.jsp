@@ -15,6 +15,9 @@
 	if(pi==0)
 		pi = (Integer)request.getSession().getAttribute("pi") ;
 	System.out.println("Current Page Number="+pi);
+	int lastPi = 0;
+	if(pi>1)
+		lastPi = pi-1;
 	
 	
 	List<HashMap<ExamItem,List<ExamRef>>> itemlistf = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
@@ -45,47 +48,41 @@
 %>
 
 
- <!--  <s:form action="examsubmit">    -->	
+ <!--  
  <form method="post" action="examsubmit.action">
      <s:iterator value="#request.itemlistf" id="item" status="of">
           <s:iterator value="#item" id="map" >
           		<s:if test="%{#of.count==#request.c1hasTitle}">
-    		    	<br>是非题：
+    		    	<br/>是非题：
   	    		</s:if>  
 	    		<s:elseif test="%{#of.count==#request.c2hasTitle}">
-	    			<br>单选题：
+	    			<br/>单选题：
 	    		</s:elseif>
 	    		<s:elseif test="%{#of.count==#request.c3hasTitle}">
-	    			<br>多选题：
+	    			<br/>多选题：
 	    		</s:elseif>
           
           	 <s:if test="%{#of.count>=#request.index0}">
-          		<br>
-          		 
+          		<br/>
     		    <s:property value="#of.count"/>
     		    <s:property value='key.question'/><br/>    		   
     		    
     		    <s:if test="%{key.category==1}">    	
-    		    	<s:iterator value='value' id="ref" status="off">	  
-    		    	
-    		    	<input type="radio" checked="" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />是<br/> 
-    		    	<!-- <input type="radio" checked="checked" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />是<br/> -->
+    		    	<s:iterator value='value' id="ref" status="off">
+    		    	<input type="radio" checked="" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />是<br/>
 	    		    <input type="radio" name='ANS_<s:property value="#of.count"/>' value='0_<s:property value="#ref.id"/>' />否<br/>
 	    		    </s:iterator>	    	
 	    		</s:if>   
 				<s:elseif test="%{key.category==2}">					
-	    			<s:iterator value='value' id="ref" status="off">	       		     	
-    		     	<!-- <input type="radio" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#off.count"/>'/> -->
+	    			<s:iterator value='value' id="ref" status="off">
     		     	<input type="radio" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#ref.id"/>'/>
     		     		<s:property value="#ref.ref"/><br/>	               
 	    		   	</s:iterator>
 	    		</s:elseif>
 	    		<s:else>		    		
-					<s:iterator value='value' id="ref" status="off">	  
-					<!-- <input type="checkbox" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#off.count"/>'/> -->
+					<s:iterator value='value' id="ref" status="off">
 	            	    <input type="checkbox" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#ref.id"/>'/>
-	            	    <s:property value="#ref.ref"/><br/>
-	            	    <!-- <s:property value="#ref.istrue"/><br/> -->	            	 
+	            	    <s:property value="#ref.ref"/><br/>	            	    	            	 
 	    		   	</s:iterator>
 				</s:else>
 				
@@ -96,14 +93,63 @@
       <br/><br/><br/>
       	<input type="submit" value="保存"/>
   		<input type="reset" value="重写"/>
- <!-- </s:form> -->	
+	
    </form>
-
-   
+ -->	
+ 
+ <s:form action="examsubmit">   
+ 	<s:iterator value="#request.itemlistf" id="item" status="of">
+          <s:iterator value="#item" id="map" >
+          		<s:if test="%{#of.count==#request.c1hasTitle}">
+    		    	<br/>是非题：
+  	    		</s:if>  
+	    		<s:elseif test="%{#of.count==#request.c2hasTitle}">
+	    			<br/>单选题：
+	    		</s:elseif>
+	    		<s:elseif test="%{#of.count==#request.c3hasTitle}">
+	    			<br/>多选题：
+	    		</s:elseif>
+          
+          	 <s:if test="%{#of.count>=#request.index0}">
+          		<br/>
+    		    <s:property value="#of.count"/>
+    		    <s:property value='key.question'/><br/>    		   
+    		    
+    		    
+    		    <s:if test="%{key.category==1}">    	
+    		    	<s:iterator value='value' id="ref" status="off">
+    		    	<input type="radio" checked="" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />是<br/>
+	    		    <input type="radio" name='ANS_<s:property value="#of.count"/>' value='0_<s:property value="#ref.id"/>' />否<br/>
+	    		    </s:iterator>	    	
+	    		</s:if>   
+				<s:elseif test="%{key.category==2}">					
+	    			<s:iterator value='value' id="ref" status="off">
+    		     	<input type="radio" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#ref.id"/>'/>
+    		     		<s:property value="#ref.ref"/><br/>	               
+	    		   	</s:iterator>
+	    		</s:elseif>
+	    		<s:else>		    		
+					<s:iterator value='value' id="ref" status="off">
+	            	    <input type="checkbox" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#ref.id"/>'/>
+	            	    <s:property value="#ref.ref"/><br/>	            	    	            	 
+	    		   	</s:iterator>
+				</s:else>
+				
+    		 </s:if>                        
+          </s:iterator>
+      </s:iterator>
+      
+      <br/><br/><br/><input type="submit" value="保存"/><input type="reset" value="重写"/> 
+ </s:form> 
+ 
+ 
    <br/><br/><br/>
    current page---<s:property value="#request.pi"/><br/>
-   page index0----<s:property value="#request.index0"/><br/>
-   page i0----<s:property value="#i0"/><br/>
+   current page---<s:property value="#session.pi"/><br/>
+   page index0----<s:property value="#request.index0"/><br/>  
+   score----------<s:property value="#session.score"/><br/>
+   progress-------<s:property value="#session.answerProgress"/><br/>
+   
 
 
 	  &nbsp;&nbsp;

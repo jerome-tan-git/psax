@@ -29,6 +29,7 @@ import com.asso.model.User;
 import com.asso.vo.ExamBuiltInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+
 import util.SpringFactory;
 
 @Scope("prototype")
@@ -438,6 +439,21 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		}		
 		this.setItemlistf(list);
 	}
+	private void loadExams() throws ClassNotFoundException, SQLException{
+		List<Exam> list = new ArrayList<Exam>();
+		list = em.loadExams();
+		this.request.getSession().setAttribute("exams",list);
+	}
+	public String managerExamContext(){
+		try {
+			this.loadExams();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "success";
+	}
 	public String loadItemlistFByExamId() throws ClassNotFoundException, SQLException{
 		System.out.println("---_examid---"+this.eInfo.getExamid());
 		List<HashMap<ExamItem,List<ExamRef>>> list = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
@@ -510,6 +526,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		 request.getSession().setAttribute("elist", this.itemlistf);
 		 System.out.println("setSession2----Session().elist----"+
 				 request.getSession().getAttribute("elist").toString());
+		 request.getSession().setAttribute("score", 0);//totalScore
+		 request.getSession().setAttribute("answerProgress", new ArrayList<Integer>());//isDoneList
 	}
 
 	
@@ -577,6 +595,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 	public void setServletRequest(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		 this.request=request;		
+		 
 	}
 
 }

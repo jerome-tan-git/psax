@@ -3,9 +3,7 @@
     pageEncoding="utf-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %> 
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"
-	+request.getServerPort()+path+"/";
+
 %>
 
     
@@ -36,7 +34,11 @@ $(document).ready(function(){
 <%System.out.println(request.getParameter("examsave"));
 System.out.println(request.getQueryString());
 System.out.println(request.getRequestURL());
+//String path = request.getContextPath();
+//String basePath = request.getScheme()+"://"+request.getServerName()+":"
+//	+request.getServerPort()+path+"/";
 
+request.setAttribute("exams", request.getSession().getAttribute("exams"));
 
 PrintWriter pw=response.getWriter();
 if(request.getParameter("examsave").equals("1")){	
@@ -60,6 +62,10 @@ if(request.getParameter("examsave").equals("1")){
         <option value="3" selected>中级食品检验工</option> 
         <option value="2">食品添加剂考试</option> 
         <option value="1">法律法规</option> 
+        
+        <s:iterator value="#request.exams">
+         	<option value='<s:property value="id"/>' ><s:property value="name"/></option> 			
+		</s:iterator>
        
         </select><br>
 	问题：<input type="textarea" name="question" ><br> 

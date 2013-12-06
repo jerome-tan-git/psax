@@ -201,6 +201,18 @@ public class ExamDaoImpl implements ExamDao {
 			this.delete(ref);
 	}
 	@Override
+	public List<Exam> loadExams() {
+		
+        
+		Session s = sessionFactory.openSession();
+//		Session s = sessionFactory.getCurrentSession(); 
+	    String hql = "select id,name from Exam";      
+        Query query = s.createQuery(hql);        
+        List<Exam> exams = query.list();           		
+        s.close();
+	    return exams;
+	}
+	@Override
 	public List<ExamRef> loadExamRefById(int _id) {
 		Session s = sessionFactory.openSession();
 //		Session s = sessionFactory.getCurrentSession(); 

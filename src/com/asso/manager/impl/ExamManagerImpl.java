@@ -97,6 +97,13 @@ public class ExamManagerImpl implements ExamManager {
 		examDao.delete(examitem);
 	}
 	
+
+	@Override
+	public List<Exam> loadExams() throws ClassNotFoundException,SQLException {
+		System.out.println("EXAMmanagerImpl----loadExams-----");
+		return examDao.loadExams();
+	}
+	
 	@Override
 	public ExamRef loadRef(int refid) throws ClassNotFoundException,SQLException {
 		System.out.println("EXAMmanagerImpl----loadref---"+refid);

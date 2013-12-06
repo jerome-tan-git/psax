@@ -39,6 +39,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	private int dpi;//dealing page index
 	private ArrayList<String> chosenRefIds;
 	private int scorePlus =0;
+	private HashMap<ExamItem,Integer> donelist;//0-notDont|1-done&right|2-done&wrong
 	
 	
 	public List<HashMap<ExamItem, List<ExamRef>>> getPageitemlistf() {
@@ -55,12 +56,13 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		this.ansref = ansref;
 	}
 
-
+	/*Get answers from front-end, put them into chosenRefIds by refid or figurewithrefid*/
+	/* Set session : pageindex(EPage_c+dpi)---chosenRefIds */
 	private void setANS(){	
 //		String[] ANS = new String[CONSTANT.pageNum*CONSTANT.pageSize] ;
 		ArrayList<String> chosenRefIds = new ArrayList<String>();
 		for(int i=0; i<CONSTANT.pageNum*CONSTANT.pageSize; i++){
-			
+			/*Multiple Choice items*/
 			if ( this.request.getParameterValues("ANS_"+(i+1))!=null 
 					&& this.request.getParameterValues("ANS_"+(i+1)).length>1){
 				String[] multi = this.request.getParameterValues("ANS_"+(i+1));
@@ -69,16 +71,17 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 					chosenRefIds.add(m);
 				}
 				continue;
-			}else if(this.request.getParameter("ANS_"+(i+1))!=null ){
+			}/*Judge items and Single Choice items*/
+			else if(this.request.getParameter("ANS_"+(i+1))!=null ){
 				chosenRefIds.add(this.request.getParameter("ANS_"+(i+1)));
 //				ANS[i] =  this.request.getParameter("ANS_"+(i+1));				
 //				System.out.println("ANS-["+i+"]="+this.request.getParameter("ANS_"+(i+1)));
 			}			
 			
 		}
-		for(String refans:chosenRefIds)
-			System.out.println("chosenRefIds---------"+refans);
-		this.session.put("EPage"+this.dpi, chosenRefIds);
+//		for(String refans:chosenRefIds)
+//			System.out.println("chosenRefIds---------"+refans);
+		this.session.put("EPage_c"+this.dpi, chosenRefIds);
 		this.chosenRefIds = chosenRefIds;
 //		List<String> sss = (List<String>) this.session.get("EPage"+this.dpi);
 //		for(String refans:sss)
@@ -86,7 +89,11 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 //		
 	}
 
+	/*calculatePageScore & make donelist for the score page*/
+	/* Set session : pageindex(EPage_s+dpi)---scorePlus */
+	/* Set session : pageindex(EPage_d+dpi)---donelist */
 	private void calculatePageScore(){
+		this.donelist = new HashMap<ExamItem,Integer>();
 		for(HashMap<ExamItem,List<ExamRef>> examitem : this.pageitemlistf){
 			if( examitem!=null){
 				Set<ExamItem> ks = examitem.keySet();		
@@ -105,10 +112,17 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 									int a = Integer.parseInt(ans.substring(0,ans.indexOf("_")));
 //									System.out.println("--------calculatePageScore-cat1-----");
 //									System.out.println("----a-refid="+a_refid+"-----answer="+a);
-									if(a_refid==refid && a==refIsTrue)
-										this.scorePlus +=1;							
+									if(a_refid==refid){										
+										if(a==refIsTrue){
+											this.scorePlus +=1;
+											this.donelist.put(k, 1);
+										}else
+											this.donelist.put(k, 2);
+									}																	
 								}
-							}								
+							}
+							if(!this.donelist.keySet().contains(k))
+								this.donelist.put(k, 0);
 						}else
 							System.out.println("@@-DB data ERROR! Pls INV...");
 					}
@@ -120,27 +134,57 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 //								System.out.println("--------calculatePageScore-cat2-----");
 //								System.out.println("-----refid="+ref.getId()+", isTrue="+ref.getIstrue()
 //										+", a_refid="+Integer.parseInt(ans));
-								if(ref.getId()==Integer.parseInt(ans) && ref.getIstrue()==1)
-									this.scorePlus +=1;								
+								if(ref.getId()==Integer.parseInt(ans) ){
+									if(ref.getIstrue()==1){
+										this.scorePlus +=1;
+										this.donelist.put(k, 1);
+									}else
+										this.donelist.put(k, 2);									
+								}																	
 							}
-						}						
+						}	
+						if(!this.donelist.keySet().contains(k))
+							this.donelist.put(k, 0);
 					}
 					if(cat==3){
 						int shouldmatch = 0;
 						int realmatch = 0;
+						
 						for(ExamRef ref:refs){
 							if(ref.getIstrue()==1){
 								shouldmatch += 1;
-								for(String ans:this.chosenRefIds){
-									if(ans.contains("_"))
-										continue;
-									if(Integer.parseInt(ans)==ref.getId())
-										realmatch +=1;
-								}
 							}
+							for(String ans:this.chosenRefIds){
+								if(ans.contains("_"))
+									continue;
+								if(Integer.parseInt(ans)==ref.getId()){									
+									if(!this.donelist.keySet().contains(k))
+										this.donelist.put(k, 2);	
+									if(ref.getIstrue()==1)
+										realmatch +=1;																		
+								}										
+							}
+							
+//							if(ref.getIstrue()==1){
+//								shouldmatch += 1;
+//								for(String ans:this.chosenRefIds){
+//									if(ans.contains("_"))
+//										continue;
+//									if(Integer.parseInt(ans)==ref.getId()){
+//										realmatch +=1;
+//										if(!this.donelist.keySet().contains(k))
+//											this.donelist.put(k, 0);											
+//									}										
+//								}
+//							}
 						}
-						if(shouldmatch==realmatch && realmatch>0)
+						if(shouldmatch==realmatch && realmatch>0){
 							this.scorePlus +=2;
+							this.donelist.put(k, 1);
+						}
+						if(!this.donelist.keySet().contains(k))
+							this.donelist.put(k, 0);						
+							
 					}
 				}
 				
@@ -148,11 +192,10 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 				continue;
 		}
 		
-		System.out.println("---------Got score in this page="+this.scorePlus);
-		
 		
 	}
-	
+	/* pi go forword */
+	/* Set session : pi---nextExamPage */
 	private void countPage(){
 		System.out.println("setServletRequest----examPage="+this.request.getSession().getAttribute("pi"));
 		int nextExamPage = (Integer) this.request.getSession().getAttribute("pi");		
@@ -160,6 +203,43 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 			nextExamPage += 1;
 		System.out.println("setServletRequest----nextExamPage="+nextExamPage);		
 		this.request.getSession().setAttribute("pi", nextExamPage);
+	}
+	/* Get total score in this exam */
+	/* Put all the exam related info into DB*/
+	public void examFinialize(){
+		
+	}
+	private void check(){
+//		this.session.put("EPage_d"+this.dpi, donelist);
+//		this.session.put("EPage_s"+this.dpi, scorePlus);
+		
+		int score = (Integer) this.session.get("score");
+		score += this.scorePlus;
+		this.session.put("score", score);
+		
+		ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
+		Set<ExamItem> ks = this.donelist.keySet();
+		for(ExamItem k:ks)
+			answerProgress.add(this.donelist.get(k));
+		
+		
+		
+		System.out.println("---------Got score in this page---"+this.scorePlus);
+		System.out.println("---------DONE LIST----------------");
+		for(ExamItem ei : this.donelist.keySet())
+			System.out.println("----"+ei.getId()+"("+ei.getCategory()+")"+this.donelist.get(ei));
+		System.out.println("---TOTAL DONE LIST----------------");
+		for(Integer status:answerProgress)
+			System.out.print("--"+status+"|");
+		System.out.println("---------IN SESSION----------------");
+		List<String> ccc = (List<String>) this.session.get("EPage_c"+this.dpi);
+		for(String refans:ccc)
+			System.out.println("chosenRefIds---------"+refans);
+//		HashMap<ExamItem,Integer> ddd = (HashMap<ExamItem,Integer>) this.session.get("EPage_d"+this.dpi);
+//		for(ExamItem ei:ddd.keySet())
+//			System.out.println("ei---rzStatus---"+ei.getId()+"|"+ddd.get(ei));
+//		System.out.println("scoreplus-----"+this.session.get("EPage_s"+this.dpi) ); 
+		System.out.println("score-----"+this.session.get("score") ); 
 	}
 
 	@Override
@@ -170,6 +250,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		this.setANS();
 		this.calculatePageScore();
 		this.countPage();
+		this.check();
 		
 		return "success";
 	
@@ -190,22 +271,15 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		this.request=request;		
 		System.out.println("------------------------------Exam-Submit-2-------------------------------------");
 		this.pageitemlistf = (List<HashMap<ExamItem, List<ExamRef>>>) 
-				this.request.getSession().getAttribute("itemlistf");		
-//		System.out.println("setServletRequest----Session().elist----"+
-//				 request.getSession().getAttribute("elist").toString());
+				this.request.getSession().getAttribute("itemlistf");	
 		System.out.println("setServletRequest----this.pageitemlistf.size----"+
 				this.pageitemlistf.size());		
 		
 	}
 
-//	@Override
-//	public Object getModel() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
 
 }

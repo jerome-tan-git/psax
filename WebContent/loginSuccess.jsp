@@ -19,8 +19,8 @@
 	<a href="inputExam.jsp?examsave=0">管理员页面</a>
 	
 	
-	 <form method="post" action="userlogin.action">
-		 <input type="submit" value="更新">
+	 <form method="post" action="managerexamcontext.action">
+		 <input type="submit" value="管理员页面">
 	 </form>
 	 <form method="post" action="userlogin.action">
 		 <input type="submit" value="删除">
