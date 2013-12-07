@@ -15,14 +15,32 @@ public class ExamBuiltInfo {
 	
 	private int answeristrue;//0|1
 	private int refsnum;
-	private String refs;
+	private String[] refs;
 	private String answers;
+	private String[] refistrues;
+	private String refistrue;
 	
 	private int refid;
 	private String ref;
 	private int istrue;
 	
 	
+
+	public String getRefistrue() {
+		return refistrue;
+	}
+
+	public void setRefistrue(String refistrue) {
+		this.refistrue = refistrue;
+	}
+
+	public String[] getRefistrues() {
+		return refistrues;
+	}
+
+	public void setRefistrues(String[] refistrues) {
+		this.refistrues = refistrues;
+	}
 
 	public int getExamid() {
 		return examid;
@@ -88,11 +106,11 @@ public class ExamBuiltInfo {
 		this.refsnum = refsnum;
 	}
 
-	public String getRefs() {
+	public String[] getRefs() {
 		return refs;
 	}
 
-	public void setRefs(String refs) {
+	public void setRefs(String[] refs) {
 		this.refs = refs;
 	}
 
@@ -132,7 +150,7 @@ public class ExamBuiltInfo {
 	public String toString(){
 		return this.getExamid()+":"+this.getExamname()+":"+this.getGroupid()+":"
 				+this.getExamitemid()+":"+this.getQuestion()+":"+this.getRefsnum()+":"
-				+this.getCategory()+":"+this.getRefsnum()+":"+this.getRefs()+":"
+				+this.getCategory()+":"+this.getRefsnum()+":"+this.getRefs().toString()+":"
 				+this.getAnsweristrue()+":"+this.getAnswers()+":"
 				+this.getRefid()+":"+this.getRef()+":"+this.getIstrue();
 	}

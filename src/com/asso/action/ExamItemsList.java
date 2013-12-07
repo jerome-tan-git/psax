@@ -131,12 +131,13 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		e.setName(this.eInfo.getExamname());
 		e.setGroupid(this.eInfo.getGroupid());		
 		em.add(e);
+		this.loadExams();
 		return "save";
 	}
 	
 	public String addItem(){
 		ExamItem ei = null;
-		long a = System.currentTimeMillis();
+//		long a = System.currentTimeMillis();
 		try {
 			ei = this.addExamItem();
 		} catch (ClassNotFoundException e) {
@@ -144,7 +145,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		long b = System.currentTimeMillis();
+//		long b = System.currentTimeMillis();
 		int newItemId = 0;
 		try {
 			newItemId = this.loadItemByQ();
@@ -153,21 +154,29 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		long c = System.currentTimeMillis();
+//		long c = System.currentTimeMillis();
 		System.out.println("----- New added ItemId -----"+newItemId);
-		System.out.println("----- New added refs -------"+this.eInfo.getRefs());
+		System.out.println("----- New added refs -------");
+		for(String ref:this.eInfo.getRefs())
+			System.out.println(ref);
+		System.out.println("----- New added refs isTrue-------");
+		if(this.eInfo.getRefistrues()!=null){//when judge items it is null
+		for(int i=0; i<this.eInfo.getRefistrues().length;i++)
+			System.out.println(i+"---------"+this.eInfo.getRefistrues()[i]);
+		}
+
 		if(ei.getCategory()==1){
 			this.addExamYesNoRefs(newItemId, this.eInfo.getAnswers());
 		}else
-//			this.addExamRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
-			this.addExamChoiceRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
-		long d = System.currentTimeMillis();
-		System.out.println("---------------------------addItem-------------------------");
-		System.out.println("time(addExamItem): "+(b-a));
-		System.out.println("time(loadItemByQ): "+(c-b));
-		System.out.println("time(addExamRefs): "+(d-c));
-		System.out.println("time(total):       "+(d-a));
-		System.out.println("------------------------------------------------------------");
+////			this.addExamRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
+//			this.addExamChoiceRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
+ //		long d = System.currentTimeMillis();
+//		System.out.println("---------------------------addItem-------------------------");
+//		System.out.println("time(addExamItem): "+(b-a));
+//		System.out.println("time(loadItemByQ): "+(c-b));
+//		System.out.println("time(addExamRefs): "+(d-c));
+//		System.out.println("time(total):       "+(d-a));
+//		System.out.println("------------------------------------------------------------");
 		return "save";
 	}
 	
@@ -201,17 +210,17 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		return ans;
 	}
 	
-	private List<String> getRefQsByInputString(){
-		String refStr = this.eInfo.getRefs().trim();		
-		String[] s_ref = refStr.split(",");		
-		List<String> refQs = new ArrayList<String>();
-		for(int i=0; i<s_ref.length;i++){
-			String x = s_ref[i];
-			String y = x.substring(x.indexOf(")")+1,x.length());
-			refQs.add(y);			
-		}
-		return refQs;
-	}
+//	private List<String> getRefQsByInputString(){
+//		String refStr = this.eInfo.getRefs().trim();		
+//		String[] s_ref = refStr.split(",");		
+//		List<String> refQs = new ArrayList<String>();
+//		for(int i=0; i<s_ref.length;i++){
+//			String x = s_ref[i];
+//			String y = x.substring(x.indexOf(")")+1,x.length());
+//			refQs.add(y);			
+//		}
+//		return refQs;
+//	}
 	private List<String> getRefQsByInputString(String _refstr){
 		String refStr = _refstr.trim();		
 		String[] s_ref = refStr.split(",");		
@@ -224,31 +233,31 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		}
 		return refQs;
 	}
-	private void addExamRefs(){
-		
-		HashSet<Integer> ans = this.getRefAnsByInputString();
-		List<ExamRef> refs = new ArrayList<ExamRef>();
-		List<String> refQs = this.getRefQsByInputString();
-		for(int i=0; i<refQs.size(); i++){
-			ExamRef e_ref = new ExamRef();
-			e_ref.setRef(refQs.get(i));
-			e_ref.setItemid(this.eInfo.getExamitemid());
-			if(ans.contains(i+1))
-				e_ref.setIstrue(1);
-			else
-				e_ref.setIstrue(0);
-			refs.add(e_ref);			
-		}
-
-		try {
-			em.add(refs);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
+//	private void addExamRefs(){
+//		
+//		HashSet<Integer> ans = this.getRefAnsByInputString();
+//		List<ExamRef> refs = new ArrayList<ExamRef>();
+//		List<String> refQs = this.getRefQsByInputString();
+//		for(int i=0; i<refQs.size(); i++){
+//			ExamRef e_ref = new ExamRef();
+//			e_ref.setRef(refQs.get(i));
+//			e_ref.setItemid(this.eInfo.getExamitemid());
+//			if(ans.contains(i+1))
+//				e_ref.setIstrue(1);
+//			else
+//				e_ref.setIstrue(0);
+//			refs.add(e_ref);			
+//		}
+//
+//		try {
+//			em.add(refs);
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	private void addExamRefs(int _itemid, String _refstring,String _answers){
 		System.out.println("_itemid, _refstring,_answer="+_itemid+":"+_refstring+":"+_answers);
 		HashSet<Integer> ans = this.getRefAnsByInputString(_answers);
