@@ -441,8 +441,11 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 	}
 	private void loadExams() throws ClassNotFoundException, SQLException{
 		List<Exam> list = new ArrayList<Exam>();
-		list = em.loadExams();
-		this.request.getSession().setAttribute("exams",list);
+		list = em.loadExams();		
+		this.request.getSession().setAttribute("exams",list);		
+		for(Exam e : list)
+			System.out.println("e-id="+e.getId()+",e-name="+e.getName());
+		
 	}
 	public String managerExamContext(){
 		try {

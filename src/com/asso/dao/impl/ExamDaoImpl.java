@@ -203,14 +203,26 @@ public class ExamDaoImpl implements ExamDao {
 	@Override
 	public List<Exam> loadExams() {
 		
-        
+		ArrayList<Exam> list = new ArrayList<Exam>();
 		Session s = sessionFactory.openSession();
 //		Session s = sessionFactory.getCurrentSession(); 
 	    String hql = "select id,name from Exam";      
         Query query = s.createQuery(hql);        
-        List<Exam> exams = query.list();           		
+        
+        List<Object[]> exams = query.list();		 
+        System.out.println("  check  rz="+exams.size());
+        for(Object[] object : exams){     
+
+    		String id = object[0].toString();     
+    		String name = object[1].toString();
+//            System.out.println(id + " : " + name);  
+            Exam e = new Exam();
+            e.setId(Integer.parseInt(id));
+            e.setName(name);
+            list.add(e);
+        }
         s.close();
-	    return exams;
+	    return list;
 	}
 	@Override
 	public List<ExamRef> loadExamRefById(int _id) {

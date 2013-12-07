@@ -19,8 +19,12 @@ $(document).ready(function(){
   $("#btn1").click(function(){
 	  $(".abc").append("选项：<input type='textarea' name='refs'><br>");
   });
-
+  $("#btn2").click(function(){
+	    $("#test2").html("选项：<input type='radio' name='refs'>是</input><br/>选项：<input type='radio' name='refs'>否</input><br>");
+  });
 });
+
+
 </script>
 
 <style type="text/css">
@@ -59,19 +63,17 @@ if(request.getParameter("examsave").equals("1")){
 添加考题
 	 <form method="post" action="newitem.action?profiling=true">
 	考试：  <select name="examid">
-        <option value="3" selected>中级食品检验工</option> 
-        <option value="2">食品添加剂考试</option> 
-        <option value="1">法律法规</option> 
-        
-        <s:iterator value="#request.exams">
-         	<option value='<s:property value="id"/>' ><s:property value="name"/></option> 			
+       
+        <s:iterator value="#session.exams" id="e">
+         	<option value='<s:property value="id"/>' <s:if test="%{id==3}">selected</s:if>><s:property value="name"/></option> 			
 		</s:iterator>
        
         </select><br>
 	问题：<input type="textarea" name="question" ><br> 
-	 类型：<input type="radio" name="category" value=1> 判断
-		<input type="radio" name="category" value=2> 单选 
+	 类型：<input type="radio" name="category" value=1 id="btn2"> 判断
+		<input type="radio" name="category" value=2 id="btn3"> 单选 
 		<input type="radio" name="category" value=3> 多选<br> 
+		<div id="test2"></div>
 	<div class="abc">
 	选项：<input type="textarea" name="refs" /><br>
 	</div>
@@ -83,11 +85,10 @@ if(request.getParameter("examsave").equals("1")){
 
 查看<br>	
 	<form method="post" action="manageritemlist.action">
-	考试：  <select name="examid">
-        <option value="3" selected>中级食品检验工</option> 
-        <option value="2">食品添加剂考试</option> 
-        <option value="1 ">法律法规</option> 
-         <option value="0">热身题</option> 
+	考试：<select name="examid">
+        <s:iterator value="#session.exams" id="e">
+         	<option value='<s:property value="id"/>' <s:if test="%{id==3}">selected</s:if>><s:property value="name"/></option> 			
+		</s:iterator>       
         </select>   	
 	 	<input type="submit" value="所有考题">	 
 	</form>
@@ -95,11 +96,10 @@ if(request.getParameter("examsave").equals("1")){
 	 
 模拟考试<br>	
 	<form method="post" action="intoexam.action">
-	考试：  <select name="examid">
-        <option value="3" selected>中级食品检验工</option> 
-        <option value="2">食品添加剂考试</option> 
-        <option value="1 ">法律法规</option> 
-         <option value="0">热身题</option> 
+	考试： <select name="examid">
+        <s:iterator value="#session.exams" id="e">
+         	<option value='<s:property value="id"/>' <s:if test="%{id==3}">selected</s:if>><s:property value="name"/></option> 			
+		</s:iterator>       
         </select>   	
 	 	<input type="submit" value="开始考试，go">	 
 	</form>
@@ -118,13 +118,12 @@ if(request.getParameter("examsave").equals("1")){
 	 <input type="submit" value="选中">
 	 </form>
 	
-产生考生准考证<br>
-	 <form method="post" action="newexam.action">
-	 考试名称：<input type="text" name="username" ><br>	
-	 考生名字：<input type="text" name="username" ><br>	
-	 考试时间：<input type="text" name="username" ><br>	
-	 <input type="submit" value="产生">
-	</form>
+
+	<s:iterator value="#session.exams" id="e">
+		EXAM---<s:property value="name"/><br/>
+		<s:if test="%{id==3}">选中<br/></s:if>
+	</s:iterator>
+	 
 
 </body>
 </html>
