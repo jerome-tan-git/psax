@@ -81,8 +81,9 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		}
 //		for(String refans:chosenRefIds)
 //			System.out.println("chosenRefIds---------"+refans);
-		this.session.put("EPage_c"+this.dpi, chosenRefIds);
+//		this.session.put("EPage_c"+this.dpi, chosenRefIds);
 		this.chosenRefIds = chosenRefIds;
+		this.session.put("chosenRefIds", chosenRefIds);
 //		List<String> sss = (List<String>) this.session.get("EPage"+this.dpi);
 //		for(String refans:sss)
 //			System.out.println("chosenRefIds---------"+refans);
@@ -102,34 +103,14 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 				for(ExamItem k:ks){
 					List<ExamRef> refs = examitem.get(k);
 					int cat = k.getCategory();					
-					if(cat==1){
-						if(refs.size()==1){
-							int refIsTrue = refs.get(0).getIstrue();//0|1
-							int refid = refs.get(0).getId();
-							for(String ans:this.chosenRefIds){
-								if(ans.contains("_")){
-									int a_refid = Integer.parseInt(ans.substring(ans.indexOf("_")+1,ans.length()));
-									int a = Integer.parseInt(ans.substring(0,ans.indexOf("_")));
-//									System.out.println("--------calculatePageScore-cat1-----");
-//									System.out.println("----a-refid="+a_refid+"-----answer="+a);
-									if(a_refid==refid){										
-										if(a==refIsTrue){
-											this.scorePlus +=1;
-											this.donelist.put(k, 1);
-										}else
-											this.donelist.put(k, 2);
-									}																	
-								}
-							}
-							if(!this.donelist.keySet().contains(k))
-								this.donelist.put(k, 0);
-						}else
-							System.out.println("@@-DB data ERROR! Pls INV...");
-					}
-					if(cat==2){
+					if(cat==1 && refs.size()!=2)									
+						System.out.println("@@-DB data ERROR! Pls INV...refs.size()="+refs.size());					
+					if(cat==2|| cat==1){
 						for(String ans:this.chosenRefIds){
-							if(ans.contains("_"))
+							if(ans.contains("_")){
+								System.out.println("ERROR, Pls INV...");
 								continue;
+							}
 							for(ExamRef ref:refs){		
 //								System.out.println("--------calculatePageScore-cat2-----");
 //								System.out.println("-----refid="+ref.getId()+", isTrue="+ref.getIstrue()
@@ -165,18 +146,76 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 								}										
 							}
 							
-//							if(ref.getIstrue()==1){
-//								shouldmatch += 1;
-//								for(String ans:this.chosenRefIds){
-//									if(ans.contains("_"))
-//										continue;
-//									if(Integer.parseInt(ans)==ref.getId()){
-//										realmatch +=1;
-//										if(!this.donelist.keySet().contains(k))
-//											this.donelist.put(k, 0);											
-//									}										
-//								}
-//							}
+						}
+						if(shouldmatch==realmatch && realmatch>0){
+							this.scorePlus +=2;
+							this.donelist.put(k, 1);
+						}
+						if(!this.donelist.keySet().contains(k))
+							this.donelist.put(k, 0);						
+							
+					}
+				}
+				
+			}else
+				continue;
+		}
+		
+		
+	}
+	private void calculatePageScore(List<HashMap<ExamItem,List<ExamRef>>> pgItemlistf){
+		this.donelist = new HashMap<ExamItem,Integer>();
+		for(HashMap<ExamItem,List<ExamRef>> examitem : pgItemlistf){
+			if( examitem!=null){
+				Set<ExamItem> ks = examitem.keySet();		
+				if(ks.size()>1)
+					System.out.println("@@-Dirty DATA, Pls INV....");
+				for(ExamItem k:ks){
+					List<ExamRef> refs = examitem.get(k);
+					int cat = k.getCategory();					
+					if(cat==1 && refs.size()!=2)									
+						System.out.println("@@-DB data ERROR! Pls INV...refs.size()="+refs.size());					
+					if(cat==2|| cat==1){
+						for(String ans:this.chosenRefIds){
+							if(ans.contains("_")){
+								System.out.println("ERROR, Pls INV...");
+								continue;
+							}
+							for(ExamRef ref:refs){		
+//								System.out.println("--------calculatePageScore-cat2-----");
+//								System.out.println("-----refid="+ref.getId()+", isTrue="+ref.getIstrue()
+//										+", a_refid="+Integer.parseInt(ans));
+								if(ref.getId()==Integer.parseInt(ans) ){
+									if(ref.getIstrue()==1){
+										this.scorePlus +=1;
+										this.donelist.put(k, 1);
+									}else
+										this.donelist.put(k, 2);									
+								}																	
+							}
+						}	
+						if(!this.donelist.keySet().contains(k))
+							this.donelist.put(k, 0);
+					}
+					if(cat==3){
+						int shouldmatch = 0;
+						int realmatch = 0;
+						
+						for(ExamRef ref:refs){
+							if(ref.getIstrue()==1){
+								shouldmatch += 1;
+							}
+							for(String ans:this.chosenRefIds){
+								if(ans.contains("_"))
+									continue;
+								if(Integer.parseInt(ans)==ref.getId()){									
+									if(!this.donelist.keySet().contains(k))
+										this.donelist.put(k, 2);	
+									if(ref.getIstrue()==1)
+										realmatch +=1;																		
+								}										
+							}
+							
 						}
 						if(shouldmatch==realmatch && realmatch>0){
 							this.scorePlus +=2;
@@ -210,8 +249,6 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		
 	}
 	private void check(){
-//		this.session.put("EPage_d"+this.dpi, donelist);
-//		this.session.put("EPage_s"+this.dpi, scorePlus);
 		
 		int score = (Integer) this.session.get("score");
 		score += this.scorePlus;
@@ -219,26 +256,25 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		
 		ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
 		Set<ExamItem> ks = this.donelist.keySet();
-		for(ExamItem k:ks)
-			answerProgress.add(this.donelist.get(k));
-		
+		for(ExamItem k:ks){
+			if(this.donelist.get(k)!=0)
+				answerProgress.add(this.donelist.get(k));
+		}
+//		this.session.put("answerProgress", answerProgress);
 		
 		
 		System.out.println("---------Got score in this page---"+this.scorePlus);
-		System.out.println("---------DONE LIST----------------");
+		System.out.println("---------DONE LIST-(THIS)--------------size="+this.donelist.keySet().size());
 		for(ExamItem ei : this.donelist.keySet())
-			System.out.println("----"+ei.getId()+"("+ei.getCategory()+")"+this.donelist.get(ei));
-		System.out.println("---TOTAL DONE LIST----------------");
+			System.out.println("----itemid="+ei.getId()+"(cat="+ei.getCategory()+")donestatus="+this.donelist.get(ei));
+		System.out.println("---------DONE LIST-(TOTAL)-------------size="+answerProgress.size());
 		for(Integer status:answerProgress)
-			System.out.print("--"+status+"|");
+			System.out.print("---"+status+"|");
 		System.out.println("---------IN SESSION----------------");
-		List<String> ccc = (List<String>) this.session.get("EPage_c"+this.dpi);
+		List<String> ccc = (List<String>) this.session.get("chosenRefIds");
 		for(String refans:ccc)
 			System.out.println("chosenRefIds---------"+refans);
-//		HashMap<ExamItem,Integer> ddd = (HashMap<ExamItem,Integer>) this.session.get("EPage_d"+this.dpi);
-//		for(ExamItem ei:ddd.keySet())
-//			System.out.println("ei---rzStatus---"+ei.getId()+"|"+ddd.get(ei));
-//		System.out.println("scoreplus-----"+this.session.get("EPage_s"+this.dpi) ); 
+
 		System.out.println("score-----"+this.session.get("score") ); 
 	}
 
@@ -255,17 +291,73 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		return "success";
 	
 	}
+	private List<HashMap<ExamItem,List<ExamRef>>> getPageItemslist(){
+		List<HashMap<ExamItem,List<ExamRef>>> pislist = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
+		int pi = (Integer) this.request.getSession().getAttribute("pi");
+		int index0 = (pi-1)*CONSTANT.pageSize;
+		for(int i=0;i<this.pageitemlistf.size(); i++){
+			if(i>=index0 && i<index0+CONSTANT.pageSize)
+				pislist.add(this.pageitemlistf.get(i));
+		}
+		return pislist;
+	}
+	private void nextPage(){
+		System.out.println(">>>>>>>>>>>>----------pageSubmit-2, elist.size="
+				+this.pageitemlistf.size());
+		int pi = (Integer) this.request.getSession().getAttribute("pi");		
+		int index0 = (pi-1)*CONSTANT.pageSize;
+		System.out.println(">>>>>>>>>>>>----------pageSubmit-3, pi="+pi+", index0="+index0);
+		
+		this.request.getSession().setAttribute("index0",index0);		
+		
+		HashMap<String,List<ExamRef>> ilf = new HashMap<String,List<ExamRef>>();
+		for(int i=0; i<index0+CONSTANT.pageSize; i++){		
+			if(i>=index0)
+				for(int n=0; n<this.pageitemlistf.size(); n++){
+					HashMap<ExamItem,List<ExamRef>> il = this.pageitemlistf.get(n);
+					Set<ExamItem> e = il.keySet();
+					if(i==n){
+						if(e.size()==1){
+							for(ExamItem e1:e)
+								ilf.put(e1.getQuestion(), il.get(e1));
+						}
+					}						
+				}				
+			else{
+				ilf.put(""+i,null);
+			}
+				
+		}		
+		System.out.println("New itemlistf size="+ilf.keySet().size());
+		this.request.getSession().setAttribute("pageilf",ilf);
+		for(String question:ilf.keySet()
+			
+		System.out.println(">>>>>>>>>>>>----------pageSubmit-over!");
+	}
+	private void dealThisPage(){
+		this.setANS();
+		this.calculatePageScore(this.getPageItemslist());
+		this.syncPageInfoInDB();
+	}
 
-	
-	
+	public String pageSubmit(){
+		this.dealThisPage();		
+		this.countPage();
+		this.nextPage();
+		this.check();
+		return "success";
+	}
+	private void syncPageInfoInDB(){
+		
+	}
 	
 	@Override
 	public void setSession(Map session) {
 		this.session = session;
-		this.session.put("eirlist", this.pageitemlistf);
-		System.out.println("------------------------------Exam-Submit-1--setSession-----------------------------------");
-		System.out.println("setSession----Session().elist----"+
-				this.session.get("eirlist").toString());
+//		this.session.put("eirlist", this.pageitemlistf);
+//		System.out.println("------------------------------Exam-Submit-1--setSession-----------------------------------");
+//		System.out.println("setSession----Session().elist----"+
+//				this.session.get("eirlist").toString());
 		
 	}
 
@@ -273,8 +365,10 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	public void setServletRequest(HttpServletRequest request) {
 		this.request=request;		
 		System.out.println("------------------------------Exam-Submit-2-------------------------------------");
+//		this.pageitemlistf = (List<HashMap<ExamItem, List<ExamRef>>>) 
+//				this.request.getSession().getAttribute("itemlistf");	
 		this.pageitemlistf = (List<HashMap<ExamItem, List<ExamRef>>>) 
-				this.request.getSession().getAttribute("itemlistf");	
+				this.request.getSession().getAttribute("elist");
 		System.out.println("setServletRequest----this.pageitemlistf.size----"+
 				this.pageitemlistf.size());		
 		

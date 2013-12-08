@@ -50,6 +50,14 @@
 		<action name="managerexamcontext" class="com.asso.action.ExamItemsList" method="managerExamContext">  
 			<result name="success">inputExam.jsp?examsave=0</result>		                     	 
 		</action>
+		
+		<action name="beginexam" class="com.asso.action.ExamItemsList" method="beginExam">  
+			<result name="begin" type="freemarker">/WEB-INF/ftl/exam.ftl</result>		                     	 
+		</action>
+		<action name="submit" class="com.asso.action.ExamSubmit" method="pageSubmit">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/exam.ftl</result>		                     	 
+		</action>
+		
 		  
 		<action name="intoexam" class="com.asso.action.ExamItemsList" method="loadItemlistFByExamId">  
 			<result name="list" type="redirect">switchexampage.action?currentpage=1</result>		                     	 

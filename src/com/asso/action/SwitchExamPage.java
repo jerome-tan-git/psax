@@ -32,10 +32,6 @@ public class SwitchExamPage extends ActionSupport implements ServletRequestAware
 	private HttpServletRequest request;	
 	private Map session;
 	private List<HashMap<ExamItem,List<ExamRef>>> itemlistf;
-	private List<Integer> errorList;
-	private List<Integer> answerList;//itemid
-	
-	
 	
 	public List<HashMap<ExamItem, List<ExamRef>>> getItemlistf() {
 		return itemlistf;
@@ -44,14 +40,13 @@ public class SwitchExamPage extends ActionSupport implements ServletRequestAware
 		this.itemlistf = itemlistf;
 	}
 	
-	private void keepAnswers(){
-		
-	}
+
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
-		this.itemlistf = (List<HashMap<ExamItem, List<ExamRef>>>) this.request.getSession().getAttribute("elist");
-		System.out.println("----------------------------switchexampage-2-------------------------------------");
+		this.itemlistf = (List<HashMap<ExamItem, List<ExamRef>>>) 
+				this.request.getSession().getAttribute("elist");
+		System.out.println("-------------|-switchexampage-2-|--------------------");
 		System.out.println("setSession3----Session().elist----"+
 				 request.getSession().getAttribute("elist").toString());
 		
@@ -60,8 +55,9 @@ public class SwitchExamPage extends ActionSupport implements ServletRequestAware
 	@Override
 	public String execute(){
 //	this.hello(session);
+		System.out.println("-------------SwitchExamPage EXECUTION----------------");
 		this.session.put("elist", this.itemlistf);
-		System.out.println("REAL-----Session().elist----"+
+		System.out.println("EXECUTION|REAL-----Session().elist----"+
 				this.session.get("elist").toString());
 			return "success";	
 	}

@@ -5,32 +5,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import util.CONSTANT;
+import util.SpringFactory;
 
 import com.asso.manager.ExamManager;
-import com.asso.manager.UserManager;
 import com.asso.model.Exam;
 import com.asso.model.ExamItem;
 import com.asso.model.ExamRef;
-import com.asso.model.User;
 import com.asso.vo.ExamBuiltInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
-import util.SpringFactory;
 
 @Scope("prototype")
 @Component("examitemslist") 
@@ -155,22 +149,32 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 			e.printStackTrace();
 		}
 //		long c = System.currentTimeMillis();
-		System.out.println("----- New added ItemId -----"+newItemId);
-		System.out.println("----- New added refs -------");
-		for(String ref:this.eInfo.getRefs())
-			System.out.println(ref);
-		System.out.println("----- New added refs isTrue-------");
-		if(this.eInfo.getRefistrues()!=null){//when judge items it is null
-		for(int i=0; i<this.eInfo.getRefistrues().length;i++)
-			System.out.println(i+"---------"+this.eInfo.getRefistrues()[i]);
+		System.out.println("----- New added ItemId ------"+newItemId);
+		System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs().length);
+		if(this.eInfo.getRefs().length==1)
+			System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs()[0]);
+		else{
+			for(String ref:this.eInfo.getRefs())
+				System.out.println(ref);
+			System.out.println("----- New added refs isTrue-------");
+			if(this.eInfo.getRefistrues()!=null){//when judge items it is null
+			for(int i=0; i<this.eInfo.getRefistrues().length;i++)
+				System.out.println(i+"---------"+this.eInfo.getRefistrues()[i]);
+			}
+
 		}
+		
 
 		if(ei.getCategory()==1){
-			this.addExamYesNoRefs(newItemId, this.eInfo.getAnswers());
+			if(this.eInfo.getRefs().length==1)
+				System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs()[0]);
+//			this.addExamYesNoRefs(newItemId, this.eInfo.getAnswers());
+			this.addExamYesNoRefs2(newItemId,this.eInfo.getRefs()[0]);
 		}else
-////			this.addExamRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
+//			this.addExamRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
 //			this.addExamChoiceRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
- //		long d = System.currentTimeMillis();
+			this.addExamChoiceRefs2(newItemId, this.eInfo.getRefs(), this.eInfo.getRefistrues());
+// 		long d = System.currentTimeMillis();
 //		System.out.println("---------------------------addItem-------------------------");
 //		System.out.println("time(addExamItem): "+(b-a));
 //		System.out.println("time(loadItemByQ): "+(c-b));
@@ -284,24 +288,29 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		}
 		
 	}
-	
-	private void addExamChoiceRefs(int _itemid, String _refstring,String _answers){
-		System.out.println("_itemid, _refstring,_answer="+_itemid+":"+_refstring+":"+_answers);
-		HashSet<Integer> ans = this.getRefAnsByInputString(_answers);
+	private void addExamChoiceRefs2(int _itemid, String[] _refstring,String[] _answers){
+		System.out.println("_itemid, _refstring(length),_answer(length)="+_itemid+":"+
+				_refstring.length+":"+_answers.length);
 		List<ExamRef> refs = new ArrayList<ExamRef>();
-//		List<String> refQs = this.getRefQsByInputString();
-		List<String> refQs = this.getRefQsByInputString(_refstring);
-		for(int i=0; i<refQs.size(); i++){
+		
+//		HashSet<Integer> ans = this.getRefAnsByInputString(_answers);		
+//		List<String> refQs = this.getRefQsByInputString(_refstring);
+		for(int i=0; i<_refstring.length; i++){
 			ExamRef e_ref = new ExamRef();
-			
-			e_ref.setRef(refQs.get(i));
 			e_ref.setItemid(_itemid);
-			if(ans.contains(i+1))
-				e_ref.setIstrue(1);
-			else
-				e_ref.setIstrue(0);
+			e_ref.setRef(_refstring[i]);
+			e_ref.setIstrue(0);
+			for(String ans:_answers){
+				int n = Integer.parseInt(ans);
+				if(n==i){
+					e_ref.setIstrue(1);
+					break;
+				}
+			}
 			refs.add(e_ref);			
 		}
+		for(ExamRef ref:refs)
+			System.out.println("------------ref-"+ref.toString());
 
 		try {
 			em.add(refs);
@@ -312,6 +321,33 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		}
 		
 	}
+//	private void addExamChoiceRefs(int _itemid, String _refstring,String _answers){
+//		System.out.println("_itemid, _refstring,_answer="+_itemid+":"+_refstring+":"+_answers);
+//		HashSet<Integer> ans = this.getRefAnsByInputString(_answers);
+//		List<ExamRef> refs = new ArrayList<ExamRef>();
+////		List<String> refQs = this.getRefQsByInputString();
+//		List<String> refQs = this.getRefQsByInputString(_refstring);
+//		for(int i=0; i<refQs.size(); i++){
+//			ExamRef e_ref = new ExamRef();
+//			
+//			e_ref.setRef(refQs.get(i));
+//			e_ref.setItemid(_itemid);
+//			if(ans.contains(i+1))
+//				e_ref.setIstrue(1);
+//			else
+//				e_ref.setIstrue(0);
+//			refs.add(e_ref);			
+//		}
+//
+//		try {
+//			em.add(refs);
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	private void addExamYesNoRefs(int _itemid, String _answers){
 		System.out.println("_itemid, _answer="+_itemid+":"+_answers);
 		int ans = Integer.parseInt(_answers);
@@ -324,6 +360,38 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		else
 			e_ref.setIstrue(0);
 		refs.add(e_ref);		
+		
+		try {
+			em.add(refs);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	private void addExamYesNoRefs2(int _itemid, String _answer){
+		
+		System.out.println("_itemid, _answer(true|false)="+_itemid+":"+_answer);
+		
+		List<ExamRef> refs = new ArrayList<ExamRef>();
+		ExamRef e_ref1 = new ExamRef();
+		e_ref1.setItemid(_itemid);
+		e_ref1.setRef("是");
+		int ans = Integer.parseInt(_answer);
+		if (ans==1)
+			e_ref1.setIstrue(1);
+		else
+			e_ref1.setIstrue(0);
+		refs.add(e_ref1);	
+		ExamRef e_ref0 = new ExamRef();
+		e_ref0.setItemid(_itemid);
+		e_ref0.setRef("否");
+		if (ans==1)
+			e_ref0.setIstrue(0);
+		else
+			e_ref0.setIstrue(1);
+		refs.add(e_ref0);		
 		
 		try {
 			em.add(refs);
@@ -479,8 +547,87 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 			list.add(this.loadItemfWithItem(i));
 		}		
 		this.setItemlistf(list);
-		this.setSession2();
+		/* Construct HashMap<refid,itemid>*/
+		HashMap<String,String> itemsRefsRelation = new HashMap<String,String>();
+		for(HashMap<ExamItem,List<ExamRef>> map:list){
+			Set<ExamItem> item = map.keySet();
+			for(ExamItem i:item){
+				for(ExamRef ref:map.get(i)){
+					itemsRefsRelation.put(ref.getId()+"", i.getId()+"");
+				}
+			}
+		}
+		request.getSession().setAttribute("itemsRefsRelation", itemsRefsRelation);
+		request.getSession().setAttribute("elist", this.itemlistf);
+//		 System.out.println("setSession2----Session().elist----"+
+//				 request.getSession().getAttribute("elist").toString());
+		request.getSession().setAttribute("score", 0);//totalScore
+		request.getSession().setAttribute("answerProgress", new ArrayList<Integer>());//isDoneList
+
 		return "list";
+	}
+	public String beginExam(){
+		System.out.println(">>>>>>>>>>>>----------beginExam-1");
+		try {
+			this.loadItemlistFByExamId();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+//		List<HashMap<ExamItem,List<ExamRef>>> itemlistf = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
+		List<HashMap<ExamItem,List<ExamRef>>> sessionlist = (List<HashMap<ExamItem,List<ExamRef>>>)
+				request.getSession().getAttribute("elist");
+		System.out.println(">>>>>>>>>>>>----------beginExam-2, elist.size="
+				+sessionlist.size());
+		int pi =1;
+		int totalpi = sessionlist.size()/CONSTANT.pageSize;
+		if(sessionlist.size()>totalpi*CONSTANT.pageSize){
+			totalpi = totalpi+1;
+		}
+		System.out.println("totalpi="+totalpi);
+		int index0 = (pi-1)*CONSTANT.pageSize;
+		System.out.println(">>>>>>>>>>>>----------beginExam-3, pi="+pi+", totalpi="+totalpi
+				+", index0="+index0);
+		this.request.getSession().setAttribute("pi",pi);
+		this.request.getSession().setAttribute("totalpi",totalpi);
+		this.request.getSession().setAttribute("index0",index0);		
+		
+		HashMap<String,List<ExamRef>> ilf = new HashMap<String,List<ExamRef>>();
+		for(int i=0; i<index0+CONSTANT.pageSize; i++){		
+			if(i>=index0)
+//				itemlistf.add(sessionlist.get(i));
+				for(int n=0; n<sessionlist.size(); n++){
+					HashMap<ExamItem,List<ExamRef>> il = sessionlist.get(n);
+					Set<ExamItem> e = il.keySet();
+					if(i==n){
+						if(e.size()==1){
+							for(ExamItem e1:e)
+								ilf.put(e1.getQuestion(), il.get(e1));
+						}
+					}						
+				}				
+			else{
+//				itemlistf.add(null);
+				ilf.put(""+i,null);
+			}
+				
+		}
+		
+		System.out.println("New itemlistf size="+ilf.keySet().size());
+//		this.request.getSession().setAttribute("pageitemlistf",itemlistf);
+		this.request.getSession().setAttribute("pageitemlistf",ilf);
+		
+		int c1hasTitle = 1;//是非题开始序号
+		int c2hasTitle = 1+CONSTANT.judgeNum;//选择题开始序号
+		int c3hasTitle = 1+CONSTANT.judgeNum+CONSTANT.singleChoiceNum;//多选题开始序号		
+		request.getSession().setAttribute("c1hasTitle", c1hasTitle);
+		request.getSession().setAttribute("c2hasTitle", c2hasTitle);
+		request.getSession().setAttribute("c3hasTitle", c3hasTitle);
+		System.out.println(">>>>>>>>>>>>----------beginExam-6-over!");
+		
+		return "begin";
 	}
 	
 	private List<ExamItem> dedupeEIlist(List<ExamItem> _eil){
@@ -534,15 +681,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		}
 		return eil;
 	}
-	private void setSession2() {				
-		 request.getSession().setAttribute("elist", this.itemlistf);
-		 System.out.println("setSession2----Session().elist----"+
-				 request.getSession().getAttribute("elist").toString());
-		 request.getSession().setAttribute("score", 0);//totalScore
-		 request.getSession().setAttribute("answerProgress", new ArrayList<Integer>());//isDoneList
-	}
 
-	
 	@Override
 	public String execute(){
 		

@@ -115,11 +115,31 @@
     		    <s:property value="#of.count"/>
     		    <s:property value='key.question'/><br/>    		   
     		    
-    		    
+    		    <!-- 
     		    <s:if test="%{key.category==1}">    	
     		    	<s:iterator value='value' id="ref" status="off">
-    		    	<input type="radio" checked="" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />ÊÇ<br/>
+    		    	<input type="radio" name='ANS_<s:property value="#of.count"/>' value='1_<s:property value="#ref.id"/>' />ÊÇ<br/>
 	    		    <input type="radio" name='ANS_<s:property value="#of.count"/>' value='0_<s:property value="#ref.id"/>' />·ñ<br/>
+	    		    </s:iterator>	    	
+	    		</s:if>   
+				<s:elseif test="%{key.category==2}">					
+	    			<s:iterator value='value' id="ref" status="off">
+    		     	<input type="radio" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#ref.id"/>'/>
+    		     		<s:property value="#ref.ref"/><br/>	               
+	    		   	</s:iterator>
+	    		</s:elseif>
+	    		<s:else>		    		
+					<s:iterator value='value' id="ref" status="off">
+	            	    <input type="checkbox" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#ref.id"/>'/>
+	            	    <s:property value="#ref.ref"/><br/>	            	    	            	 
+	    		   	</s:iterator>
+				</s:else>
+				 -->
+		
+			    <s:if test="%{key.category==1}">    	
+    		    	<s:iterator value='value' id="ref" status="off">
+    		    		<input type="radio" name='ANS_<s:property value="#of.count"/>' value='<s:property value="#ref.id"/>' />
+    		    			<s:property value="#ref.ref"/><br/>	 
 	    		    </s:iterator>	    	
 	    		</s:if>   
 				<s:elseif test="%{key.category==2}">					

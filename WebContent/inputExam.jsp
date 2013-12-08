@@ -31,7 +31,7 @@ $(document).ready(function(){
 	  
   });
   $("#btn2").click(function(){
-	    $("#test2").html("选项：<input type='radio' name='refs' value='1'>是</input><br/>选项：<input type='radio' name='refistrues' value='0'/>否</input><br>");
+	    $("#test2").html("选项：<input type='radio' name='refs' value='1'>是</input><br/>选项：<input type='radio' name='refs' value='0'/>否</input><br>");
 	    $("#test4").html("<div id='test4'></div>");  
   });
   $("#btn3").click(function(){
@@ -124,7 +124,9 @@ if(request.getParameter("examsave").equals("1")){
 	 <br>
 	 
 模拟考试<br>	
-	<form method="post" action="intoexam.action">
+	<!-- <form method="post" action="intoexam.action"> -->
+	<form method="post" action="beginexam.action">
+	
 	考试： <select name="examid">
         <s:iterator value="#session.exams" id="e">
          	<option value='<s:property value="id"/>' <s:if test="%{id==3}">selected</s:if>><s:property value="name"/></option> 			
