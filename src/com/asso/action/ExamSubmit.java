@@ -257,10 +257,10 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
 		Set<ExamItem> ks = this.donelist.keySet();
 		for(ExamItem k:ks){
-			if(this.donelist.get(k)!=0)
+//			if(this.donelist.get(k)!=0)
 				answerProgress.add(this.donelist.get(k));
 		}
-//		this.session.put("answerProgress", answerProgress);
+		
 		
 		
 		System.out.println("---------Got score in this page---"+this.scorePlus);
@@ -310,27 +310,42 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		
 		this.request.getSession().setAttribute("index0",index0);		
 		
-		HashMap<String,List<ExamRef>> ilf = new HashMap<String,List<ExamRef>>();
-		for(int i=0; i<index0+CONSTANT.pageSize; i++){		
+		List<HashMap<String,List<ExamRef>>> ilf = new ArrayList<HashMap<String,List<ExamRef>>>();
+		for(int i=0; i<index0+CONSTANT.pageSize; i++){			
+			HashMap<String,List<ExamRef>> map = new HashMap<String,List<ExamRef>>();
 			if(i>=index0)
 				for(int n=0; n<this.pageitemlistf.size(); n++){
 					HashMap<ExamItem,List<ExamRef>> il = this.pageitemlistf.get(n);
 					Set<ExamItem> e = il.keySet();
 					if(i==n){
 						if(e.size()==1){
-							for(ExamItem e1:e)
-								ilf.put(e1.getQuestion(), il.get(e1));
+							for(ExamItem e1:e){
+								map.put(e1.getQuestion(), il.get(e1));
+								ilf.add(map);
+							}
 						}
 					}						
 				}				
 			else{
-				ilf.put(""+i,null);
+				map.put(""+i,null);
+				ilf.add(map);
 			}
 				
 		}		
-		System.out.println("New itemlistf size="+ilf.keySet().size());
+		System.out.println("New itemlistf size="+ilf.size());
 		this.request.getSession().setAttribute("pageilf",ilf);
-		for(String question:ilf.keySet()
+		for(int i=0; i<ilf.size(); i++){
+			HashMap<String,List<ExamRef>> qmap = ilf.get(i);
+			Set<String> qs = qmap.keySet();
+			for(String q:qs){
+				if(qmap.get(q)!=null){
+					System.out.println(i+":Q------"+q+", ilf--List<ExamRef>---"+qmap.get(q).toString());
+				}else
+					System.out.println(i+":Q------"+q);
+			}
+			
+		}
+			
 			
 		System.out.println(">>>>>>>>>>>>----------pageSubmit-over!");
 	}

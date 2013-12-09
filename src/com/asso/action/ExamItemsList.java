@@ -594,30 +594,32 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		this.request.getSession().setAttribute("totalpi",totalpi);
 		this.request.getSession().setAttribute("index0",index0);		
 		
-		HashMap<String,List<ExamRef>> ilf = new HashMap<String,List<ExamRef>>();
-		for(int i=0; i<index0+CONSTANT.pageSize; i++){		
+		List<HashMap<String,List<ExamRef>>> ilf = new ArrayList<HashMap<String,List<ExamRef>>>();
+		for(int i=0; i<index0+CONSTANT.pageSize; i++){			
+			HashMap<String,List<ExamRef>> map  = new HashMap<String,List<ExamRef>>();
 			if(i>=index0)
-//				itemlistf.add(sessionlist.get(i));
-				for(int n=0; n<sessionlist.size(); n++){
+				for(int n=0; n<sessionlist.size(); n++){					 
 					HashMap<ExamItem,List<ExamRef>> il = sessionlist.get(n);
 					Set<ExamItem> e = il.keySet();
 					if(i==n){
 						if(e.size()==1){
-							for(ExamItem e1:e)
-								ilf.put(e1.getQuestion(), il.get(e1));
+							for(ExamItem e1:e){
+								map.put(e1.getQuestion(), il.get(e1));
+								ilf.add(map);
+							}
 						}
 					}						
 				}				
 			else{
-//				itemlistf.add(null);
-				ilf.put(""+i,null);
+				map.put(""+i,null);
+				ilf.add(map);
 			}
 				
 		}
 		
-		System.out.println("New itemlistf size="+ilf.keySet().size());
-//		this.request.getSession().setAttribute("pageitemlistf",itemlistf);
-		this.request.getSession().setAttribute("pageitemlistf",ilf);
+		System.out.println("New itemlistf size="+ilf.size());
+		this.request.getSession().setAttribute("pageilf",null);
+		this.request.getSession().setAttribute("pageilf",ilf);
 		
 		int c1hasTitle = 1;//是非题开始序号
 		int c2hasTitle = 1+CONSTANT.judgeNum;//选择题开始序号
@@ -625,6 +627,9 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		request.getSession().setAttribute("c1hasTitle", c1hasTitle);
 		request.getSession().setAttribute("c2hasTitle", c2hasTitle);
 		request.getSession().setAttribute("c3hasTitle", c3hasTitle);
+		System.out.println(">>>>>>>>>>>>----------c1hasTitle="+request.getSession().getAttribute("c1hasTitle"));
+		System.out.println(">>>>>>>>>>>>----------c2hasTitle="+request.getSession().getAttribute("c2hasTitle"));
+		System.out.println(">>>>>>>>>>>>----------c3hasTitle="+request.getSession().getAttribute("c3hasTitle"));
 		System.out.println(">>>>>>>>>>>>----------beginExam-6-over!");
 		
 		return "begin";

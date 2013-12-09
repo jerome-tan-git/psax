@@ -739,26 +739,33 @@ transitional.dtd">
 					<div style="text-align: right">
 						<span class="exam_page">${Session ["pi"]} </span>/${Session ["totalpi"]} 
 					</div>
-					
 					<form method="post" action="submit.action">					
-					<#if Session.pageitemlistf?exists>
-						<#assign keys=Session.pageitemlistf?keys>												
-						<#list keys as key>
-							<div class="exam_section">	
-								<div class="exam_title">
-									<span class="exam_no">${key_index+1}. </span>
-									<span style="color: #000">${key}</span>
-								</div>
-								<#if Session.pageitemlistf?exists>
-								<#assign refs=Session.pageitemlistf[key]>
-									<#list refs as ref>
-										<div class="exam_options">										
-											<input type="radio" name="ANS_${key_index+1}" value="${ref.id}" id="o_${ref.id}" />
-											<label for="o_${ref.id}" class="o_${ref.id}">${ref.ref}</label>
+					<#if Session.pageilf?exists>
+						<#list Session.pageilf as map>
+							<#assign keys=map?keys>	
+							<#assign seq=map_index+1>												
+							<#list keys as key>
+								<#if map[key]?exists>
+									<div class="exam_section">	
+										<div class="exam_title">
+											<span class="exam_no">${seq}. </span>
+											<span style="color: #000">${key}</span>
 										</div>
-										</#list>
-								</#if>	
-							</div>
+										
+										<#assign refs=map[key]>
+										<#list refs as ref>
+											<div class="exam_options">			
+												<#if (seq<Session.c3hasTitle) >							
+													<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+												<#else>
+													<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+												</#if>
+												<label for="o_${ref.id}" class="o_${ref.id}">${ref.ref}</label>
+											</div>
+										</#list>								
+									</div>
+								</#if>
+							</#list>
 						</#list>
 					</#if>
 					   	<div class="exam_submit"><input type="submit" value="提交"/></div>
