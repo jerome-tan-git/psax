@@ -244,8 +244,9 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	}
 	/* Get total score in this exam */
 	/* Put all the exam related info into DB*/
-	public void examFinialize(){
+	public String finalizeExam(){
 		
+		return "final";
 	}
 	private void check(){
 		

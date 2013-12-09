@@ -57,7 +57,9 @@
 		<action name="submit" class="com.asso.action.ExamSubmit" method="pageSubmit">  
 			<result name="success" type="freemarker">/WEB-INF/ftl/exam.ftl</result>		                     	 
 		</action>
-		
+		<action name="finalizexam" class="com.asso.action.ExamSubmit" method="finalizeExam">  
+			<result name="final" type="freemarker">/WEB-INF/ftl/exam_rz.ftl</result>		                     	 
+		</action>
 		  
 		<action name="intoexam" class="com.asso.action.ExamItemsList" method="loadItemlistFByExamId">  
 			<result name="list" type="redirect">switchexampage.action?currentpage=1</result>		                     	 
