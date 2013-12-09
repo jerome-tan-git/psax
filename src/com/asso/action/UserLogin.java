@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -31,7 +32,6 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 	private UserRegisterInfo uInfo = new UserRegisterInfo();
 	private UserManager um;	
 	private User user; 
-	
 //	private ApplicationContext ctx;
 	private HttpServletRequest request;	
 	private Map session;

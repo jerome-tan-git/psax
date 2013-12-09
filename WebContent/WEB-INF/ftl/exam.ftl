@@ -538,11 +538,13 @@ transitional.dtd">
 							</#list>
 						</#list>
 					</#if>
-					<#--<#if (Session.pi<Session.totalpi) >-->
-					   	<div class="exam_submit"><input type="submit" value="提交"/></div>
-					<#--</#if>-->
+					<#if (Session.pi<Session.totalpi) >
+					   	<div class="exam_submit"><input type="submit" name="next" value="下一页"/></div>
+					<#else>
+					   	<div class="exam_submit"><input type="submit" name="over" value="提交"/></div>
+					</#if>
   						<div class="exam_submit"><input type="reset" value="重写"/></div>
-  						<a href="./exam_result.html"><div class="exam_submit">结束考试</div></a>
+  						<a href="./finalizexam.action"><div class="exam_submit">结束考试</div></a>
 					</form>
 					
 				</div>
