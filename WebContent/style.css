@@ -566,12 +566,74 @@ padding-left:20px;
 .menu_text
 {
 	margin-top: 15px;
+	color:#333;
 }
 .slider_content{
 	background-position-x: 100px;
 	background-position-y: 30px;
 	background-repeat: no-repeat;
 	height:310px;
+}
+.login_form
+{
+	width: 500px;
+	height: 433px;
+	margin: auto;
+	background: url('./images/login_bg.png') no-repeat 0px 0px;
+	position: relative;
+	margin-top: -40px;
+}
+.login_btn
+{
+	position: absolute;
+	top: 321px;
+	left: 334px;
+}
+.password_input
+{
+	background: url('./images/iconmonstr-password-9-icon-16.png') no-repeat 14px 4px;
+	border-bottom: 1px solid #ccc;
+	height: 29px;
+	padding-left: 49px;
+	margin-top: 15px;
+	position: absolute;
+	top: 333px;
+	left: 51px;
+}
+
+.password_input input
+{
+	border-width: 0px;
+	font-size: 13pt;
+	font-family: "微软雅黑",Arial,"宋体";
+	
+}
+.login_bt
+{
+	background-color: #ACA6A6;
+	padding: 5px 10px;
+	height: 40px;
+	width: 102px;
+	box-shadow: none;
+	color: #fff;
+	border: 1px solid #969696;
+	cursor: pointer;
+}
+.user_input
+{
+	background: url('./images/iconmonstr-user-icon-16.png') no-repeat 14px 4px;
+	border-bottom: 1px solid #ccc;
+	height: 29px;
+	padding-left: 49px;
+	position: absolute;
+	top: 300px;
+	left: 51px;
+}
+.user_input input
+{
+	border-width: 0px;
+	font-size: 13pt;
+	font-family: "微软雅黑",Arial,"宋体";
 }
 .menu_list{
 	position: relative;
@@ -902,8 +964,8 @@ padding-left:20px;
 
 .step_menu
 {
-	height: 74px;
-	background: url(./images/step.png) no-repeat 119px 3px;
+	height: 40px;
+	background: url(./images/step.png) no-repeat 134px 3px;
 }
 .step_menu_todo
 {
@@ -944,6 +1006,176 @@ padding-left:20px;
 	padding-left: 30px;
 	padding-top: 47px;
 }
+.progress_start
+{
+	height: 63px;
+	background: url(./images/start_first.png) no-repeat 0px 34px;
+	padding-top: 11px;
+	text-align: center;
+	width: 96px;
+	float: left;
+
+}
+.step_bottom
+{
+	
+	margin-bottom: 10px;
+}
+.progress_middle_done
+{
+	height: 63px;
+	background: url(./images/progress_bg.png) repeat-x 0px 40px;
+	padding-top: 11px;
+	text-align: center;
+	width: 10px;
+	float: left;
+
+}
+.pull_left
+{
+	float:left;
+}
+.step_no
+{
+	width: 57px;
+	float: left;
+	margin-left: -30px;
+	margin-right: 12px;
+	font-size: 21pt;
+	padding-top: 17px;
+	height: 59px;
+	color: #FFFFFF;
+	background: url(./images/i_line.png) no-repeat 80% 5px;
+	text-align: center;
+}
+
+.step_no_done
+{
+	width: 57px;
+	float: left;
+	margin-left: -30px;
+	margin-right: 12px;
+	font-size: 21pt;
+	padding-top: 17px;
+	height: 59px;
+	color: #FFFFFF;
+	background: url(./images/i_line_done.png) no-repeat 80% 5px;
+	text-align: center;
+}
+.step_list_title
+{
+	padding-left: 26px;
+	padding-top: 4px;
+	height: 28px;
+	font-size: 17pt;
+	color: #4491E4;
+	
+
+}
+.progress_middle_doing_step
+{
+	height: 63px;
+	background: url(./images/middle_step.png) repeat-x 0px 34px;
+	padding-top: 11px;
+	text-align: center;
+	width: 96px;
+	float: left;
+}
+
+.my_tasks
+{
+	font-size: 20pt;
+	margin-top: 32px;
+	margin-bottom: 28px;
+	margin-left: -32px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 12px;
+	width: 930px;
+	color: #ECECEC;
+}
+.process_button_bar
+{
+	float: right;
+	margin-top: -8px;
+	cursor:pointer;
+	width: 100px;
+}
+.new_process
+{
+	font-size: 11pt;
+	color: #A7A7A7;
+}
+.process_delete
+{
+	margin-left: 73px;
+	color: #4061E6;
+	cursor: pointer;
+}
+.step_caption 
+{
+	padding-top:15px;
+}
+.step_date
+{
+	width: 102px;
+	float: right;
+	margin-top: 10px;
+}
+.one_item
+{
+	font-size: 9pt;
+}
+.progress_middle_todo
+{
+	height: 63px;
+	background: url(./images/todo_bg.png) repeat-x 0px 40px;
+	padding-top: 11px;
+	text-align: center;
+	width: 10px;
+	float: left;
+	
+}
+.progress_last_todo
+{
+	height: 63px;
+	background: url(./images/last_todo.png) repeat-x 0px 34px;
+	padding-top: 11px;
+	text-align: center;
+	width: 98px;
+	float: left;
+	
+}
+.progress_last_done
+{
+	height: 63px;
+	background: url(./images/done_last.png) repeat-x 0px 34px;
+	padding-top: 11px;
+	text-align: center;
+	width: 96px;
+	float: left;
+	
+}
+.progress_middle_done_step
+{
+	height: 63px;
+	background: url(./images/middle_done.png) repeat-x 0px 34px;
+	padding-top: 11px;
+	text-align: center;
+	width: 98px;
+	float: left;
+	
+}
+
+.progress_middle_todo_step
+{
+	height: 63px;
+	background: url(./images/middle_todo.png) repeat-x 0px 34px;
+	padding-top: 11px;
+	text-align: center;
+	width: 98px;
+	float: left;
+	
+}
 .step_div_bg
 {
 	width:7px;
@@ -956,10 +1188,10 @@ padding-left:20px;
 }
 .now_step
 {
-	font-size: 18pt;
-	padding-top: 26px;
+	font-size: 13pt;
+	padding-top: 11px;
 	padding-right: 66px;
-	text-align: right;
+	text-align: right;	
 	color: #002cc0;
 }
 .step_left{
