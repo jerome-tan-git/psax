@@ -199,8 +199,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 					}
 					if(cat==3){
 						int shouldmatch = 0;
-						int realmatch = 0;
-						
+						int realmatch = 0;						
 						for(ExamRef ref:refs){
 							if(ref.getIstrue()==1){
 								shouldmatch += 1;
@@ -214,17 +213,17 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 									if(ref.getIstrue()==1)
 										realmatch +=1;																		
 								}										
-							}
-							
+							}							
 						}
 						if(shouldmatch==realmatch && realmatch>0){
 							this.scorePlus +=2;
 							this.donelist.put(k, 1);
 						}
 						if(!this.donelist.keySet().contains(k))
-							this.donelist.put(k, 0);						
-							
+							this.donelist.put(k, 0);	
 					}
+					ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
+					answerProgress.add(this.donelist.get(k));					
 				}
 				
 			}else
@@ -255,11 +254,11 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		this.session.put("score", score);
 		
 		ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
-		Set<ExamItem> ks = this.donelist.keySet();
-		for(ExamItem k:ks){
-//			if(this.donelist.get(k)!=0)
-				answerProgress.add(this.donelist.get(k));
-		}
+//		Set<ExamItem> ks = this.donelist.keySet();
+//		for(ExamItem k:ks){
+////			if(this.donelist.get(k)!=0)
+//				answerProgress.add(this.donelist.get(k));
+//		}
 		
 		
 		

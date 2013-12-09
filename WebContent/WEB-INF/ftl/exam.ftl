@@ -403,6 +403,7 @@ transitional.dtd">
 						<div class="exam_no_container clearfix">
 						<#if Session.elist?exists>
 							<#if Session.answerProgress?exists>
+								<#assign answerProgress=Session.answerProgress?size>
 								<div class="exams">
 									<#list Session.elist as item>
 										<#assign seqitem=item_index+1>
@@ -412,95 +413,86 @@ transitional.dtd">
 											</div>
 											<div class="clearfix exam_no_body">
 												<#list Session.elist as item1>
-												<#assign seqitem1=item1_index+1>
-												<#if (seqitem1>=Session.c1hasTitle && seqitem1<Session.c2hasTitle ) >
-													<div class="exam_done exams_no">
-														${seqitem1}
-													</div>	
-												</#if>
+													<#assign seqitem1=item1_index+1>
+													<#if (seqitem1>=Session.c1hasTitle && seqitem1<Session.c2hasTitle ) >
+														<#if (seqitem1<=answerProgress) >
+															<#list Session.answerProgress as isdone>  <#-- 可优化 -->
+																<#assign anseq=isdone_index+1>
+																<#if (anseq==seqitem1) >
+																	<#if (isdone==0) >
+																		<div class="exams_no">
+																	<#else>
+																		<div class="exam_done exams_no">		
+																	</#if>
+																</#if>						
+															</#list>
+														<#else>
+															<div class="exams_no">
+														</#if>
+																${seqitem1}
+															</div>	
+													</#if>
 												</#list>
 											</div>
-											<#elseif (seqitem==Session.c2hasTitle)>
+										<#elseif (seqitem==Session.c2hasTitle)>
 											<div class="exams_title">
 												单选题：
 											</div>
 											<div class="clearfix exam_no_body">
 												<#list Session.elist as item1>
-												<#assign seqitem1=item1_index+1>
-												<#if (seqitem1>=Session.c2hasTitle && seqitem1<Session.c3hasTitle ) >
-													<div class="exam_done exams_no">
-														${seqitem1}
-													</div>	
-												</#if>
+													<#assign seqitem1=item1_index+1>
+													<#if (seqitem1>=Session.c2hasTitle && seqitem1<Session.c3hasTitle ) >
+														<#if (seqitem1<=answerProgress) >
+															<#list Session.answerProgress as isdone>  <#-- 可优化 -->
+																<#assign anseq=isdone_index+1>
+																<#if (anseq==seqitem1) >
+																	<#if (isdone==0) >
+																		<div class="exams_no">
+																	<#else>
+																		<div class="exam_done exams_no">		
+																	</#if>
+																</#if>						
+															</#list>
+														<#else>
+															<div class="exams_no">
+														</#if>
+																${seqitem1}
+															</div>		
+													</#if>
 												</#list>
 											</div>
-											<#elseif (seqitem==Session.c3hasTitle)>
+										<#elseif (seqitem==Session.c3hasTitle)>
 											<div class="exams_title">
 												复选题：
 											</div>
 											<div class="clearfix exam_no_body">
 												<#list Session.elist as item1>
-												<#assign seqitem1=item1_index+1>
-												<#if (seqitem1>=Session.c3hasTitle) >
-													<div class="exam_done exams_no">
-														${seqitem1}
-													</div>	
-												</#if>
+													<#assign seqitem1=item1_index+1>
+													<#if (seqitem1>=Session.c3hasTitle) >
+														<#if (seqitem1<=answerProgress) >
+															<#list Session.answerProgress as isdone>  <#-- 可优化 -->
+																<#assign anseq=isdone_index+1>
+																<#if (anseq==seqitem1) >
+																	<#if (isdone==0) >
+																		<div class="exams_no">
+																	<#else>
+																		<div class="exam_done exams_no">		
+																	</#if>
+																</#if>						
+															</#list>
+														<#else>
+															<div class="exams_no">
+														</#if>
+																${seqitem1}
+															</div>	
+													</#if>
 												</#list>
 											</div>
 										</#if>					
 									</#list>
-									<div class="exams_title">
-										测试：${Session["c1hasTitle"]}|${Session["c2hasTitle"]}|${Session["c3hasTitle"]}
-									</div>
-									<div class="clearfix exam_no_body">
-									<#list Session.answerProgress as isdone>
-										<#assign seq=isdone_index+1>
-											<div class="exam_done exams_no">
-												${seq}
-											</div>					
-									</#list>
-									</div>
+
 								</div>
-								<div class="exams">
-									<div class="exams_title">
-										单选题：
-									</div>
-									<div class="clearfix exam_no_body">
-										<div class="exam_done exams_no">
-											1
-										</div>
-										<div class="exam_done exams_no">
-											2
-										</div>									
-									</div>
-								</div>
-								<div class="exams">
-									<div class="exams_title">
-										复选题：
-									</div>
-									<div class="clearfix exam_no_body">
-										<div class="exams_no exam_done">
-											21
-										</div>									
-										<div class="exams_no">
-											65
-										</div>
-									</div>
-								</div>
-								<div class="exams">
-									<div class="exams_title">
-										是非题：
-									</div>
-									<div class="clearfix exam_no_body">
-										<div class="exams_no ">
-											81
-										</div>
-										<div class="exams_no ">
-											82
-										</div>									
-									</div>
-								</div>
+								
 							</#if>
 						</#if>	
 						</div>
