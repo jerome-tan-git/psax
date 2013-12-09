@@ -401,330 +401,108 @@ transitional.dtd">
 				<div class="clearfix">
 					<div class="exam_no_outer">
 						<div class="exam_no_container clearfix">
-							<div class="exams">
-								<div class="exams_title">
-									单选题：
-								</div>
-								<div class="clearfix exam_no_body">
-									<div class="exam_done exams_no">
-										1
+						<#if Session.elist?exists>
+							<#if Session.answerProgress?exists>
+								<div class="exams">
+									<#list Session.elist as item>
+										<#assign seqitem=item_index+1>
+										<#if (seqitem==Session.c1hasTitle) >	
+											<div class="exams_title">
+												是非题：
+											</div>
+											<div class="clearfix exam_no_body">
+												<#list Session.elist as item1>
+												<#assign seqitem1=item1_index+1>
+												<#if (seqitem1>=Session.c1hasTitle && seqitem1<Session.c2hasTitle ) >
+													<div class="exam_done exams_no">
+														${seqitem1}
+													</div>	
+												</#if>
+												</#list>
+											</div>
+											<#elseif (seqitem==Session.c2hasTitle)>
+											<div class="exams_title">
+												单选题：
+											</div>
+											<div class="clearfix exam_no_body">
+												<#list Session.elist as item1>
+												<#assign seqitem1=item1_index+1>
+												<#if (seqitem1>=Session.c2hasTitle && seqitem1<Session.c3hasTitle ) >
+													<div class="exam_done exams_no">
+														${seqitem1}
+													</div>	
+												</#if>
+												</#list>
+											</div>
+											<#elseif (seqitem==Session.c3hasTitle)>
+											<div class="exams_title">
+												复选题：
+											</div>
+											<div class="clearfix exam_no_body">
+												<#list Session.elist as item1>
+												<#assign seqitem1=item1_index+1>
+												<#if (seqitem1>=Session.c3hasTitle) >
+													<div class="exam_done exams_no">
+														${seqitem1}
+													</div>	
+												</#if>
+												</#list>
+											</div>
+										</#if>					
+									</#list>
+									<div class="exams_title">
+										测试：${Session["c1hasTitle"]}|${Session["c2hasTitle"]}|${Session["c3hasTitle"]}
 									</div>
-									<div class="exam_done exams_no">
-										2
-									</div>
-									<div class="exam_done exams_no">
-										3
-									</div>
-									<div class="exam_done exams_no">
-										4
-									</div>
-									<div class="exam_done exams_no">
-										5
-									</div>
-									<div class="exam_done exams_no">
-										6
-									</div>
-									<div class="exam_done exams_no">
-										7
-									</div>
-									<div class="exam_done exams_no">
-										8
-									</div>
-									<div class="exam_done exams_no">
-										9
-									</div>
-									<div class="exam_done exams_no">
-										10
-									</div>
-									<div class="exam_done exams_no">
-										11
-									</div>
-									<div class="exam_done exams_no">
-										12
-									</div>
-									<div class="exam_done exams_no">
-										13
-									</div>
-									<div class="exam_done exams_no">
-										14
-									</div>
-									<div class="exam_done exams_no">
-										15
-									</div>
-									<div class="exam_done exams_no">
-										16
-									</div>
-									<div class="exam_done exams_no">
-										17
-									</div>
-									<div class="exam_done exams_no">
-										18
-									</div>
-									<div class="exam_done exams_no">
-										19
-									</div>
-									<div class="exam_done exams_no">
-										20
+									<div class="clearfix exam_no_body">
+									<#list Session.answerProgress as isdone>
+										<#assign seq=isdone_index+1>
+											<div class="exam_done exams_no">
+												${seq}
+											</div>					
+									</#list>
 									</div>
 								</div>
-							</div>
-							<div class="exams">
-								<div class="exams_title">
-									复选题：
-								</div>
-								<div class="clearfix exam_no_body">
-																		<div class="exams_no exam_done">
-										21
+								<div class="exams">
+									<div class="exams_title">
+										单选题：
 									</div>
-									<div class="exams_no exam_done">
-										22
-									</div>
-									<div class="exams_no exam_done">
-										23
-									</div>
-									<div class="exams_no exam_done">
-										24
-									</div>
-									<div class="exams_no exam_done">
-										25
-									</div>
-									<div class="exams_no exam_done">
-										26
-									</div>
-									<div class="exams_no exam_done">
-										27
-									</div>
-									<div class="exams_no exam_done">
-										28
-									</div>
-									<div class="exams_no exam_done">
-										29
-									</div>
-									<div class="exams_no exam_done">
-										30
-									</div>
-									<div class="exams_no exam_done">
-										31
-									</div>
-									<div class="exams_no exam_done">
-										32
-									</div>
-									<div class="exams_no exam_done">
-										33
-									</div>
-									<div class="exams_no exam_done">
-										34
-									</div>
-									<div class="exams_no exam_done">
-										35
-									</div>
-									<div class="exams_no exam_done">
-										36
-									</div>
-									<div class="exams_no exam_done">
-										37
-									</div>
-									<div class="exams_no exam_done">
-										38
-									</div>
-									<div class="exams_no exam_done">
-										39
-									</div>
-									<div class="exams_no exam_done">
-										40
-									</div>
-									<div class="exams_no exam_done">
-										41
-									</div>
-									<div class="exams_no exam_done">
-										42
-									</div>
-									<div class="exams_no exam_done">
-										43
-									</div>
-									<div class="exams_no exam_done">
-										44
-									</div>
-									<div class="exams_no exam_done">
-										45
-									</div>
-									<div class="exams_no exam_done">
-										46
-									</div>
-									<div class="exams_no exam_done">
-										47
-									</div>
-									<div class="exams_no exam_done">
-										48
-									</div>
-									<div class="exams_no exam_done">
-										49
-									</div>
-									<div class="exams_no exam_done">
-										50
-									</div>
-									<div class="exams_no exam_done">
-										51
-									</div>
-									<div class="exams_no exam_done">
-										52
-									</div>
-									<div class="exams_no exam_done">
-										53
-									</div>
-									<div class="exams_no exam_done">
-										54
-									</div>
-									<div class="exams_no exam_done">
-										55
-									</div>
-									<div class="exams_no exam_done">
-										56
-									</div>
-									<div class="exams_no exam_done">
-										57
-									</div>
-									<div class="exams_no exam_done">
-										58
-									</div>
-									<div class="exams_no exam_done">
-										59
-									</div>
-									<div class="exams_no exam_done">
-										60
-									</div>
-									
-									<div class="exams_no exam_done">
-										61
-									</div>
-									<div class="exams_no exam_done">
-										62
-									</div>
-									<div class="exams_no exam_done">
-										63
-									</div>
-									<div class="exams_no">
-										64
-									</div>
-									<div class="exams_no">
-										65
-									</div>
-									<div class="exams_no">
-										66
-									</div>
-									<div class="exams_no">
-										67
-									</div>
-									<div class="exams_no">
-										68
-									</div>
-									<div class="exams_no">
-										69
-									</div>
-									<div class="exams_no">
-										70
-									</div>
-									
-									<div class="exams_no">
-										71
-									</div>
-									<div class="exams_no">
-										72
-									</div>
-									<div class="exams_no">
-										73
-									</div>
-									<div class="exams_no">
-										74
-									</div>
-									<div class="exams_no">
-										75
-									</div>
-									<div class="exams_no">
-										76
-									</div>
-									<div class="exams_no">
-										77
-									</div>
-									<div class="exams_no">
-										78
-									</div>
-									<div class="exams_no">
-										79
-									</div>
-									<div class="exams_no">
-										80
+									<div class="clearfix exam_no_body">
+										<div class="exam_done exams_no">
+											1
+										</div>
+										<div class="exam_done exams_no">
+											2
+										</div>									
 									</div>
 								</div>
-							</div>
-							<div class="exams">
-								<div class="exams_title">
-									是非题：
+								<div class="exams">
+									<div class="exams_title">
+										复选题：
+									</div>
+									<div class="clearfix exam_no_body">
+										<div class="exams_no exam_done">
+											21
+										</div>									
+										<div class="exams_no">
+											65
+										</div>
+									</div>
 								</div>
-								<div class="clearfix exam_no_body">
-																		<div class="exams_no ">
-										81
+								<div class="exams">
+									<div class="exams_title">
+										是非题：
 									</div>
-									<div class="exams_no ">
-										82
+									<div class="clearfix exam_no_body">
+										<div class="exams_no ">
+											81
+										</div>
+										<div class="exams_no ">
+											82
+										</div>									
 									</div>
-									<div class="exams_no ">
-										83
-									</div>
-									<div class="exams_no ">
-										84
-									</div>
-									<div class="exams_no ">
-										85
-									</div>
-									<div class="exams_no ">
-										86
-									</div>
-									<div class="exams_no ">
-										87
-									</div>
-									<div class="exams_no ">
-										88
-									</div>
-									<div class="exams_no ">
-										89
-									</div>
-									<div class="exams_no ">
-										90
-									</div>
-																		<div class="exams_no ">
-										91
-									</div>
-									<div class="exams_no ">
-										92
-									</div>
-									<div class="exams_no ">
-										93
-									</div>
-									<div class="exams_no ">
-										94
-									</div>
-									<div class="exams_no ">
-										95
-									</div>
-									<div class="exams_no ">
-										96
-									</div>
-									<div class="exams_no ">
-										97
-									</div>
-									<div class="exams_no ">
-										99
-									</div>
-									<div class="exams_no ">
-										99
-									</div>
-									<div class="exams_no ">
-										100
-									</div>
-									
 								</div>
-							</div>
+							</#if>
+						</#if>	
 						</div>
 					</div>
 				</div>
