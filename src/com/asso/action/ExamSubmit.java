@@ -2,7 +2,6 @@ package com.asso.action;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,11 +31,12 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	 */
 	private static final long serialVersionUID = -3441931443597405554L;
 	private HttpServletRequest request;	
+	@SuppressWarnings("rawtypes")
 	private Map session;
 	private List<HashMap<ExamItem,List<ExamRef>>> pageitemlistf; //items on that page
 	private ExamRef[] ansref;    //answer in the form of ExamRef to calculate the score
 //	private String[] ANS = {"","","","","","","","","",""};
-	private int dpi;//dealing page index
+//	private int dpi;//dealing page index
 	private ArrayList<String> chosenRefIds;
 	private int scorePlus =0;
 	private HashMap<ExamItem,Integer> donelist;//0-notDont|1-done&right|2-done&wrong
@@ -58,6 +58,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 
 	/*Get answers from front-end, put them into chosenRefIds by refid or figurewithrefid*/
 	/* Set session : pageindex(EPage_c+dpi)---chosenRefIds */
+	@SuppressWarnings("unchecked")
 	private void setANS(){	
 //		String[] ANS = new String[CONSTANT.pageNum*CONSTANT.pageSize] ;
 		ArrayList<String> chosenRefIds = new ArrayList<String>();
@@ -222,6 +223,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 						if(!this.donelist.keySet().contains(k))
 							this.donelist.put(k, 0);	
 					}
+					@SuppressWarnings("unchecked")
 					ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
 					answerProgress.add(this.donelist.get(k));					
 				}
@@ -248,6 +250,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		
 		return "final";
 	}
+	@SuppressWarnings("unchecked")
 	private void check(){
 		
 		int score = (Integer) this.session.get("score");
@@ -255,14 +258,6 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		this.session.put("score", score);
 		
 		ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
-//		Set<ExamItem> ks = this.donelist.keySet();
-//		for(ExamItem k:ks){
-////			if(this.donelist.get(k)!=0)
-//				answerProgress.add(this.donelist.get(k));
-//		}
-		
-		
-		
 		System.out.println("---------Got score in this page---"+this.scorePlus);
 		System.out.println("---------DONE LIST-(THIS)--------------size="+this.donelist.keySet().size());
 		for(ExamItem ei : this.donelist.keySet())
@@ -270,7 +265,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		System.out.println("---------DONE LIST-(TOTAL)-------------size="+answerProgress.size());
 		for(Integer status:answerProgress)
 			System.out.print("---"+status+"|");
-		System.out.println("---------IN SESSION----------------");
+		System.out.println("---------IN SESSION----------------");		
 		List<String> ccc = (List<String>) this.session.get("chosenRefIds");
 		for(String refans:ccc)
 			System.out.println("chosenRefIds---------"+refans);
@@ -280,7 +275,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 
 	@Override
 	public String execute(){
-		this.dpi = (Integer) this.request.getSession().getAttribute("pi");
+//		this.dpi = (Integer) this.request.getSession().getAttribute("pi");
 //		this.session.put("elist", this.pageitemlistf);
 		System.out.println("EXCUTION preparing.........");
 		this.setANS();
@@ -366,6 +361,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void setSession(Map session) {
 		this.session = session;
@@ -376,6 +372,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request=request;		

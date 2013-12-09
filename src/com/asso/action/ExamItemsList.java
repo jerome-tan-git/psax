@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
-import org.springframework.context.ApplicationContext;
+//import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -28,12 +28,16 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Scope("prototype")
 @Component("examitemslist") 
-public class ExamItemsList extends ActionSupport implements ModelDriven,ServletRequestAware {
+public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,ServletRequestAware {
 	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 725501200728064112L;
 //	private Map session;
 	private ExamBuiltInfo eInfo = new ExamBuiltInfo();
 	private ExamManager em;
-	private ApplicationContext ctx;	
+//	private ApplicationContext ctx;	
 	private HttpServletRequest request;	
 	
 	
@@ -192,102 +196,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		em.add(ei);
 		return ei;
 	}
-	
-	private HashSet<Integer> getRefAnsByInputString(){
-		String refans = this.eInfo.getAnswers().trim();
-		HashSet<Integer> ans = new HashSet<Integer>();
-		for (int i=0; i<refans.length(); i++) {
-			String x = (String) refans.subSequence(i, i+1);
-			ans.add(CONSTANT.seq.get(x));
-			System.out.println("--1--x="+x+"::i="+CONSTANT.seq.get(x));
-		}
-		return ans;
-	}
-	private HashSet<Integer> getRefAnsByInputString(String _answers){
-		String refans = _answers.trim();
-		HashSet<Integer> ans = new HashSet<Integer>();
-		for (int i=0; i<refans.length(); i++) {
-			String x = (String) refans.subSequence(i, i+1);
-			ans.add(CONSTANT.seq.get(x));
-			System.out.println("--1--x="+x+"::i="+CONSTANT.seq.get(x));
-		}
-		return ans;
-	}
-	
-//	private List<String> getRefQsByInputString(){
-//		String refStr = this.eInfo.getRefs().trim();		
-//		String[] s_ref = refStr.split(",");		
-//		List<String> refQs = new ArrayList<String>();
-//		for(int i=0; i<s_ref.length;i++){
-//			String x = s_ref[i];
-//			String y = x.substring(x.indexOf(")")+1,x.length());
-//			refQs.add(y);			
-//		}
-//		return refQs;
-//	}
-	private List<String> getRefQsByInputString(String _refstr){
-		String refStr = _refstr.trim();		
-		String[] s_ref = refStr.split(",");		
-		List<String> refQs = new ArrayList<String>();
-		for(int i=0; i<s_ref.length;i++){
-			String x = s_ref[i];
-			String y = x.substring(x.indexOf(")")+1,x.length());
-			refQs.add(y);			
-			System.out.println("--2--y="+y);
-		}
-		return refQs;
-	}
-//	private void addExamRefs(){
-//		
-//		HashSet<Integer> ans = this.getRefAnsByInputString();
-//		List<ExamRef> refs = new ArrayList<ExamRef>();
-//		List<String> refQs = this.getRefQsByInputString();
-//		for(int i=0; i<refQs.size(); i++){
-//			ExamRef e_ref = new ExamRef();
-//			e_ref.setRef(refQs.get(i));
-//			e_ref.setItemid(this.eInfo.getExamitemid());
-//			if(ans.contains(i+1))
-//				e_ref.setIstrue(1);
-//			else
-//				e_ref.setIstrue(0);
-//			refs.add(e_ref);			
-//		}
-//
-//		try {
-//			em.add(refs);
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
-	private void addExamRefs(int _itemid, String _refstring,String _answers){
-		System.out.println("_itemid, _refstring,_answer="+_itemid+":"+_refstring+":"+_answers);
-		HashSet<Integer> ans = this.getRefAnsByInputString(_answers);
-		List<ExamRef> refs = new ArrayList<ExamRef>();
-//		List<String> refQs = this.getRefQsByInputString();
-		List<String> refQs = this.getRefQsByInputString(_refstring);
-		for(int i=0; i<refQs.size(); i++){
-			ExamRef e_ref = new ExamRef();
-			e_ref.setRef(refQs.get(i));
-			e_ref.setItemid(_itemid);
-			if(ans.contains(i+1))
-				e_ref.setIstrue(1);
-			else
-				e_ref.setIstrue(0);
-			refs.add(e_ref);			
-		}
 
-		try {
-			em.add(refs);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
+
 	private void addExamChoiceRefs2(int _itemid, String[] _refstring,String[] _answers){
 		System.out.println("_itemid, _refstring(length),_answer(length)="+_itemid+":"+
 				_refstring.length+":"+_answers.length);
@@ -321,55 +231,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 		}
 		
 	}
-//	private void addExamChoiceRefs(int _itemid, String _refstring,String _answers){
-//		System.out.println("_itemid, _refstring,_answer="+_itemid+":"+_refstring+":"+_answers);
-//		HashSet<Integer> ans = this.getRefAnsByInputString(_answers);
-//		List<ExamRef> refs = new ArrayList<ExamRef>();
-////		List<String> refQs = this.getRefQsByInputString();
-//		List<String> refQs = this.getRefQsByInputString(_refstring);
-//		for(int i=0; i<refQs.size(); i++){
-//			ExamRef e_ref = new ExamRef();
-//			
-//			e_ref.setRef(refQs.get(i));
-//			e_ref.setItemid(_itemid);
-//			if(ans.contains(i+1))
-//				e_ref.setIstrue(1);
-//			else
-//				e_ref.setIstrue(0);
-//			refs.add(e_ref);			
-//		}
-//
-//		try {
-//			em.add(refs);
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
-	private void addExamYesNoRefs(int _itemid, String _answers){
-		System.out.println("_itemid, _answer="+_itemid+":"+_answers);
-		int ans = Integer.parseInt(_answers);
-		List<ExamRef> refs = new ArrayList<ExamRef>();
-		ExamRef e_ref = new ExamRef();
-		e_ref.setItemid(_itemid);
-		e_ref.setRef("");
-		if (ans==1)
-			e_ref.setIstrue(1);
-		else
-			e_ref.setIstrue(0);
-		refs.add(e_ref);		
-		
-		try {
-			em.add(refs);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
+
+
 	private void addExamYesNoRefs2(int _itemid, String _answer){
 		
 		System.out.println("_itemid, _answer(true|false)="+_itemid+":"+_answer);
@@ -446,14 +309,10 @@ public class ExamItemsList extends ActionSupport implements ModelDriven,ServletR
 	}
 	
 	private void loadRef() throws ClassNotFoundException, SQLException{
-//		ExamRef ref = new ExamRef();
-//		ref = em.loadRef(this.eInfo.getRefid());
 		this.ref = em.loadRef(this.eInfo.getRefid());		
 	}
 	
 	private void loadReflist() throws ClassNotFoundException, SQLException{
-//		List<ExamRef> reflist = new ArrayList<ExamRef>();		
-//		reflist = em.loadRefs(this.eInfo.getExamitemid());
 		this.reflist = em.loadRefs(this.eInfo.getExamitemid());
 	}
 	private List<ExamRef> loadReflistByItemid(int itemid) throws ClassNotFoundException, SQLException{
