@@ -416,13 +416,22 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 				}
 			}
 		}
+		Set<String> keys = itemsRefsRelation.keySet();
+		for(String key:keys)
+			System.out.println("---itemsRefsRelation---key---"+key+",value---"+itemsRefsRelation.get(key));
+		
+		
 		request.getSession().setAttribute("itemsRefsRelation", itemsRefsRelation);
 		request.getSession().setAttribute("elist", this.itemlistf);
+		request.getSession().setAttribute("chosenRefIds", new ArrayList<String>());
 //		 System.out.println("setSession2----Session().elist----"+
 //				 request.getSession().getAttribute("elist").toString());
 		request.getSession().setAttribute("score", 0);//totalScore
-		request.getSession().setAttribute("answerProgress", new ArrayList<Integer>());//isDoneList
-
+		request.getSession().setAttribute("subscore",new HashMap<String,Integer>());//pagenumber,pagescore
+		request.getSession().setAttribute("totalDoneList", new HashMap<ExamItem,Integer>());// for stats
+		request.getSession().setAttribute("answerProgress", new ArrayList<Integer>());//isDoneList, for display
+		request.getSession().setAttribute("answerMap",new HashMap<String,List<String>>());
+		//only in case of modifying answers, itemid---->refids 
 		return "list";
 	}
 	public String beginExam(){
@@ -512,24 +521,18 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	
 	private List<ExamItem> randomEIlist(List<ExamItem> _eil){
 		int size = _eil.size();
-//		List<ExamItem> sc = new ArrayList<ExamItem>();
-//		List<ExamItem> mc = new ArrayList<ExamItem>();
-//		List<ExamItem> jg = new ArrayList<ExamItem>();
 		ArrayList<Integer> seq_jg = new ArrayList<Integer>();
 		ArrayList<Integer> seq_sc = new ArrayList<Integer>();
 		ArrayList<Integer> seq_mc = new ArrayList<Integer>();
 		for(int i=0; i<size; i++){
 			ExamItem _ei = _eil.get(i);
 			if(_ei.getCategory()==1){
-//				jg.add(_ei);	
 				seq_jg.add(i);
 			}
 			else if(_ei.getCategory()==2){
-//				sc.add(_ei);
 				seq_sc.add(i);
 			}
 			else if(_ei.getCategory()==3){
-//				mc.add(_ei);
 				seq_mc.add(i);
 			}
 		}

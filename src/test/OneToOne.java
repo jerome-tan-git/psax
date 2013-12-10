@@ -1,32 +1,16 @@
 package test;
 
 
-import java.sql.SQLException;
-
-
-
-
-
-
-
-
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-
-import com.asso.action.ExamItemsList;
 //import com.asso.action.MemberBuilt;
 //import com.asso.action.MemberEdit;
 //import com.asso.action.MemberLoad;
-import com.asso.action.UserLogin;
-import com.asso.model.ExamItem;
-import com.asso.model.ExamRef;
-import com.asso.vo.ExamBuiltInfo;
 //import com.asso.manager.UserManager;
 //import com.asso.manager.impl.UserManagerImpl;
 //import com.asso.model.MemberInfo;
 //import com.asso.model.User;
 //import com.maggie.ssh1.vo.UserRegisterInfo;
-import com.asso.vo.UserRegisterInfo;
 
 
 public class OneToOne {
@@ -130,11 +114,11 @@ public class OneToOne {
 //		ua.setuInfo(info);
 //		System.out.println(ua.execute());
 		
-		ExamBuiltInfo info = new ExamBuiltInfo();
-		info.setExamname("test");
-		ExamItemsList eil = new ExamItemsList();
-		eil.seteInfo(info);
-		System.out.println(eil.execute());
+//		ExamBuiltInfo info = new ExamBuiltInfo();
+//		info.setExamname("test");
+//		ExamItemsList eil = new ExamItemsList();
+//		eil.seteInfo(info);
+//		System.out.println(eil.execute());
 		
 //		ExamBuiltInfo info = new ExamBuiltInfo();
 //		info.setExamid(2);
@@ -250,6 +234,17 @@ public class OneToOne {
 //				}
 //			}
 //		}
+		
+		List<String> test = new ArrayList<String>();
+		test.add("aaa");
+		test.add("bbb");
+		test.add("ccc");
+		int index = test.indexOf("bbb");
+		System.out.println("ToString------ "+test.toString());
+		System.out.println("INDEX bbb is = "+test.indexOf("bbb"));
+		System.out.println("DELETE bbb = "+test.remove(index));
+		test.add(index, "ggg");
+		System.out.println("REPLACEMENT--- "+test);
 		
 	}
 

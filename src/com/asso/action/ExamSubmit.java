@@ -60,8 +60,9 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	/* Set session : pageindex(EPage_c+dpi)---chosenRefIds */
 	@SuppressWarnings("unchecked")
 	private void setANS(){	
-//		String[] ANS = new String[CONSTANT.pageNum*CONSTANT.pageSize] ;
 		ArrayList<String> chosenRefIds = (ArrayList<String>) this.session.get("chosenRefIds");
+		ArrayList<String> newChosenRefIds = new ArrayList<String>(); 
+		
 		for(int i=0; i<CONSTANT.pageNum*CONSTANT.pageSize; i++){
 			/*Multiple Choice items*/
 			if ( this.request.getParameterValues("ANS_"+(i+1))!=null 
@@ -69,26 +70,78 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 				String[] multi = this.request.getParameterValues("ANS_"+(i+1));
 				for(String m:multi){
 //					System.out.println("ANS-["+i+"]="+m);
-					chosenRefIds.add(m);
+//					chosenRefIds.add(m);
+					newChosenRefIds.add(m);
 				}
 				continue;
 			}/*Judge items and Single Choice items*/
 			else if(this.request.getParameter("ANS_"+(i+1))!=null ){
-				chosenRefIds.add(this.request.getParameter("ANS_"+(i+1)));
-//				ANS[i] =  this.request.getParameter("ANS_"+(i+1));				
-//				System.out.println("ANS-["+i+"]="+this.request.getParameter("ANS_"+(i+1)));
+//				chosenRefIds.add(this.request.getParameter("ANS_"+(i+1)));
+				newChosenRefIds.add(this.request.getParameter("ANS_"+(i+1)));
 			}			
 			
 		}
-//		for(String refans:chosenRefIds)
-//			System.out.println("chosenRefIds---------"+refans);
-//		this.session.put("EPage_c"+this.dpi, chosenRefIds);
+		
+		
+		HashMap<String,List<String>> answerMap = (HashMap<String,List<String>>)this.session.get("answerMap");
+		Set<String> answerItems = answerMap.keySet();
+		HashMap<String,String> itemsRefsRelation = (HashMap<String,String>)this.session.get("itemsRefsRelation");
+		Set<String> refkeys = itemsRefsRelation.keySet();
+				
+		ArrayList<String> toModifyItemIds = new ArrayList<String>();		
+		for(String rid:newChosenRefIds){/*LIST all the modified itemids*/		
+			String itemid = itemsRefsRelation.get(rid);
+			System.out.println("chosenRefIds:"+rid+", itemid="+itemid);
+			if(answerItems.contains(itemid)){
+				toModifyItemIds.add(itemid);
+				System.out.println("To Modify Item Id-----"+itemid);
+			}				
+		}
+		System.out.println("toModifyItemIds"+toModifyItemIds.toString());
+		System.out.println("toModifyItemIds.size="+toModifyItemIds.size());
+	
+		if(toModifyItemIds.size()>0){
+			/*Update session.chosenRefIds & session.answerMap*/
+			for(String mitemid:toModifyItemIds){
+				answerMap.put(mitemid, new ArrayList<String>());
+				for(String orefid:chosenRefIds){/*Del the old ones*/
+					String itemid = itemsRefsRelation.get(orefid);
+					if(mitemid.equals(itemid))
+						chosenRefIds.remove(orefid);
+				}//.OR. removeAll from answerMap
+				for(String nrefid:newChosenRefIds){/*Add the new ones*/
+					String itemid = itemsRefsRelation.get(nrefid);
+					if(mitemid.equals(itemid)){
+						chosenRefIds.add(nrefid);
+						answerMap.get(itemid).add(nrefid);
+					}
+				}
+			}			
+		}			
+		else{
+			/*SAVE session.chosenRefIds & session.answerMap*/			
+			for(String rid:newChosenRefIds){	
+				chosenRefIds.add(rid);
+				String itemid = itemsRefsRelation.get(rid);				
+				if(answerItems.contains(itemid)){
+					answerMap.get(itemid).add(rid);
+				}else{
+					List<String> refids = new ArrayList<String>();
+					refids.add(rid);
+					answerMap.put(itemid, refids);
+				}
+			}
+		}
+		
+		
+			
 //		this.chosenRefIds = chosenRefIds;
 		this.session.put("chosenRefIds", chosenRefIds);
 //		List<String> sss = (List<String>) this.session.get("EPage"+this.dpi);
 //		for(String refans:sss)
 //			System.out.println("chosenRefIds---------"+refans);
-//		
+		
+		
 	}
 
 	/*calculatePageScore & make donelist for the score page*/
@@ -166,9 +219,11 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		
 		
 	}
+	@SuppressWarnings("unchecked")
 	private void calculatePageScore(List<HashMap<ExamItem,List<ExamRef>>> pgItemlistf){
 		this.donelist = new HashMap<ExamItem,Integer>();
-		List<String> chosenlist = (List<String>) this.session.get("chosenRefIds");
+		List<String> chosenlist = (List<String>) this.session.get("chosenRefIds");		
+		HashMap<ExamItem,Integer> totalDoneList = (HashMap<ExamItem,Integer>) this.session.get("totalDoneList");
 		for(HashMap<ExamItem,List<ExamRef>> examitem : pgItemlistf){
 			if( examitem!=null){
 				Set<ExamItem> ks = examitem.keySet();		
@@ -226,17 +281,58 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 						if(!this.donelist.keySet().contains(k))
 							this.donelist.put(k, 0);	
 					}
-					@SuppressWarnings("unchecked")
-					ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
-					answerProgress.add(this.donelist.get(k));					
+					
+						
+					totalDoneList.put(k, this.donelist.get(k));
 				}
 				
 			}else
 				continue;
 		}
+		//////////////////////////////////////////////////////////////////
+		Set<ExamItem> keys=this.donelist.keySet();
+		for(ExamItem key:keys)
+			System.out.println("this.donelist---key-"+key.getId()+", status-"+this.donelist.get(key));
+		for(HashMap<ExamItem,List<ExamRef>> examitem : pgItemlistf){
+			Set<ExamItem> keys1=examitem.keySet();
+			for(ExamItem key1:keys1)
+				System.out.println("pgItemlistf===key="+key1.getId());
+		}
+		Set<ExamItem> keys2=totalDoneList.keySet();
+		for(ExamItem key:keys2)
+			System.out.println("totalDoneList---key-"+key.getId()+", status-"+totalDoneList.get(key));
+////////////////////////////////////////////////////////////////
 		
+		/*SET session.subcore*/
+		HashMap<String,Integer> subScore = (HashMap<String, Integer>) this.session.get("subscore");
+		subScore.put(""+this.session.get("pi"),this.scorePlus);
+		/*SET session.answerProgress*/
+		ArrayList<Integer> answerProgress = new ArrayList<Integer>();		
+		Set<ExamItem> totalDoneListKeys = totalDoneList.keySet();
+		for(HashMap<ExamItem, List<ExamRef>> map:this.pageitemlistf)
+		{
+			Set<ExamItem> mkeys = map.keySet();
+			for(ExamItem key:mkeys){
+				if(totalDoneListKeys.contains(key))
+					answerProgress.add(totalDoneList.get(key));
+			}			
+		}
+			
+//		for(HashMap<ExamItem,List<ExamRef>> examitem : pgItemlistf){
+//			if(!totalDoneListKeys.contains(examitem)){
+//				System.out.println("this.donelist---key-"+);
+//				answerProgress.add(this.donelist.get(examitem));
+//				System.out.println("answerProgress0===="+answerProgress.toString());
+//			}else{
+//				Integer index = answerProgress.indexOf(examitem);
+//				answerProgress.add(index, this.donelist.get(examitem));
+//				System.out.println("answerProgress1===="+answerProgress.toString());
+//			}
+//		}
+		this.session.put("answerProgress",answerProgress);
 		
 	}
+
 	/* pi go forword */
 	/* Set session : pi---nextExamPage */
 	private void countPage(){
@@ -247,12 +343,25 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		System.out.println("setServletRequest----nextExamPage="+nextExamPage);		
 		this.request.getSession().setAttribute("pi", nextExamPage);
 	}
+	@SuppressWarnings("unchecked")
+	private void calculateTotalScore(){
+		HashMap<String,Integer> subScore = (HashMap<String, Integer>) this.session.get("subscore");
+		int score = 0;
+		Set<String> keys = subScore.keySet();
+		for(String key:keys)
+			score += subScore.get(key);
+		System.out.println("EXAM Total score="+score);
+		this.session.put("score", score);
+		System.out.println("EXAM Total score="+this.session.get("score"));
+	}
 	/* Get total score in this exam */
 	/* Put all the exam related info into DB*/
 	public String finalizeExam(){			
 		this.dealThisPage();		
 		this.check();		
 //		this.clearSession();
+		
+		this.calculateTotalScore();
 		return "final";
 	}
 	private void clearSession(){
@@ -281,7 +390,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		for(String refans:ccc)
 			System.out.println("chosenRefIds---------"+refans);
 
-		System.out.println("score-----"+this.session.get("score") ); 
+//		System.out.println("score-----"+this.session.get("score") ); 
 	}
 
 	@Override
@@ -371,7 +480,8 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 			System.out.println("name=next, value=?---"+this.request.getParameter("next"));
 			if(submit.equals("Ã·Ωª") || submit.equals("Ω· ¯øº ‘")){
 				this.dealThisPage();	
-				this.check();				
+				this.check();	
+				this.calculateTotalScore();
 				return "over";
 			}
 		}
