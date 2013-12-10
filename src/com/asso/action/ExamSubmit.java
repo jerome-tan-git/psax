@@ -37,7 +37,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	private ExamRef[] ansref;    //answer in the form of ExamRef to calculate the score
 //	private String[] ANS = {"","","","","","","","","",""};
 //	private int dpi;//dealing page index
-	private ArrayList<String> chosenRefIds;
+//	private ArrayList<String> chosenRefIds;
 	private int scorePlus =0;
 	private HashMap<ExamItem,Integer> donelist;//0-notDont|1-done&right|2-done&wrong
 	
@@ -61,7 +61,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	@SuppressWarnings("unchecked")
 	private void setANS(){	
 //		String[] ANS = new String[CONSTANT.pageNum*CONSTANT.pageSize] ;
-		ArrayList<String> chosenRefIds = new ArrayList<String>();
+		ArrayList<String> chosenRefIds = (ArrayList<String>) this.session.get("chosenRefIds");
 		for(int i=0; i<CONSTANT.pageNum*CONSTANT.pageSize; i++){
 			/*Multiple Choice items*/
 			if ( this.request.getParameterValues("ANS_"+(i+1))!=null 
@@ -83,7 +83,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 //		for(String refans:chosenRefIds)
 //			System.out.println("chosenRefIds---------"+refans);
 //		this.session.put("EPage_c"+this.dpi, chosenRefIds);
-		this.chosenRefIds = chosenRefIds;
+//		this.chosenRefIds = chosenRefIds;
 		this.session.put("chosenRefIds", chosenRefIds);
 //		List<String> sss = (List<String>) this.session.get("EPage"+this.dpi);
 //		for(String refans:sss)
@@ -96,6 +96,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	/* Set session : pageindex(EPage_d+dpi)---donelist */
 	private void calculatePageScore(){
 		this.donelist = new HashMap<ExamItem,Integer>();
+		List<String> chosenlist = (List<String>) this.session.get("chosenRefIds");
 		for(HashMap<ExamItem,List<ExamRef>> examitem : this.pageitemlistf){
 			if( examitem!=null){
 				Set<ExamItem> ks = examitem.keySet();		
@@ -107,7 +108,8 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 					if(cat==1 && refs.size()!=2)									
 						System.out.println("@@-DB data ERROR! Pls INV...refs.size()="+refs.size());					
 					if(cat==2|| cat==1){
-						for(String ans:this.chosenRefIds){
+						
+						for(String ans:chosenlist){
 							if(ans.contains("_")){
 								System.out.println("ERROR, Pls INV...");
 								continue;
@@ -136,7 +138,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 							if(ref.getIstrue()==1){
 								shouldmatch += 1;
 							}
-							for(String ans:this.chosenRefIds){
+							for(String ans:chosenlist){
 								if(ans.contains("_"))
 									continue;
 								if(Integer.parseInt(ans)==ref.getId()){									
@@ -166,6 +168,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	}
 	private void calculatePageScore(List<HashMap<ExamItem,List<ExamRef>>> pgItemlistf){
 		this.donelist = new HashMap<ExamItem,Integer>();
+		List<String> chosenlist = (List<String>) this.session.get("chosenRefIds");
 		for(HashMap<ExamItem,List<ExamRef>> examitem : pgItemlistf){
 			if( examitem!=null){
 				Set<ExamItem> ks = examitem.keySet();		
@@ -177,7 +180,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 					if(cat==1 && refs.size()!=2)									
 						System.out.println("@@-DB data ERROR! Pls INV...refs.size()="+refs.size());					
 					if(cat==2|| cat==1){
-						for(String ans:this.chosenRefIds){
+						for(String ans:chosenlist){
 							if(ans.contains("_")){
 								System.out.println("ERROR, Pls INV...");
 								continue;
@@ -205,7 +208,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 							if(ref.getIstrue()==1){
 								shouldmatch += 1;
 							}
-							for(String ans:this.chosenRefIds){
+							for(String ans:chosenlist){
 								if(ans.contains("_"))
 									continue;
 								if(Integer.parseInt(ans)==ref.getId()){									
@@ -246,10 +249,18 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	}
 	/* Get total score in this exam */
 	/* Put all the exam related info into DB*/
-	public String finalizeExam(){
-		
+	public String finalizeExam(){			
+		this.dealThisPage();		
+		this.check();		
+//		this.clearSession();
 		return "final";
 	}
+	private void clearSession(){
+		Set<String> sessionKeys = this.session.keySet();
+		for(String key:sessionKeys)
+			System.out.println("key---(session)---"+key);
+	}
+	
 	@SuppressWarnings("unchecked")
 	private void check(){
 		
@@ -342,7 +353,10 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		}
 			
 			
-		System.out.println(">>>>>>>>>>>>----------pageSubmit-over!");
+		System.out.println(">>>>>>>>>>>>----------pageSubmit-nextPage()over!");
+	}
+	private void syncPageInfoInDB(){
+		
 	}
 	private void dealThisPage(){
 		this.setANS();
@@ -351,14 +365,34 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	}
 
 	public String pageSubmit(){
+		String submit = "下一页";
+		if(this.request.getParameter("next")!=null){
+			submit = this.request.getParameter("next");
+			System.out.println("name=next, value=?---"+this.request.getParameter("next"));
+			if(submit.equals("提交") || submit.equals("结束考试")){
+				this.dealThisPage();	
+				this.check();				
+				return "over";
+			}
+		}
+			
 		this.dealThisPage();		
 		this.countPage();
 		this.nextPage();
 		this.check();
-		return "success";
+		return "next";
 	}
-	private void syncPageInfoInDB(){
+
+	public String pageSwitch(){
+		int switchPageNum = 0;
+		if(this.request.getParameter("pagenumber")!=null)
+			switchPageNum = Integer.parseInt(this.request.getParameter("pagenumber"));
+		System.out.println("----request page number="+this.request.getParameter("pagenumber"));
+		if( switchPageNum != 0)
+			this.request.getSession().setAttribute("pi", switchPageNum);
+		this.nextPage();
 		
+		return "switch";
 	}
 	
 	@SuppressWarnings("rawtypes")

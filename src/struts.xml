@@ -23,8 +23,8 @@
 		</action>
 		
 		<action name="userlogin" class="com.asso.action.UserLogin">  
-			<result name="success">loginSuccess.jsp</result>
-			<!-- <result name="success"  type="freemarker">/WEB-INF/ftl/examItemList.ftl</result>  -->
+			<!-- <result name="success">loginSuccess.jsp</result> -->
+			<result name="success"  type="freemarker">/WEB-INF/ftl/examItemList.ftl</result> 
 			<result name="failure">loginFail.jsp</result>  
 		</action>
 		<action name="userbuilt" class="com.asso.action.UserLogin" method="save">  
@@ -55,7 +55,11 @@
 			<result name="begin" type="freemarker">/WEB-INF/ftl/exam.ftl</result>		                     	 
 		</action>
 		<action name="submit" class="com.asso.action.ExamSubmit" method="pageSubmit">  
-			<result name="success" type="freemarker">/WEB-INF/ftl/exam.ftl</result>		                     	 
+			<result name="next" type="freemarker">/WEB-INF/ftl/exam.ftl</result>
+			<result name="over" type="freemarker">/WEB-INF/ftl/exam_rz.ftl</result>		                     	 
+		</action>
+		<action name="switchpage" class="com.asso.action.ExamSubmit"  method="pageSwitch">  
+			<result name="switch" type="freemarker">/WEB-INF/ftl/exam.ftl</result>		                     	 
 		</action>
 		<action name="finalizexam" class="com.asso.action.ExamSubmit" method="finalizeExam">  
 			<result name="final" type="freemarker">/WEB-INF/ftl/exam_rz.ftl</result>		                     	 

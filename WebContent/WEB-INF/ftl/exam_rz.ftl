@@ -199,100 +199,100 @@ transitional.dtd">
 					<a href="./index.html">
 					<div class="menu_item">
 						<div class="menu_text">
-							��ҳ
+							首页
 						</div>
 					</div></a>
 
 					<div class="menu_item">
 						<div class="menu_text">
-							��������
+							关于我们
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header"></div>
 							<a href="./about_us.html">
 							<div class="list_item intro">
-								Э����
+								协会简介
 							</div></a>
 							<div class="list_item pen">
-								���¼�
+								大事记
 							</div>
 						</div>
 					</div>
 
 					<div class="menu_item">
 						<div class="menu_text">
-							���鶯̬
+							舆情动态
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header"></div>
 							<div class="list_item target">
-								����ȵ�
+								社会热点
 							</div>
 							<div class="list_item news">
-								ʵʱ����
+								实时新闻
 							</div>
 						</div>
 					</div>
 					<div class="menu_item">
 						<div class="menu_text">
-							��������
+							公开办事
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header"></div>
-							<div class="list_item menu">����������ѯ</div>
-							<div class="list_item paper">��ҵ��׼����</div>
-							<div class="list_item note">ʳƷ���Ӽ�����</div>
-							<div class="list_item case">ί�мӹ�����</div>
+							<div class="list_item menu">生产许可咨询</div>
+							<div class="list_item paper">企业标准备案</div>
+							<div class="list_item note">食品添加剂备案</div>
+							<div class="list_item case">委托加工备案</div>
 						</div>
 					</div>
 					<div class="menu_item">
 						<div class="menu_text">
-							������ѵ
+							网上培训
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header" ></div>
 							<div class="list_item meeting">
-								����
+								会议
 							</div>
 
 							<div class="list_item help">
-								��ѵ
+								培训
 								<div class="sub_menu">
 									<div class="list_item exam">
-										���߿���
+										在线考试
 									</div>
 									<div class="list_item download">
-										��������
+										资料下载
 									</div>
 								</div>
 							</div>
 							<div class="list_item meeting">
-								ʵ����Ƶ
+								实操视频
 							</div>
 						</div>
 					</div>
 					<div class="menu_item">
 						<div class="menu_text">
-							���߷���
+							政策法规
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header"></div>
 							<div class="list_item shield">
-								��ҵ����
+								行业法规
 							</div>
 							<div class="list_item arrow">
-								���ߵ���
+								政策导向
 							</div>
 						</div>
 					</div>
 					<div class="menu_item">
 						<div class="menu_text">
-							����ƽ̨
+							供需平台
 						</div>
 					</div>
 					<div class="menu_item">
 						<div class="menu_text">
-							BBS��̳
+							BBS论坛
 						</div>
 					</div>
 				</div>
@@ -307,56 +307,56 @@ transitional.dtd">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
 								</div>
-								��ҳ
+								首页
 							</div> </a>
 							<a href="./about_us.html">
 							<div class="small_menu_item">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
 								</div>
-								��������
+								关于我们
 							</div> </a>
 							<div class="small_menu_item">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
 								</div>
-								���鶯̬
+								舆情动态
 							</div>
 							<div class="small_menu_item">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
 								</div>
-								�������� | ����Ʒ����
+								公开办事 | 肉制品报告
 							</div>
 							<div class="small_menu_item">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
 								</div>
-								�������� | ��׼����
+								公开办事 | 标准备案
 							</div>
 							<div class="small_menu_item">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
 								</div>
-								�������� | ���Ӽ�����
+								公开办事 | 添加剂报告
 							</div>
 							<div class="small_menu_item">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
 								</div>
-								�������� | ί�мӹ�����
+								公开办事 | 委托加工备案
 							</div>
 							<div class="small_menu_item">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
 								</div>
-								���߷���
+								政策法规
 							</div>
 							<div class="small_menu_item">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
 								</div>
-								������ѵ
+								会议培训
 							</div>
 						</div>
 					</div>
@@ -365,20 +365,20 @@ transitional.dtd">
 				<!-- <nav>
 				<div id="myslidemenu" class="jqueryslidemenu">
 				<ul>
-				<li><a class="active" href="./index.html">��ҳ</a></li>
-				<li><a href="./about.html">��������</a></li>
-				<li><a href="./index.html">���鶯̬</a></li>
+				<li><a class="active" href="./index.html">首页</a></li>
+				<li><a href="./about.html">关于我们</a></li>
+				<li><a href="./index.html">舆情动态</a></li>
 
-				<li><a href="./portfolio.html">��������</a>
+				<li><a href="./portfolio.html">公开办事</a>
 				<ul>
-				<li><a href="./portfolio_3col.html">����Ʒ����</a></li>
-				<li><a href="./portfolio_3col.html">��׼����</a></li>
-				<li><a href="./portfolio_2col.html">���Ӽ�����</a></li>
-				<li><a href="./portfolio_1col.html">ί�мӹ�����</a></li>
+				<li><a href="./portfolio_3col.html">肉制品报告</a></li>
+				<li><a href="./portfolio_3col.html">标准备案</a></li>
+				<li><a href="./portfolio_2col.html">添加剂报告</a></li>
+				<li><a href="./portfolio_1col.html">委托加工备案</a></li>
 				</ul>
 				</li>
-				<li><a href="./blog.html">���߷���</a></li>
-				<li><a href="./contact.html">��ѯ����</a></li>
+				<li><a href="./blog.html">政策法规</a></li>
+				<li><a href="./contact.html">咨询服务</a></li>
 				</ul>
 				</div>
 				</nav> -->
@@ -391,16 +391,16 @@ transitional.dtd">
 			<div class="sub_header  exam_bg_result">
 
 				<div class="sub_header_title">
-					<h2>���߿���</h2>
+					<h2>在线考试</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">��ҳ &raquo;</a></span>
-						<span class="page">��ѵ&nbsp;&raquo;</span>
-						<span class="page">���߿���</span>
+						<span><a href="./index.html">首页 &raquo;</a></span>
+						<span class="page">培训&nbsp;&raquo;</span>
+						<span class="page">在线考试</span>
 					</div>
 
 				</div>
 				<div class="exam_type">
-					<span style="color:#000000;font-size: 20pt; font-family: '����';";>����</span>&nbsp;&nbsp;&nbsp;&nbsp;<span></span>
+					<span style="color:#000000;font-size: 20pt; font-family: '宋体';";>张三</span>&nbsp;&nbsp;&nbsp;&nbsp;<span></span>
 				</div>
 				
 			</div>
@@ -412,11 +412,11 @@ transitional.dtd">
 
 				<div style="margin-top: 20px;" class="clearfix">
 					<div>
-						<div style="float: right;font-size: 33pt;padding-right: 50px;"><span>89</span><span style="font-size: 15pt">��</span></div>
+						<div style="float: right;font-size: 33pt;padding-right: 50px;"><span>89</span><span style="font-size: 15pt">分</span></div>
 						<div class="clearfix" style="padding-top: 19px;">
 							<div class="exams">
 								<div class="exams_title">
-									��ѡ�⣺
+									单选题：
 								</div>
 								<div class="clearfix exam_no_body">
 									<div class="exam_right exams_no exam_right">
@@ -483,7 +483,7 @@ transitional.dtd">
 							</div>
 							<div class="exams">
 								<div class="exams_title">
-									��ѡ�⣺
+									复选题：
 								</div>
 								<div class="clearfix exam_no_body">
 																		<div class="exams_no exam_right exam_right">
@@ -672,7 +672,7 @@ transitional.dtd">
 							</div>
 							<div class="exams">
 								<div class="exams_title">
-									�Ƿ��⣺
+									是非题：
 								</div>
 								<div class="clearfix exam_no_body">
 									<div class="exams_no exam_wrong ">
@@ -746,27 +746,27 @@ transitional.dtd">
 					<div class="right_outer clearfix">
 					<div class="exam_section">
 						<div class="exam_title">
-							<span class="exam_no">3. </span><span style="color: #000">�йؾ��ܶ���׼ȷ�ȵĹ�ϵ�������У�����ȷ����(&nbsp;&nbsp;&nbsp;&nbsp;)��</span>
+							<span class="exam_no">3. </span><span style="color: #000">有关精密度与准确度的关系的叙述中，不正确的是(&nbsp;&nbsp;&nbsp;&nbsp;)。</span>
 						</div>
 						<div class="exam_options">
 							<input type="radio" name="sex2" id="o_21" checked/>
-							<label for="o_21" class="o_21">���ܶ��Ǳ�֤׼ȷ�ȵ��Ⱦ�����</label>
+							<label for="o_21" class="o_21">精密度是保证准确度的先决条件</label>
 						</div>
 						<div class="exam_options">
 							<input type="radio" name="sex2" id="o_22" />
-							<label for="o_22" class="o_22">���ܶȡ�׼ȷ�Ⱥ�����������Ŀɿ�����һ�µ�</label>
+							<label for="o_22" class="o_22">精密度、准确度衡量分析结果的可靠性是一致的</label>
 						</div>
 						<div class="exam_options">
 							<input type="radio" name="sex2" id="o_23" />
-							<label for="o_23" class="o_23">���ܶȸߵĲⶨ�������һ����׼ȷ��</label>
+							<label for="o_23" class="o_23">精密度高的测定结果，不一定是准确的</label>
 						</div>
 						<div class="exam_options">
 							<input type="radio" name="sex2" id="o_24" />
-							<label for="o_24" class="o_24">���ܶȲ�������һ�����ɿ�</label>
+							<label for="o_24" class="o_24">精密度差，分析结果一定不可靠</label>
 						</div>
 					</div>
 					<div class="right_title">
-						��ȷ�𰸣�<span class="right_option">C,D</span>
+						正确答案：<span class="right_option">C,D</span>
 					</div>
 					</div>
 				</div>
@@ -781,41 +781,41 @@ transitional.dtd">
 			<div class="footer">
 				<div class="one_fourth">
 					<div class="widget_container">
-						<h3>Э�� <span>���</span></h3>
+						<h3>协会 <span>简介</span></h3>
 						<img src="./images/about_me_img.png" alt="img" class="alignleft" />
 						<p style="font-size:12px">
-							�Ϻ����ֶ�����ʳƷ������ȫ����Э����Ϊ��Ӧ���Ҳ��ϼӴ�ʳƷ��ȫ������ȡ�
-							ǿ��ʳƷ������ҵ�������ε����ƶ���������ҵ�н���֯����Ա��λ�����ֶ�������Χ�ڵ�ʳƷ������ҵ��
-							ʳƷ��ز�Ʒ�ͻ�ױƷ������ҵ��Э�ᳫ����ҵ��������ҵ���ɺ���ҵ���ɣ�ּ��������ҵ������
-							���������Դ�������ƽ̨���ٽ��ֶ�ʳƷ�����ӹ���ҵ����������ȫ����ˮƽ��������������ߣ�
-							Ϊ�ȶ��������ֶ�ʳƷ������ҵ��������ȫˮƽ���г����򷢻���Ҫ���á�
+							上海市浦东新区食品生产安全管理协会是为适应国家不断加大食品安全监管力度、
+							强化食品生产企业主体责任的形势而建立的行业中介组织，会员单位包含浦东新区范围内的食品生产企业、
+							食品相关产品和化妆品生产企业。协会倡导行业管理、行业自律和企业自律，旨在整合行业力量、
+							借助社会资源、搭建服务平台，促进浦东食品生产加工行业整体质量安全管理水平与生产能力的提高，
+							为稳定和提升浦东食品生产行业的质量安全水平和市场秩序发挥重要作用。
 						</p>
-						<a href="#">-- ����</a>
+						<a href="#">-- 更多</a>
 					</div>
 				</div>
 
 				<div class="one_fourth">
 					<div class="widget_container">
-						<h3>��ϵ <span>����</span></h3>
+						<h3>联系 <span>我们</span></h3>
 						<!-- <p>In hac habitasse platea dictumst. Aliquam in est leo.</p> -->
 						<ul class="contact">
 							<li>
-								<strong>�����ʼ�</strong>
+								<strong>电子邮件</strong>
 								<br />
 								<a href="#">XXXX@XXXXX.com</a>
 							</li>
 							<li>
-								<strong>�绰</strong>
+								<strong>电话</strong>
 								<br />
 								<p>
 									+(86)-021-61183721/61183273
 								</p>
 							</li>
 							<li>
-								<strong>��ַ</strong>
+								<strong>地址</strong>
 								<br />
 								<p>
-									�Ϻ����ֶ���������������·2388ŪB901��
+									上海市浦东新区康桥镇秀浦路2388弄B901室
 								</p>
 							</li>
 						</ul>
@@ -824,23 +824,23 @@ transitional.dtd">
 
 				<div class="one_fourth">
 					<div class="widget_container">
-						<h3>��ɫ <span>����</span></h3>
+						<h3>特色 <span>服务</span></h3>
 						<!-- <p>Learn more about the Theme template features</p> -->
 						<ul class="userlinks">
 							<li>
-								<a href="#">����Ʒ����</a>
+								<a href="#">肉制品报告</a>
 							</li>
 							<li>
-								<a href="#">��׼����</a>
+								<a href="#">标准备案</a>
 							</li>
 							<li>
-								<a href="#">���Ӽ�����</a>
+								<a href="#">添加剂报告</a>
 							</li>
 							<li>
-								<a href="#">ί�мӹ�����</a>
+								<a href="#">委托加工备案</a>
 							</li>
 							<li>
-								<a href="#">��������</a>
+								<a href="#">资料下载</a>
 							</li>
 						</ul>
 					</div>
@@ -848,7 +848,7 @@ transitional.dtd">
 
 				<div class="one_fourth_last">
 					<div class="widget_container">
-						<h3>���ǵ� <span>�Ŷ�</span></h3>
+						<h3>我们的 <span>团队</span></h3>
 						<div class="flickr_widget">
 							<img src="./images/flickr_img_1.png" alt="img" />
 							<img src="./images/flickr_img_2.png" alt="img" />

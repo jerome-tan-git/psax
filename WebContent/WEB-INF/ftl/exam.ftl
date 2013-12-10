@@ -424,6 +424,7 @@ transitional.dtd">
 																	<#else>
 																		<div class="exam_done exams_no">		
 																	</#if>
+																	<#break>
 																</#if>						
 															</#list>
 														<#else>
@@ -451,6 +452,7 @@ transitional.dtd">
 																	<#else>
 																		<div class="exam_done exams_no">		
 																	</#if>
+																	<#break>
 																</#if>						
 															</#list>
 														<#else>
@@ -478,6 +480,7 @@ transitional.dtd">
 																	<#else>
 																		<div class="exam_done exams_no">		
 																	</#if>
+																	<#break>
 																</#if>						
 															</#list>
 														<#else>
@@ -525,8 +528,16 @@ transitional.dtd">
 										<#assign refs=map[key]>
 										<#list refs as ref>
 											<div class="exam_options">			
-												<#if (seq<Session.c3hasTitle) >							
-													<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+												<#if (seq<Session.c3hasTitle) >
+													<#if Session.chosenRefIds?exists>
+														<#if (Session.chosenRefIds?seq_index_of(ref.id?c)>=0)>							
+															<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" checked/>
+														<#else>	
+															<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+														</#if>														
+													<#else>
+														<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+													</#if>
 												<#else>
 													<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
 												</#if>
@@ -541,12 +552,18 @@ transitional.dtd">
 					<#if (Session.pi<Session.totalpi) >
 					   	<div class="exam_submit"><input type="submit" name="next" value="下一页"/></div>
 					<#else>
-					   	<div class="exam_submit"><input type="submit" name="over" value="提交"/></div>
+					   	<div class="exam_submit"><input type="submit" name="next" value="提交"/></div>
 					</#if>
   						<div class="exam_submit"><input type="reset" value="重写"/></div>
   						<a href="./finalizexam.action"><div class="exam_submit">结束考试</div></a>
 					</form>
-					
+					<div class="exam_submit">
+						<a href="./switchpage.action?pagenumber=1">1</a>
+						<a href="./switchpage.action?pagenumber=2">2</a>
+						<a href="./switchpage.action?pagenumber=3">3</a>
+						<a href="./switchpage.action?pagenumber=4">4</a>
+						<a href="./switchpage.action?pagenumber=5">5</a>
+					</div>
 				</div>
 
 			</div>
