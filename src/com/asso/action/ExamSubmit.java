@@ -1,7 +1,9 @@
 package com.asso.action;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -88,55 +90,109 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		HashMap<String,String> itemsRefsRelation = (HashMap<String,String>)this.session.get("itemsRefsRelation");
 		Set<String> refkeys = itemsRefsRelation.keySet();
 				
-		ArrayList<String> toModifyItemIds = new ArrayList<String>();		
+		for(String ansid:answerItems)
+			System.out.println("items id in answerMap---------"+ansid);
+		HashSet<String> toModifyItemIds = new HashSet<String>();	//新增没计算入？？？
+		HashSet<String> toAddItemIds = new HashSet<String>();
 		for(String rid:newChosenRefIds){/*LIST all the modified itemids*/		
 			String itemid = itemsRefsRelation.get(rid);
 			System.out.println("chosenRefIds:"+rid+", itemid="+itemid);
 			if(answerItems.contains(itemid)){
 				toModifyItemIds.add(itemid);
-				System.out.println("To Modify Item Id-----"+itemid);
-			}				
+				System.out.println("UPDATING!!!!!!!-----To Modify Item Id-----"+itemid);
+			}else
+				toAddItemIds.add(itemid);
 		}
-		System.out.println("toModifyItemIds"+toModifyItemIds.toString());
+		System.out.println("toModifyItemIds---"+toModifyItemIds.toString());
 		System.out.println("toModifyItemIds.size="+toModifyItemIds.size());
-	
+		System.out.println("toAddItemIds.size="+toAddItemIds.size());
+		System.out.println("toAddItemIds---"+toAddItemIds.toString());
+	//BUG1    //BUG2--totaldonelist序列问题
+		
 		if(toModifyItemIds.size()>0){
 			/*Update session.chosenRefIds & session.answerMap*/
+			List<Integer> todelidindex = new ArrayList<Integer>();
 			for(String mitemid:toModifyItemIds){
+				System.out.println("toModifyItemIds==="+mitemid);
 				answerMap.put(mitemid, new ArrayList<String>());
 				for(String orefid:chosenRefIds){/*Del the old ones*/
 					String itemid = itemsRefsRelation.get(orefid);
-					if(mitemid.equals(itemid))
-						chosenRefIds.remove(orefid);
-				}//.OR. removeAll from answerMap
-				for(String nrefid:newChosenRefIds){/*Add the new ones*/
-					String itemid = itemsRefsRelation.get(nrefid);
 					if(mitemid.equals(itemid)){
+						System.out.println("chosenRefIds.remove(orefid)==="+orefid);
+						todelidindex.add(chosenRefIds.indexOf(orefid));						
+					}						
+				}				
+			}	
+			Collections.reverse(todelidindex);
+			for(int index:todelidindex)
+				chosenRefIds.remove(index);
+			System.out.println("After remove==="+chosenRefIds.toString());
+				
+			//.OR. removeAll from answerMap
+			for(String mitemid:toModifyItemIds){
+				for(String nrefid:newChosenRefIds){
+					/*Add the new ones*/
+					String id = itemsRefsRelation.get(nrefid);
+					if(id.equals(mitemid)){
+						System.out.println("chosenRefIds.add(nrefid)==="+nrefid);
 						chosenRefIds.add(nrefid);
-						answerMap.get(itemid).add(nrefid);
-					}
-				}
-			}			
-		}			
-		else{
-			/*SAVE session.chosenRefIds & session.answerMap*/			
-			for(String rid:newChosenRefIds){	
-				chosenRefIds.add(rid);
-				String itemid = itemsRefsRelation.get(rid);				
-				if(answerItems.contains(itemid)){
-					answerMap.get(itemid).add(rid);
-				}else{
-					List<String> refids = new ArrayList<String>();
-					refids.add(rid);
-					answerMap.put(itemid, refids);
+						answerMap.get(id).add(nrefid);
+						System.out.println("After add(orefid)==="+chosenRefIds.toString());
+						System.out.println("answerMap add3==="+answerMap.get(id).toString());
+					}										
+				}	
+			}
+		}else{			
+			/*SAVE session.chosenRefIds & session.answerMap*/		
+			for(String mitemid:toModifyItemIds){				
+				for(String rid:newChosenRefIds){
+					String id = itemsRefsRelation.get(rid);
+					if(id.equals(mitemid)){
+						chosenRefIds.add(rid);
+						if(answerItems.contains(id)){
+							answerMap.get(id).add(rid);
+							System.out.println("answerMap add4==="+answerMap.get(id).toString());
+						}else{
+							List<String> refids = new ArrayList<String>();
+							refids.add(rid);
+							answerMap.put(id, refids);
+							System.out.println("answerMap add5==="+answerMap.get(id).toString());
+						}
+					}					
 				}
 			}
+			
 		}
-		
+		if(toAddItemIds.size()>0){
+			for(String itemid:toAddItemIds){
+				System.out.println("toAddItemId==="+itemid);
+				for(String rid:newChosenRefIds){						
+					String id = itemsRefsRelation.get(rid);
+					if(id.equals(itemid)){
+						System.out.println("chosenRefIds.add。id"+rid);
+						chosenRefIds.add(rid);
+						System.out.println("after.add. id"+chosenRefIds.toString());
+						if(answerItems.contains(itemid)){
+							answerMap.get(itemid).add(rid);
+							System.out.println("answerMap add1==="+answerMap.get(itemid).toString());
+						}else{
+							List<String> refids = new ArrayList<String>();
+							refids.add(rid);
+							answerMap.put(itemid, refids);
+							System.out.println("answerMap add2==="+answerMap.get(itemid).toString());
+						}
+					}
+					
+				}
+			}
+			
+		}
 		
 			
 //		this.chosenRefIds = chosenRefIds;
+		System.out.println("-----0--------this.session.put.chosenRefIds");
 		this.session.put("chosenRefIds", chosenRefIds);
+		System.out.println("-----1--------this.session.put.chosenRefIds");
 //		List<String> sss = (List<String>) this.session.get("EPage"+this.dpi);
 //		for(String refans:sss)
 //			System.out.println("chosenRefIds---------"+refans);
@@ -241,7 +297,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 								continue;
 							}
 							for(ExamRef ref:refs){		
-//								System.out.println("--------calculatePageScore-cat2-----");
+								System.out.println("--------calculatePageScore-cat2-----");
 //								System.out.println("-----refid="+ref.getId()+", isTrue="+ref.getIstrue()
 //										+", a_refid="+Integer.parseInt(ans));
 								if(ref.getId()==Integer.parseInt(ans) ){
@@ -283,7 +339,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 					}
 					
 						
-					totalDoneList.put(k, this.donelist.get(k));
+//					totalDoneList.put(k, this.donelist.get(k));//顺序会错误
 				}
 				
 			}else
@@ -295,8 +351,10 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 			System.out.println("this.donelist---key-"+key.getId()+", status-"+this.donelist.get(key));
 		for(HashMap<ExamItem,List<ExamRef>> examitem : pgItemlistf){
 			Set<ExamItem> keys1=examitem.keySet();
-			for(ExamItem key1:keys1)
+			for(ExamItem key1:keys1){
 				System.out.println("pgItemlistf===key="+key1.getId());
+				totalDoneList.put(key1, this.donelist.get(key1));
+			}				
 		}
 		Set<ExamItem> keys2=totalDoneList.keySet();
 		for(ExamItem key:keys2)
@@ -468,9 +526,13 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		
 	}
 	private void dealThisPage(){
+		System.out.println(">>>>>>>>>>>>>>>0。。。。。。。。。");
 		this.setANS();
+		System.out.println(">>>>>>>>>>>>>>>1。。。。。。。。。setANS()");
 		this.calculatePageScore(this.getPageItemslist());
+		System.out.println(">>>>>>>>>>>>>>>2。。。。。。。。。calculatePageScore");
 		this.syncPageInfoInDB();
+		System.out.println(">>>>>>>>>>>>>>>1。。。。。。。。。syncPageInfoInDB");
 	}
 
 	public String pageSubmit(){

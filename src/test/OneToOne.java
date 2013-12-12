@@ -2,6 +2,7 @@ package test;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 //import com.asso.action.MemberBuilt;
 //import com.asso.action.MemberEdit;
@@ -236,14 +237,23 @@ public class OneToOne {
 //		}
 		
 		List<String> test = new ArrayList<String>();
-		test.add("aaa");
-		test.add("bbb");
-		test.add("ccc");
-		int index = test.indexOf("bbb");
-		System.out.println("ToString------ "+test.toString());
-		System.out.println("INDEX bbb is = "+test.indexOf("bbb"));
-		System.out.println("DELETE bbb = "+test.remove(index));
-		test.add(index, "ggg");
+		test.add("295");
+		test.add("287");
+		test.add("288");
+		List<Integer> indexes = new ArrayList<Integer>();
+		indexes.add(test.indexOf("295"));
+		indexes.add(test.indexOf("287"));
+		Collections.reverse(indexes);
+		for(int index : indexes){
+			System.out.println(index);
+			test.remove(index);
+			System.out.println("After One Remove-"+test.toString());
+		}
+			
+//		System.out.println("ToString------ "+test.toString());
+//		System.out.println("INDEX bbb is = "+test.indexOf("bbb"));
+//		System.out.println("DELETE bbb = "+test.remove(index));
+//		test.add(index, "ggg");
 		System.out.println("REPLACEMENT--- "+test);
 		
 	}

@@ -11,13 +11,15 @@
     <package name="com.maggie.ssh1" namespace="/" extends="struts-default">
 
         <default-action-ref name="index" />
+        <!-- 
         <global-results>
             <result name="error">/error.jsp</result>
         </global-results>
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
-		
+		 -->
+		 
 		<action name="memberedit" class="com.asso.action.MemberEdit">  
 			<result name="success">success.html</result>			 
 		</action>
