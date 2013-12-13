@@ -412,332 +412,110 @@ transitional.dtd">
 
 				<div style="margin-top: 20px;" class="clearfix">
 					<div>
-						<div style="float: right;font-size: 33pt;padding-right: 50px;"><span>89</span><span style="font-size: 15pt">分</span></div>
+						<div style="float: right;font-size: 33pt;padding-right: 50px;">							
+							<span>${Session.score}</span>
+							<span style="font-size: 15pt">分</span>
+						</div>
 						<div class="clearfix" style="padding-top: 19px;">
-							<div class="exams">
-								<div class="exams_title">
-									单选题：
+						<#if Session.elist?exists>
+							<#if Session.answerProgress?exists>
+								<#assign answerProgress=Session.answerProgress?size>
+								<div class="exams">
+									<#list Session.elist as item>
+										<#assign seqitem=item_index+1>
+										<#if (seqitem==Session.c1hasTitle) >	
+											<div class="exams_title">
+												是非题：
+											</div>
+											<div class="clearfix exam_no_body">
+												<#list Session.elist as item1>
+													<#assign seqitem1=item1_index+1>
+													<#if (seqitem1>=Session.c1hasTitle && seqitem1<Session.c2hasTitle ) >
+														<#if (seqitem1<=answerProgress) >
+															<#list Session.answerProgress as isdone>  <#-- 可优化 -->
+																<#assign anseq=isdone_index+1>
+																<#if (anseq==seqitem1) >
+																	<#if (isdone==1) >
+																		<div class="exam_right exams_no exam_right">																		
+																	<#else>
+																		<div class="exam_right exams_no exam_wrong">
+																	</#if>
+																	<#break>
+																</#if>						
+															</#list>
+														<#else>
+															<div class="exam_right exams_no exam_wrong">
+														</#if>
+															${seqitem1}
+														</div>	
+													</#if>
+												</#list>
+											</div>
+										<#elseif (seqitem==Session.c2hasTitle)>
+											<div class="exams_title">
+												单选题：
+											</div>
+											<div class="clearfix exam_no_body">
+												<#list Session.elist as item1>
+													<#assign seqitem1=item1_index+1>
+													<#if (seqitem1>=Session.c2hasTitle && seqitem1<Session.c3hasTitle ) >
+														<#if (seqitem1<=answerProgress) >
+															<#list Session.answerProgress as isdone>  <#-- 可优化 -->
+																<#assign anseq=isdone_index+1>
+																<#if (anseq==seqitem1) >
+																	<#if (isdone==1) >
+																		<div class="exam_right exams_no exam_right">																		
+																	<#else>
+																		<div class="exam_right exams_no exam_wrong">
+																	</#if>
+																	<#break>
+																</#if>						
+															</#list>
+														<#else>
+															<div class="exam_right exams_no exam_wrong">
+														</#if>	
+															${seqitem1}
+														</div>		
+													</#if>
+												</#list>
+											</div>
+										<#elseif (seqitem==Session.c3hasTitle)>
+											<div class="exams_title">
+												复选题：
+											</div>
+											<div class="clearfix exam_no_body">
+												<#list Session.elist as item1>
+													<#assign seqitem1=item1_index+1>
+													<#if (seqitem1>=Session.c3hasTitle) >
+														<#if (seqitem1<=answerProgress) >
+															<#list Session.answerProgress as isdone>  <#-- 可优化 -->
+																<#assign anseq=isdone_index+1>
+																<#if (anseq==seqitem1) >
+																	<#if (isdone==1) >
+																		<div class="exam_right exams_no exam_right">																		
+																	<#else>
+																		<div class="exam_right exams_no exam_wrong">
+																	</#if>
+																		<#break>
+																</#if>						
+															</#list>
+														<#else>
+															<div class="exam_right exams_no exam_wrong">
+														</#if>
+															${seqitem1}
+														</div>	
+													</#if>
+												</#list>
+											</div>
+										</#if>					
+									</#list>
+
 								</div>
-								<div class="clearfix exam_no_body">
-									<div class="exam_right exams_no exam_right">
-										1
-									</div>
-									<div class="exam_right exams_no exam_wrong">
-										2
-									</div>
-									<div class="exam_right exams_no exam_right">
-										3
-									</div>
-									<div class="exam_right exams_no exam_right">
-										4
-									</div>
-									<div class="exam_right exams_no exam_right">
-										5
-									</div>
-									<div class="exam_right exams_no exam_right">
-										6
-									</div>
-									<div class="exam_right exams_no exam_right">
-										7
-									</div>
-									<div class="exam_right exams_no exam_wrong">
-										8
-									</div>
-									<div class="exam_right exams_no exam_right">
-										9
-									</div>
-									<div class="exam_right exams_no exam_wrong">
-										10
-									</div>
-									<div class="exam_right exams_no exam_right">
-										11
-									</div>
-									<div class="exam_right exams_no exam_right">
-										12
-									</div>
-									<div class="exam_right exams_no exam_right">
-										13
-									</div>
-									<div class="exam_right exams_no exam_wrong">
-										14
-									</div>
-									<div class="exam_right exams_no exam_wrong">
-										15
-									</div>
-									<div class="exam_right exams_no exam_right">
-										16
-									</div>
-									<div class="exam_right exams_no exam_right">
-										17
-									</div>
-									<div class="exam_right exams_no exam_right">
-										18
-									</div>
-									<div class="exam_right exams_no exam_right">
-										19
-									</div>
-									<div class="exam_right exams_no exam_right">
-										20
-									</div>
-								</div>
-							</div>
-							<div class="exams">
-								<div class="exams_title">
-									复选题：
-								</div>
-								<div class="clearfix exam_no_body">
-																		<div class="exams_no exam_right exam_right">
-										21
-									</div>
-									<div class="exams_no exam_right exam_right">
-										22
-									</div>
-									<div class="exams_no exam_right exam_right">
-										23
-									</div>
-									<div class="exams_no exam_right exam_right">
-										24
-									</div>
-									<div class="exams_no exam_right exam_right">
-										25
-									</div>
-									<div class="exams_no exam_right exam_right">
-										26
-									</div>
-									<div class="exams_no exam_right exam_right">
-										27
-									</div>
-									<div class="exams_no exam_right exam_right">
-										28
-									</div>
-									<div class="exams_no exam_right exam_right">
-										29
-									</div>
-									<div class="exams_no exam_right exam_right">
-										30
-									</div>
-									<div class="exams_no exam_right exam_right">
-										31
-									</div>
-									<div class="exams_no exam_right exam_right">
-										32
-									</div>
-									<div class="exams_no exam_right exam_right">
-										33
-									</div>
-									<div class="exams_no exam_right exam_right">
-										34
-									</div>
-									<div class="exams_no exam_right exam_right">
-										35
-									</div>
-									<div class="exams_no exam_right exam_right">
-										36
-									</div>
-									<div class="exams_no exam_right exam_right">
-										37
-									</div>
-									<div class="exams_no exam_right exam_right">
-										38
-									</div>
-									<div class="exams_no exam_right exam_right">
-										39
-									</div>
-									<div class="exams_no exam_right exam_right">
-										40
-									</div>
-									<div class="exams_no exam_right exam_right">
-										41
-									</div>
-									<div class="exams_no exam_right exam_right">
-										42
-									</div>
-									<div class="exams_no exam_right exam_right">
-										43
-									</div>
-									<div class="exams_no exam_right exam_right">
-										44
-									</div>
-									<div class="exams_no exam_right exam_right">
-										45
-									</div>
-									<div class="exams_no exam_right exam_right">
-										46
-									</div>
-									<div class="exams_no exam_right exam_right">
-										47
-									</div>
-									<div class="exams_no exam_right exam_right">
-										48
-									</div>
-									<div class="exams_no exam_right exam_right">
-										49
-									</div>
-									<div class="exams_no exam_right exam_right">
-										50
-									</div>
-									<div class="exams_no exam_right exam_right">
-										51
-									</div>
-									<div class="exams_no exam_right exam_right">
-										52
-									</div>
-									<div class="exams_no exam_right exam_right">
-										53
-									</div>
-									<div class="exams_no exam_right exam_right">
-										54
-									</div>
-									<div class="exams_no exam_right exam_right">
-										55
-									</div>
-									<div class="exams_no exam_right exam_right">
-										56
-									</div>
-									<div class="exams_no exam_right exam_right">
-										57
-									</div>
-									<div class="exams_no exam_right exam_right">
-										58
-									</div>
-									<div class="exams_no exam_right exam_right">
-										59
-									</div>
-									<div class="exams_no exam_right exam_right">
-										60
-									</div>
-									
-									<div class="exams_no exam_right exam_right">
-										61
-									</div>
-									<div class="exams_no exam_right exam_right">
-										62
-									</div>
-									<div class="exams_no exam_right exam_right">
-										63
-									</div>
-									<div class="exams_no exam_right">
-										64
-									</div>
-									<div class="exams_no exam_right">
-										65
-									</div>
-									<div class="exams_no exam_right">
-										66
-									</div>
-									<div class="exams_no exam_right">
-										67
-									</div>
-									<div class="exams_no exam_right">
-										68
-									</div>
-									<div class="exams_no exam_right">
-										69
-									</div>
-									<div class="exams_no exam_right">
-										70
-									</div>
-									
-									<div class="exams_no exam_right">
-										71
-									</div>
-									<div class="exams_no exam_right">
-										72
-									</div>
-									<div class="exams_no exam_right">
-										73
-									</div>
-									<div class="exams_no exam_right">
-										74
-									</div>
-									<div class="exams_no exam_right">
-										75
-									</div>
-									<div class="exams_no exam_right">
-										76
-									</div>
-									<div class="exams_no exam_right">
-										77
-									</div>
-									<div class="exams_no exam_wrong">
-										78
-									</div>
-									<div class="exams_no exam_wrong">
-										79
-									</div>
-									<div class="exams_no exam_right">
-										80
-									</div>
-								</div>
-							</div>
-							<div class="exams">
-								<div class="exams_title">
-									是非题：
-								</div>
-								<div class="clearfix exam_no_body">
-									<div class="exams_no exam_wrong ">
-										81
-									</div>
-									<div class="exams_no exam_right ">
-										82
-									</div>
-									<div class="exams_no exam_right ">
-										83
-									</div>
-									<div class="exams_no exam_right ">
-										84
-									</div>
-									<div class="exams_no exam_right ">
-										85
-									</div>
-									<div class="exams_no exam_right ">
-										86
-									</div>
-									<div class="exams_no exam_right ">
-										87
-									</div>
-									<div class="exams_no exam_wrong ">
-										88
-									</div>
-									<div class="exams_no exam_right ">
-										89
-									</div>
-									<div class="exams_no exam_wrong ">
-										90
-									</div>
-									<div class="exams_no exam_right ">
-										91
-									</div>
-									<div class="exams_no exam_right ">
-										92
-									</div>
-									<div class="exams_no exam_right ">
-										93
-									</div>
-									<div class="exams_no exam_right ">
-										94
-									</div>
-									<div class="exams_no exam_wrong ">
-										95
-									</div>
-									<div class="exams_no exam_right ">
-										96
-									</div>
-									<div class="exams_no exam_right ">
-										97
-									</div>
-									<div class="exams_no exam_right ">
-										99
-									</div>
-									<div class="exams_no exam_right ">
-										99
-									</div>
-									<div class="exams_no exam_right ">
-										100
-									</div>
-									
-								</div>
-							</div>
+								
+							</#if>
+						</#if>	
+							
+							
 						</div>
 					</div>
 				</div>

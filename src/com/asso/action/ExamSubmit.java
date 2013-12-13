@@ -401,6 +401,22 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		System.out.println("setServletRequest----nextExamPage="+nextExamPage);		
 		this.request.getSession().setAttribute("pi", nextExamPage);
 	}
+//	private void checkAnswerProgress(){
+//		ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
+//		
+//		for(HashMap<ExamItem, List<ExamRef>> map:this.pageitemlistf){
+//			Set<ExamItem> keys = map.keySet();			
+//			if(keys.size()!=1)
+//				System.out.println("DATA ERROR, Pls INV...");
+//			else{
+//				for(ExamItem ei:keys){
+//					for()
+//				}
+//					
+//			}
+//				
+//		}
+//	}
 	@SuppressWarnings("unchecked")
 	private void calculateTotalScore(){
 		HashMap<String,Integer> subScore = (HashMap<String, Integer>) this.session.get("subscore");
@@ -532,7 +548,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		this.calculatePageScore(this.getPageItemslist());
 		System.out.println(">>>>>>>>>>>>>>>2。。。。。。。。。calculatePageScore");
 		this.syncPageInfoInDB();
-		System.out.println(">>>>>>>>>>>>>>>1。。。。。。。。。syncPageInfoInDB");
+		System.out.println(">>>>>>>>>>>>>>>3。。。。。。。。。syncPageInfoInDB");
 	}
 
 	public String pageSubmit(){
