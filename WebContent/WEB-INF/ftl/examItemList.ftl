@@ -27,10 +27,12 @@ ${colors?seq_index_of("blue")}:${colors?seq_index_of(b)}
     <#assign t1 = "56">
     <#assign t2 = 56>
     <#if (t1?number)==t2>
-		test pass!<br>
+		test1 pass!<br>
 	</#if>
-
-
+    <#assign t3 = 65>
+	<#if (t2>50)&&(t3>t2)>
+		test2 pass!<br>
+	</#if>
 
     </body>  
 </html>  

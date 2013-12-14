@@ -441,15 +441,32 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	@SuppressWarnings("unchecked")
 	public String showError(){
 		String seqid ="";
-		if(this.request.getParameter("seqid")!=null){
-			seqid = this.request.getParameter("seqid");
+		String correct = "";
+//		System.out.println();
+		seqid = this.request.getParameter("seqid");
+		if(seqid!=null){			
 			this.session.put("summaryseqid", seqid);
-			HashMap<ExamItem, List<ExamRef>> eimap = this.pageitemlistf.get(Integer.parseInt(seqid));
-			
-			
+			int id= Integer.parseInt(seqid);
+			/*GET correct answer (String) to return in frontend*/
+			if(id>=0 && id<CONSTANT.pageNum*CONSTANT.pageSize){
+				HashMap<ExamItem, List<ExamRef>> eimap = ((List<HashMap<ExamItem,List<ExamRef>>>) this.session.get("elist")).get(id-1);
+				Set<ExamItem> keys = eimap.keySet();				
+				for(ExamItem key:keys){
+					List<ExamRef> refs = eimap.get(key);
+					for(int i=0; i<refs.size(); i++){
+						if(refs.get(i).getIstrue()==1){
+							correct += "<li class='right_item' style='font-size: 11pt;color: #1CA527;'>"+refs.get(i).getRef()+"</li>"; 
+						}
+					}
+//					if(correct.length()>0 && correct.endsWith(","))
+//						correct = correct.substring(0,correct.length()-1);
+				}
+			}
+			this.session.put("correct", correct);
 		}else
 			System.out.println("No seqid input, PLS INV...");
 		System.out.println("Request seq id = "+seqid);
+		System.out.println("Request seq correct = "+correct);
 		return "show";
 	}
 	

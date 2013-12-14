@@ -236,25 +236,30 @@ public class OneToOne {
 //			}
 //		}
 		
-		List<String> test = new ArrayList<String>();
-		test.add("295");
-		test.add("287");
-		test.add("288");
-		List<Integer> indexes = new ArrayList<Integer>();
-		indexes.add(test.indexOf("295"));
-		indexes.add(test.indexOf("287"));
-		Collections.reverse(indexes);
-		for(int index : indexes){
-			System.out.println(index);
-			test.remove(index);
-			System.out.println("After One Remove-"+test.toString());
-		}
-			
-//		System.out.println("ToString------ "+test.toString());
-//		System.out.println("INDEX bbb is = "+test.indexOf("bbb"));
-//		System.out.println("DELETE bbb = "+test.remove(index));
-//		test.add(index, "ggg");
-		System.out.println("REPLACEMENT--- "+test);
+//		List<String> test = new ArrayList<String>();
+//		test.add("295");
+//		test.add("287");
+//		test.add("288");
+//		List<Integer> indexes = new ArrayList<Integer>();
+//		indexes.add(test.indexOf("295"));
+//		indexes.add(test.indexOf("287"));
+//		Collections.reverse(indexes);
+//		for(int index : indexes){
+//			System.out.println(index);
+//			test.remove(index);
+//			System.out.println("After One Remove-"+test.toString());
+//		}
+//			
+////		System.out.println("ToString------ "+test.toString());
+////		System.out.println("INDEX bbb is = "+test.indexOf("bbb"));
+////		System.out.println("DELETE bbb = "+test.remove(index));
+////		test.add(index, "ggg");
+//		System.out.println("REPLACEMENT--- "+test);
+		
+		String test = "asd,cv,fdgsey,";
+		test = test.substring(0,test.length()-1);
+		System.out.println(test);
+		
 		
 	}
 

@@ -446,7 +446,7 @@ transitional.dtd">
 														<#else>
 															<div class="exam_right exams_no exam_wrong">
 														</#if>
-															${seqitem1}
+															<a href="./showerror.action?seqid=${seqitem1}">${seqitem1}</a>
 														</div>	
 													</#if>
 												</#list>
@@ -474,7 +474,7 @@ transitional.dtd">
 														<#else>
 															<div class="exam_right exams_no exam_wrong">
 														</#if>	
-															${seqitem1}
+															<a href="./showerror.action?seqid=${seqitem1}">${seqitem1}</a>
 														</div>		
 													</#if>
 												</#list>
@@ -520,11 +520,12 @@ transitional.dtd">
 					</div>
 				</div>
 
-				<div class="right_answer">
+			<#if (Session.elistseq?exists)&&(Session.summaryseqid?exists)&&(Session.correct?exists)>
+				<div class="right_answer" style="overflow:auto !important;height:inherit !important;">
 					<div class="right_outer clearfix">
 					<div class="exam_section">
 					
-					<#if Session.elistseq?exists>
+					
 						<#list Session.elistseq as map>
 							<#assign keys=map?keys>	
 							<#assign seq=map_index+1>	
@@ -571,14 +572,15 @@ transitional.dtd">
 								<#break>
 							</#if>	
 						</#list>
-					</#if>
+					
 
 
 					<div class="right_title">
-						正确答案：<span class="right_option">C,D</span>
+						正确答案：<div style="margin-top:10px;margin-left: 50px;">${Session.correct}</div>
 					</div>
 					</div>
 				</div>
+			</#if>
 			</div>
 			<!-- Teaser End -->
 		
