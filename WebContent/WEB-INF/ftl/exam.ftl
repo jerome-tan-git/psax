@@ -539,7 +539,15 @@ transitional.dtd">
 														<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
 													</#if>
 												<#else>
-													<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+													<#if Session.chosenRefIds?exists>
+														<#if (Session.chosenRefIds?seq_index_of(ref.id?c)>=0)>
+															<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" checked/>	
+														<#else>	
+															<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+														</#if>	
+													<#else>
+														<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+													</#if>
 												</#if>
 												<label for="o_${ref.id}" class="o_${ref.id}">${ref.ref}</label>
 											</div>

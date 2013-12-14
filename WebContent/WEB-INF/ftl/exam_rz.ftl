@@ -502,7 +502,7 @@ transitional.dtd">
 														<#else>
 															<div class="exam_right exams_no exam_wrong">
 														</#if>
-															${seqitem1}
+															<a href="./showerror.action?seqid=${seqitem1}">${seqitem1}</a>
 														</div>	
 													</#if>
 												</#list>
@@ -523,26 +523,57 @@ transitional.dtd">
 				<div class="right_answer">
 					<div class="right_outer clearfix">
 					<div class="exam_section">
-						<div class="exam_title">
-							<span class="exam_no">3. </span><span style="color: #000">有关精密度与准确度的关系的叙述中，不正确的是(&nbsp;&nbsp;&nbsp;&nbsp;)。</span>
-						</div>
-						<div class="exam_options">
-							<input type="radio" name="sex2" id="o_21" checked/>
-							<label for="o_21" class="o_21">精密度是保证准确度的先决条件</label>
-						</div>
-						<div class="exam_options">
-							<input type="radio" name="sex2" id="o_22" />
-							<label for="o_22" class="o_22">精密度、准确度衡量分析结果的可靠性是一致的</label>
-						</div>
-						<div class="exam_options">
-							<input type="radio" name="sex2" id="o_23" />
-							<label for="o_23" class="o_23">精密度高的测定结果，不一定是准确的</label>
-						</div>
-						<div class="exam_options">
-							<input type="radio" name="sex2" id="o_24" />
-							<label for="o_24" class="o_24">精密度差，分析结果一定不可靠</label>
-						</div>
-					</div>
+					
+					<#if Session.elistseq?exists>
+						<#list Session.elistseq as map>
+							<#assign keys=map?keys>	
+							<#assign seq=map_index+1>	
+							<#if Session.summaryseqid=(seq?c)>	
+								<#list keys as key>
+									<#if map[key]?exists>
+										<div class="exam_section">	
+											<div class="exam_title">
+												<span class="exam_no">${seq}. </span>
+												<span style="color: #000">${key}</span>
+											</div>
+										
+											<#assign refs=map[key]>
+											<#list refs as ref>
+												<div class="exam_options">			
+													<#if (seq<Session.c3hasTitle) >
+														<#if Session.chosenRefIds?exists>
+															<#if (Session.chosenRefIds?seq_index_of(ref.id?c)>=0)>							
+																<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" checked/>
+															<#else>	
+																<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+															</#if>														
+														<#else>
+															<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+														</#if>
+													<#else>
+														<#if Session.chosenRefIds?exists>
+															<#if (Session.chosenRefIds?seq_index_of(ref.id?c)>=0)>							
+																<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" checked/>
+															<#else>	
+																<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+															</#if>
+														<#else>
+															<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
+														</#if>														
+													</#if>
+													<label for="o_${ref.id}" class="o_${ref.id}">${ref.ref}</label>
+												</div>
+											</#list>								
+										</div>
+									</#if>
+								</#list>
+								
+								<#break>
+							</#if>	
+						</#list>
+					</#if>
+
+
 					<div class="right_title">
 						正确答案：<span class="right_option">C,D</span>
 					</div>

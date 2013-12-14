@@ -84,6 +84,17 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	private List<ExamItem> itemlist;
 	private HashMap<ExamItem,List<ExamRef>> itemf;
 	private List<HashMap<ExamItem,List<ExamRef>>> itemlistf;
+	private List<HashMap<String,List<ExamRef>>> itemlistSeq;
+	
+	
+	public List<HashMap<String, List<ExamRef>>> getItemlistSeq() {
+		return itemlistSeq;
+	}
+
+	public void setItemlistSeq(List<HashMap<String, List<ExamRef>>> itemlistSeq) {
+		this.itemlistSeq = itemlistSeq;
+	}
+
 	public ExamRef getRef() {
 		return ref;
 	}
@@ -406,14 +417,20 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 			list.add(this.loadItemfWithItem(i));
 		}		
 		this.setItemlistf(list);
-		/* Construct HashMap<refid,itemid>*/
+		this.itemlistSeq = new ArrayList<HashMap<String,List<ExamRef>>>();
+		/* Construct 1)HashMap<refid,itemid>, 2)ArrayList<HashMap<String,List<ExamRef>>> itemlistSeq*/
 		HashMap<String,String> itemsRefsRelation = new HashMap<String,String>();
 		for(HashMap<ExamItem,List<ExamRef>> map:list){
 			Set<ExamItem> item = map.keySet();
 			for(ExamItem i:item){
+				/*1)*/
 				for(ExamRef ref:map.get(i)){
 					itemsRefsRelation.put(ref.getId()+"", i.getId()+"");
 				}
+				/*2)*/
+				HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
+				seqmap.put(i.getQuestion(),map.get(i));
+				this.itemlistSeq.add(seqmap);				
 			}
 		}
 		Set<String> keys = itemsRefsRelation.keySet();
@@ -423,6 +440,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		
 		request.getSession().setAttribute("itemsRefsRelation", itemsRefsRelation);
 		request.getSession().setAttribute("elist", this.itemlistf);
+		request.getSession().setAttribute("elistseq", this.itemlistSeq);
 		request.getSession().setAttribute("chosenRefIds", new ArrayList<String>());
 //		 System.out.println("setSession2----Session().elist----"+
 //				 request.getSession().getAttribute("elist").toString());

@@ -432,12 +432,27 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 	/* Put all the exam related info into DB*/
 	public String finalizeExam(){			
 		this.dealThisPage();		
-		this.check();		
-//		this.clearSession();
-		
+		this.check();						
 		this.calculateTotalScore();
+		this.clearSession();
 		return "final";
 	}
+	
+	@SuppressWarnings("unchecked")
+	public String showError(){
+		String seqid ="";
+		if(this.request.getParameter("seqid")!=null){
+			seqid = this.request.getParameter("seqid");
+			this.session.put("summaryseqid", seqid);
+			HashMap<ExamItem, List<ExamRef>> eimap = this.pageitemlistf.get(Integer.parseInt(seqid));
+			
+			
+		}else
+			System.out.println("No seqid input, PLS INV...");
+		System.out.println("Request seq id = "+seqid);
+		return "show";
+	}
+	
 	private void clearSession(){
 		Set<String> sessionKeys = this.session.keySet();
 		for(String key:sessionKeys)
