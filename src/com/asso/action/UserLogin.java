@@ -69,6 +69,12 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 	}
 	
 
+	public String gologin(){
+		String referer = request.getHeader("referer");
+		System.out.println("referer="+referer);
+		this.request.getSession().setAttribute("returnURL", referer);
+		return "go";
+	}
 
 	@Override
 	public String execute(){
@@ -92,9 +98,12 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 			e.printStackTrace();
 		}
 		
-		System.out.println("rz="+rz);
+		System.out.println("rz="+rz);		
+		
 		if(rz==1){
 			this.setSession2(this.request.getSession());
+//			String returnURL = (String)request.getSession().getAttribute("returnURL");  
+//		    response.sendRedirect(returnURL );  
 			return "success";
 		}
 		return "failure";

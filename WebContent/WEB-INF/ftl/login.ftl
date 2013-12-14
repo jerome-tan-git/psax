@@ -387,15 +387,12 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>在线考试</h2>
+					<h2>用户登录</h2>
 					<div class="sub_header_description">
 						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">培训&nbsp;&raquo;</span>
-						<span class="page">在线考试</span>
+						<span class="page">用户登录</span>
 					</div>
-				</div>
-				<div class="sub_header_title">
-					<span><a href="./gologin.action">用户登陆 &raquo;</a></span>
+
 				</div>
 				<div class="exam_type">
 					
@@ -407,51 +404,19 @@ transitional.dtd">
 
 			<!-- Teaser Start -->
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
-
-				<div class="demo">
-		<ul id="list" class="image-grid_3col">
-		    <li data-id="id-1" class="photo">
-		        <div class="portfolio_content">
-		        <img src="./images/portfolio_3col_img_1.png" alt="img" style="opacity: 1;">
-		        <h4 style="color: rgb(86, 86, 86);">考试一</h4>
-		        
-		        <div class="link_btn" style="display: block;">
-		            <a id="example6" href="./exam_.html" class="zoom" style="opacity: 0;"></a>
-		            <div class="exam_desc" style="opacity: 0;">单选题：10题<br />复选题：80题<br/>是非题：10题</div>
-		            <div class="overlay" style="opacity: 0;"></div>
-		        </div>
-		        </div>
-		    </li>
-		    <li data-id="id-2" class="scenery">
-		        <div class="portfolio_content">
-		        <img src="./images/portfolio_3col_img_2.png" alt="img" style="opacity: 1;">
-		        <h4 style="color: rgb(86, 86, 86);">中级食品检验工</h4>
-		        
-		        <div class="link_btn" style="display: block;">
-		            <!--  <a id="example6" href="./exam_.html" class="zoom" style="opacity: 0;"></a>  -->
-		            <a id="example6" href="./beginexam.action?examid=3" class="zoom" style="opacity: 0;"></a>
-		                                   
-		            <div class="exam_desc" style="opacity: 0;">单选题：10题<br />复选题：80题<br/>是非题：10题</div>
-		            <div class="overlay" style="opacity: 0;"></div>
-		        </div>
-		        </div>
-		    </li>
-		    <li data-id="id-3" class="photo">
-		        <div class="portfolio_content">
-		        <img src="./images/portfolio_3col_img_3.png" alt="img">
-		        <h4>考试二</h4>
-		        
-		        <div class="link_btn">
-		            <a id="example6" href="./exam_.html" class="zoom" style="opacity: 0;"></a>
-		            <div class="exam_desc" style="opacity: 0;">单选题：10题<br />复选题：80题<br/>是非题：10题</div>
-		            <div class="overlay" style="opacity: 0;"></div>
-		        </div>
-		        </div>
-		    </li>
-		    
-		</ul>
-		</div>
-
+				<form name="login_form" action="userlogin.action">
+					<div class="login_form">
+						<div class="user_input">
+							<input type="text" placeholder="用户名" name="username" />
+						</div>
+						<div class="password_input">
+							<input type="password" placeholder="密码" name="password"/>
+						</div>
+						<div class="login_btn">
+							<input type="image" src="./images/login_bt.png" name="image" />
+						</div>
+					</div>
+				</form>
 			</div>
 			<!-- Teaser End -->
 

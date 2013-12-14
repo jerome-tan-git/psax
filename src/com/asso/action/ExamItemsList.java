@@ -436,6 +436,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	}
 	public String beginExam(){
 		System.out.println(">>>>>>>>>>>>----------beginExam-1");
+		if(this.request.getParameter("examid")!=null)
+			this.eInfo.setExamid(Integer.parseInt(this.request.getParameter("examid")));
 		try {
 			this.loadItemlistFByExamId();
 		} catch (ClassNotFoundException e) {

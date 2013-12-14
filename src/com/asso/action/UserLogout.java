@@ -39,10 +39,15 @@ public class UserLogout extends ActionSupport implements ServletRequestAware,Ses
 	public void setServletRequest(HttpServletRequest request) {
 		  this.request=request;
 	}
+	private void clearSession(){
+//		this.request.getSession().setAttribute("returnURL", referer);
+		this.session.clear();
+	}
 	
 	@Override
 	public String execute(){	
 		this.setSession2(this.request.getSession());
+		this.clearSession();
 		return "success";	
 	}
 

@@ -24,9 +24,14 @@
 			<result name="success">success.html</result>			 
 		</action>
 		
+		<action name="gologin" class="com.asso.action.UserLogin" method="gologin">  
+			<result name="go" type="freemarker">/WEB-INF/ftl/login.ftl</result>			 
+		</action>
+		
 		<action name="userlogin" class="com.asso.action.UserLogin">  
 			<!-- <result name="success">loginSuccess.jsp</result> -->
-			<result name="success"  type="freemarker">/WEB-INF/ftl/examItemList.ftl</result> 
+			<!-- <result name="success"  type="freemarker">/WEB-INF/ftl/examItemList.ftl</result>  -->
+			<result name="success">login_result.jsp</result>  
 			<result name="failure">loginFail.jsp</result>  
 		</action>
 		<action name="userbuilt" class="com.asso.action.UserLogin" method="save">  
@@ -49,8 +54,13 @@
 		<action name="manageritemlist" class="com.asso.action.ExamItemsList" method="loadItemlistFByExamId">  
 			<result name="list">examItemsList.jsp</result>		                     	 
 		</action>
+		<!-- 
 		<action name="managerexamcontext" class="com.asso.action.ExamItemsList" method="managerExamContext">  
 			<result name="success">inputExam.jsp?examsave=0</result>		                     	 
+		</action>
+		 -->
+		<action name="managerexamcontext" class="com.asso.action.ExamItemsList" method="managerExamContext">  
+			<result name="success">inputExam_.jsp?examsave=0</result>		                     	 
 		</action>
 		
 		<action name="beginexam" class="com.asso.action.ExamItemsList" method="beginExam">  
