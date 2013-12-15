@@ -436,18 +436,18 @@ transitional.dtd">
 																<#assign anseq=isdone_index+1>
 																<#if (anseq==seqitem1) >
 																	<#if (isdone==1) >
-																		<div class="exam_right exams_no exam_right">																		
+																		<a href="./showerror.action?seqid=${seqitem1}"><div class="exam_right exams_no exam_right">																		
 																	<#else>
-																		<div class="exam_right exams_no exam_wrong">
+																		<a href="./showerror.action?seqid=${seqitem1}"><div class="exam_right exams_no exam_wrong">
 																	</#if>
 																	<#break>
 																</#if>						
 															</#list>
 														<#else>
-															<div class="exam_right exams_no exam_wrong">
+															<a href="./showerror.action?seqid=${seqitem1}"><div class="exam_right exams_no exam_wrong">
 														</#if>
-															<a href="./showerror.action?seqid=${seqitem1}">${seqitem1}</a>
-														</div>	
+															${seqitem1}
+														</div></a>
 													</#if>
 												</#list>
 											</div>

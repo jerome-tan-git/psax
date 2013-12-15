@@ -71,19 +71,20 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 					&& this.request.getParameterValues("ANS_"+(i+1)).length>1){
 				String[] multi = this.request.getParameterValues("ANS_"+(i+1));
 				for(String m:multi){
-//					System.out.println("ANS-["+i+"]="+m);
+					System.out.println("ANS-["+i+"]="+m);
 //					chosenRefIds.add(m);
 					newChosenRefIds.add(m);
 				}
 				continue;
 			}/*Judge items and Single Choice items*/
 			else if(this.request.getParameter("ANS_"+(i+1))!=null ){
+				System.out.println("ANS-"+this.request.getParameter("ANS_"+(i+1)));
 //				chosenRefIds.add(this.request.getParameter("ANS_"+(i+1)));
 				newChosenRefIds.add(this.request.getParameter("ANS_"+(i+1)));
 			}			
 			
 		}
-		
+		System.out.println("---newChosenRefIds size = "+newChosenRefIds.size());
 		
 		HashMap<String,List<String>> answerMap = (HashMap<String,List<String>>)this.session.get("answerMap");
 		Set<String> answerItems = answerMap.keySet();
@@ -297,7 +298,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 								continue;
 							}
 							for(ExamRef ref:refs){		
-								System.out.println("--------calculatePageScore-cat2-----");
+//								System.out.println("--------calculatePageScore-cat2-----");
 //								System.out.println("-----refid="+ref.getId()+", isTrue="+ref.getIstrue()
 //										+", a_refid="+Integer.parseInt(ans));
 								if(ref.getId()==Integer.parseInt(ans) ){

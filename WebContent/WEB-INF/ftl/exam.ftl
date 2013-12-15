@@ -563,7 +563,8 @@ transitional.dtd">
 					   	<div class="exam_submit"><input type="submit" name="next" value="提交"/></div>
 					</#if>
   						<div class="exam_submit"><input type="reset" value="重写"/></div>
-  						<a href="./finalizexam.action"><div class="exam_submit">结束考试</div></a>
+  						<!-- <a href="./finalizexam.action"><div class="exam_submit">结束考试</div></a> -->
+  						<div class="exam_submit"><input type="submit" name="next" value="结束考试"/></div>
 					</form>
 					<div class="exam_submit">
 						<a href="./switchpage.action?pagenumber=1">1</a>

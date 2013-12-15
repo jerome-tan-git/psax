@@ -227,7 +227,14 @@ font-weight:600;
 	height: 0px;
 }
 
-
+.login_text
+{
+	float: right;
+	margin-top: -27px;
+	margin-right: 44px;
+	color:#6E6E70;
+	font-size: 10pt;
+}
 .logo {
 	padding-top:30px;
 	padding-left:30px;
@@ -454,7 +461,8 @@ margin-top:5px;
 .gkbs_input{
 	float: left;
 }
-
+.ui-dialog { z-index: 1000 !important ;}
+.ui-widget-overlay{ z-index: 999 !important ;}
 #contact-form input {
     background-color: #FCFCFC;
     border: 1px solid #DDDDDD;
@@ -467,7 +475,22 @@ margin-top:5px;
    box-shadow:         inset 0 0 10px #eee;
   	border-radius: 3px;
 }
+.exam_username_input
+{
+		font-size: 14pt;
+		font-family: "微软雅黑",Arial,"宋体" !important;
+		color: #A29C9A;
+}
+.exam_user_name
+{
+	height: 34px;
+	padding-top: 18px;
+	padding-left: 19px;
+	font-size: 12pt;
+	font-family: "微软雅黑",Arial,"宋体";
+	color: #A29C9A;
 
+}
 #contact-form p input#submit {
 	background-color:#222;
 	padding:5px 10px;
@@ -1216,4 +1239,43 @@ padding-left:20px;
 	background:url('./images/about_us_desc.gif') no-repeat 0px 6px;
 	padding-left:23px;
 }
+.artile_list_left{
+	width: 780px;
+	float: left;
+	border-right: 1px solid #ccc;
+	padding-right: 30px;
+}
+.artile_list_block .image
+{
+	width: 137px;
+	float: left;
+	height: 111px;
+	border: 1px solid #ccc;
+	
+	margin-right: 27px;
+}
 
+.artile_list_block .title
+{
+	font-size: 19pt;
+	padding-top: 6px;
+	color: #000;
+	margin-bottom: 9px;
+}
+.artile_list_block .date
+{
+	color: #ccc;
+	font-size: 10pt;
+}
+.artile_list_block
+{
+	padding-bottom: 16px;
+	margin-top: 15px;
+	border-bottom: 1px dotted #ccc;
+	margin-left: 20px;
+}
+.artile_list_block .desc
+{
+	font-size: 10pt;
+	margin-top: 6px;
+}

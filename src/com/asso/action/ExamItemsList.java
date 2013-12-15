@@ -433,9 +433,9 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 				this.itemlistSeq.add(seqmap);				
 			}
 		}
-		Set<String> keys = itemsRefsRelation.keySet();
-		for(String key:keys)
-			System.out.println("---itemsRefsRelation---key---"+key+",value---"+itemsRefsRelation.get(key));
+//		Set<String> keys = itemsRefsRelation.keySet();
+//		for(String key:keys)
+//			System.out.println("---itemsRefsRelation---key---"+key+",value---"+itemsRefsRelation.get(key));
 		
 		
 		request.getSession().setAttribute("itemsRefsRelation", itemsRefsRelation);
@@ -515,9 +515,9 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		request.getSession().setAttribute("c1hasTitle", c1hasTitle);
 		request.getSession().setAttribute("c2hasTitle", c2hasTitle);
 		request.getSession().setAttribute("c3hasTitle", c3hasTitle);
-		System.out.println(">>>>>>>>>>>>----------c1hasTitle="+request.getSession().getAttribute("c1hasTitle"));
-		System.out.println(">>>>>>>>>>>>----------c2hasTitle="+request.getSession().getAttribute("c2hasTitle"));
-		System.out.println(">>>>>>>>>>>>----------c3hasTitle="+request.getSession().getAttribute("c3hasTitle"));
+//		System.out.println(">>>>>>>>>>>>----------c1hasTitle="+request.getSession().getAttribute("c1hasTitle"));
+//		System.out.println(">>>>>>>>>>>>----------c2hasTitle="+request.getSession().getAttribute("c2hasTitle"));
+//		System.out.println(">>>>>>>>>>>>----------c3hasTitle="+request.getSession().getAttribute("c3hasTitle"));
 		System.out.println(">>>>>>>>>>>>----------beginExam-6-over!");
 		
 		return "begin";
@@ -559,9 +559,22 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		System.out.println("seq_jg size="+seq_jg.size()+", seq_sc size="+seq_sc.size()+", seq_mc size="+seq_mc.size());
 		ArrayList<ExamItem> eil =  new ArrayList<ExamItem>();
 		ArrayList<Integer> seq_all = new ArrayList<Integer>();
-		seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.judgeNum, seq_jg));
-		seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.singleChoiceNum, seq_sc));
-		seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.multipleChoiceNum, seq_mc));
+		
+		if(seq_jg.size()>=CONSTANT.judgeNum)
+			seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.judgeNum, seq_jg));
+		else
+			seq_all.addAll(CONSTANT.getRandomSeq(seq_jg.size(), seq_jg));
+		
+		if(seq_sc.size()>=CONSTANT.singleChoiceNum)
+			seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.singleChoiceNum, seq_sc));
+		else
+			seq_all.addAll(CONSTANT.getRandomSeq(seq_sc.size(), seq_sc));
+		
+		if(seq_mc.size()>=CONSTANT.multipleChoiceNum)
+			seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.multipleChoiceNum, seq_mc));
+		else
+			seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.multipleChoiceNum, seq_mc));
+		System.out.println("seq_all size="+seq_all.size());
 		for(Integer s:seq_all){
 			System.out.println("---SEQ---"+s+",cat="+_eil.get(s).getCategory()+",Q="+_eil.get(s).getQuestion());
 			eil.add(_eil.get(s));
