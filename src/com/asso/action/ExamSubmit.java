@@ -448,7 +448,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 			this.session.put("summaryseqid", seqid);
 			int id= Integer.parseInt(seqid);
 			/*GET correct answer (String) to return in frontend*/
-			if(id>=0 && id<CONSTANT.pageNum*CONSTANT.pageSize){
+			if(id>0 && id<=CONSTANT.pageNum*CONSTANT.pageSize){
 				HashMap<ExamItem, List<ExamRef>> eimap = ((List<HashMap<ExamItem,List<ExamRef>>>) this.session.get("elist")).get(id-1);
 				Set<ExamItem> keys = eimap.keySet();				
 				for(ExamItem key:keys){
