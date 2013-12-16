@@ -1,6 +1,7 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -85,6 +86,22 @@ public class CONSTANT {
 		return index;
 	}
 
+	public final static String getTodayDate(){
+		String today = "";
+		Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH) + 1;
+        int day = now.get(Calendar.DAY_OF_MONTH);
+        String smonth = "" + month;
+        String sday = "" + day;
+        if (month < 10)
+            smonth = "0" + month;
+        if (day < 10)
+            sday = "0" + day;
+        today = year + smonth + sday;
+		return today;
+	}
+	
 	
 	public static void main(String[] args){
 		ArrayList<Integer> _orlist = new ArrayList<Integer>();

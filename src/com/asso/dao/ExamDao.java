@@ -24,11 +24,11 @@ public interface ExamDao {
 	public List<ExamRef> loadReflistByItemId(int itemid);
 	
 	public HashMap<ExamItem,List<ExamRef>> loadItemsByGroupid(int groupid);
-	List<ExamItem> loadExamItemById(int itemid);
-	List<ExamItem> loadExamItemByCatId(int cid);
-	List<ExamItem> loadExamItemByExamId(int eid);
-	List<ExamItem> loadExamItemByQ(String question);
-	List<Exam> loadExams();
+	public List<ExamItem> loadExamItemById(int itemid);
+	public List<ExamItem> loadExamItemByCatId(int cid);
+	public List<ExamItem> loadExamItemByExamId(int eid);
+	public List<ExamItem> loadExamItemByQ(String question);
+	public List<Exam> loadExams();
 	
 	
 	

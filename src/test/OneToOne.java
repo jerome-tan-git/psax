@@ -1,9 +1,9 @@
 package test;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.sql.Date;
+
+import util.CONSTANT;
 //import com.asso.action.MemberBuilt;
 //import com.asso.action.MemberEdit;
 //import com.asso.action.MemberLoad;
@@ -256,10 +256,12 @@ public class OneToOne {
 ////		test.add(index, "ggg");
 //		System.out.println("REPLACEMENT--- "+test);
 		
-		String test = "asd,cv,fdgsey,";
-		test = test.substring(0,test.length()-1);
-		System.out.println(test);
+//		String test = "asd,cv,fdgsey,";
+//		test = test.substring(0,test.length()-1);
+//		System.out.println(test);
 		
+		
+		System.out.println("today----"+CONSTANT.getTodayDate());
 		
 	}
 

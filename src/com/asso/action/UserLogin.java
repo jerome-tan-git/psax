@@ -102,8 +102,7 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 		
 		if(rz==1){
 			this.setSession2(this.request.getSession());
-//			String returnURL = (String)request.getSession().getAttribute("returnURL");  
-//		    response.sendRedirect(returnURL );  
+			  
 			return "success";
 		}
 		return "failure";
@@ -159,6 +158,9 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 		System.out.println("this.uInfo.getUsername()"+this.uInfo.getUsername());
 		 User u = new User();
 		 u.setUsername(this.uInfo.getUsername());
+		 int userid = 0;
+		 userid= um.getUserId(u);			
+		 u.setId(userid);
 		 request.getSession().setAttribute("user_", u);
 		 System.out.println("setSession2----Session().user_----"+
 				 request.getSession().getAttribute("user_").toString());

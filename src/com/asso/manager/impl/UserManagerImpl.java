@@ -38,9 +38,12 @@ public class UserManagerImpl implements UserManager {
 	 */
 	@Override
 	public int exists(User user) throws ClassNotFoundException, SQLException{		
-		System.out.println("Into UserManagerImpl exists()...");
-		System.out.println(">>>>>>>>>????????-------1");
+		System.out.println("Into UserManagerImpl exists()...");		
 		return userDao.checkUserExistsWithNamePassword(user);
+	}
+	@Override
+	public int getUserId(User user){
+		return userDao.getUserIdWithName(user);
 	}
 	
 	/* (non-Javadoc)

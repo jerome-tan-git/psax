@@ -19,9 +19,12 @@ import util.CONSTANT;
 import util.SpringFactory;
 
 import com.asso.manager.ExamManager;
+import com.asso.manager.ScoreManager;
 import com.asso.model.Exam;
 import com.asso.model.ExamItem;
 import com.asso.model.ExamRef;
+import com.asso.model.Score;
+import com.asso.model.User;
 import com.asso.vo.ExamBuiltInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -37,6 +40,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 //	private Map session;
 	private ExamBuiltInfo eInfo = new ExamBuiltInfo();
 	private ExamManager em;
+	private ScoreManager sm;
 //	private ApplicationContext ctx;	
 	private HttpServletRequest request;	
 	
@@ -45,22 +49,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 //		ctx = new ClassPathXmlApplicationContext("beans.xml");
 //		em = (ExamManager) ctx.getBean("examManager");
 		em = (ExamManager) SpringFactory.getObject("examManager");
+		sm = (ScoreManager)SpringFactory.getObject("scoreManager");
 		
-		CONSTANT.seq = new HashMap<String, Integer>();
-		CONSTANT.seq.put("a",1);
-		CONSTANT.seq.put("b",2);
-		CONSTANT.seq.put("c",3);
-		CONSTANT.seq.put("d",4);
-		CONSTANT.seq.put("e",5);
-		CONSTANT.seq.put("f",6);
-		CONSTANT.seq.put("g",7);
-		CONSTANT.seq.put("h",8);
-		CONSTANT.seq.put("i",9);
-		CONSTANT.seq.put("j",10);
-		CONSTANT.seq.put("k",11);
-		CONSTANT.seq.put("l",12);
-		CONSTANT.seq.put("m",13);
-		CONSTANT.seq.put("n",14);
 	}
 		
 	public ExamManager getEm() {
@@ -69,6 +59,13 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	@Resource(name="examManager")//直接注入，替代初始化userManager
 	public void setEm(ExamManager em) {
 		this.em = em;
+	}
+	public ScoreManager getSm() {
+		return sm;
+	}
+	@Resource(name="scoreManager")
+	public void setSm(ScoreManager sm) {
+		this.sm = sm;
 	}
 
 	public ExamBuiltInfo geteInfo() {
@@ -404,6 +401,24 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		}
 		return "success";
 	}
+	private void buildScoreInitial(){
+		Score s = new Score();
+		s.setExamid(this.eInfo.getExamid());
+		s.setExameename("盐烤鸡翅");//TO GET
+		s.setScore(0);
+		s.setExamdate(CONSTANT.getTodayDate());
+		User u = (User) this.request.getSession().getAttribute("user_");		
+		if(u!=null)
+			s.setUserid(u.getId());
+		try {
+			sm.add(s);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		request.getSession().setAttribute("score_", s);
+	}
 	public String loadItemlistFByExamId() throws ClassNotFoundException, SQLException{
 		System.out.println("---_examid---"+this.eInfo.getExamid());
 		List<HashMap<ExamItem,List<ExamRef>>> list = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
@@ -464,6 +479,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 			e.printStackTrace();
 		}
 		
+		this.buildScoreInitial();
+		
 //		List<HashMap<ExamItem,List<ExamRef>>> itemlistf = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
 		List<HashMap<ExamItem,List<ExamRef>>> sessionlist = (List<HashMap<ExamItem,List<ExamRef>>>)
 				request.getSession().getAttribute("elist");
@@ -518,7 +535,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 //		System.out.println(">>>>>>>>>>>>----------c1hasTitle="+request.getSession().getAttribute("c1hasTitle"));
 //		System.out.println(">>>>>>>>>>>>----------c2hasTitle="+request.getSession().getAttribute("c2hasTitle"));
 //		System.out.println(">>>>>>>>>>>>----------c3hasTitle="+request.getSession().getAttribute("c3hasTitle"));
-		System.out.println(">>>>>>>>>>>>----------beginExam-6-over!");
+		System.out.println(">>>>>>>>>>>>----------beginExam-6-over! user_="+this.request.getSession().getAttribute("user_"));
 		
 		return "begin";
 	}
@@ -575,6 +592,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		else
 			seq_all.addAll(CONSTANT.getRandomSeq(CONSTANT.multipleChoiceNum, seq_mc));
 		System.out.println("seq_all size="+seq_all.size());
+		
 		for(Integer s:seq_all){
 			System.out.println("---SEQ---"+s+",cat="+_eil.get(s).getCategory()+",Q="+_eil.get(s).getQuestion());
 			eil.add(_eil.get(s));

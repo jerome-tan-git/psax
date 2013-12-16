@@ -21,5 +21,7 @@ public interface UserManager {
 
 	public List<MemberInfo> loadMember(User user) throws ClassNotFoundException, SQLException;
 
+	public int getUserId(User user);
+
 
 }

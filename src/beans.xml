@@ -66,9 +66,13 @@
 	</bean>
 	<bean id="examManager" class="com.asso.manager.impl.ExamManagerImpl">		
 	</bean>
+	<bean id="scoreManager" class="com.asso.manager.impl.ScoreManagerImpl">		
+	</bean>
 	<bean name="userDao" class="com.asso.dao.impl.UserDaoImpl">            
     </bean>
     <bean name="examDao" class="com.asso.dao.impl.ExamDaoImpl">            
+    </bean>
+    <bean name="scoreDao" class="com.asso.dao.impl.ScoreDaoImpl">            
     </bean>
     
 	<aop:config>

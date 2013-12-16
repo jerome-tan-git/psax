@@ -1,5 +1,6 @@
 package com.asso.action;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,9 +17,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import util.CONSTANT;
+import util.SpringFactory;
 
+import com.asso.manager.ScoreManager;
 import com.asso.model.ExamItem;
 import com.asso.model.ExamRef;
+import com.asso.model.Score;
+import com.asso.model.ScoreExamItem;
+import com.asso.model.ScoreExamRef;
 import com.opensymphony.xwork2.ActionSupport;
 //import com.opensymphony.xwork2.ModelDriven;
 
@@ -27,22 +33,19 @@ import com.opensymphony.xwork2.ActionSupport;
 //public class ExamSubmit extends ActionSupport implements ModelDriven,ServletRequestAware,SessionAware{
 public class ExamSubmit extends ActionSupport implements ServletRequestAware,SessionAware{
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3441931443597405554L;
 	private HttpServletRequest request;	
 	@SuppressWarnings("rawtypes")
 	private Map session;
 	private List<HashMap<ExamItem,List<ExamRef>>> pageitemlistf; //items on that page
 	private ExamRef[] ansref;    //answer in the form of ExamRef to calculate the score
-//	private String[] ANS = {"","","","","","","","","",""};
-//	private int dpi;//dealing page index
-//	private ArrayList<String> chosenRefIds;
 	private int scorePlus =0;
 	private HashMap<ExamItem,Integer> donelist;//0-notDont|1-done&right|2-done&wrong
+	private ScoreManager sm;
 	
+	public ExamSubmit(){
+		sm = (ScoreManager)SpringFactory.getObject("scoreManager");
+	}
 	
 	public List<HashMap<ExamItem, List<ExamRef>>> getPageitemlistf() {
 		return pageitemlistf;
@@ -377,17 +380,6 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 			}			
 		}
 			
-//		for(HashMap<ExamItem,List<ExamRef>> examitem : pgItemlistf){
-//			if(!totalDoneListKeys.contains(examitem)){
-//				System.out.println("this.donelist---key-"+);
-//				answerProgress.add(this.donelist.get(examitem));
-//				System.out.println("answerProgress0===="+answerProgress.toString());
-//			}else{
-//				Integer index = answerProgress.indexOf(examitem);
-//				answerProgress.add(index, this.donelist.get(examitem));
-//				System.out.println("answerProgress1===="+answerProgress.toString());
-//			}
-//		}
 		this.session.put("answerProgress",answerProgress);
 		
 	}
@@ -402,22 +394,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		System.out.println("setServletRequest----nextExamPage="+nextExamPage);		
 		this.request.getSession().setAttribute("pi", nextExamPage);
 	}
-//	private void checkAnswerProgress(){
-//		ArrayList<Integer> answerProgress = (ArrayList<Integer>) this.session.get("answerProgress");
-//		
-//		for(HashMap<ExamItem, List<ExamRef>> map:this.pageitemlistf){
-//			Set<ExamItem> keys = map.keySet();			
-//			if(keys.size()!=1)
-//				System.out.println("DATA ERROR, Pls INV...");
-//			else{
-//				for(ExamItem ei:keys){
-//					for()
-//				}
-//					
-//			}
-//				
-//		}
-//	}
+
 	@SuppressWarnings("unchecked")
 	private void calculateTotalScore(){
 		HashMap<String,Integer> subScore = (HashMap<String, Integer>) this.session.get("subscore");
@@ -572,6 +549,68 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		System.out.println(">>>>>>>>>>>>----------pageSubmit-nextPage()over!");
 	}
 	private void syncPageInfoInDB(){
+		/*Update total score*/
+		Score s = (Score) request.getSession().getAttribute("score_");		
+		int totalscore = 0;
+		if(this.session.get("score")!=null)
+			totalscore = (Integer) this.session.get("score");
+		s.setScore(totalscore);
+		try {
+			this.sm.update(s);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		/*GET score id*/
+		int sid = 0; 
+		sid = this.sm.getScoreId(s);
+		System.out.println("GOT score id ="+sid);
+		
+		/*SAVE ScoreExamItem*/
+		HashMap<ExamItem,Integer> totalDoneList = (HashMap<ExamItem,Integer>) this.session.get("totalDoneList");
+		ArrayList<String> chosenRefIds = (ArrayList<String>) this.session.get("chosenRefIds");
+		HashMap<String,String> itemsRefsRelation = (HashMap<String,String>)this.session.get("itemsRefsRelation");
+		
+		for(int i=0; i<this.pageitemlistf.size(); i++){
+			HashMap<ExamItem, List<ExamRef>> itemap = this.pageitemlistf.get(i);
+			Set<ExamItem> keys = itemap.keySet();
+			if(keys.size()==1){			
+				for(ExamItem key:keys){
+					ScoreExamItem sei = new ScoreExamItem();
+					sei.setExamitemid(key.getId());
+					sei.setScoreid(sid);
+					sei.setSeqid(i+1);
+					sei.setStatus(totalDoneList.get(key));
+					try {
+						sm.add(sei);
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}					
+				}
+				
+			}else
+				System.out.println("DATA, PLS INV...");			
+		}
+		
+		/*SAVE ScoreExamRef*/
+		for(String chosenid:chosenRefIds){
+			ScoreExamRef sef = new ScoreExamRef();
+			int refid = Integer.parseInt(chosenid);
+			sef.setChosenrefid(refid);
+			sef.setItemid(Integer.parseInt(itemsRefsRelation.get(chosenid)));
+			try {
+				sm.add(sef);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 	}
 	private void dealThisPage(){
@@ -580,8 +619,8 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		System.out.println(">>>>>>>>>>>>>>>1。。。。。。。。。setANS()");
 		this.calculatePageScore(this.getPageItemslist());
 		System.out.println(">>>>>>>>>>>>>>>2。。。。。。。。。calculatePageScore");
-		this.syncPageInfoInDB();
-		System.out.println(">>>>>>>>>>>>>>>3。。。。。。。。。syncPageInfoInDB");
+//		this.syncPageInfoInDB();
+//		System.out.println(">>>>>>>>>>>>>>>3。。。。。。。。。syncPageInfoInDB");
 	}
 
 	public String pageSubmit(){
@@ -593,6 +632,8 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 				this.dealThisPage();	
 				this.check();	
 				this.calculateTotalScore();
+				this.syncPageInfoInDB();
+				System.out.println(">>>>>>>>>>>>>>>3。。。。。。。。。syncPageInfoInDB");
 				return "over";
 			}
 		}
