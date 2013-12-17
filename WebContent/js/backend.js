@@ -4,6 +4,25 @@ $( document ).ready( function() {
 	attach_event();
 	rewrite_no();
 	
+	$('.expandOption').click(function() {
+		var targetHeight = $(this).parent().parent().find('.option_list').outerHeight();
+		var originalHeight = $(this).parent().parent().find('.options').outerHeight();
+
+		if (originalHeight == 0) {
+			$(this).parent().parent().find('.options').stop(true, true).animate({
+				height : targetHeight + "px"
+			}, 500, "easeOutExpo");
+			$(this).removeClass('glyphicon-chevron-down');
+			$(this).addClass('glyphicon-chevron-up');
+		} else {
+			$(this).parent().parent().find('.options').stop(true, true).animate({
+				height : "0px"
+			}, 500, "easeOutExpo");
+			$(this).addClass('glyphicon-chevron-down');
+			$(this).removeClass('glyphicon-chevron-up');
+		}
+	});
+
 	$('.exam_type').change(function()
 	{
 		if($(".exam_type:checked").parent().html().indexOf('是非题')!=-1)
@@ -27,7 +46,11 @@ $( document ).ready( function() {
 		rewrite_no();
 		attach_event();
 	});
-	
+	$('.exam_container').hover(function(){
+		$(this).addClass('panel-warning');
+	},function(){
+		$(this).removeClass('panel-warning');
+	});
 	
 });
 
@@ -148,7 +171,7 @@ function read_editor()
 		input_x = input_x.replace("<p>","").replace("</p>","").replace(/\"/g,"'");
 		$('.all_options').append("<div class=\"col-sm-12 col_exam_option\"><div class=\"panel panel-default exam_option \" index='"+ind+"'>"+
 		"<div class=\"panel-body\"><input type=\""+radioType+"\" class=\"exam_no_\" name=\"right_answer\" /><span style=\"font-size:15pt;color:#ccc;\">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class=\"option_text\">"+input_x
-		+"</span><input name=\"refs\" type=\"hidden\"  class=\"hiddenText\"   value=\""+input_x+"\"/>"+
+		+"</span><input name=\"refs\" type=\"hidden\" class=\"hiddenText\"  value=\""+input_x+"\"/>"+
 		"<button type=\"button\" class=\"close delete_option\" aria-hidden=\"true\" index='"+ind
 		+"'>&times;</button></div>"+
 		"</div></div>");
