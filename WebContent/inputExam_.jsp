@@ -72,12 +72,16 @@ $(document).ready(function(){
 	  
 	  var c = $(".aaa").size();
 	  //$("#test2").html("<div id='test3'>选项：<input type='textarea' name='refs' class='aaa' />  正确？<input type='radio' name='refistrues' value='"+c+"'/><br></div>");
-	  $("#test2").html("<div id='test3'>选项：<input type='textarea' id=\"editor"+c+"\" name='refs' class='aaa' cols='20' rows='2'/>  正确？<input type='radio' name='refistrues' value='"+c+"'/><br/></div>");
+	  $("#test2").html("<div id='test3'>"
+		+"选项：<input type='textarea' id=\"editor"+c+"\" name='refs' class='aaa' cols='20' rows='2'/>  正确？<input type='radio' name='refistrues' value='"
+		+c+"'/><br/></div>");
 	  $( '#editor'+c ).ckeditor();
   });
   $("#btn4").click(function(){
 	 var c = $(".aaa").size();
-	 $("#test2").html("<div id='test3'>选项：<input type='textarea' name='refs' class='aaa' />  正确？<input type='checkbox' name='refistrues' value='"+c+"'/><br></div>");
+	 $("#test2").html("<div id='test3'>"
+	 	+"选项：<input type='textarea' name='refs' class='aaa' />  正确？<input type='checkbox' name='refistrues' value='"
+		+c+"'/><br></div>");
 	    
   });
 });

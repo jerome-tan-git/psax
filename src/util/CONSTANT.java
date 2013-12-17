@@ -34,14 +34,14 @@ public class CONSTANT {
 		HashSet<Integer> rzlist = new HashSet<Integer>();
 		Collection<Integer> result = new ArrayList<Integer>();
 		Integer[] index = new Integer[_rzSize];
-		System.out.println("mm0----------_rzSize="+_rzSize+", _orlist.size="+_orlist.size());
+//		System.out.println("mm0----------_rzSize="+_rzSize+", _orlist.size="+_orlist.size());
 		if(_orlist.size()>_rzSize){
 			while(rzlist.size()<_rzSize){  
 				for(int i=0; i<_orlist.size(); i++){
 					int id = (int) (Math.random() * _orlist.size());
-					System.out.println("mm2------------id="+id);
+//					System.out.println("mm2------------id="+id);
 					rzlist.add(_orlist.get(id));
-					System.out.println("mm1------------"+rzlist.toString());
+//					System.out.println("mm1------------"+rzlist.toString());
 					if(rzlist.size()==_rzSize)
 							break;
 				}  

@@ -110,7 +110,8 @@
 					    <h3 class="panel-title">Exam</h3>
 					  </div>
 					  <div class="panel-body">
-					    <form class="form-horizontal" role="form">
+					    <!--<form class="form-horizontal" role="form" method="post" action="newitem1.action">-->
+					    <form class="form-horizontal" method="post" action="newitem1.action">
 					    	<textarea id="editor"> </textarea>
 					    	 <div class="form-group">
 						    <div class="bt_group">
@@ -126,28 +127,24 @@
 						    <div class="col-sm-12">
 								
 								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox1" class="exam_type" value="single_selection" name="e_type" checked> 单选题
+								  <input type="radio" id="inlineCheckbox1" class="exam_type" value="2" name="category" checked> 单选题
 								</label>
 								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox2" class="exam_type" value="multi_selection" name="e_type"> 复选题
+								  <input type="radio" id="inlineCheckbox2" class="exam_type" value="3" name="category"> 复选题
 								  </label>
 								  <label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox3" class="exam_type" value="truefalse" name="e_type"> 是非题
+								  <input type="radio" id="inlineCheckbox3" class="exam_type" value="1" name="category"> 是非题
 								</label>
 								</div>
 						  </div>
 						  <div class="form-group">
-						  	<label  class="col-sm-12">类别</label>
+						  	<label  class="col-sm-12">考试</label>
 						    <div class="col-sm-12">
+						    	<#list Session.exams as exam>
 								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox1" value="option1" name="e_c"> 类别1
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox2" value="option2" name="e_c"> 类别2
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox3" value="option3" name="e_c"> 类别3
-								  </label>
+								  <input type="radio" id="inlineCheckbox_${exam.id}" value="${exam.id}" name="examid">${exam.name}
+								</label>								
+							    </#list>
 							</div>
 						  </div>
 						  <div class="form-group exam_title_input">
@@ -156,7 +153,7 @@
 						    <div class="col-sm-12">
 						      <div class="panel panel-default">
 								  <div class="panel-body">
-								    请输入题目。。。
+								   请输入题目。。。
 								  </div>
 								</div>
 						    </div>
@@ -172,9 +169,12 @@
 						  
 						  <div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="button" class="btn btn-primary pull-right">
+						    	<!--
+						    	<button type="button" class="btn btn-primary pull-right">
 									  <span class="glyphicon glyphicon-floppy-disk"></span> 保存
-									</button>
+								</button>
+								-->
+								<input type="submit" value="保存" />
 						    </div>
 						  </div>
 						</form>

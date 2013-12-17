@@ -82,8 +82,18 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	private HashMap<ExamItem,List<ExamRef>> itemf;
 	private List<HashMap<ExamItem,List<ExamRef>>> itemlistf;
 	private List<HashMap<String,List<ExamRef>>> itemlistSeq;
+	private String user_name;
 	
 	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>user_name_input="+this.user_name);
+		if(this.user_name!=null)
+			this.request.getSession().setAttribute("user_name_input", this.user_name);
+	}
 	public List<HashMap<String, List<ExamRef>>> getItemlistSeq() {
 		return itemlistSeq;
 	}
@@ -404,7 +414,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	private void buildScoreInitial(){
 		Score s = new Score();
 		s.setExamid(this.eInfo.getExamid());
-		s.setExameename("ÑÎ¿¾¼¦³á");//TO GET
+		s.setExameename(this.user_name);//TO GET
 		s.setScore(0);
 		s.setExamdate(CONSTANT.getTodayDate());
 		User u = (User) this.request.getSession().getAttribute("user_");		

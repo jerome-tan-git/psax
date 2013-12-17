@@ -396,7 +396,16 @@ transitional.dtd">
 
 				</div>
 				<div class="exam_type">
-					<span style="color:#000000;font-size: 20pt; font-family: '宋体';";>张三</span>&nbsp;&nbsp;&nbsp;&nbsp;<span><img class="click_down" src="./images/down.png" /></span>
+					<span style="color:#000000;font-size: 20pt; font-family: '宋体';";>
+					<#if Session.user_name_input?exists>
+						${Session.user_name_input}
+					<#elseif Session.user_?exists>
+						<#assign user=Session.user_>
+						${user.name}
+					<#else>
+						未命名
+					</#if>
+					</span>&nbsp;&nbsp;&nbsp;&nbsp;<span><img class="click_down" src="./images/down.png" /></span>
 				</div>
 				<div class="clearfix">
 					<div class="exam_no_outer">

@@ -115,25 +115,41 @@
 					    	 <div class="form-group">
 						    <div class="bt_group">
 						      <div class="btn-group pull-right">
+								  <button type="button" class="btn btn-primary">新建考题</button>
 								  <button type="button" class="btn btn-primary">修改考题</button>
-								  <button type="button" class="btn btn-primary">修改选项</button>
 								  <button type="button" class="btn btn-primary">新增选项</button>
-								</div>
+								  <button type="button" class="btn btn-primary">修改选项</button>								  
+							  </div>
 							</div>						    
 						  </div>
+						  
 						  <div class="form-group">
-						  	
 						    <label  class="col-sm-12">题目</label>
 						    <div class="col-sm-12">
 						      <div class="panel panel-default">
 								  <div class="panel-body">
-								    题目题目题目题目题目题目
+								    	新建题目内容
 								  </div>
 								</div>
 						    </div>
 						  </div>
+						  
 						  <div class="form-group">
-						  	
+						  	<label  class="col-sm-12">类型</label>
+						    <div class="col-sm-12">
+								<label class="radio-inline">
+								  <input type="radio" id="btn1" value="option1" name="category"> 是非题
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" id="btn2" value="option2" name="category"> 单选题
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" id="btn3" value="option3" name="category"> 复选题
+							   </label>
+							</div>
+						  </div>
+						  
+						  <div class="form-group" id="optiont1">						  	
 						    <label  class="col-sm-12">选项</label>
 						    <div class="col-sm-12">
 						      <div class="panel panel-default exam_option ">
@@ -143,7 +159,7 @@
 								  </div>
 								</div>
 						    </div>
-<div class="col-sm-12">
+							<div class="col-sm-12">
 						      <div class="panel panel-default exam_option ">
 								  <div class="panel-body">
 								    选项选项选项选项选项选项选项选项选项选项
@@ -168,33 +184,33 @@
 								</div>
 						    </div>
 						  </div>
+						  
+						 <div class="bt_group">
+						      <div class="btn-group pull-right">								  
+								  <button type="button" class="btn btn-primary">新建考题</button>
+								  <button type="button" class="btn btn-primary">修改考题</button>
+								  <button type="button" class="btn btn-primary">新增选项</button>
+								  <button type="button" class="btn btn-primary">修改选项</button>								  
+							  </div>
+						 </div>	
+						  
+						 
 						  <div class="form-group">
-						  	<label  class="col-sm-12">类型</label>
+						  	<label  class="col-sm-12">考试</label>
 						    <div class="col-sm-12">
+						    	<#list Session.exams as exam>
 								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox1" value="option1" name="e_type"> 是非题
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox2" value="option2" name="e_type"> 单选题
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox3" value="option3" name="e_type"> 复选题
-								  </label>
-								</div>
-						  </div>
-						  <div class="form-group">
-						  	<label  class="col-sm-12">类别</label>
-						    <div class="col-sm-12">
-								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox1" value="option1" name="e_c"> 类别1
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox2" value="option2" name="e_c"> 类别2
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox3" value="option3" name="e_c"> 类别3
-								  </label>
-								</div>
+								  <input type="radio" id="inlineCheckbox_${exam.id}" value="option_${exam.id}" name="e_c">${exam.name}
+								</label>								
+							    </#list>
+							</div>
+							<div class="bt_group">
+						      <div class="btn-group pull-right">
+								  <button type="button" class="btn btn-primary">新建</button>
+								  <button type="button" class="btn btn-primary">编辑</button>
+								  <button type="button" class="btn btn-primary">删除</button>								  								  
+							  </div>
+							</div>	
 						  </div>
 						  
 						  <div class="form-group">
@@ -230,6 +246,7 @@
 							Save changes
 						</button>
 					</div>
+					
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->

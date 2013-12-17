@@ -5,7 +5,15 @@ public class ScoreExamRef {
 	private int id;
 	private int chosenrefid;
 	private int itemid;
+	private int scoreid;
 	
+	
+	public int getScoreid() {
+		return scoreid;
+	}
+	public void setScoreid(int scoreid) {
+		this.scoreid = scoreid;
+	}
 	public int getId() {
 		return id;
 	}
@@ -26,7 +34,7 @@ public class ScoreExamRef {
 	}
 	
 	public String toString(){
-		return this.id+","+this.chosenrefid+","+this.itemid;
+		return this.id+","+this.chosenrefid+","+this.itemid+","+this.scoreid;
 	}
 
 }

@@ -1,4 +1,44 @@
+var selectIndex = -1;
+var indexseq = 0;
 $( document ).ready( function() {
+	attach_event();
+	
+	
+	$('.exam_type').change(function()
+	{
+		if($(".exam_type:checked").parent().html().indexOf('是非题')!=-1)
+		{
+			var ind = numRand();
+			$('.all_options').html("<label  class=\"col-sm-12\">选项</label>");
+			$('.all_options').append("<div class=\"col-sm-12 col_exam_option\"><div class=\"panel panel-default exam_option \" index='"+ind+"'>"+
+			"<div class=\"panel-body\"><input type=\"radio\" class=\"exam_no_\" name=\"right_answer\" value=\"0\"/><span style=\"font-size:15pt;color:#ccc;\">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class=\"option_text\">是</span><input name=\"refs\" type=\"hidden\"  value=\"1\"/>"+
+			"</div></div></div>");
+			ind = numRand();
+			$('.all_options').append("<div class=\"col-sm-12 col_exam_option\"><div class=\"panel panel-default exam_option \" index='"+ind+"'>"+
+			"<div class=\"panel-body\"><input type=\"radio\" class=\"exam_no_\" name=\"right_answer\" value=\"0\"/><span style=\"font-size:15pt;color:#ccc;\">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class=\"option_text\">否</span><input name=\"refs\" type=\"hidden\"  value=\"0\"/>"+
+			"</div></div></div>");
+			$('#addOptionbt').attr('disabled','disabled');
+		}
+		else
+		{
+			$('.all_options').html("<label  class=\"col-sm-12\">选项</label>");
+			$('#addOptionbt').removeAttr('disabled');
+		}
+		rewrite_no();
+		attach_event();
+	});
+	
+	
+});
+
+ function numRand() {
+    var x = 1;
+    var y = 100000000;
+    var rand = parseInt(Math.random() * (x - y + 1) + y);
+    return rand;
+}
+function attach_event()
+{
 	$('.exam_option').click(function()
 	{
 		if($(this).hasClass('panel-danger'))
@@ -7,6 +47,7 @@ $( document ).ready( function() {
 		}
 		$('.exam_option').removeClass('panel-primary');
 		$(this).addClass('panel-primary');
+		put_data($(this));
 	});
 	$('.exam_option').hover(
 		function()
@@ -22,5 +63,112 @@ $( document ).ready( function() {
 			$(this).removeClass('panel-danger');
 		}
 	);
-} );
+	$('.delete_option').click(function()
+	{
+		var target_index = $(this).attr("index");
+		$('.col_exam_option').each(
+			function()
+			{
+				var this_index = $(this).find('.exam_option').attr("index");
+				if (this_index == target_index)
+				{
+					$(this).remove();
+					
+				}
+				
+			}
+		);
+		rewrite_no();
+	});
+}
+
+
+function rewrite_no() {
+	var i = 0;
+	$(".exam_no_").each(function() {
+		$(this).val(i+"");
+		i++;
+	});
+
+}
+
+
+function update_data()
+{
+	var input_x = CKEDITOR.instances.editor.getData();
+	input_x = input_x.replace("<p>","").replace("</p>","").replace(/\"/g,"'");
+	$('.col_exam_option').each(
+		function()
+		{
+			var this_index = $(this).find('.exam_option').attr("index");
+			if (this_index == selectIndex)
+			{
+				var ind = numRand();
+//				$(this).html("<div class=\"panel panel-default exam_option \" index='"+ind+"'>"+
+//				"<div class=\"panel-body\"><span class='exam_no_'></span><span class=\"option_text\">"+input_x
+//				+"</span><input name=\"refs\" type=\"hidden\"  value=\""+input_x
+//				+"\"/>"+
+//				"<button type=\"button\" class=\"close delete_option\" aria-hidden=\"true\" index='"+ind
+//				+"'>&times;</button></div>"+
+//				"</div>");
+				$(this).find('.option_text').html(input_x);
+				$(this).find('.hiddenText').val(input_x);
+				
+			}
+			
+		}
+	);
+	attach_event();
+	rewrite_no();
+	CKEDITOR.instances.editor.setData("");
+}
+function put_data(obj)
+{
+	var te = obj.find('.option_text').html();
+	CKEDITOR.instances.editor.setData(te);
+	selectIndex = obj.attr('index');
+
+}
+function uploadTitle(obj)
+{
+	var te = obj.find('.option_text').html();
+	CKEDITOR.instances.editor.setData(te);
+	$('.exam_option').removeClass('panel-primary');
+	selectIndex = -1;
+}
+function read_editor()
+{
+		var ind = numRand();
+		var input_x = CKEDITOR.instances.editor.getData();
+		var radioType="radio";
+		if ($(".exam_type:checked").parent().html().indexOf('复选题') != -1)
+		{
+			radioType = "checkbox";
+		}
+		input_x = input_x.replace("<p>","").replace("</p>","").replace(/\"/g,"'");
+		$('.all_options').append("<div class=\"col-sm-12 col_exam_option\"><div class=\"panel panel-default exam_option \" index='"+ind+"'>"+
+		"<div class=\"panel-body\"><input type=\""+radioType+"\" class=\"exam_no_\" name=\"right_answer\" /><span style=\"font-size:15pt;color:#ccc;\">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class=\"option_text\">"+input_x
+		+"</span><input name=\"refs\" type=\"hidden\"  value=\""+input_x+"\"/>"+
+		"<button type=\"button\" class=\"close delete_option\" aria-hidden=\"true\" index='"+ind
+		+"'>&times;</button></div>"+
+		"</div></div>");
+		attach_event();
+		rewrite_no();
+		CKEDITOR.instances.editor.setData("");
+}
+
+
+function read_editor_title()
+{
+
+		var input_x = CKEDITOR.instances.editor.getData();
+		input_x = input_x.replace("<p>","").replace("</p>","").replace(/\"/g,"'");
+		$('.exam_title_input').html("<label class=\"col-sm-12\">题目</label><div class=\"col-sm-12\" style=\"cursor:pointer\" onclick=\"uploadTitle($(this))\"><div class=\"panel panel-default\">"+
+		"<div class=\"panel-body\"><span class=\"option_text\">"+input_x+
+		"</span><input name=\"question\" type=\"hidden\"  value=\""+input_x+"\"/>"+
+		"</div></div>");
+		attach_event();
+		CKEDITOR.instances.editor.setData("");
+
+}
 

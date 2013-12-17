@@ -593,7 +593,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 				}
 				
 			}else
-				System.out.println("DATA, PLS INV...");			
+				System.out.println("DATA ERROR, PLS INV...");			
 		}
 		
 		/*SAVE ScoreExamRef*/
@@ -602,6 +602,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 			int refid = Integer.parseInt(chosenid);
 			sef.setChosenrefid(refid);
 			sef.setItemid(Integer.parseInt(itemsRefsRelation.get(chosenid)));
+			sef.setScoreid(sid);
 			try {
 				sm.add(sef);
 			} catch (ClassNotFoundException e) {
