@@ -148,7 +148,7 @@ function read_editor()
 		input_x = input_x.replace("<p>","").replace("</p>","").replace(/\"/g,"'");
 		$('.all_options').append("<div class=\"col-sm-12 col_exam_option\"><div class=\"panel panel-default exam_option \" index='"+ind+"'>"+
 		"<div class=\"panel-body\"><input type=\""+radioType+"\" class=\"exam_no_\" name=\"right_answer\" /><span style=\"font-size:15pt;color:#ccc;\">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class=\"option_text\">"+input_x
-		+"</span><input name=\"refs\" type=\"hidden\"  value=\""+input_x+"\"/>"+
+		+"</span><input name=\"refs\" type=\"hidden\"  class=\"hiddenText\"   value=\""+input_x+"\"/>"+
 		"<button type=\"button\" class=\"close delete_option\" aria-hidden=\"true\" index='"+ind
 		+"'>&times;</button></div>"+
 		"</div></div>");
