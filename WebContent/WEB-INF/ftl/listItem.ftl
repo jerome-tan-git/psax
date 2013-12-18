@@ -106,6 +106,36 @@
 				</div>
 				<div class="col-md-8">
 					<div class="col-md-12">
+					<#if itemlistSeq?exists>
+						<#list itemlistSeq as map>
+							<#assign keys=map?keys>							
+							<#list keys as key>
+								<#assign seq=refQlist?seq_index_of(key)+1>
+							<div class="panel panel-default exam_container">
+								  <div class="panel-heading clearfix">
+									  	<div class="exam_title_list pull-left ">									  		
+									  		${seq}. ${key}
+									  	</div>
+								  		<a href="#"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
+								  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+								  		<a href="#"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
+								  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+									  	<span class="glyphicon glyphicon-chevron-down pull-right hand expandOption"></span>
+			 						  </div>
+									  <div class="options">
+									  	<div class="option_list">
+									  		<ol>
+									  		<#assign refs=map[key]>
+											<#list refs as ref>
+										  		<li><div>${ref.ref}</div></li>
+											</#list>
+									  		</ol>
+									  	</div>
+								  </div>
+							</div>
+							</#list>
+						</#list>
+					</#if>
 						<div class="panel panel-default exam_container">
 						  <div class="panel-heading clearfix">
 						  	<div class="exam_title_list pull-left ">
@@ -121,9 +151,9 @@
 						  <div class="options">
 						  	<div class="option_list">
 						  		<ol>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
+							  		<li><div>
 							  		asfsafsafasdf</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
+							  		<li><div>
 							  		asfsafsafasdf</div></li>
 							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
 							  		asfsafsafasdf</div></li>
@@ -166,38 +196,8 @@
 						  </div>
 						</div>				
 
-						<div class="panel panel-default exam_container">
-						  
-						</div>												
-
-						<div class="panel panel-default exam_container">
-						  <div class="panel-heading clearfix"></div>
-						  <div class="options">
-						  	<div class="option_list"></div>
-						  </div>
-						</div>
 												
-						<div class="panel panel-default exam_container">
-						  <div class="panel-heading clearfix">
-						  	<div class="exam_title_list pull-left ">asfsafsafasdf</div>
-						  		<a href="#"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
-						  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-						  		<a href="#"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
-						  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-							  	<span class="glyphicon glyphicon-chevron-down pull-right hand expandOption"></span>
-							</div>
-						  <div class="options">
-						  	<div class="option_list">
-						  		<ol>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />asfsafsafasdf</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />asfsafsafasdf</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />asfsafsafasdf</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />asfsafsafasdf</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />asfsafsafasdf</div></li>
-						  		</ol>
-						  	</div>
-						  </div>
-						</div>												
+																	
 						<ul class="pager">
 						  <li class="previous"><a class="exam_pager" href="#"><span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
 						  <li class="previous"><a class="exam_pager" href="#"><span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;

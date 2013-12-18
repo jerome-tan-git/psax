@@ -77,6 +77,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 
 	private ExamRef ref;
 	private List<ExamRef> reflist;
+	private List<String> refQlist;
 	private ExamItem item;
 	private List<ExamItem> itemlist;
 	private HashMap<ExamItem,List<ExamRef>> itemf;
@@ -94,6 +95,16 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		if(this.user_name!=null)
 			this.request.getSession().setAttribute("user_name_input", this.user_name);
 	}
+	
+	
+	public List<String> getRefQlist() {
+		return refQlist;
+	}
+
+	public void setRefQlist(List<String> refQlist) {
+		this.refQlist = refQlist;
+	}
+
 	public List<HashMap<String, List<ExamRef>>> getItemlistSeq() {
 		return itemlistSeq;
 	}
@@ -438,6 +449,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 //		family.put(_item,this.addSeq4Reflist(this.loadReflistByItemid(_item.getId())) );
 		return family;
 	}
+
 	private void loadItemlistf() throws ClassNotFoundException, SQLException{
 		List<HashMap<ExamItem,List<ExamRef>>> list = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
 		List<ExamItem> ilist = new ArrayList<ExamItem>();
@@ -484,7 +496,83 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		}
 		request.getSession().setAttribute("score_", s);
 	}
-	public String loadItemlistFByExamId() throws ClassNotFoundException, SQLException{
+	public String loadPageItemlistFByExamId() throws ClassNotFoundException, SQLException{
+		
+		String requestExamId = (String) this.request.getParameter("examid");
+		if(requestExamId!=null)
+			this.eInfo.setExamid(Integer.parseInt(requestExamId));
+		System.out.println("---_examid---"+this.eInfo.getExamid());
+		
+		List<ExamItem> ilist = new ArrayList<ExamItem>();
+		ilist = em.loadItemlistByExamid(this.eInfo.getExamid());
+		//ilist = this.dedupeEIlist(ilist);
+		System.out.println("---------after em.loadItemlistByExamid size="+ilist.size());
+		this.refQlist = new ArrayList<String>();
+		for(ExamItem i:ilist){
+			if(i!=null)			
+				this.refQlist.add(i.getQuestion());
+			else
+				System.out.println("DATA ERROR, PLS INV...");			
+		}
+		int page = 1;
+		String requestPage = (String)this.request.getParameter("page");
+		if(requestPage!=null)
+			page = Integer.parseInt(requestPage);
+		
+		int pagenum = ilist.size()/CONSTANT.pageSize;
+		if(ilist.size()>pagenum*CONSTANT.pageSize)
+			pagenum += 1;
+		if(page>pagenum && page>0 && pagenum>0)
+			page = pagenum;
+		
+		this.itemlistSeq = new ArrayList<HashMap<String,List<ExamRef>>>();
+		int index0 = CONSTANT.pageSize*(page-1);
+		int index1 = CONSTANT.pageSize*page-1;
+		if(ilist.size()>=CONSTANT.pageSize){
+			if(ilist.size()>index0){
+				if(ilist.size()>=index1){					
+					for(int i=index0; i<=index1; i++){
+						System.out.println("1) item id="+ilist.get(i).getId());
+						List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
+						for(ExamRef ref:refs)
+							System.out.println("ref----"+ref.getRef());
+						
+						HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
+						seqmap.put(ilist.get(i).getQuestion(), this.loadReflistByItemid(ilist.get(i).getId()));
+						this.itemlistSeq.add(seqmap);
+						
+					}
+				}else{
+					for(int i=index0; i<ilist.size(); i++){
+						System.out.println("2) item id="+ilist.get(i).getId());
+						List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
+						for(ExamRef ref:refs)
+							System.out.println("ref----"+ref.getRef());
+						
+						HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
+//						refs = this.loadReflistByItemid(ilist.get(i).getId());
+						seqmap.put(ilist.get(i).getQuestion(), refs);
+						this.itemlistSeq.add(seqmap);
+					}
+				}				
+			}
+		}else{
+			for(int i=0; i<ilist.size(); i++){
+				System.out.println("3) item id="+ilist.get(i).getId());
+				List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
+				for(ExamRef ref:refs)
+					System.out.println("ref----"+ref.getRef());
+				
+				HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
+				seqmap.put(ilist.get(i).getQuestion(), this.loadReflistByItemid(ilist.get(i).getId()));
+				this.itemlistSeq.add(seqmap);
+			}
+		}
+		
+		System.out.println("! loadPageItemlistFByExamId over, itemlistSeq.size="+this.itemlistSeq.size());
+		return "list";
+	}
+	public String loadExamItemlistFByExamId() throws ClassNotFoundException, SQLException{
 		String requestExamId = (String) this.request.getSession().getAttribute("examid");
 		if(requestExamId!=null)
 			this.eInfo.setExamid(Integer.parseInt(requestExamId));
@@ -544,12 +632,74 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		request.getSession().setAttribute("c3hasTitle", c3hasTitle);
 	}
 	
+//	public String beginList(){
+//		System.out.println(">>>>>>>>>>>>----------beginExam-1");
+//		if(this.request.getParameter("examid")!=null)
+//			this.eInfo.setExamid(Integer.parseInt(this.request.getParameter("examid")));
+//		try {
+//			this.loadItemlistFByExamId();
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		this.initialSession();
+//		
+//		List<HashMap<ExamItem,List<ExamRef>>> sessionlist = (List<HashMap<ExamItem,List<ExamRef>>>)
+//				request.getSession().getAttribute("elist");
+////		System.out.println(">>>>>>>>>>>>----------beginExam-2, elist.size="
+////				+sessionlist.size());
+//		int pi =1;
+//		int totalpi = sessionlist.size()/CONSTANT.pageSize;
+//		if(sessionlist.size()>totalpi*CONSTANT.pageSize){
+//			totalpi = totalpi+1;
+//		}
+//		System.out.println("totalpi="+totalpi);
+//		int index0 = (pi-1)*CONSTANT.pageSize;
+//		System.out.println(">>>>>>>>>>>>----------beginExam-3, pi="+pi+", totalpi="+totalpi
+//				+", index0="+index0);
+//		this.request.getSession().setAttribute("pi",pi);
+//		this.request.getSession().setAttribute("totalpi",totalpi);
+//		this.request.getSession().setAttribute("index0",index0);		
+//		/*SET Session.Pageilf for frontend*/
+//		List<HashMap<String,List<ExamRef>>> ilf = new ArrayList<HashMap<String,List<ExamRef>>>();
+//		for(int i=0; i<index0+CONSTANT.pageSize; i++){			
+//			HashMap<String,List<ExamRef>> map  = new HashMap<String,List<ExamRef>>();
+//			if(i>=index0)
+//				for(int n=0; n<sessionlist.size(); n++){					 
+//					HashMap<ExamItem,List<ExamRef>> il = sessionlist.get(n);
+//					Set<ExamItem> e = il.keySet();
+//					if(i==n){
+//						if(e.size()==1){
+//							for(ExamItem e1:e){
+//								map.put(e1.getQuestion(), il.get(e1));
+//								ilf.add(map);
+//							}
+//						}
+//					}						
+//				}				
+//			else{
+//				map.put(""+i,null);
+//				ilf.add(map);
+//			}
+//				
+//		}
+//		
+//		System.out.println("New itemlistf size="+ilf.size());
+//		this.request.getSession().setAttribute("pageilf",null);
+//		this.request.getSession().setAttribute("pageilf",ilf);
+//		
+//		System.out.println(">>>>>>>>>>>>----------beginExam-6-over! user_="+this.request.getSession().getAttribute("user_"));		
+//		return "begin";
+//	}
+	
 	public String beginExam(){
 		System.out.println(">>>>>>>>>>>>----------beginExam-1");
 		if(this.request.getParameter("examid")!=null)
 			this.eInfo.setExamid(Integer.parseInt(this.request.getParameter("examid")));
 		try {
-			this.loadItemlistFByExamId();
+			this.loadExamItemlistFByExamId();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
