@@ -6,11 +6,12 @@ import com.asso.model.Category;
 import com.asso.model.Channel;
 
 public interface ChannelDao {
-
-	void save(Channel channel);
-	List<Channel> loadChannels();
-	List<Category> loadCategories(int channelid);
-	List<Category> loadCategories();
-	List<Category> loadCategoryPath(int categoryid);
+//
+//	void save(Channel channel);
+//	List<Channel> loadChannels();
+//	List<Category> loadCategories(int channelid);
+//	List<Category> loadCategories();
+//	List<Category> loadCategoryPath(int categoryid);
+//	Category loadCategory(int categoryid);
 
 }

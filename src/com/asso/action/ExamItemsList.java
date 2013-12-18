@@ -152,8 +152,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	}
 	
 	public String addItem(){
-		ExamItem ei = null;
-//		long a = System.currentTimeMillis();
+		
+		ExamItem ei = null;		
 		try {
 			ei = this.addExamItem();
 		} catch (ClassNotFoundException e) {
@@ -161,7 +161,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//		long b = System.currentTimeMillis();
+		
 		int newItemId = 0;
 		try {
 			newItemId = this.loadItemByQ();
@@ -170,7 +170,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//		long c = System.currentTimeMillis();
+		
 		System.out.println("----- New added ItemId ------"+newItemId);
 		System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs().length);
 		if(this.eInfo.getRefs().length==1)
@@ -182,6 +182,10 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 			if(this.eInfo.getRefistrues()!=null){//when judge items it is null
 			for(int i=0; i<this.eInfo.getRefistrues().length;i++)
 				System.out.println(i+"---------"+this.eInfo.getRefistrues()[i]);
+			}
+			if(this.eInfo.getRight_answer()!=null){
+				for(int i=0; i<this.eInfo.getRight_answer().length;i++)
+					System.out.println(i+"-(getRight_answer)---------"+this.eInfo.getRight_answer()[i]);
 			}
 
 		}
@@ -195,14 +199,18 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		}else
 //			this.addExamRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
 //			this.addExamChoiceRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
-			this.addExamChoiceRefs2(newItemId, this.eInfo.getRefs(), this.eInfo.getRefistrues());
-// 		long d = System.currentTimeMillis();
-//		System.out.println("---------------------------addItem-------------------------");
-//		System.out.println("time(addExamItem): "+(b-a));
-//		System.out.println("time(loadItemByQ): "+(c-b));
-//		System.out.println("time(addExamRefs): "+(d-c));
-//		System.out.println("time(total):       "+(d-a));
-//		System.out.println("------------------------------------------------------------");
+		
+//			this.addExamChoiceRefs2(newItemId, this.eInfo.getRefs(), this.eInfo.getRefistrues());
+			this.addExamChoiceRefs2(newItemId, this.eInfo.getRefs(), this.eInfo.getRight_answer());
+		
+		try {
+			this.loadExams();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		return "save";
 	}
 	
@@ -223,6 +231,53 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		
 //		HashSet<Integer> ans = this.getRefAnsByInputString(_answers);		
 //		List<String> refQs = this.getRefQsByInputString(_refstring);
+		for(int i=0; i<_refstring.length; i++){
+			ExamRef e_ref = new ExamRef();
+			e_ref.setItemid(_itemid);
+			e_ref.setRef(_refstring[i]);
+			e_ref.setIstrue(0);
+			for(String ans:_answers){
+				int n = Integer.parseInt(ans);
+				if(n==i){
+					e_ref.setIstrue(1);
+					break;
+				}
+			}
+			refs.add(e_ref);			
+		}
+		for(ExamRef ref:refs)
+			System.out.println("------------ref-"+ref.toString());
+
+		try {
+			em.add(refs);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void addExamChoiceRefs3(int _itemid, String[] _refstring, String[] _answers){
+		System.out.println("_itemid, _refstring(length),_answer(length)="+_itemid+":"+
+				_refstring.length+":"+_answers.length);
+		List<ExamRef> refs = new ArrayList<ExamRef>();
+//		ArrayList<Integer> ans = new ArrayList<Integer>();
+//		for(String a:_answers)
+//			ans.add(Integer.parseInt(a));
+//
+//		for(int i=0; i<_refstring.length; i++){
+//			ExamRef e_ref = new ExamRef();
+//			e_ref.setItemid(_itemid);
+//			e_ref.setRef(_refstring[i]);
+//			e_ref.setIstrue(0);
+//			for(Integer a:ans){
+//				if(a==i){
+//					e_ref.setIstrue(0);
+//					break;
+//				}
+//			}
+//			
 		for(int i=0; i<_refstring.length; i++){
 			ExamRef e_ref = new ExamRef();
 			e_ref.setItemid(_itemid);
@@ -430,6 +485,9 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		request.getSession().setAttribute("score_", s);
 	}
 	public String loadItemlistFByExamId() throws ClassNotFoundException, SQLException{
+		String requestExamId = (String) this.request.getSession().getAttribute("examid");
+		if(requestExamId!=null)
+			this.eInfo.setExamid(Integer.parseInt(requestExamId));
 		System.out.println("---_examid---"+this.eInfo.getExamid());
 		List<HashMap<ExamItem,List<ExamRef>>> list = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
 		List<ExamItem> ilist = new ArrayList<ExamItem>();
@@ -460,10 +518,13 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		}
 //		Set<String> keys = itemsRefsRelation.keySet();
 //		for(String key:keys)
-//			System.out.println("---itemsRefsRelation---key---"+key+",value---"+itemsRefsRelation.get(key));
-		
-		
+//			System.out.println("---itemsRefsRelation---key---"+key+",value---"+itemsRefsRelation.get(key));		
 		request.getSession().setAttribute("itemsRefsRelation", itemsRefsRelation);
+
+		return "list";
+	}
+	
+	private void initialSession(){
 		request.getSession().setAttribute("elist", this.itemlistf);
 		request.getSession().setAttribute("elistseq", this.itemlistSeq);
 		request.getSession().setAttribute("chosenRefIds", new ArrayList<String>());
@@ -474,9 +535,15 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		request.getSession().setAttribute("totalDoneList", new HashMap<ExamItem,Integer>());// for stats
 		request.getSession().setAttribute("answerProgress", new ArrayList<Integer>());//isDoneList, for display
 		request.getSession().setAttribute("answerMap",new HashMap<String,List<String>>());
-		//only in case of modifying answers, itemid---->refids 
-		return "list";
+											//only in case of modifying answers, itemid---->refids 		
+		int c1hasTitle = 1;//是非题开始序号
+		int c2hasTitle = 1+CONSTANT.judgeNum;//选择题开始序号
+		int c3hasTitle = 1+CONSTANT.judgeNum+CONSTANT.singleChoiceNum;//多选题开始序号		
+		request.getSession().setAttribute("c1hasTitle", c1hasTitle);
+		request.getSession().setAttribute("c2hasTitle", c2hasTitle);
+		request.getSession().setAttribute("c3hasTitle", c3hasTitle);
 	}
+	
 	public String beginExam(){
 		System.out.println(">>>>>>>>>>>>----------beginExam-1");
 		if(this.request.getParameter("examid")!=null)
@@ -490,12 +557,12 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		}
 		
 		this.buildScoreInitial();
+		this.initialSession();
 		
-//		List<HashMap<ExamItem,List<ExamRef>>> itemlistf = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
 		List<HashMap<ExamItem,List<ExamRef>>> sessionlist = (List<HashMap<ExamItem,List<ExamRef>>>)
 				request.getSession().getAttribute("elist");
-		System.out.println(">>>>>>>>>>>>----------beginExam-2, elist.size="
-				+sessionlist.size());
+//		System.out.println(">>>>>>>>>>>>----------beginExam-2, elist.size="
+//				+sessionlist.size());
 		int pi =1;
 		int totalpi = sessionlist.size()/CONSTANT.pageSize;
 		if(sessionlist.size()>totalpi*CONSTANT.pageSize){
@@ -508,7 +575,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		this.request.getSession().setAttribute("pi",pi);
 		this.request.getSession().setAttribute("totalpi",totalpi);
 		this.request.getSession().setAttribute("index0",index0);		
-		
+		/*SET Session.Pageilf for frontend*/
 		List<HashMap<String,List<ExamRef>>> ilf = new ArrayList<HashMap<String,List<ExamRef>>>();
 		for(int i=0; i<index0+CONSTANT.pageSize; i++){			
 			HashMap<String,List<ExamRef>> map  = new HashMap<String,List<ExamRef>>();
@@ -536,17 +603,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		this.request.getSession().setAttribute("pageilf",null);
 		this.request.getSession().setAttribute("pageilf",ilf);
 		
-		int c1hasTitle = 1;//是非题开始序号
-		int c2hasTitle = 1+CONSTANT.judgeNum;//选择题开始序号
-		int c3hasTitle = 1+CONSTANT.judgeNum+CONSTANT.singleChoiceNum;//多选题开始序号		
-		request.getSession().setAttribute("c1hasTitle", c1hasTitle);
-		request.getSession().setAttribute("c2hasTitle", c2hasTitle);
-		request.getSession().setAttribute("c3hasTitle", c3hasTitle);
-//		System.out.println(">>>>>>>>>>>>----------c1hasTitle="+request.getSession().getAttribute("c1hasTitle"));
-//		System.out.println(">>>>>>>>>>>>----------c2hasTitle="+request.getSession().getAttribute("c2hasTitle"));
-//		System.out.println(">>>>>>>>>>>>----------c3hasTitle="+request.getSession().getAttribute("c3hasTitle"));
-		System.out.println(">>>>>>>>>>>>----------beginExam-6-over! user_="+this.request.getSession().getAttribute("user_"));
-		
+		System.out.println(">>>>>>>>>>>>----------beginExam-6-over! user_="+this.request.getSession().getAttribute("user_"));		
 		return "begin";
 	}
 	

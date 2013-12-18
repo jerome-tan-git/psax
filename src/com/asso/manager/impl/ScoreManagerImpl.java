@@ -23,10 +23,10 @@ import com.asso.model.User;
 public class ScoreManagerImpl implements ScoreManager {
 
 	//For App test
-	private ScoreDao scoreDao = new ScoreDaoImpl();
+//	private ScoreDao scoreDao = new ScoreDaoImpl();
 	
 	//For WEB test
-//	private UserDao userDao ;
+	private ScoreDao scoreDao;
 
 	public ScoreDao getScoreDao() {
 		return scoreDao;

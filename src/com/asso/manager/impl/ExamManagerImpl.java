@@ -24,10 +24,10 @@ import com.asso.model.User;
 public class ExamManagerImpl implements ExamManager {
 
 	//For App test
-	private ExamDao examDao = new ExamDaoImpl();
+//	private ExamDao examDao = new ExamDaoImpl();
 	
 	//For WEB test
-//	private ExamDao examDao;
+	private ExamDao examDao;
 	
 		
 	public ExamDao getExamDao() {

@@ -23,9 +23,18 @@ public class ExamBuiltInfo {
 	private int refid;
 	private String ref;
 	private int istrue;
+	private String[] right_answer;
 	
 	
 
+	public String[] getRight_answer() {
+		return right_answer;
+	}
+	
+	public void setRight_answer(String[] right_answer) {
+		this.right_answer = right_answer;
+	}
+	
 	public String getRefistrue() {
 		return refistrue;
 	}

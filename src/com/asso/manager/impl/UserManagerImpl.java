@@ -17,10 +17,10 @@ import com.asso.model.User;
 public class UserManagerImpl implements UserManager {
 
 	//For App test
-	private UserDao userDao = new UserDaoImpl();
+//	private UserDao userDao = new UserDaoImpl();
 	
 	//For WEB test
-//	private UserDao userDao ;
+	private UserDao userDao ;
 	
 		
 	public UserDao getUserDao() {

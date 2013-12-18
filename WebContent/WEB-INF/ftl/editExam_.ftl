@@ -140,11 +140,13 @@
 						  <div class="form-group">
 						  	<label  class="col-sm-12">考试</label>
 						    <div class="col-sm-12">
+						    <#if Session.exams?exists>
 						    	<#list Session.exams as exam>
 								<label class="radio-inline">
 								  <input type="radio" id="inlineCheckbox_${exam.id}" value="${exam.id}" name="examid">${exam.name}
 								</label>								
 							    </#list>
+							</#if>
 							</div>
 						  </div>
 						  <div class="form-group exam_title_input">
