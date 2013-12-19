@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -18,11 +19,14 @@ import org.springframework.stereotype.Component;
 import util.CONSTANT;
 import util.SpringFactory;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.asso.manager.ExamManager;
 import com.asso.manager.ScoreManager;
 import com.asso.model.Exam;
 import com.asso.model.ExamItem;
 import com.asso.model.ExamRef;
+import com.asso.model.JSExamRef;
 import com.asso.model.Score;
 import com.asso.model.User;
 import com.asso.vo.ExamBuiltInfo;
@@ -476,8 +480,61 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		String itemID = this.request.getParameter("itemid");
+		int itemid = -1;
+		if(itemID!=null){
+			System.out.println("---item id input="+itemID);
+			itemid = Integer.parseInt(itemID);
+		}
+		if(itemid>-1){
+			this.eInfo.setExamitemid(itemid);
+			try {
+				this.loadItem();//this.item
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				this.loadReflist();//this.reflist
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}			
+		
+//		JSONObject jsonObj = (JSONObject) JSON.toJSON(this.item); 
+//		System.out.println("bean2Json()方法：jsonObj==" + jsonObj); 
+//		
+//		String jsonText = JSON.toJSONString(this.reflist, true);  
+//        System.out.println("list2Json()方法：jsonText=="+jsonText);  
+                
+        Map map = new HashMap();  
+        map.put("type", CONSTANT.getJSCateName(this.item.getCategory()));
+        map.put("category","option1");
+        map.put("question",this.item.getQuestion());
+        map.put("question",this.item.getQuestion());//for backend
+        List<JSExamRef> list = new ArrayList<JSExamRef>();        
+        for(ExamRef ref:this.reflist){       
+        	JSExamRef refjs = new JSExamRef();
+        	refjs.setText(ref.getRef());
+        	refjs.setValue(ref.getId()+"");
+        	refjs.setRight_answer(CONSTANT.getJStruefalse(ref.getIstrue()));        	
+        	list.add(refjs);
+        }	
+        map.put("options", list);
+        
+        String jsonText1 = JSON.toJSONString(map, true);  
+        System.out.println("map2Json()方法：jsonText1=="+jsonText1);  
+		
+        
+//		System.out.println("this.item-----"+this.item.toString());
+//		System.out.println("this.itemRefs-----"+this.reflist.toString());
 		return "success";
 	}
+	
 	private void buildScoreInitial(){
 		Score s = new Score();
 		s.setExamid(this.eInfo.getExamid());

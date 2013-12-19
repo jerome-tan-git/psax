@@ -102,7 +102,24 @@ public class CONSTANT {
 		return today;
 	}
 	
-	
+	public static String getJSCateName(int _categoryid){
+        String type = "single_selection";
+        if(_categoryid==3)
+        	type = "multi_selection";
+        if(_categoryid==2)
+        	type = "single_selection";
+        if(_categoryid==1)
+        	type = "truefalse";
+        return type;
+	}
+	public static boolean getJStruefalse(int _refistrue){
+		boolean tf = false;
+		if(_refistrue==0)
+			tf = false;
+		if(_refistrue==1)
+			tf = true;
+		return tf;
+	}
 	public static void main(String[] args){
 		ArrayList<Integer> _orlist = new ArrayList<Integer>();
 		for(int i=0; i<10; i++)
