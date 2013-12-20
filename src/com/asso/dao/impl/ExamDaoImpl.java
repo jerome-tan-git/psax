@@ -116,11 +116,39 @@ public class ExamDaoImpl implements ExamDao {
 		 s.getTransaction().commit();
 		 s.close();
 	}	
+
+//	@Override
+//	public int checkIfNeedUpdateWithItemQuestion(ExamItem examitem){
+//		/*0-save,1-update question*/
+//		Session s = sessionFactory.openSession(); 
+//		Query query = s.createQuery("select username,password from User u where u.username = :un")
+//	    		.setParameter("un", user.getUsername());
+//	    		
+//	    
+//	    List<Object[]> list = query.list();		    
+//	    s.close();		    
+//	    System.out.println("  checkUserExistsWithNamePassword  rz="+list.size());
+//	    if(list.size() > 0) {
+//	    	for(Object[] object : list){     
+//	    		String passwd = (String)object[1];     
+//	    		String name = (String)object[0];
+//	            System.out.println(name + " : " + passwd);
+//	            if(passwd!=null && passwd.length()>0 
+//	            		&& passwd.trim().equalsIgnoreCase(user.getPassword().trim()))
+//	            	return 1;
+//	            else
+//	            	return 3;
+//	        }
+//	    }
+//        return 2;
+//		
+//	}
+	
 	@Override
 	public void save(ExamItem examitem) {
 		 Session s = sessionFactory.openSession(); 
 //		 Session s = sessionFactory.getCurrentSession(); 
-		 s.beginTransaction();
+		 s.beginTransaction();		 
 		 s.save(examitem);
 		 s.flush();
 		 s.getTransaction().commit();
@@ -135,7 +163,8 @@ public class ExamDaoImpl implements ExamDao {
 	    s.beginTransaction();
 	    long c = System.currentTimeMillis();
 		for(ExamRef ref:refs){
-		     s.save(ref);		       
+		     s.save(ref);	
+			
 		}	
 		long d = System.currentTimeMillis();
 		s.flush();
@@ -154,8 +183,8 @@ public class ExamDaoImpl implements ExamDao {
 	}
 	@Override
 	public void update(ExamItem examitem) {
-//		Session s = sessionFactory.openSession(); 
-		Session s = sessionFactory.getCurrentSession(); 
+		Session s = sessionFactory.openSession(); 
+//		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
 	     s.update(examitem);
 	     s.getTransaction().commit();

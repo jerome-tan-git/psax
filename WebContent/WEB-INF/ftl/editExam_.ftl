@@ -49,7 +49,7 @@
 		        
 		 //   ]
 		//};
-		var question = eval(${jsonText1 });
+		var question = eval(${jsonText1});
 		
 		</script>
 	</head>

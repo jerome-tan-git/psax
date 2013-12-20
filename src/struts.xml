@@ -56,13 +56,14 @@
 			<result name="list">examItemsList.jsp</result>		                     	 
 		</action>
  		-->
+ 		
 		<action name="managerexamcontext" class="com.asso.action.ExamItemsList" method="managerExamContext">  
 			<result name="success">inputExam_.jsp?examsave=0</result>		                     	 
 		</action>
-		<action name="managerexam" class="com.asso.action.ExamItemsList" method="managerExamContext">  
+		<action name="managerexam" class="com.asso.action.ExamItemsList" method="managerExamContext">
 			<result name="success" type="freemarker">/WEB-INF/ftl/editExam_.ftl</result>		                     	 
 		</action>
-		<action name="newitem1" class="com.asso.action.ExamItemsList" method="addItem">   
+		<action name="newitem1" class="com.asso.action.ExamItemsList" method="addItem">
 			<result name="save" type="freemarker">/WEB-INF/ftl/editExam_.ftl</result>			 
 		</action>
 		<action name="listitem" class="com.asso.action.ExamItemsList" method="loadPageItemlistFByExamId">  

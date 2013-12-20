@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 //import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -165,7 +166,28 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	}
 
 
-	
+	private void checkInputValues(){
+		System.out.println("---------------------------Check-Input-Values----------------------------------------");
+		
+		System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs().length);
+		if(this.eInfo.getRefs().length==1)
+			System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs()[0]);
+		else{
+			for(String ref:this.eInfo.getRefs())
+				System.out.println(ref);
+			System.out.println("----- New added refs isTrue-------");
+			if(this.eInfo.getRefistrues()!=null){//when judge items it is null
+			for(int i=0; i<this.eInfo.getRefistrues().length;i++)
+				System.out.println(i+"---------"+this.eInfo.getRefistrues()[i]);
+			}
+			if(this.eInfo.getRight_answer()!=null){
+				for(int i=0; i<this.eInfo.getRight_answer().length;i++)
+					System.out.println(i+"-(getRight_answer)---------"+this.eInfo.getRight_answer()[i]);
+			}
+		}
+		System.out.println("---------------------------------------------------------------------------------------");
+
+	}
 	public String addExam() throws ClassNotFoundException, SQLException{
 		System.out.println("GET examname--->"+this.eInfo.getExamname());
 		Exam e = new Exam();
@@ -175,9 +197,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		this.loadExams();
 		return "save";
 	}
-	
-	public String addItem(){
-		
+	private void addItemforSave(){
+		System.out.println("----INTO addItemforSave()");
 		ExamItem ei = null;		
 		try {
 			ei = this.addExamItem();
@@ -195,38 +216,75 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("----- New added ItemId="+newItemId);
 		
-		System.out.println("----- New added ItemId ------"+newItemId);
-		System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs().length);
-		if(this.eInfo.getRefs().length==1)
-			System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs()[0]);
-		else{
-			for(String ref:this.eInfo.getRefs())
-				System.out.println(ref);
-			System.out.println("----- New added refs isTrue-------");
-			if(this.eInfo.getRefistrues()!=null){//when judge items it is null
-			for(int i=0; i<this.eInfo.getRefistrues().length;i++)
-				System.out.println(i+"---------"+this.eInfo.getRefistrues()[i]);
-			}
-			if(this.eInfo.getRight_answer()!=null){
-				for(int i=0; i<this.eInfo.getRight_answer().length;i++)
-					System.out.println(i+"-(getRight_answer)---------"+this.eInfo.getRight_answer()[i]);
-			}
-
-		}
+		this.checkInputValues();
 		
-
 		if(ei.getCategory()==1){
 			if(this.eInfo.getRefs().length==1)
 				System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs()[0]);
-//			this.addExamYesNoRefs(newItemId, this.eInfo.getAnswers());
 			this.addExamYesNoRefs2(newItemId,this.eInfo.getRefs()[0]);
 		}else
-//			this.addExamRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
-//			this.addExamChoiceRefs(newItemId, this.eInfo.getRefs(),this.eInfo.getAnswers());
-		
-//			this.addExamChoiceRefs2(newItemId, this.eInfo.getRefs(), this.eInfo.getRefistrues());
 			this.addExamChoiceRefs2(newItemId, this.eInfo.getRefs(), this.eInfo.getRight_answer());
+	}
+	private void addItemforUpdate(){
+		System.out.println("----INTO addItemforUpdate()");
+		ExamItem item = new ExamItem ();
+		item = (ExamItem) this.request.getSession().getAttribute("toUpdateItem");		
+		List<ExamRef> reflist = new ArrayList<ExamRef>();
+		reflist = (List<ExamRef>) this.request.getSession().getAttribute("toUpdateReflist");
+		System.out.println("item----"+item.toString());
+		System.out.println("reflist--"+reflist.toString());
+		this.request.getSession().setAttribute("toUpdateItem", null);
+		this.request.getSession().setAttribute("toUpdateReflist", null);
+		
+		ExamItem ei = null;		
+		try {
+			ei = this.editExamItem(item.getId());//
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		for(ExamRef ref:reflist){
+			try {
+				this.deleteExamref(ref.getId());
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		if(ei.getCategory()==1){
+			if(this.eInfo.getRefs().length==1)
+				System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs()[0]);
+			this.addExamYesNoRefs2(item.getId(),this.eInfo.getRefs()[0]);
+		}else
+			this.addExamChoiceRefs2(item.getId(), this.eInfo.getRefs(), this.eInfo.getRight_answer());
+	}
+	
+	public String addItem(){
+		
+//		if(this.request.getParameter("isupdate")!=null){
+//			if(this.request.getParameter("isupdate").equals("1")){
+				if(this.request.getSession().getAttribute("toUpdateItem")!=null &&
+						this.request.getSession().getAttribute("toUpdateReflist")!=null){					
+					this.addItemforUpdate();
+				}
+//				else{
+//					System.out.println("DATA ERROR(request), PLS INV...");
+//				}
+//			}				
+//		}
+		else{
+			this.addItemforSave();			
+		}
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>addItem>>>>>>>>>>>>");
+		this.setInitialJSONText();
 		
 		try {
 			this.loadExams();
@@ -245,6 +303,14 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		ei.setCategory(this.eInfo.getCategory());
 		ei.setQuestion(this.eInfo.getQuestion());
 		em.add(ei);
+		return ei;
+	}
+	private ExamItem updateExamItem() throws ClassNotFoundException, SQLException{
+		ExamItem ei = new ExamItem();
+		ei.setExamid(this.eInfo.getExamid());
+		ei.setCategory(this.eInfo.getCategory());
+		ei.setQuestion(this.eInfo.getQuestion());
+		em.edit(ei);
 		return ei;
 	}
 
@@ -372,6 +438,18 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		ei.setQuestion(this.eInfo.getQuestion());
 		em.edit(ei);		
 	}
+	private ExamItem editExamItem(int _itemid) throws ClassNotFoundException, SQLException{
+		System.out.println("INPUT itemid="+_itemid+",eInfo.getExamid()="+this.eInfo.getExamid()+
+				",eInfo.getCategory()="+this.eInfo.getCategory()+
+				",eInfo.getQuestion()="+this.eInfo.getQuestion());
+		ExamItem ei = new ExamItem();
+		ei.setId(_itemid);
+		ei.setExamid(this.eInfo.getExamid());
+		ei.setCategory(this.eInfo.getCategory());
+		ei.setQuestion(this.eInfo.getQuestion());
+		em.edit(ei);		
+		return ei;
+	}
 	
 	private void editExamref() throws ClassNotFoundException, SQLException{
 		ExamRef ref = new ExamRef();
@@ -404,6 +482,11 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		ExamItem ei = new ExamItem();
 		ei.setId(this.eInfo.getExamitemid());
 		em.deleteRefsByItem(ei);	
+	}
+	private void deleteExamref(int _refid) throws ClassNotFoundException, SQLException{
+		ExamRef ref = new ExamRef();
+		ref.setId(_refid);
+		em.delete(ref);	
 	}
 	
 	private void loadRef() throws ClassNotFoundException, SQLException{
@@ -482,6 +565,23 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 			System.out.println("e-id="+e.getId()+",e-name="+e.getName());
 		
 	}
+	private void setInitialJSONText(){
+		Map map = new HashMap();  
+        List<JSExamRef> list = new ArrayList<JSExamRef>(); 
+        map.put("type", "single_selection");
+        map.put("category","option1");
+        map.put("question","");
+        map.put("question_value",-1);//for backend
+        JSExamRef refjs = new JSExamRef();
+    	refjs.setText("");
+       	refjs.setValue("0");
+       	refjs.setRight_answer(false);
+    	list.add(refjs);
+    	map.put("options", list);
+        this.jsonText1 = JSON.toJSONString(map, true);  
+        System.out.println("Initial：jsonText1=="+this.jsonText1);
+	}
+	
 	public String managerExamContext(){
 		try {
 			this.loadExams();
@@ -490,7 +590,11 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		this.jsonText1 ="";
+		this.request.getSession().setAttribute("toUpdateItem", null);
+		this.request.getSession().setAttribute("toUpdateItem", null);
+		this.setInitialJSONText();
+				 
 		String itemID = this.request.getParameter("itemid");
 		int itemid = -1;
 		if(itemID!=null){
@@ -506,6 +610,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			this.request.getSession().setAttribute("toUpdateItem", this.item);
 			try {
 				this.loadReflist();//this.reflist
 			} catch (ClassNotFoundException e) {
@@ -513,35 +618,36 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}			
+			this.request.getSession().setAttribute("toUpdateReflist", this.reflist);
+
+//			System.out.println("this.item-----"+this.item.toString());
+//			System.out.println("this.itemRefs-----"+this.reflist.toString());
+			Map map = new HashMap();  
+	        List<JSExamRef> list = new ArrayList<JSExamRef>(); 
+	        map.put("type", CONSTANT.getJSCateName(this.item.getCategory()));
+	        map.put("category","option1");
+	        map.put("question",this.item.getQuestion());
+	        map.put("question_value",this.item.getQuestion());//for backend
+	        if(this.reflist!=null){
+	        	for(ExamRef ref:this.reflist){
+		        	JSExamRef refjs = new JSExamRef();
+		        	refjs.setText(ref.getRef());
+			       	refjs.setValue(ref.getId()+"");
+			       	refjs.setRight_answer(CONSTANT.getJStruefalse(ref.getIstrue()));
+		        	list.add(refjs);
+		        }	        	
+	        }else{
+	        	JSExamRef refjs = new JSExamRef();
+	        	refjs.setText("");
+		       	refjs.setValue("0");
+		       	refjs.setRight_answer(false);
+	        	list.add(refjs);
+	        }        	
+	        map.put("options", list);
+	        this.jsonText1 = JSON.toJSONString(map, true);  
+	        System.out.println("map2Json()方法：jsonText1=="+this.jsonText1);
+		}
 		
-//		JSONObject jsonObj = (JSONObject) JSON.toJSON(this.item); 
-//		System.out.println("bean2Json()方法：jsonObj==" + jsonObj); 
-//		
-//		String jsonText = JSON.toJSONString(this.reflist, true);  
-//        System.out.println("list2Json()方法：jsonText=="+jsonText);  
-                
-        Map map = new HashMap();  
-        map.put("type", CONSTANT.getJSCateName(this.item.getCategory()));
-        map.put("category","option1");
-        map.put("question",this.item.getQuestion());
-        map.put("question",this.item.getQuestion());//for backend
-        List<JSExamRef> list = new ArrayList<JSExamRef>();        
-        for(ExamRef ref:this.reflist){       
-        	JSExamRef refjs = new JSExamRef();
-        	refjs.setText(ref.getRef());
-        	refjs.setValue(ref.getId()+"");
-        	refjs.setRight_answer(CONSTANT.getJStruefalse(ref.getIstrue()));        	
-        	list.add(refjs);
-        }	
-        map.put("options", list);
-        
-        this.jsonText1 = JSON.toJSONString(map, true);  
-        System.out.println("map2Json()方法：jsonText1=="+this.jsonText1);  
-		
-        
-//		System.out.println("this.item-----"+this.item.toString());
-//		System.out.println("this.itemRefs-----"+this.reflist.toString());
 		return "success";
 	}
 	

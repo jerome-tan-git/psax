@@ -47,18 +47,22 @@ public class ExamManagerImpl implements ExamManager {
 		examDao.save(exam);		
 	}
 
+//	@Override
+//	public void checkIfNeedUpdate(ExamItem examitem){
+//		
+//	}
 	@Override
 	public void add(ExamItem examitem) throws ClassNotFoundException,
 			SQLException {
 		System.out.println("EXAMmanagerImpl----addExamItem---"+examitem.toString());
-		examDao.save(examitem);
+		examDao.save(examitem);//SAVEorUPDATE
 	}
 
 	@Override
 	public void add(List<ExamRef> examrefs) throws ClassNotFoundException,
 			SQLException {
 		System.out.println("EXAMmanagerImpl----addExamRef size---"+examrefs.size());
-		examDao.save(examrefs);
+		examDao.save(examrefs);//SAVEorUPDATE
 	}
 
 	@Override
@@ -86,8 +90,7 @@ public class ExamManagerImpl implements ExamManager {
 	public void delete(ExamRef examref) throws ClassNotFoundException,
 			SQLException {
 		System.out.println("EXAMmanagerImpl----delExamRef---"+examref.toString());
-		examDao.delete(examref);
-		
+		examDao.delete(examref);		
 	}
 
 	@Override
@@ -146,7 +149,7 @@ public class ExamManagerImpl implements ExamManager {
 	@Override
 	public void deleteRefsByItem(ExamItem examitem)
 			throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
