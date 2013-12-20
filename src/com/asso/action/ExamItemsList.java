@@ -88,8 +88,17 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	private List<HashMap<ExamItem,List<ExamRef>>> itemlistf;
 	private List<HashMap<String,List<ExamRef>>> itemlistSeq;
 	private String user_name;
+	private String jsonText1;
 	
 	
+	public String getJsonText1() {
+		return jsonText1;
+	}
+
+	public void setJsonText1(String jsonText1) {
+		this.jsonText1 = jsonText1;
+	}
+
 	public String getUser_name() {
 		return user_name;
 	}
@@ -526,8 +535,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
         }	
         map.put("options", list);
         
-        String jsonText1 = JSON.toJSONString(map, true);  
-        System.out.println("map2Json()方法：jsonText1=="+jsonText1);  
+        this.jsonText1 = JSON.toJSONString(map, true);  
+        System.out.println("map2Json()方法：jsonText1=="+this.jsonText1);  
 		
         
 //		System.out.println("this.item-----"+this.item.toString());

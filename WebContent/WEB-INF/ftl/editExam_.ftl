@@ -36,19 +36,20 @@
 		} );
 		
 		
-		var question = {
-				"type":"single_selection",
-				"category":"option1",
-				"question":"NaOH溶液滴定HCl的化学计量点pH值",
-				"question_value":"NaOH溶液滴定HCl的化学计量点pH值为( 　)。",
-				"options": [
-		        {"text": "6.80", "value":"65", "right_answer": true},
-		        {"text": "7.00", "value":"66", "right_answer": false},
-		        {"text": "7.20", "value":"67", "right_answer": false},
-		        {"text": "7.40", "value":"68", "right_answer": false}
+		//var question = {
+			//	"type":"single_selection",
+			//	"category":"option1",
+			//	"question":"NaOH溶液滴定HCl的化学计量点pH值",
+			//	"question_value":"NaOH溶液滴定HCl的化学计量点pH值为( 　)。",
+			//	"options": [
+		    //  {"text": "6.80", "value":"65", "right_answer": true},
+		    //  {"text": "7.00", "value":"66", "right_answer": false},
+		    //  {"text": "7.20", "value":"67", "right_answer": false},
+		    //  {"text": "7.40", "value":"68", "right_answer": false}
 		        
-		    ]
-		};
+		 //   ]
+		//};
+		var question = eval(${jsonText1 });
 		
 		</script>
 	</head>
