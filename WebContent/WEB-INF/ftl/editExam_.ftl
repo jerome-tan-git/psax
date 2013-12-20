@@ -141,18 +141,33 @@
 						  </div>
 						  <div class="form-group">
 						  	<label  class="col-sm-12">类型</label>
-						    <div class="col-sm-12">
+						    	<div class="col-sm-12">
 								
 								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox1" class="exam_type" value="2" name="category" checked> 单选题
+								<#if item?exists && item.category==2>
+									<input type="radio" id="inlineCheckbox1" class="exam_type" value="2" name="category" checked> 单选题
+								<#else>  
+									<input type="radio" id="inlineCheckbox1" class="exam_type" value="2" name="category"> 单选题
+								</#if>
 								</label>
+								
 								<label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox2" class="exam_type" value="3" name="category"> 复选题
-								  </label>
-								  <label class="radio-inline">
-								  <input type="radio" id="inlineCheckbox3" class="exam_type" value="1" name="category"> 是非题
+								<#if item?exists && item.category==3>
+									<input type="radio" id="inlineCheckbox2" class="exam_type" value="3" name="category" checked> 复选题
+								<#else>  
+									<input type="radio" id="inlineCheckbox2" class="exam_type" value="3" name="category"> 复选题
+								</#if>
 								</label>
+								
+								<label class="radio-inline">
+								<#if item?exists && item.category==1>
+									<input type="radio" id="inlineCheckbox3" class="exam_type" value="1" name="category" checked> 是非题
+								<#else>  
+								 	<input type="radio" id="inlineCheckbox3" class="exam_type" value="1" name="category"> 是非题
+								</#if>
+							
 								</div>
+							</label>
 						  </div>
 						  <div class="form-group">
 						  	<div><label class="col-sm-12">考试</label></div>
