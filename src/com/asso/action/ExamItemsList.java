@@ -82,13 +82,14 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	private ExamRef ref;
 	private List<ExamRef> reflist;
 	private List<String> refQlist;
-	private ExamItem item;
+	private ExamItem item;	
 	private List<ExamItem> itemlist;
 	private HashMap<ExamItem,List<ExamRef>> itemf;
 	private List<HashMap<ExamItem,List<ExamRef>>> itemlistf;
 	private List<HashMap<String,List<ExamRef>>> itemlistSeq;
 	private String user_name;
 	private String jsonText1;
+	
 	
 	
 	public String getJsonText1() {

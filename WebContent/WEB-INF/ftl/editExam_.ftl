@@ -155,6 +155,21 @@
 								</div>
 						  </div>
 						  <div class="form-group">
+						  	<div><label class="col-sm-12">考试</label></div>
+						  	<#if Session.exams?exists>						    	
+						    <div class="col-sm-8">
+								<select name="examid" class="form-control">
+								<#list Session.exams as exam>
+									<#if item?exists && item.examid=exam.id>
+								  		<option class="e_c" value="${exam.id}" selected>${exam.name}</option>
+								  	<#else>
+								  		<option class="e_c" value="${exam.id}">${exam.name}</option>
+								  	</#if>								 
+								</#list>
+								</select>
+							</div>
+							</#if>
+							<!--
 						  	<label  class="col-sm-12">考试</label>
 						    <div class="col-sm-12">
 						    <#if Session.exams?exists>
@@ -165,6 +180,7 @@
 							    </#list>
 							</#if>
 							</div>
+							-->
 						  </div>
 						  <div class="form-group exam_title_input">
 						  	
