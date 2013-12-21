@@ -262,8 +262,13 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 			if(this.eInfo.getRefs().length==1)
 				System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs()[0]);
 			this.addExamYesNoRefs2(item.getId(),this.eInfo.getRefs()[0]);
-		}else
+		}else{
+			System.out.println("item.getId()---"+item.getId());
+			System.out.println("this.eInfo.getRefs()---"+this.eInfo.getRefs());
+			System.out.println("this.eInfo.getRight_answer()---"+this.eInfo.getRight_answer());
 			this.addExamChoiceRefs2(item.getId(), this.eInfo.getRefs(), this.eInfo.getRight_answer());
+		}
+			
 	}
 	
 	public String addItem(){
@@ -574,7 +579,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
         map.put("question_value",-1);//for backend
         JSExamRef refjs = new JSExamRef();
     	refjs.setText("");
-       	refjs.setValue("0");
+//       	refjs.setValue("0")
+    	refjs.setValue("");
        	refjs.setRight_answer(false);
     	list.add(refjs);
     	map.put("options", list);
@@ -632,14 +638,16 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	        	for(ExamRef ref:this.reflist){
 		        	JSExamRef refjs = new JSExamRef();
 		        	refjs.setText(ref.getRef());
-			       	refjs.setValue(ref.getId()+"");
+//			       	refjs.setValue(ref.getId()+"");
+		        	refjs.setValue(ref.getRef());
 			       	refjs.setRight_answer(CONSTANT.getJStruefalse(ref.getIstrue()));
 		        	list.add(refjs);
 		        }	        	
 	        }else{
 	        	JSExamRef refjs = new JSExamRef();
 	        	refjs.setText("");
-		       	refjs.setValue("0");
+//		       	refjs.setValue("0");
+	        	refjs.setValue("");
 		       	refjs.setRight_answer(false);
 	        	list.add(refjs);
 	        }        	
