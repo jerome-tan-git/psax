@@ -60,18 +60,24 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 	}
 	
 	private ExamBuiltInfo eInfo = new ExamBuiltInfo();
-	private List<ExamRef> reflist;
+//	private List<ExamRef> reflist;
 	private List<String> refQlist;
-	private List<HashMap<ExamItem,List<ExamRef>>> itemlistf;
+//	private List<HashMap<ExamItem,List<ExamRef>>> itemlistf;
 	private List<HashMap<String,List<ExamRef>>> itemlistSeq;
 	private String examid;
 	private int thispage;
 	private int lastpage;
 	private int nextpage;
 	private int endpage;
+	private List<Integer> itemIds4Ilist;
 
-	
-	
+
+	public List<Integer> getItemIds4Ilist() {
+		return itemIds4Ilist;
+	}
+	public void setItemIds4Ilist(List<Integer> itemIds4Ilist) {
+		this.itemIds4Ilist = itemIds4Ilist;
+	}
 	public String getExamid() {
 		return examid;
 	}
@@ -125,32 +131,27 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 		this.itemlistSeq = itemlistSeq;
 	}
 
-	public List<ExamRef> getReflist() {
-		return reflist;
-	}
-	public void setReflist(List<ExamRef> reflist) {
-		this.reflist = reflist;
+
+	public String deleteItem(){
+		this.examid = (String) this.request.getParameter("examid");
+		System.out.println("GOT input examid="+this.examid);
+		String itemid = (String) this.request.getSession().getAttribute("itemid");
+		if(itemid!=null){
+			ExamItem ei = new ExamItem();
+			ei.setId(Integer.parseInt(itemid));
+			try {
+				em.delete(ei);
+				em.deleteRefsByItem(ei);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		this.loadPageItemlistFByExamId();
+		return "delete";
 	}
 
-
-	public List<HashMap<ExamItem, List<ExamRef>>> getItemlistf() {
-		return itemlistf;
-	}
-	public void setItemlistf(List<HashMap<ExamItem, List<ExamRef>>> itemlistf) {
-		this.itemlistf = itemlistf;
-	}
-
-
-//	private void loadItemlistf() throws ClassNotFoundException, SQLException{
-//		List<HashMap<ExamItem,List<ExamRef>>> list = new ArrayList<HashMap<ExamItem,List<ExamRef>>>();
-//		List<ExamItem> ilist = new ArrayList<ExamItem>();
-//		ilist = em.loadItemlistByExamid(this.eInfo.getExamid());
-//		System.out.println("after em.loadItemlistByExamid, size="+ilist.size());
-//		for(ExamItem i:ilist){			
-//			list.add(this.loadItemfWithItem(i));
-//		}		
-//		this.setItemlistf(list);
-//	}
 	private List<ExamRef> loadReflistByItemid(int itemid) throws ClassNotFoundException, SQLException{
 		List<ExamRef> reflist = new ArrayList<ExamRef>();
 		reflist = em.loadRefs(itemid);		
@@ -182,27 +183,40 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 		else
 			this.lastpage = page;		
 	}
-	
-	public String loadPageItemlistFByExamId() throws ClassNotFoundException, SQLException{
+	public String loadPageItemlistFByExamId(){
 		
-		this.examid = (String) this.request.getParameter("examid");
-		System.out.println("GOT input examid="+this.examid);
 		if(this.examid!=null)
 			this.eInfo.setExamid(Integer.parseInt(this.examid));
+		else
+			this.examid = (String) this.request.getParameter("examid");
 		System.out.println("---_examid---"+this.eInfo.getExamid());
 		
 		List<ExamItem> ilist = new ArrayList<ExamItem>();
-		ilist = em.loadItemlistByExamid(this.eInfo.getExamid());
+		try {
+			ilist = em.loadItemlistByExamid(this.eInfo.getExamid());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		System.out.println("---------before dedupe, ilist size="+ilist.size());
 		ilist = this.dedupeEIlist(ilist);
 		System.out.println("---------after dedupe. ilist size="+ilist.size());
 		this.refQlist = new ArrayList<String>();
+		this.itemIds4Ilist = new ArrayList<Integer>();
 		for(ExamItem i:ilist){
-			if(i!=null)			
-				this.refQlist.add(i.getQuestion());
+			if(i!=null)	{
+				this.itemIds4Ilist.add(i.getId());
+				this.refQlist.add(i.getQuestion());	
+			}
 			else
 				System.out.println("DATA ERROR, PLS INV...");			
 		}
+//		for(int i=0; i<this.itemIds4Ilist.size();i++){
+//			System.out.println(i+"---"+this.itemIds4Ilist.get(i));
+//			System.out.println(i+"---"+this.refQlist.get(i));
+//		}
+		
 		this.calculatePage(ilist.size());
 		
 		this.itemlistSeq = new ArrayList<HashMap<String,List<ExamRef>>>();
@@ -216,24 +230,41 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 				if(ilist.size()>=index1){					
 					for(int i=index0; i<=index1; i++){
 						System.out.println("1) item id="+ilist.get(i).getId()+", No. "+i);
-						List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
-						for(ExamRef ref:refs)
-							System.out.println("ref----"+ref.getRef());
-						
+						List<ExamRef> refs = new ArrayList<ExamRef>();
+						try {
+							refs = this.loadReflistByItemid(ilist.get(i).getId());
+						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+//						for(ExamRef ref:refs)
+//							System.out.println("ref----"+ref.getRef());						
 						HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
-						seqmap.put(ilist.get(i).getQuestion(), this.loadReflistByItemid(ilist.get(i).getId()));
+						try {
+							seqmap.put(ilist.get(i).getQuestion(), this.loadReflistByItemid(ilist.get(i).getId()));
+						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
 						this.itemlistSeq.add(seqmap);
 						System.out.println("1) itemlistSeq SIZE="+this.itemlistSeq.size());
 					}
 				}else{
 					for(int i=index0; i<ilist.size(); i++){
 						System.out.println("2) item id="+ilist.get(i).getId());
-						List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
-						for(ExamRef ref:refs)
-							System.out.println("ref----"+ref.getRef());
-						
+						List<ExamRef> refs = new ArrayList<ExamRef>();
+						try {
+							refs = this.loadReflistByItemid(ilist.get(i).getId());
+						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+//						for(ExamRef ref:refs)
+//							System.out.println("ref----"+ref.getRef());						
 						HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
-//						refs = this.loadReflistByItemid(ilist.get(i).getId());
 						seqmap.put(ilist.get(i).getQuestion(), refs);
 						this.itemlistSeq.add(seqmap);
 					}
@@ -242,12 +273,23 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 		}else{
 			for(int i=0; i<ilist.size(); i++){
 				System.out.println("3) item id="+ilist.get(i).getId());
-				List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
-				for(ExamRef ref:refs)
-					System.out.println("ref----"+ref.getRef());
-				
+				try {
+					List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+//				for(ExamRef ref:refs)
+//					System.out.println("ref----"+ref.getRef());				
 				HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
-				seqmap.put(ilist.get(i).getQuestion(), this.loadReflistByItemid(ilist.get(i).getId()));
+				try {
+					seqmap.put(ilist.get(i).getQuestion(), this.loadReflistByItemid(ilist.get(i).getId()));
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				this.itemlistSeq.add(seqmap);
 			}
 		}
@@ -255,6 +297,80 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 		System.out.println("! loadPageItemlistFByExamId over, !!! itemlistSeq.size="+this.itemlistSeq.size());
 		return "list";
 	}
+	
+	
+//	public String loadPageItemlistFByExamId() throws ClassNotFoundException, SQLException{
+//		
+//		this.examid = (String) this.request.getParameter("examid");
+//		System.out.println("GOT input examid="+this.examid);
+//		if(this.examid!=null)
+//			this.eInfo.setExamid(Integer.parseInt(this.examid));
+//		System.out.println("---_examid---"+this.eInfo.getExamid());
+//		
+//		List<ExamItem> ilist = new ArrayList<ExamItem>();
+//		ilist = em.loadItemlistByExamid(this.eInfo.getExamid());
+//		System.out.println("---------before dedupe, ilist size="+ilist.size());
+//		ilist = this.dedupeEIlist(ilist);
+//		System.out.println("---------after dedupe. ilist size="+ilist.size());
+//		this.refQlist = new ArrayList<String>();
+//		for(ExamItem i:ilist){
+//			if(i!=null)			
+//				this.refQlist.add(i.getQuestion());
+//			else
+//				System.out.println("DATA ERROR, PLS INV...");			
+//		}
+//		this.calculatePage(ilist.size());
+//		
+//		this.itemlistSeq = new ArrayList<HashMap<String,List<ExamRef>>>();
+//		int index0 = CONSTANT.pageNum*(this.thispage-1);
+//		int index1 = CONSTANT.pageNum*this.thispage-1;
+//		System.out.println("page="+this.thispage+",index0="+index0+",index1"+index1);
+//
+//		
+//		if(ilist.size()>=CONSTANT.pageSize){
+//			if(ilist.size()>index0){
+//				if(ilist.size()>=index1){					
+//					for(int i=index0; i<=index1; i++){
+//						System.out.println("1) item id="+ilist.get(i).getId()+", No. "+i);
+//						List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
+//						for(ExamRef ref:refs)
+//							System.out.println("ref----"+ref.getRef());
+//						
+//						HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
+//						seqmap.put(ilist.get(i).getQuestion(), this.loadReflistByItemid(ilist.get(i).getId()));
+//						this.itemlistSeq.add(seqmap);
+//						System.out.println("1) itemlistSeq SIZE="+this.itemlistSeq.size());
+//					}
+//				}else{
+//					for(int i=index0; i<ilist.size(); i++){
+//						System.out.println("2) item id="+ilist.get(i).getId());
+//						List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
+//						for(ExamRef ref:refs)
+//							System.out.println("ref----"+ref.getRef());
+//						
+//						HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
+////						refs = this.loadReflistByItemid(ilist.get(i).getId());
+//						seqmap.put(ilist.get(i).getQuestion(), refs);
+//						this.itemlistSeq.add(seqmap);
+//					}
+//				}				
+//			}
+//		}else{
+//			for(int i=0; i<ilist.size(); i++){
+//				System.out.println("3) item id="+ilist.get(i).getId());
+//				List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
+//				for(ExamRef ref:refs)
+//					System.out.println("ref----"+ref.getRef());
+//				
+//				HashMap<String,List<ExamRef>> seqmap = new HashMap<String,List<ExamRef>>();
+//				seqmap.put(ilist.get(i).getQuestion(), this.loadReflistByItemid(ilist.get(i).getId()));
+//				this.itemlistSeq.add(seqmap);
+//			}
+//		}
+//		
+//		System.out.println("! loadPageItemlistFByExamId over, !!! itemlistSeq.size="+this.itemlistSeq.size());
+//		return "list";
+//	}
 
 	
 	private List<ExamItem> dedupeEIlist(List<ExamItem> _eil){

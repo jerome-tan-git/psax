@@ -4,4 +4,4 @@ http://localhost:8080/psax/managerexam.action?itemid=27
 http://localhost:8080/psax/managerexam.action?itemid=80
 http://localhost:8080/psax/listitem.action?examid=3
 
-listitem
+http://localhost:8080/psax/delitem.action?itemid=80

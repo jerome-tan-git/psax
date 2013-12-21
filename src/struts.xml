@@ -66,6 +66,9 @@
 		<action name="newitem1" class="com.asso.action.ExamItemsList" method="addItem">
 			<result name="save" type="freemarker">/WEB-INF/ftl/editExam_.ftl</result>			 
 		</action>
+		<action name="delitem" class="com.asso.action.PageExamItemsList" method="deleteItem">
+			<result name="delete" type="freemarker">/WEB-INF/ftl/listItem.ftl</result>			 
+		</action>
 		<!-- 
 		<action name="listitem" class="com.asso.action.ExamItemsList" method="loadPageItemlistFByExamId">  
 			<result name="list" type="freemarker">/WEB-INF/ftl/listItem.ftl</result>		                     	 

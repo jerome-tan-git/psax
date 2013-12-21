@@ -117,9 +117,29 @@
 									  		${seq}. ${key}
 									  	</div>
 									  	<div class="exam_list_button">
-								  		<a href="#"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
+										<#if itemIds4Ilist?exists>
+								  			<#list itemIds4Ilist as id>
+									  			<#if (id_index+1)==seq>									  					
+									  				<a href="./delitem.action?itemid=${id}&examid=${examid}&page=${thispage}">
+								  				</#if>
+								  			</#list>
+								  		<#else>
+								  				<a href="#">
+								  		</#if>
+								  		<span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
 								  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-								  		<a href="#"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
+								  		
+								  		<#if itemIds4Ilist?exists>
+								  			<#list itemIds4Ilist as id>
+									  			<#if (id_index+1)==seq>									  					
+									  				<a href="./managerexam.action?itemid=${id}">
+								  				</#if>
+								  			</#list>
+								  		<#else>
+								  				<a href="#">
+								  		</#if>
+								  		<span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
+								  		
 								  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
 									  	<span class="glyphicon glyphicon-chevron-down pull-right hand expandOption"></span>
 									  	</div>
@@ -138,67 +158,7 @@
 							</#list>
 						</#list>
 					</#if>
-						<div class="panel panel-default exam_container">
-						  <div class="panel-heading clearfix">
-						  	<div class="exam_title_list pull-left ">
-						  		<img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-						  		asfs1
-						  	</div>
-					  		<a href="#"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
-					  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-					  		<a href="#"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
-					  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-						  	<span class="glyphicon glyphicon-chevron-down pull-right hand expandOption"></span>
- 						  </div>
-						  <div class="options">
-						  	<div class="option_list">
-						  		<ol>
-							  		<li><div>
-							  		asfsafsafasdf</div></li>
-							  		<li><div>
-							  		asfsafsafasdf</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-							  		asfsafsafasdf</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-							  		asfsafsafasdf</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-							  		asfsafsafasdf</div></li>
-						  		</ol>
-						  	</div>
-						  </div>
-						</div>
-
-
-						<div class="panel panel-default exam_container exam_block"> 
-						  <div class="panel-heading clearfix">
-						  	<div class="exam_title_list pull-left "><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-						  	asfs2
-						  	</div>
-						  	<div class="exam_list_button">
-						  	<a href="#"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
-						  	<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-						  	<a href="#"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
-						  	<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-							<span class="glyphicon glyphicon-chevron-down pull-right hand expandOption"></span>
-							</div>
-						  </div>
-						  <div class="options">
-						  	<div class="option_list">
-						  		<ol>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-							  		ref0</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-							  		ref1</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-							  		ref2</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-							  		ref3</div></li>
-							  		<li><div><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
-							  		ref4</div></li>
-						  		</ol>
-						  	</div>
-						  </div>
-						</div>				
+									
 
 												
 																	

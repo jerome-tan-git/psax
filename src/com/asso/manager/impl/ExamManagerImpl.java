@@ -149,8 +149,8 @@ public class ExamManagerImpl implements ExamManager {
 	@Override
 	public void deleteRefsByItem(ExamItem examitem)
 			throws ClassNotFoundException, SQLException {
-		
-		
+		System.out.println("EXAMmanagerImpl----deleteRefsByItem---"+examitem.toString());
+		examDao.deleteRefs(examitem);		
 	}
 
 
