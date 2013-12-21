@@ -128,7 +128,7 @@
 					  </div>
 					  <div class="panel-body">
 					    <!--<form class="form-horizontal" role="form" method="post" action="newitem1.action">-->
-					    <form class="form-horizontal" method="post" action="newitem1.action">
+					    <form class="form-horizontal" method="post" id="examform" action="newitem1.action">
 					    	<textarea id="editor"> </textarea>
 					    	 <div class="form-group">
 						    <div class="bt_group">

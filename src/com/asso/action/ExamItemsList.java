@@ -707,13 +707,14 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 			page = pagenum;
 		
 		this.itemlistSeq = new ArrayList<HashMap<String,List<ExamRef>>>();
-		int index0 = CONSTANT.pageSize*(page-1);
-		int index1 = CONSTANT.pageSize*page-1;
+		int index0 = CONSTANT.pageNum*(page-1);
+		int index1 = CONSTANT.pageNum*page-1;
+		System.out.println("page="+page+",index0="+index0+",index1"+index1);
 		if(ilist.size()>=CONSTANT.pageSize){
 			if(ilist.size()>index0){
 				if(ilist.size()>=index1){					
 					for(int i=index0; i<=index1; i++){
-						System.out.println("1) item id="+ilist.get(i).getId());
+						System.out.println("1) item id="+ilist.get(i).getId()+", No. "+i);
 						List<ExamRef> refs = this.loadReflistByItemid(ilist.get(i).getId());
 						for(ExamRef ref:refs)
 							System.out.println("ref----"+ref.getRef());
@@ -750,7 +751,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 			}
 		}
 		
-		System.out.println("! loadPageItemlistFByExamId over, itemlistSeq.size="+this.itemlistSeq.size());
+		System.out.println("! loadPageItemlistFByExamId over, !!! itemlistSeq.size="+this.itemlistSeq.size());
 		return "list";
 	}
 	public String loadExamItemlistFByExamId() throws ClassNotFoundException, SQLException{

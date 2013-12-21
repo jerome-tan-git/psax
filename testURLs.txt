@@ -2,3 +2,6 @@ http://localhost:8080/psax/managerexam.action
 
 http://localhost:8080/psax/managerexam.action?itemid=27
 http://localhost:8080/psax/managerexam.action?itemid=80
+http://localhost:8080/psax/listitem.action?examid=3
+
+listitem

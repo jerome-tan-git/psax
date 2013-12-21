@@ -111,16 +111,18 @@
 							<#assign keys=map?keys>							
 							<#list keys as key>
 								<#assign seq=refQlist?seq_index_of(key)+1>
-							<div class="panel panel-default exam_container">
+							<div class="panel panel-default exam_container exam_block">
 								  <div class="panel-heading clearfix">
 									  	<div class="exam_title_list pull-left ">									  		
 									  		${seq}. ${key}
 									  	</div>
+									  	<div class="exam_list_button">
 								  		<a href="#"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
 								  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
 								  		<a href="#"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
 								  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
 									  	<span class="glyphicon glyphicon-chevron-down pull-right hand expandOption"></span>
+									  	</div>
 			 						  </div>
 									  <div class="options">
 									  	<div class="option_list">
@@ -167,16 +169,18 @@
 						</div>
 
 
-						<div class="panel panel-default exam_container">
+						<div class="panel panel-default exam_container exam_block"> 
 						  <div class="panel-heading clearfix">
 						  	<div class="exam_title_list pull-left "><img alt='\large \sum_{1}^{}' src='http://latex.codecogs.com/gif.latex?%5Clarge%20%5Csum_%7B1%7D%5E%7B%7D' />
 						  	asfs2
 						  	</div>
+						  	<div class="exam_list_button">
 						  	<a href="#"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
 						  	<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
 						  	<a href="#"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
 						  	<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
 							<span class="glyphicon glyphicon-chevron-down pull-right hand expandOption"></span>
+							</div>
 						  </div>
 						  <div class="options">
 						  	<div class="option_list">
@@ -199,10 +203,14 @@
 												
 																	
 						<ul class="pager">
-						  <li class="previous"><a class="exam_pager" href="#"><span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
-						  <li class="previous"><a class="exam_pager" href="#"><span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;
-						  <li class="next"><a class="exam_pager" href="#">末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
-						  <li class="next"><a class="exam_pager" href="#">后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;
+						  <li class="previous"><a class="exam_pager" href="./listitem.action?examid=${examid}&page=1">
+						  	<span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
+						  <li class="previous"><a class="exam_pager" href="./listitem.action?examid=${examid}&page=${lastpage}">
+						  	<span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;
+						  <li class="next"><a class="exam_pager" href="./listitem.action?examid=${examid}&page=${endpage}">
+						  	末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
+						  <li class="next"><a class="exam_pager" href="./listitem.action?examid=${examid}&page=${nextpage}">
+						  	后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;
 						  
 						</ul>
 					</div>
