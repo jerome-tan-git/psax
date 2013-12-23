@@ -70,6 +70,8 @@
 	</bean>
 	<bean id="channelManager" class="com.asso.manager.impl.ChannelManagerImpl">		
 	</bean>
+	<bean id="articleManager" class="com.asso.manager.impl.ArticleManagerImpl">		
+	</bean>
 	<bean name="userDao" class="com.asso.dao.impl.UserDaoImpl">            
     </bean>
     <bean name="examDao" class="com.asso.dao.impl.ExamDaoImpl">            
@@ -77,6 +79,8 @@
     <bean name="scoreDao" class="com.asso.dao.impl.ScoreDaoImpl">            
     </bean>
     <bean name="channelDao" class="com.asso.dao.impl.ChannelDaoImpl">            
+    </bean>
+    <bean name="articleDao" class="com.asso.dao.impl.ArticleDaoImpl">            
     </bean>
     
 	<aop:config>

@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/ftl/common.ftl=UTF-8
+encoding//WebContent/WEB-INF/ftl/editArticle.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/editExam.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/editExam_.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/exam.ftl=UTF-8

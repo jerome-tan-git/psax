@@ -26,5 +26,11 @@
         <property name="article" type="java.lang.String">
             <column name="article" length="1000" />
         </property>
+        <property name="pubdate" type="java.lang.String">
+            <column name="pubdate" length="16" />
+        </property>
+        <property name="srcdisplay" type="java.lang.String">
+            <column name="srcdisplay" length="100" />
+        </property>
     </class>
 </hibernate-mapping>

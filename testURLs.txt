@@ -8,3 +8,7 @@ http://localhost:8080/psax/listitem.action?examid=3
 http://localhost:8080/psax/delitem.action?itemid=80
 
 http://localhost:8080/psax/login.jsp
+
+http://localhost:8080/psax/addArt.action
+http://localhost:8080/psax/uploadimg/1387800436149_22.jpg
+http://localhost:8080/psax/uploaddoc/1387800436149_12.jpg

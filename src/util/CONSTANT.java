@@ -19,6 +19,8 @@ public class CONSTANT {
 	public final static int pageSize = 3;
 	
 	public final static String CKeditorUrlPath = "./ckimages";
+	public final static String uploadImagesPath = "./uploadimg";
+	public final static String uploadFilesPath = "./uploaddoc";
 	
 	
 	public static HashMap<String,Integer> seq;

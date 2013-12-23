@@ -12,8 +12,22 @@ public class Article implements java.io.Serializable{
 	private String pic;
 	private String addition;
 	private String article;
+	private String pubdate;
+	private String srcdisplay;
 	
 	
+	public String getSrcdisplay() {
+		return srcdisplay;
+	}
+	public void setSrcdisplay(String srcdisplay) {
+		this.srcdisplay = srcdisplay;
+	}
+	public String getPubdate() {
+		return pubdate;
+	}
+	public void setPubdate(String pubdate) {
+		this.pubdate = pubdate;
+	}
 	public int getId() {
 		return id;
 	}

@@ -95,7 +95,19 @@
 		<action name="showerror" class="com.asso.action.ExamSubmit" method="showError">  
 			<result name="show" type="freemarker">/WEB-INF/ftl/exam_rz.ftl</result>		                     	 
 		</action>
-		  
+		<!-- method="addCategory/addChannel" -->
+		<action name="addCategory" class="com.asso.action.ChannelEdit" method="addChannel">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
+		<!-- method="addArticley/addChannel" -->
+		<action name="managerArt" class="com.asso.action.ArtEdit" >  
+			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
+		</action>
+		<action name="addArt" class="com.asso.action.ArtEdit" method="addArticle">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
+		</action>
+		
+		
 		<action name="intoexam" class="com.asso.action.ExamItemsList" method="loadExamItemlistFByExamId">  
 			<result name="list" type="redirect">switchexampage.action?currentpage=1</result>		                     	 
 		</action>		
@@ -105,6 +117,8 @@
 		<action name="examsubmit" class="com.asso.action.ExamSubmit" >  
 			<result name="success">examPage.jsp</result>		                     	 
 		</action>
+		
+		
 		<action name="test" class="com.asso.action.test" >  
 			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
 		</action>
