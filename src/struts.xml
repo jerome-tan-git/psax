@@ -105,7 +105,9 @@
 		<action name="examsubmit" class="com.asso.action.ExamSubmit" >  
 			<result name="success">examPage.jsp</result>		                     	 
 		</action>
-		
+		<action name="test" class="com.asso.action.test" >  
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
 		 
     </package>
 

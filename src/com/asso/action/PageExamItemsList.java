@@ -134,8 +134,10 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 
 	public String deleteItem(){
 		this.examid = (String) this.request.getParameter("examid");
-		System.out.println("GOT input examid="+this.examid);
-		String itemid = (String) this.request.getSession().getAttribute("itemid");
+		String itemid = (String) this.request.getParameter("itemid");
+		System.out.println("____________________________________________");
+		System.out.println("GOT input examid="+this.examid+", itemid="+itemid+",page="
+		 + (String) this.request.getParameter("page"));
 		if(itemid!=null){
 			ExamItem ei = new ExamItem();
 			ei.setId(Integer.parseInt(itemid));

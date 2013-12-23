@@ -18,6 +18,8 @@ public class CONSTANT {
 	public final static int pageNum = 5;
 	public final static int pageSize = 3;
 	
+	public final static String CKeditorUrlPath = "./ckimages";
+	
 	
 	public static HashMap<String,Integer> seq;
 	public final static String[] alphas = {

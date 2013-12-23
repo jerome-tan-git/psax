@@ -10,7 +10,7 @@
             <generator class="identity" />
         </id>
         <property name="ref" type="java.lang.String">
-            <column name="ref" length="200" />
+            <column name="ref" length="2000" />
         </property>
         <property name="istrue" type="int">
             <column name="istrue" length="11" />

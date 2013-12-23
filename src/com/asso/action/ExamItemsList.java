@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import util.CONSTANT;
+import util.DownloadImage;
 import util.SpringFactory;
 
 import com.alibaba.fastjson.JSON;
@@ -201,6 +202,8 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		System.out.println("----INTO addItemforSave()");
 		ExamItem ei = null;		
 		try {
+			String question = this.eInfo.getQuestion();		
+			this.eInfo.setQuestion(this.resetCKString(question));
 			ei = this.addExamItem();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -227,6 +230,13 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		}else
 			this.addExamChoiceRefs2(newItemId, this.eInfo.getRefs(), this.eInfo.getRight_answer());
 	}
+	private String resetCKString(String _orStr){	
+		if(_orStr.contains("http://latex.codecogs.com")){
+			String realpath = this.request.getRealPath(CONSTANT.CKeditorUrlPath);
+			return DownloadImage.filterString(_orStr, realpath,CONSTANT.CKeditorUrlPath);
+		}else
+			return _orStr;			
+	}
 	private void addItemforUpdate(){
 		System.out.println("----INTO addItemforUpdate()");
 		ExamItem item = new ExamItem ();
@@ -240,6 +250,10 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		
 		ExamItem ei = null;		
 		try {
+			String question = this.eInfo.getQuestion();
+			System.out.println("this.eInfo.getQuestion()-----"+this.eInfo.getQuestion());				
+			this.eInfo.setQuestion(this.resetCKString(question));
+			System.out.println("After resetting£¬ this.eInfo.getQuestion()------"+this.eInfo.getQuestion());
 			ei = this.editExamItem(item.getId());//
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -260,12 +274,13 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		
 		if(ei.getCategory()==1){
 			if(this.eInfo.getRefs().length==1)
-				System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs()[0]);
-			this.addExamYesNoRefs2(item.getId(),this.eInfo.getRefs()[0]);
+				System.out.println("----- New added refs -(size)-"+this.eInfo.getRefs()[0]);			
+			this.addExamYesNoRefs2(item.getId(),this.eInfo.getRefs()[0]);			
 		}else{
 			System.out.println("item.getId()---"+item.getId());
 			System.out.println("this.eInfo.getRefs()---"+this.eInfo.getRefs());
 			System.out.println("this.eInfo.getRight_answer()---"+this.eInfo.getRight_answer());
+			
 			this.addExamChoiceRefs2(item.getId(), this.eInfo.getRefs(), this.eInfo.getRight_answer());
 		}
 			
@@ -273,21 +288,13 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 	
 	public String addItem(){
 		
-//		if(this.request.getParameter("isupdate")!=null){
-//			if(this.request.getParameter("isupdate").equals("1")){
-				if(this.request.getSession().getAttribute("toUpdateItem")!=null &&
-						this.request.getSession().getAttribute("toUpdateReflist")!=null){					
-					this.addItemforUpdate();
-				}
-//				else{
-//					System.out.println("DATA ERROR(request), PLS INV...");
-//				}
-//			}				
-//		}
+		if(this.request.getSession().getAttribute("toUpdateItem")!=null &&
+			this.request.getSession().getAttribute("toUpdateReflist")!=null){					
+				this.addItemforUpdate();
+		}
 		else{
 			this.addItemforSave();			
-		}
-		
+		}		
 		System.out.println(">>>>>>>>>>>>>>>>>>addItem>>>>>>>>>>>>");
 		this.setInitialJSONText();
 		
@@ -298,7 +305,6 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return "save";
 	}
 	
@@ -330,7 +336,9 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		for(int i=0; i<_refstring.length; i++){
 			ExamRef e_ref = new ExamRef();
 			e_ref.setItemid(_itemid);
-			e_ref.setRef(_refstring[i]);
+			String ref = this.resetCKString(_refstring[i]);
+//			e_ref.setRef(_refstring[i]);
+			e_ref.setRef(ref);
 			e_ref.setIstrue(0);
 			for(String ans:_answers){
 				int n = Integer.parseInt(ans);

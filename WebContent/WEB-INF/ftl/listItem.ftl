@@ -119,7 +119,7 @@
 									  	<div class="exam_list_button">
 										<#if itemIds4Ilist?exists>
 								  			<#list itemIds4Ilist as id>
-									  			<#if (id_index+1)==seq>									  					
+									  			<#if (id_index+1)=seq>		  					
 									  				<a href="./delitem.action?itemid=${id}&examid=${examid}&page=${thispage}">
 								  				</#if>
 								  			</#list>
