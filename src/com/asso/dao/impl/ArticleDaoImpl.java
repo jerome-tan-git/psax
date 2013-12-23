@@ -38,6 +38,28 @@ public class ArticleDaoImpl implements ArticleDao {
 	     s.getTransaction().commit();
 	     s.close();
 	}
+	@Override
+	public void update(Article article) {
+//		Article delart = new Article();
+//		delart.setId(article.getId());
+//		this.delete(delart);
+//		this.save(article);
+		Session s = sessionFactory.openSession(); 
+//			Session s = sessionFactory.getCurrentSession(); 
+		s.beginTransaction();
+		s.update(article);	     
+		s.getTransaction().commit();
+		s.close();
+	}
+	@Override
+	public void delete(Article article) {
+		 Session s = sessionFactory.openSession(); 
+//		Session s = sessionFactory.getCurrentSession(); 
+	     s.beginTransaction();
+	     s.delete(article);	     
+	     s.getTransaction().commit();
+	     s.close();
+	}
 
 	
 	@Override

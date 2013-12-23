@@ -3,6 +3,7 @@ package com.asso.action;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private String additionContentType;
 	private String picFileName;
 	private String additionFileName;
+	
+	private List<Article> artlist = new ArrayList<Article>();
 	
 	private HttpServletRequest request;	
 	private Map session;
@@ -171,62 +174,117 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		System.out.println("this.ainfo.getPubdate()---"+this.ainfo.getPubdate());
 		System.out.println("this.ainfo.getSrcdisplay()---"+this.ainfo.getSrcdisplay());
 	}
-
+	
+	
 	public String addArticle(){		
 		
 		this.categories = cm.loadCategories();		
 		this.setUploadfiles();
 		
-        String path_i = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadImagesPath);
-		String path_f = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadFilesPath);
-		System.out.println("real path(imgs) = "+path_i);
-		System.out.println("real path(docs) = "+path_f);
-			
-	    String newImgName = System.currentTimeMillis()+"_"+this.picFileName;
-	    String newDocName = System.currentTimeMillis()+"_"+this.additionFileName;
-	    File saveImg = new File(new File(path_i),newImgName);
-	    File saveDoc = new File(new File(path_f), newDocName);
-	    
-	    if(!saveImg.getParentFile().exists())
-	    	saveImg.getParentFile().mkdirs();
-		if(!saveDoc.getParentFile().exists())
-			saveDoc.getParentFile().mkdirs();
-		try {
-			FileUtils.copyFile(this.pic, saveImg);
-			FileUtils.copyFile(this.addition, saveDoc);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}  
-			
 		this.article = new Article();
-		this.article.setTitle(this.ainfo.getTitle());		
-		this.article.setArticle(this.ainfo.getArticle());
-		this.article.setAbsinfo(this.ainfo.getAbsinfo());		
-		this.article.setCategoryid(this.ainfo.getCategoryid());
-		
-		this.article.setPubdate(this.ainfo.getPubdate());
-		this.article.setSrcdisplay(this.ainfo.getSrcdisplay());
-		
-		this.article.setPic(CONSTANT.uploadImagesPath+"/"+saveImg.getName());
-		this.article.setAddition(CONSTANT.uploadFilesPath+"/"+saveDoc.getName());
-		
-//		System.out.println("PIC URL---"+CONSTANT.uploadImagesPath+"/"+saveImg.getName());
-//		System.out.println("DOC URL---"+CONSTANT.uploadFilesPath+"/"+saveDoc.getName());
-		
-		System.out.println("this.article.toString()-----------"+this.article.toString());
-			
-		try {
-			am.add(article);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(this.ainfo.getPic()!=null){
+			String path_i = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadImagesPath);
+			System.out.println("real path(imgs) = "+path_i);
+			String newImgName = System.currentTimeMillis()+"_"+this.picFileName;
+			File saveImg = new File(new File(path_i),newImgName);
+			if(!saveImg.getParentFile().exists())
+		    	saveImg.getParentFile().mkdirs();
+			try {
+				FileUtils.copyFile(this.pic, saveImg);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			this.article.setPic(CONSTANT.uploadImagesPath+"/"+saveImg.getName());
+//			System.out.println("PIC URL---"+CONSTANT.uploadImagesPath+"/"+saveImg.getName());
 		}
-				
+		if(this.ainfo.getAddition()!=null){
+			String path_f = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadFilesPath);		
+			System.out.println("real path(docs) = "+path_f);		
+			String newDocName = System.currentTimeMillis()+"_"+this.additionFileName;		
+			File saveDoc = new File(new File(path_f), newDocName);
+			if(!saveDoc.getParentFile().exists())
+				saveDoc.getParentFile().mkdirs();
+			try {			
+				FileUtils.copyFile(this.addition, saveDoc);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			this.article.setAddition(CONSTANT.uploadFilesPath+"/"+saveDoc.getName());
+//			System.out.println("DOC URL---"+CONSTANT.uploadFilesPath+"/"+saveDoc.getName());
+		}
+		
+			this.article.setTitle(this.ainfo.getTitle());		
+			this.article.setArticle(this.ainfo.getArticle());
+			this.article.setAbsinfo(this.ainfo.getAbsinfo());		
+			this.article.setCategoryid(this.ainfo.getCategoryid());			
+			this.article.setPubdate(this.ainfo.getPubdate());
+			this.article.setSrcdisplay(this.ainfo.getSrcdisplay());
+			System.out.println("this.article.toString()-----------"+this.article.toString());
+			
+			
+		if(this.request.getParameter("articleid")!=null ){
+			this.article.setId(Integer.parseInt(this.request.getParameter("articleid")));
+			try {
+				am.update(this.article);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
+		}else{
+			try {
+				am.add(article);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		
 		return "success";
 	}
 	
-
+	public String updateArticle(){
+		int articleid = 0;
+		if(this.request.getParameter("articleid")!=null){
+			articleid = Integer.parseInt(this.request.getParameter("articleid"));
+			try {
+				this.artlist = am.loadArticle(articleid);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			if(this.artlist.size()==1)
+				this.article = this.artlist.get(0);
+			else
+				System.out.println("DATA ERROR, Pls INV...");
+		}else
+			System.out.println("DATA ERROR, Pls INV...");
+		
+		System.out.println("TO UPDATE this.article="+this.article);
+		return "update";
+	}
+	
+	public String listArticleByCategoryId(){
+		int catid = this.ainfo.getCategoryid();
+		if(this.request.getParameter("categoryid")!=null)
+			catid = Integer.parseInt(this.request.getParameter("categoryid"));
+		try {
+			this.artlist = am.loadArticles(catid);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(Article art:this.artlist){
+			System.out.println("article---"+art.toString());
+		}
+		return "list";
+	}
 
 
 	@Override

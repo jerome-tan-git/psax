@@ -14,4 +14,8 @@ public interface ArticleDao {
 
 	List<Article> loadArticle(int articleid);
 
+	void update(Article article);
+
+	void delete(Article article);
+
 }

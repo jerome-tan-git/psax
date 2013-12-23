@@ -31,10 +31,13 @@ public class ArticleManagerImpl implements ArticleManager {
 	}
 	
 	@Override
-	public void add(Article article) throws ClassNotFoundException, SQLException{		
+	public void add(Article article) throws ClassNotFoundException, SQLException {		
 		articleDao.save(article);					
 	}
-
+	@Override
+	public void update(Article article) throws ClassNotFoundException, SQLException {		
+		articleDao.update(article);		
+	}
 	
 	@Override
 	public List<Article> loadArticles(int categoryid) throws ClassNotFoundException, SQLException{

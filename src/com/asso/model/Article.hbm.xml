@@ -24,7 +24,7 @@
             <column name="addition" length="200" />
         </property>
         <property name="article" type="java.lang.String">
-            <column name="article" length="1000" />
+            <column name="article" length="20000" />
         </property>
         <property name="pubdate" type="java.lang.String">
             <column name="pubdate" length="16" />

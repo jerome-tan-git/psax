@@ -106,7 +106,12 @@
 		<action name="addArt" class="com.asso.action.ArtEdit" method="addArticle">  
 			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
 		</action>
-		
+		<action name="listArt" class="com.asso.action.ArtEdit" method="listArticleByCategoryId">  
+			<result name="list" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
+		</action>
+		<action name="updateArt" class="com.asso.action.ArtEdit" method="updateArticle">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
+		</action>
 		
 		<action name="intoexam" class="com.asso.action.ExamItemsList" method="loadExamItemlistFByExamId">  
 			<result name="list" type="redirect">switchexampage.action?currentpage=1</result>		                     	 
