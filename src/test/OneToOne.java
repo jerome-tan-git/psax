@@ -1,7 +1,13 @@
 package test;
 
 
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.asso.model.Article;
 
 import util.CONSTANT;
 //import com.asso.action.MemberBuilt;
@@ -261,7 +267,62 @@ public class OneToOne {
 //		System.out.println(test);
 		
 		
-		System.out.println("today----"+CONSTANT.getTodayDate());
+//		System.out.println("today----"+CONSTANT.getTodayDate());
+		
+		
+//		String date = "2012-12-23 11:12:56";
+//		if(date.length()>=10){
+//			System.out.println("YEAR="+date.substring(0,4));
+//			System.out.println("MONTH="+date.substring(5, 7));
+//			System.out.println("DAY="+date.substring(8,10));
+//		}
+		
+		List<String> arts = new ArrayList<String>();
+		arts.add("2012-08-24 12:51:12");
+		arts.add("2012-09-12 09:45:18");
+		arts.add("2012-12-22 14:05:12");
+		arts.add("1981-06-17 02:15:49");
+		arts.add("2013-01-23 15:16:46");
+		arts.add("2013-12-24");
+		arts.add("2013-05-14 10:12:56");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
+		List<Date> datelist = new ArrayList<Date>();
+		 /**字符串转时间**/  
+		for(String art:arts){
+			try {
+				datelist.add((Date) format.parse(art));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		/**打印时间**/  
+        System.out.println("排序前：");  
+        for(Date d:datelist){  
+            System.out.println(format.format(d));  
+        }  
+        /**冒泡排序**/  
+        Date tempDate = null;  
+        for(int i=datelist.size()-1; i>0; --i) {  
+           for(int j=0; j<i; ++j) {  
+                /**从大到小的排序**/  
+                if(datelist.get(j+1).after(datelist.get(j))){  
+                    tempDate = datelist.get(j);  
+                    datelist.set(j, datelist.get(j+1));  
+                    datelist.set(j+1, tempDate);  
+                }else{  
+                /**从小到大**/  
+//                  tempDate = dateList.get(j);  
+//                  dateList.set(j, dateList.get(j+1));  
+//                  dateList.set(j+1, tempDate);  
+                }  
+            }  
+        }  
+        /**打印排序之后的时间**/
+        System.out.println("排序后：");  
+        for(Date d:datelist){  
+            System.out.println(format.format(d));  
+        }  
+		
 		
 	}
 

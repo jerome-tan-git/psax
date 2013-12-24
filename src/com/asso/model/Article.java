@@ -15,7 +15,29 @@ public class Article implements java.io.Serializable{
 	private String pubdate;
 	private String srcdisplay;
 	
+	private String year;
+	private String month;
+	private String day;
 	
+	
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
 	public String getSrcdisplay() {
 		return srcdisplay;
 	}
@@ -64,7 +86,7 @@ public class Article implements java.io.Serializable{
 	public void setAddition(String addition) {
 		this.addition = addition;
 	}
-	public String getArticle() {
+	public String getArticle() {		
 		return article;
 	}
 	public void setArticle(String article) {
@@ -74,7 +96,8 @@ public class Article implements java.io.Serializable{
 	
 	public String toString(){
 		return this.getId()+":"+this.getTitle()+":"+this.getAbsinfo()+":"+this.getCategoryid()+":"+
-				this.getPic()+":"+this.getAddition()+":"+this.getArticle();
+				this.getPic()+":"+this.getAddition()+":"+this.getArticle()+
+				":"+this.getYear()+":"+this.getMonth()+":"+this.day;
 	}
 
 }

@@ -449,7 +449,7 @@ transitional.dtd">
 				<#if artlist?exists>
 					<#list artlist as article>
 					<div class="mom_content">					
-						<div class="mom_left">12/24 </div>
+						<div class="mom_left"><span class="mom_year">${article.year} </span>${article.month}/${article.day} </div>
 						<div class="mom_icon">
 							<div class="mom_logo_div"><img class="mom_icon_img" src="./images/mom_icon_gray.png"/></div>							
 						</div>

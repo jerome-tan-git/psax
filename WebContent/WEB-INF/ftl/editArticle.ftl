@@ -6,13 +6,13 @@
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="./css/backend.css" />
 		<link rel="stylesheet" type="text/css" href="./css/docs.css" />
-
+		<link rel="stylesheet" type="text/css" href="./css/datepicker.css" />
 		<script type="text/javascript" src="./js/jquery.min.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
 		<script src="./js/ckeditor/ckeditor.js"></script>
 		<script src="./js/ckeditor/adapters/jquery.js"></script>
 		<script src="./js/backend.js"></script>
-
+		<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 		<script>
 			var selectIndex = -1;
 			CKEDITOR.disableAutoInline = true;
@@ -27,6 +27,10 @@
 				$('#editor').ckeditor();
 				// Use CKEDITOR.replace() if element is <textarea>.
 				//$( '#editor1' ).ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
+				$('.date').datepicker()
+				  .on('changeDate', function(ev){
+					$('.date').datepicker('hide');
+				  });
 
 			});
 		</script>
@@ -107,52 +111,87 @@
 						<div class="panel-body">
 							<form class="form-horizontal" role="form" action="addArt.action" method="post" enctype="multipart/form-data">
 								<div class="col-sm-12">
-									    <label for="exampleInputEmail1">标题</label>
-									    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="标题" name="title">
+									<label for="exampleInputEmail1">标题</label> 									
+									<#if art?exists>
+										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="${art.title}" name="title" />										
+									<#else>
+										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="标题" name="title"/>
+									</#if>
+									
 								 </div>
 								 <div class="col-sm-12">&nbsp;</div>
 								 <div class="col-sm-12">
-									    <label for="exampleInputEmail1">摘要</label>
-									    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="摘要" name="absinfo">
+									<label for="exampleInputEmail1">摘要</label>
+									<#if art?exists>
+										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="${art.absinfo}" name="absinfo">
+									<#else>
+										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="摘要" name="absinfo">
+									</#if>
 								 </div>
 								 <div class="col-sm-12">&nbsp;</div>
 								 
 								<div class="col-sm-6">
-									    <label for="exampleInputEmail1">类别</label>
+									<label for="exampleInputEmail1">类别</label>
 									    <#if categories?exists>
 									    <select class="form-control" name="categoryid">
 									    <#list categories as category>
-										  <option value="${category.id}">${category.category}</option>										  
-										</#list>										
+										    <#if art?exists>
+										    	<#if (art.categoryid=category.id)>
+										    	<option value="${category.id}" selected>${category.category}</option>
+										    	</#if>
+										    <#else>
+											  <option value="${category.id}">${category.category}</option>
+											</#if>										  
+										</#list>				
 										</select>
 										</#if>
-										
 								 </div>
 								<div class="col-sm-6">
-									    <label for="exampleInputEmail1">图片</label>
-									   <input type="file" name="pic"/>
+									 <label for="exampleInputEmail1">图片</label>
+									 <input type="file" name="pic"/>
+									<#if art?exists>
+										<img src="${art.pic}">
+									</#if>
 								 </div>
 								 <div class="col-sm-12">&nbsp;</div>
-								 <div class="col-sm-12">
-									    <label for="exampleInputEmail1">附件</label>
-									   <input type="file" name="addition"/>
+								 <div class="col-sm-6">
+									 <label for="exampleInputEmail1">附件</label>
+									 <input type="file" name="addition"/>
+									 <#if art?exists>
+										<a href="${art.addition}">${art.addition}</a><br>
+									</#if>
+								 </div>
+								 <div class="col-sm-3">
+									  <label for="exampleInputEmail1">日期</label>
+									  <div class="input-group input-append date" data-date="2012-12-02" data-date-format="yyyy-mm-dd">
+							          	<input type="text" class="form-control" size="16" readonly name="pubdate"/>
+							          	<span class="input-group-btn add-on">
+							            	<button class="btn btn-default" type="button">
+							            		<i class="glyphicon glyphicon-calendar">&nbsp;</i>
+							            	</button>
+							            </span>
+							          </div>
 								 </div>
 								 <div class="col-sm-12">&nbsp;</div>
 								<label  class="col-sm-12">内容</label>
 								<div class="col-sm-12">
-									
+								<#if art?exists>
+									<textarea id="editor" name="article">${art.article} </textarea>
+								<#else>
 									<textarea id="editor" name="article"> </textarea>
+								</#if>
 								</div>
 								<div class="col-sm-12">&nbsp;</div>
 								<div class="col-sm-12">
-								<!--
+									<!--
 									<button type="button" class="btn btn-primary pull-right">
 									  <span class="glyphicon glyphicon-floppy-disk"></span> 保存
 									</button>
 									-->
 									<input type="submit" value="保存" />
-							        </div>
-								</div>
+									
+							    </div>
+							</div>
 								  
 							</form>
 						</div>

@@ -14,6 +14,7 @@ public class MyFreemarkerManager extends FreemarkerManager{
 			throws TemplateException {
 		Configuration configuration = super.createConfiguration(servletContext);
 		configuration.setSharedVariable("rand", new TestLoad());
+//		configuration.setc
 		return configuration;
 	}
 }

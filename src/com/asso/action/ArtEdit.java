@@ -3,7 +3,10 @@ package com.asso.action;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,9 +38,9 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private ArticleManager am;	
 	private ChannelManager cm;	
 	private ArtInfo ainfo = new ArtInfo();
-	private Article article;
+	private Article article = new Article();
+	private Article art = new Article();
 	private List<Category> categories;
-//	private File fileTest; 
 	private File pic;
 	private File addition;
 	private String picContentType;
@@ -80,6 +83,12 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.ainfo = ainfo;
 	}
 
+	public Article getArt() {
+		return art;
+	}
+	public void setArt(Article art) {
+		this.art = art;
+	}
 	public File getPic() {
 		return pic;
 	}
@@ -93,6 +102,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.addition = addition;
 	}
 	public Article getArticle() {
+		System.out.println("Using GETArticle()...");
 		return article;
 	}
 	public void setArticle(Article article) {
@@ -277,6 +287,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	
 		this.listArticleByCatid(catid);
 		this.filterDate();
+		this.sortArtlistByDate();
 		return "list";
 	}
 	private void listArticleByCatid(int _catid){
@@ -288,23 +299,43 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			e.printStackTrace();
 		}		
 	}
+	private void setYMD(String _date, Article _art){
+		if(_date.length()>=10 && _art!=null){
+			String y = _date.substring(0,4);
+			if(y.equals(CONSTANT.getThisYear()))
+				_art.setYear("");
+			else
+				_art.setYear(y);
+			_art.setMonth(_date.substring(5, 7));
+			_art.setDay(_date.substring(8,10));
+		}else
+			System.out.println("DATA ERROR, PLS INV...");
+	}
 	private void filterDate(){
 		for(Article art:this.artlist){
 			System.out.println("article---"+art.toString());
-			if(art.getPubdate()!=null && art.getPubdate().trim().length()>=4){
-				String date = art.getPubdate();
-				if(date.startsWith(CONSTANT.getThisYear()))
-					date = date.substring(4, date.length());
-				art.setPubdate(date);
+			if(art.getPubdate()!=null && art.getPubdate().trim().length()>=10){
+				String date = art.getPubdate().trim();
+				this.setYMD(date, art);		
+				art.setPubdate(date);				
 			}else{
 				String date = CONSTANT.getNowTime();
-				if(date.startsWith(CONSTANT.getThisYear()))
-					date = date.substring(4, date.length());
+				this.setYMD(date, art);
 				art.setPubdate(date);
 			}
 		}
 	}
-	
+	private void sortArtlistByDate(){
+		List<String> toSort = new ArrayList<String>();
+		for(Article art:this.artlist)
+			toSort.add(art.getPubdate());
+		List<Integer> seqs = new ArrayList<Integer>();
+		seqs = CONSTANT.sortDatesDesc(toSort);
+		List<Article> sortedArtlist = new ArrayList<Article>();
+		for(Integer seq:seqs)
+			sortedArtlist.add(this.artlist.get(seq));
+		this.setArtlist(sortedArtlist);
+	}
 	public String listArticles(){
 		int catid = 0;
 		if(this.request.getParameter("categoryid")!=null)
@@ -326,18 +357,44 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		for(Article art:this.artlist){
 			System.out.println("article---"+art.toString());
 			String date = CONSTANT.getNowTime();
-			if(art.getPubdate()!=null && art.getPubdate().trim().length()>=4)
+			if(art.getPubdate()!=null && art.getPubdate().trim().length()>=10)
 				date = art.getPubdate();				
 			art.setPubdate(date);			
-		}
+		}		
 		return "list";
 	}
 
 
 	@Override
 	public String execute(){
-
 		this.categories = cm.loadCategories();
+		String artID = this.request.getParameter("articleid");	
+		System.out.println(this.request.getRealPath(".")); 
+		if(artID!=null){
+			int aid = Integer.parseInt(artID);
+			List<Article> artl = new ArrayList<Article>();
+			try {
+				artl = am.loadArticle(aid);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			if(artl.size()==1){		
+				this.art = artl.get(0);
+//				this.setArticle(art.get(0));				
+				System.out.println("_____________________"+this.art.getTitle());
+				System.out.println("_____________________"+this.art.getPubdate());
+				System.out.println("_____________________"+this.art.getAbsinfo());
+				System.out.println("_____________________"+this.art.getArticle());
+				System.out.println("_____________________"+this.art.getPic());
+				System.out.println("_____________________"+this.art.getCategoryid());
+			}
+			else
+				System.out.println("DATA ERROR, PLS INV...");
+			
+		}
+			
 		return "success";
 	}
 

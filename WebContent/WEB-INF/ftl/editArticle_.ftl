@@ -109,58 +109,52 @@
 							<h3 class="panel-title">Article</h3>
 						</div>
 						<div class="panel-body">
-							<form class="form-horizontal" role="form">
+							<form class="form-horizontal" role="form" action="addArt.action" method="post" enctype="multipart/form-data">
 								<div class="col-sm-12">
-									    <label for="exampleInputEmail1">鏍囬</label>
-									    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="鏍囬">
+									    <label for="exampleInputEmail1">标题</label>
+									    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="标题" name="title">
 								 </div>
 								 <div class="col-sm-12">&nbsp;</div>
 								 <div class="col-sm-12">
-									    <label for="exampleInputEmail1">鎽樿</label>
-									    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="鎽樿">
+									    <label for="exampleInputEmail1">摘要</label>
+									    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="摘要" name="absinfo">
 								 </div>
 								 <div class="col-sm-12">&nbsp;</div>
 								 
 								<div class="col-sm-6">
-									    <label for="exampleInputEmail1">绫诲埆</label>
-									   <select class="form-control">
-										  <option>1</option>
-										  <option>2</option>
-										  <option>3</option>
-										  <option>4</option>
-										  <option>5</option>
+									    <label for="exampleInputEmail1">类别</label>
+									    <#if categories?exists>
+									    <select class="form-control" name="categoryid">
+									    <#list categories as category>
+										  <option value="${category.id}">${category.category}</option>										  
+										</#list>										
 										</select>
+										</#if>
+										
 								 </div>
 								<div class="col-sm-6">
-									    <label for="exampleInputEmail1">鍥剧墖</label>
-									   <input type="file" />
+									    <label for="exampleInputEmail1">图片</label>
+									   <input type="file" name="pic"/>
 								 </div>
 								 <div class="col-sm-12">&nbsp;</div>
-								 <div class="col-sm-6">
-									    <label for="exampleInputEmail1">闄勪欢</label>
-									   <input type="file" />
-								 </div>
-								 <div class="col-sm-3">
-									    <label for="exampleInputEmail1">鏃ユ湡</label>
-									   	<div class="input-group input-append date" data-date="2012-12-02" data-date-format="yyyy-mm-dd">
-							            <input type="text" class="form-control" size="16" readonly />
-							            <span class="input-group-btn add-on">
-							              <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-calendar">&nbsp;</i></button>
-							            </span>
-							          </div>
+								 <div class="col-sm-12">
+									    <label for="exampleInputEmail1">附件</label>
+									   <input type="file" name="addition"/>
 								 </div>
 								 <div class="col-sm-12">&nbsp;</div>
-								<label  class="col-sm-12">鍐呭</label>
+								<label  class="col-sm-12">内容</label>
 								<div class="col-sm-12">
 									
-									<textarea id="editor"> </textarea>
+									<textarea id="editor" name="article"> </textarea>
 								</div>
 								<div class="col-sm-12">&nbsp;</div>
 								<div class="col-sm-12">
+								<!--
 									<button type="button" class="btn btn-primary pull-right">
-									  <span class="glyphicon glyphicon-floppy-disk"></span> 淇濆瓨
+									  <span class="glyphicon glyphicon-floppy-disk"></span> 保存
 									</button>
-									
+									-->
+									<input type="submit" value="保存" />
 							        </div>
 								</div>
 								  

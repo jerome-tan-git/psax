@@ -39,24 +39,18 @@ import com.opensymphony.xwork2.ModelDriven;
 @Component("examitemslist") 
 public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,ServletRequestAware {
 	
-/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 725501200728064112L;
 //	private Map session;
 	private ExamBuiltInfo eInfo = new ExamBuiltInfo();
 	private ExamManager em;
 	private ScoreManager sm;
-//	private ApplicationContext ctx;	
 	private HttpServletRequest request;	
 	
 	
 	public ExamItemsList(){
-//		ctx = new ClassPathXmlApplicationContext("beans.xml");
-//		em = (ExamManager) ctx.getBean("examManager");
 		em = (ExamManager) SpringFactory.getObject("examManager");
-		sm = (ScoreManager)SpringFactory.getObject("scoreManager");
-		
+		sm = (ScoreManager)SpringFactory.getObject("scoreManager");		
 	}
 		
 	public ExamManager getEm() {
@@ -606,7 +600,7 @@ public class ExamItemsList extends ActionSupport implements ModelDriven<Object>,
 		}
 		this.jsonText1 ="";
 		this.request.getSession().setAttribute("toUpdateItem", null);
-		this.request.getSession().setAttribute("toUpdateItem", null);
+		this.request.getSession().setAttribute("toUpdateReflist", null);
 		this.setInitialJSONText();
 				 
 		String itemID = this.request.getParameter("itemid");
