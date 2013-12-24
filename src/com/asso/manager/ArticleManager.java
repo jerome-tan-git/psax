@@ -19,4 +19,6 @@ public interface ArticleManager {
 
 	void update(Article article) throws ClassNotFoundException, SQLException;
 
+	List<Article> loadArticles() throws ClassNotFoundException, SQLException;
+
 }

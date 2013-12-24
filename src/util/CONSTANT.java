@@ -1,8 +1,10 @@
 package util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -90,20 +92,34 @@ public class CONSTANT {
 		return index;
 	}
 
+	public final static String getThisYear(){		
+		Date currentTime = new Date();   
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+		return formatter.format(currentTime);
+	}
 	public final static String getTodayDate(){
-		String today = "";
-		Calendar now = Calendar.getInstance();
-        int year = now.get(Calendar.YEAR);
-        int month = now.get(Calendar.MONTH) + 1;
-        int day = now.get(Calendar.DAY_OF_MONTH);
-        String smonth = "" + month;
-        String sday = "" + day;
-        if (month < 10)
-            smonth = "0" + month;
-        if (day < 10)
-            sday = "0" + day;
-        today = year + smonth + sday;
-		return today;
+//		String today = "";
+//		Calendar now = Calendar.getInstance();
+//        int year = now.get(Calendar.YEAR);
+//        int month = now.get(Calendar.MONTH) + 1;
+//        int day = now.get(Calendar.DAY_OF_MONTH);
+//        String smonth = "" + month;
+//        String sday = "" + day;
+//        if (month < 10)
+//            smonth = "0" + month;
+//        if (day < 10)
+//            sday = "0" + day;
+//        today = year + smonth + sday;
+//		return today;
+		Date currentTime = new Date();   
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		return formatter.format(currentTime);
+	}
+	
+	public final static String getNowTime(){
+		Date currentTime = new Date();   
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		return formatter.format(currentTime);
 	}
 	
 	public static String getJSCateName(int _categoryid){
@@ -125,17 +141,20 @@ public class CONSTANT {
 		return tf;
 	}
 	public static void main(String[] args){
-		ArrayList<Integer> _orlist = new ArrayList<Integer>();
-		for(int i=0; i<10; i++)
-			_orlist.add(i);
-		for(int i=0; i<_orlist.size(); i++)
-			System.out.print(_orlist.get(i)+"::");
-		System.out.println("\n");
-//		ArrayList<Integer> rzlist = CONSTANT.getRandomSeq(2, _orlist);
-		Integer[] index = CONSTANT.getRandomCol(judgeNum, _orlist);
-		ArrayList<Integer> rzlist = new ArrayList<Integer>();
-		Collection<Integer> rlist  = CONSTANT.getRandomSeq(2, _orlist);
-		rzlist.addAll(rlist);
+//		ArrayList<Integer> _orlist = new ArrayList<Integer>();
+//		for(int i=0; i<10; i++)
+//			_orlist.add(i);
+//		for(int i=0; i<_orlist.size(); i++)
+//			System.out.print(_orlist.get(i)+"::");
+//		System.out.println("\n");
+////		ArrayList<Integer> rzlist = CONSTANT.getRandomSeq(2, _orlist);
+//		Integer[] index = CONSTANT.getRandomCol(judgeNum, _orlist);
+//		ArrayList<Integer> rzlist = new ArrayList<Integer>();
+//		Collection<Integer> rlist  = CONSTANT.getRandomSeq(2, _orlist);
+//		rzlist.addAll(rlist);
+		
+		System.out.println(CONSTANT.getNowTime());
+		System.out.println(CONSTANT.getTodayDate());
 	}
 
 }

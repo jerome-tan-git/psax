@@ -60,7 +60,16 @@ public class ArticleDaoImpl implements ArticleDao {
 	     s.getTransaction().commit();
 	     s.close();
 	}
-
+	
+	@Override
+	public List<Article> loadArticles(){
+		Session s = sessionFactory.openSession();		 
+	    String hql = "from Article";      
+        Query query = s.createQuery(hql); 
+        List<Article> rlist = query.list();
+        s.close();	    
+	    return rlist;
+	}
 	
 	@Override
 	public List<Article> loadArticles(int categoryid){

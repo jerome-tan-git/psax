@@ -104,12 +104,13 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
-//	public File getFileTest() {  
-//        return fileTest;  
-//    }  
-//    public void setFileTest(File fileTest) {  
-//        this.fileTest = fileTest;  
-//    }  
+	
+	public List<Article> getArtlist() {
+		return artlist;
+	}
+	public void setArtlist(List<Article> artlist) {
+		this.artlist = artlist;
+	}
 	public String getPicContentType() {
 		return picContentType;
 	}
@@ -216,11 +217,14 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			this.article.setTitle(this.ainfo.getTitle());		
 			this.article.setArticle(this.ainfo.getArticle());
 			this.article.setAbsinfo(this.ainfo.getAbsinfo());		
-			this.article.setCategoryid(this.ainfo.getCategoryid());			
-			this.article.setPubdate(this.ainfo.getPubdate());
+			this.article.setCategoryid(this.ainfo.getCategoryid());
 			this.article.setSrcdisplay(this.ainfo.getSrcdisplay());
-			System.out.println("this.article.toString()-----------"+this.article.toString());
+			if(this.ainfo.getPubdate()!=null && this.ainfo.getPubdate().trim().length()>=4)				
+				this.article.setPubdate(this.ainfo.getPubdate());
+			else
+				this.article.setPubdate(CONSTANT.getNowTime());
 			
+			System.out.println("this.article.toString()-----------"+this.article.toString());		
 			
 		if(this.request.getParameter("articleid")!=null ){
 			this.article.setId(Integer.parseInt(this.request.getParameter("articleid")));
@@ -270,18 +274,61 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		int catid = this.ainfo.getCategoryid();
 		if(this.request.getParameter("categoryid")!=null)
 			catid = Integer.parseInt(this.request.getParameter("categoryid"));
+	
+		this.listArticleByCatid(catid);
+		this.filterDate();
+		return "list";
+	}
+	private void listArticleByCatid(int _catid){
 		try {
-			this.artlist = am.loadArticles(catid);
+			this.artlist = am.loadArticles(_catid);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
+	}
+	private void filterDate(){
 		for(Article art:this.artlist){
 			System.out.println("article---"+art.toString());
+			if(art.getPubdate()!=null && art.getPubdate().trim().length()>=4){
+				String date = art.getPubdate();
+				if(date.startsWith(CONSTANT.getThisYear()))
+					date = date.substring(4, date.length());
+				art.setPubdate(date);
+			}else{
+				String date = CONSTANT.getNowTime();
+				if(date.startsWith(CONSTANT.getThisYear()))
+					date = date.substring(4, date.length());
+				art.setPubdate(date);
+			}
+		}
+	}
+	
+	public String listArticles(){
+		int catid = 0;
+		if(this.request.getParameter("categoryid")!=null)
+			catid = Integer.parseInt(this.request.getParameter("categoryid"));
+		if(catid==0){
+			System.out.println("LOAD ALL articles");
+			try {
+				this.artlist = am.loadArticles();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+						
+		}else{
+			System.out.println("LOAD articles in the category="+catid);
+			this.listArticleByCatid(catid);			
+		}		
+		for(Article art:this.artlist){
+			System.out.println("article---"+art.toString());
+			String date = CONSTANT.getNowTime();
+			if(art.getPubdate()!=null && art.getPubdate().trim().length()>=4)
+				date = art.getPubdate();				
+			art.setPubdate(date);			
 		}
 		return "list";
 	}

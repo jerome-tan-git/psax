@@ -107,7 +107,10 @@
 			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
 		</action>
 		<action name="listArt" class="com.asso.action.ArtEdit" method="listArticleByCategoryId">  
-			<result name="list" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
+			<result name="list" type="freemarker">/WEB-INF/ftl/moment.ftl</result>	                     	 
+		</action>
+		<action name="bklistArt" class="com.asso.action.ArtEdit" method="listArticles">  
+			<result name="list" type="freemarker">/WEB-INF/ftl/listArticle.ftl</result>	                     	 
 		</action>
 		<action name="updateArt" class="com.asso.action.ArtEdit" method="updateArticle">  
 			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 

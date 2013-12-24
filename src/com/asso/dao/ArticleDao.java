@@ -18,4 +18,6 @@ public interface ArticleDao {
 
 	void delete(Article article);
 
+	List<Article> loadArticles();
+
 }

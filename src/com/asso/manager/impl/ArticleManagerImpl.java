@@ -43,10 +43,16 @@ public class ArticleManagerImpl implements ArticleManager {
 	public List<Article> loadArticles(int categoryid) throws ClassNotFoundException, SQLException{
 		return articleDao.loadArticles(categoryid);		
 	}
+	
+	@Override
+	public List<Article> loadArticles() throws ClassNotFoundException, SQLException{
+		return articleDao.loadArticles();		
+	}
 
 	@Override
 	public List<Article> loadArticle(int articleid) throws ClassNotFoundException, SQLException{
 		return articleDao.loadArticle(articleid);	
 	}
+	
 	
 }
