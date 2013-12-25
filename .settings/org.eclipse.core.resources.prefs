@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/ftl/article.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/common.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/editArticle.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/editExam.ftl=UTF-8
@@ -11,3 +12,5 @@ encoding//WebContent/WEB-INF/ftl/login.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/moment.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/test.ftl=UTF-8
 encoding//WebContent/js/backend.js=UTF-8
+encoding//WebContent/style.css=UTF-8
+encoding//src/com/asso/action/CKUpload.java=UTF-8

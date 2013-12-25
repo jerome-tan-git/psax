@@ -1,7 +1,4 @@
-<#--
-<#assign s=JspTaglibs["/WEB-INF/struts-tags.tld"]>
- -->
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-
 transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -35,7 +32,7 @@ transitional.dtd">
 
 		<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 
-		<style type="text/css">
+		<style type="text/css"> 
 			html, body, p {
 				margin: 0;
 				padding: 0;
@@ -60,11 +57,11 @@ transitional.dtd">
 			$(document).ready(function() {
 
 				// bancy bo=x
-				jQuery("a#example6").fancybox({
-					'titlePosition' : 'outside',
-					'overlayColor' : '#000',
-					'overlayOpacity' : 0.9
-				});
+				// jQuery("a#example6").fancybox({
+					// 'titlePosition' : 'outside',
+					// 'overlayColor' : '#000',
+					// 'overlayOpacity' : 0.9
+				// });
 				//slider
 				// var sudoSlider = jQuery("#testimonail").sudoSlider({
 				// continuous:true,
@@ -133,29 +130,28 @@ transitional.dtd">
 					}, 500);
 				});
 				
-				$(".exam_wrong").click(function(){
-					var targetText = $.trim($(this).text()); 
-					
-					if($(".right_answer").outerHeight()>41)
+				$(".click_down").click(function(){
+					var toHeight = $(".exam_no_container").outerHeight();
+					var beginHeight = $(".exam_no_outer").outerHeight();
+					if(beginHeight == 0)
 					{
-						$(".right_answer").animate({
-								height : 0 + "px"
-						}, 1000, "easeOutExpo", function()
-						{
-							$(".exam_no").text(targetText+". ");
-							var targetHright = $(".right_outer").outerHeight();
-							$(".right_answer").delay(500).animate({
-								height : targetHright + "px"
-							}, 1000, "easeOutExpo");
-						});
+						   $(".exam_no_outer").animate({
+								height : toHeight + "px"
+							}, 1000, "easeOutExpo",
+							function()
+							{
+								$(".click_down").attr("src","images/up.png");
+							});
 					}
 					else
 					{
-						$(".exam_no").text(targetText+". ");
-						var targetHright = $(".right_outer").outerHeight();
-						$(".right_answer").delay(500).animate({
-							height : targetHright + "px"
-						}, 1000, "easeOutExpo");
+							$(".exam_no_outer").animate({
+								height : 0 + "px"
+							}, 1000, "easeOutExpo",
+							function()
+							{
+								$(".click_down").attr("src","images/down.png");
+							});
 					}
 				});
 			});
@@ -388,28 +384,19 @@ transitional.dtd">
 			<div class="clear"></div>
 
 			<!-- Flex Slider Start -->
-			<div class="sub_header  exam_bg_result">
+			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>在线考试</h2>
+					<h2>大事记</h2>
 					<div class="sub_header_description">
 						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">培训&nbsp;&raquo;</span>
-						<span class="page">在线考试</span>
+						<span class="page">大事记&raquo;</span>
+						<!--span>首页</span-->
 					</div>
 
 				</div>
 				<div class="exam_type">
-					<span style="color:#000000;font-size: 20pt; font-family: '宋体';";>
-					<#if Session.user_name_input?exists>
-						${Session.user_name_input}
-					<#elseif Session.user_?exists>
-						<#assign user=Session.user_>
-						${user.name}
-					<#else>
-						未命名
-					</#if>
-					</span>&nbsp;&nbsp;&nbsp;&nbsp;<span></span>
+					
 				</div>
 				
 			</div>
@@ -418,186 +405,38 @@ transitional.dtd">
 
 			<!-- Teaser Start -->
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
-
-				<div style="margin-top: 20px;" class="clearfix">
-					<div>
-						<div style="float: right;font-size: 33pt;padding-right: 50px;">							
-							<span>${Session.score}</span>
-							<span style="font-size: 15pt">分</span>
-						</div>
-						<div class="clearfix" style="padding-top: 19px;">
-						<#if Session.elist?exists>
-							<#if Session.answerProgress?exists>
-								<#assign answerProgress=Session.answerProgress?size>
-								<div class="exams">
-									<#list Session.elist as item>
-										<#assign seqitem=item_index+1>
-										<#if (seqitem==Session.c1hasTitle) >	
-											<div class="exams_title">
-												是非题：
-											</div>
-											<div class="clearfix exam_no_body">
-												<#list Session.elist as item1>
-													<#assign seqitem1=item1_index+1>
-													<#if (seqitem1>=Session.c1hasTitle && seqitem1<Session.c2hasTitle ) >
-														<#if (seqitem1<=answerProgress) >
-															<#list Session.answerProgress as isdone>  <#-- 可优化 -->
-																<#assign anseq=isdone_index+1>
-																<#if (anseq==seqitem1) >
-																	<#if (isdone==1) >
-																		<a href="./showerror.action?seqid=${seqitem1}"><div class="exam_right exams_no exam_right">																		
-																	<#else>
-																		<a href="./showerror.action?seqid=${seqitem1}"><div class="exam_right exams_no exam_wrong">
-																	</#if>
-																	<#break>
-																</#if>						
-															</#list>
-														<#else>
-															<a href="./showerror.action?seqid=${seqitem1}"><div class="exam_right exams_no exam_wrong">
-														</#if>
-															${seqitem1?string("00")}
-														</div></a>
-													</#if>
-												</#list>
-											</div>
-										<#elseif (seqitem==Session.c2hasTitle)>
-											<div class="exams_title">
-												单选题：
-											</div>
-											<div class="clearfix exam_no_body">
-												<#list Session.elist as item1>
-													<#assign seqitem1=item1_index+1>
-													<#if (seqitem1>=Session.c2hasTitle && seqitem1<Session.c3hasTitle ) >
-														<a href="./showerror.action?seqid=${seqitem1}"><!-- -->
-														<#if (seqitem1<=answerProgress) >
-															<#list Session.answerProgress as isdone>  <#-- 可优化 -->
-																<#assign anseq=isdone_index+1>
-																<#if (anseq==seqitem1) >
-																	<#if (isdone==1) >
-																		<div class="exam_right exams_no exam_right">																		
-																	<#else>
-																		<div class="exam_right exams_no exam_wrong">
-																	</#if>
-																	<#break>
-																</#if>						
-															</#list>
-														<#else>
-															<div class="exam_right exams_no exam_wrong">
-														</#if>	
-															<!--<a href="./showerror.action?seqid=${seqitem1}">${seqitem1}</a>-->															
-														<!--</div>-->
-														${seqitem1}</div></a>
-													</#if>
-												</#list>
-											</div>
-										<#elseif (seqitem==Session.c3hasTitle)>
-											<div class="exams_title">
-												复选题：
-											</div>
-											<div class="clearfix exam_no_body">
-												<#list Session.elist as item1>
-													<#assign seqitem1=item1_index+1>
-													<#if (seqitem1>=Session.c3hasTitle) >
-														<a href="./showerror.action?seqid=${seqitem1}">
-														<#if (seqitem1<=answerProgress)>
-															<#list Session.answerProgress as isdone>  <#-- 可优化 -->
-																<#assign anseq=isdone_index+1>
-																<#if (anseq==seqitem1) >
-																	<#if (isdone==1) >
-																		<div class="exam_right exams_no exam_right">																		
-																	<#else>
-																		<div class="exam_right exams_no exam_wrong">
-																	</#if>
-																		<#break>
-																</#if>						
-															</#list>
-														<#else>
-															<div class="exam_right exams_no exam_wrong">
-														</#if>
-														<!--
-															<a href="./showerror.action?seqid=${seqitem1}">${seqitem1}</a>
-														</div>-->	
-														${seqitem1}</div></a>
-													</#if>
-												</#list>
-											</div>
-										</#if>					
-									</#list>
-
-								</div>
-								
-							</#if>
-						</#if>	
-							
-							
-						</div>
+				<div class="article_body">
+				<div class="article_detail_title">
+				<#if art?exists>
+					${art.title}
+				</#if>
+				</div>
+				<div class="article_detail_info">
+					<div class="article_detail_date">
+					<#if art?exists>
+					${art.pubdate}
+					</#if>
 					</div>
 				</div>
-
-			<#if (Session.elistseq?exists)&&(Session.summaryseqid?exists)&&(Session.correct?exists)>
-				<div class="right_answer" style="overflow:auto !important;height:inherit !important;">
-					<div class="right_outer clearfix">
-					<div class="exam_section">
-					
-					
-						<#list Session.elistseq as map>
-							<#assign keys=map?keys>	
-							<#assign seq=map_index+1>	
-							<#if Session.summaryseqid=(seq?c)>	
-								<#list keys as key>
-									<#if map[key]?exists>
-										<div class="exam_section">	
-											<div class="exam_title">
-												<span class="exam_no">${seq}. </span>
-												<span style="color: #000">${key}</span>
-											</div>
-										
-											<#assign refs=map[key]>
-											<#list refs as ref>
-												<div class="exam_options">			
-													<#if (seq<Session.c3hasTitle) >
-														<#if Session.chosenRefIds?exists>
-															<#if (Session.chosenRefIds?seq_index_of(ref.id?c)>=0)>							
-																<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" checked/>
-															<#else>	
-																<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
-															</#if>														
-														<#else>
-															<input type="radio" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
-														</#if>
-													<#else>
-														<#if Session.chosenRefIds?exists>
-															<#if (Session.chosenRefIds?seq_index_of(ref.id?c)>=0)>							
-																<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" checked/>
-															<#else>	
-																<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
-															</#if>
-														<#else>
-															<input type="checkbox" name="ANS_${seq}" value="${ref.id}" id="o_${ref.id}" />
-														</#if>														
-													</#if>
-													<label for="o_${ref.id}" class="o_${ref.id}">${ref.ref}</label>
-												</div>
-											</#list>								
-										</div>
-									</#if>
-								</#list>
-								
-								<#break>
-							</#if>	
-						</#list>
-					
-
-
-					<div class="right_title">
-						正确答案：<div style="margin-top:10px;margin-left: 50px;">${Session.correct}</div>
-					</div>
+				<div class="article_detail_body">
+					<#if art?exists>
+						${art.article}
+					</#if>					
+				</div>
+				<div class="article_detail_attach">
+					<div class="article_detail_attach_title">附件</div>
+					<div class="article_detail_attach_block">
+						<#if art.addition?exists>
+						<a href="${art.addition}">${art.addition}</a>
+						<#else>
+						无						
+						</#if>
 					</div>
 				</div>
-			</#if>
+			</div>
 			</div>
 			<!-- Teaser End -->
-		
+
 			<!-- Content Start -->
 
 			<!-- Content End -->
@@ -697,4 +536,3 @@ transitional.dtd">
 	</body>
 
 </html>
- 

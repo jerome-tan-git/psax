@@ -381,7 +381,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 		}
 			
 		this.session.put("answerProgress",answerProgress);
-		
+		this.session.put("totalDoneList",totalDoneList);//20131225
 	}
 
 	/* pi go forword */
@@ -582,7 +582,12 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 					sei.setExamitemid(key.getId());
 					sei.setScoreid(sid);
 					sei.setSeqid(i+1);
-					sei.setStatus(totalDoneList.get(key));
+					System.out.println("---key--"+key.toString());
+					System.out.println("---totalDoneList--"+totalDoneList.get(key));
+					if(totalDoneList.get(key)!=null)
+						sei.setStatus(totalDoneList.get(key));
+					else
+						sei.setStatus(0);
 					try {
 						sm.add(sei);
 					} catch (ClassNotFoundException e) {

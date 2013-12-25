@@ -48,7 +48,13 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private String picFileName;
 	private String additionFileName;
 	
-	private List<Article> artlist = new ArrayList<Article>();
+	private List<Article> artlist = new ArrayList<Article>();//in Session
+	private List<Article> pageartlist = new ArrayList<Article>();// in Session
+	private List<Integer> delartids = new ArrayList<Integer>(); //in Session
+	
+	private int lastpage;
+	private int nextpage;
+	private int endpage;
 	
 	private HttpServletRequest request;	
 	private Map session;
@@ -81,6 +87,31 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 
 	public void setAinfo(ArtInfo ainfo) {
 		this.ainfo = ainfo;
+	}
+
+	
+	public int getLastpage() {
+		return lastpage;
+	}
+
+	public void setLastpage(int lastpage) {
+		this.lastpage = lastpage;
+	}
+
+	public int getNextpage() {
+		return nextpage;
+	}
+
+	public void setNextpage(int nextpage) {
+		this.nextpage = nextpage;
+	}
+
+	public int getEndpage() {
+		return endpage;
+	}
+
+	public void setEndpage(int endpage) {
+		this.endpage = endpage;
 	}
 
 	public Article getArt() {
@@ -269,7 +300,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 				e.printStackTrace();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}			
+			}		
+			return "update";
 		}else{
 			System.out.println("SAVE---article");
 			try {
@@ -279,34 +311,32 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			return "save";
 		}		
 		
-		return "success";
 	}
 	
-	public String updateArticle(){
+	public String deleteArticle(){
 		int articleid = 0;
 		if(this.request.getParameter("articleid")!=null){									  
 			articleid = Integer.parseInt(this.request.getParameter("articleid"));
 			try {
-				this.artlist = am.loadArticle(articleid);
+				am.deleteArticle(articleid);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}
-			if(this.artlist.size()==1)
-				this.article = this.artlist.get(0);
-			else
-				System.out.println("DATA ERROR, Pls INV...");
+			}			
 		}else
 			System.out.println("DATA ERROR, Pls INV...");
 		
-		System.out.println("TO UPDATE this.article="+this.article);
-		return "update";
+		System.out.println("Delete article, articleid="+articleid);
+//		this.listArticleByCategoryId();//can't get catid
+		return "delete";
 	}
 	
 	public String listArticleByCategoryId(){
+		this.session.put("artslist", null);
 		int catid = this.ainfo.getCategoryid();
 		if(this.request.getParameter("categoryid")!=null){
 			catid = Integer.parseInt(this.request.getParameter("categoryid"));
@@ -324,6 +354,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		System.out.println("this.artlist.size()="+this.artlist.size());
 		this.filterDate();
 		this.sortArtlistByDate();
+		this.cleanTxt();
+		this.session.put("artslist", this.artlist);
 		return "list";
 	}
 	private void listArticleByCatid(int _catid){
@@ -372,10 +404,41 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			sortedArtlist.add(this.artlist.get(seq));
 		this.setArtlist(sortedArtlist);
 	}
+	
+	private void cleanTxt(){
+		for(Article art:this.artlist){
+			String title = art.getTitle();
+			title = CONSTANT.replaceHtml(title);
+			art.setTitle(title);
+			
+			String abs = art.getAbsinfo();
+			abs = CONSTANT.replaceHtml(abs);
+			art.setAbsinfo(abs);
+			
+			String article = art.getArticle();
+			article = CONSTANT.replaceHtml(article);
+			if(article.length()>280)
+				article=article.substring(0,280)+"......";
+			art.setArticle(article);
+		}
+	}
 	public String listArticles(){
+		
 		int catid = 0;
 		if(this.request.getParameter("categoryid")!=null)
 			catid = Integer.parseInt(this.request.getParameter("categoryid"));
+		
+		int page = 1;		
+		if(this.request.getParameter("page")!=null)
+			page = Integer.parseInt(this.request.getParameter("page"));
+		int index0 = (page-1)*CONSTANT.pageArtSize+1;
+		int index1 = page*CONSTANT.pageArtSize;
+		if((page-1)>=1)
+			this.lastpage = page-1;
+		else
+			this.lastpage = 1;
+		
+		
 		if(catid==0){
 			System.out.println("LOAD ALL articles");
 			try {
@@ -389,18 +452,47 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		}else{
 			System.out.println("LOAD articles in the category="+catid);
 			this.listArticleByCatid(catid);			
+		}
+		this.sortArtlistByDate();
+		
+		this.endpage = this.artlist.size()/CONSTANT.pageArtSize;
+		if(this.endpage*CONSTANT.pageArtSize<this.artlist.size())
+			this.endpage += 1;
+		if((page+1)<=this.endpage)
+			this.nextpage = page+1;
+		else
+			this.nextpage=page;
+		System.out.println("page="+page);
+		System.out.println("lastpage="+lastpage);
+		System.out.println("nextpage="+nextpage);
+		System.out.println("endpage="+endpage);
+		List<Article> alist = new ArrayList<Article>();
+		for(int i=1; i<=index1; i++){			
+			if(i>this.artlist.size())
+				break;
+			else{
+				if(i<index0)
+					alist.add(null);	
+				else
+					alist.add(this.artlist.get(i-1));
+			}
 		}		
-		for(Article art:this.artlist){
-			System.out.println("article---"+art.toString());
+		if(alist!=null)
+			this.setArtlist(alist);
+		System.out.println("alist size="+alist.size());
+		for(Article art:this.artlist){			
 			String date = CONSTANT.getNowTime();
-			if(art.getPubdate()!=null && art.getPubdate().trim().length()>=10)
-				date = art.getPubdate();				
-			art.setPubdate(date);			
+			if(art!=null){				
+				if(art.getPubdate()!=null && art.getPubdate().trim().length()>=10)
+					date = art.getPubdate();				
+				art.setPubdate(date);
+			}						
 		}		
+		System.out.println("this.artlist size="+this.artlist.size());
 		return "list";
 	}
 
-
+	
 	@Override
 	public String execute(){
 		this.categories = cm.loadCategories();

@@ -71,7 +71,7 @@ public class DownloadImage {
 			
 		}
 		returnStr = doc.getElementsByTag("body").html().replaceAll("\r", "").replaceAll("\n", "");
-		return returnStr;
+		return returnStr.replaceAll("\"", "'");
 	}
 	
 	public static void download(String urlString, String filename)

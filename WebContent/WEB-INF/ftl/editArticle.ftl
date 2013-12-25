@@ -190,7 +190,7 @@
 								<label  class="col-sm-12">内容</label>
 								<div class="col-sm-12">
 								<#if art?exists>
-									<textarea id="editor" name="article">${art.article} </textarea>
+									<textarea id="editor" name="article" >${art.article} </textarea>
 								<#else>
 									<textarea id="editor" name="article"> </textarea>
 								</#if>

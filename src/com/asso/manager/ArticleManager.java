@@ -21,4 +21,7 @@ public interface ArticleManager {
 
 	List<Article> loadArticles() throws ClassNotFoundException, SQLException;
 
+	void deleteArticle(int articleid) throws ClassNotFoundException,
+			SQLException;
+
 }

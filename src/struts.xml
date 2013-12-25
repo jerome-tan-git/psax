@@ -30,7 +30,8 @@
 		
 		<action name="userlogin" class="com.asso.action.UserLogin">  
 			<!-- <result name="success">loginSuccess.jsp</result> -->
-			<result name="success"  type="freemarker">/WEB-INF/ftl/examItemList.ftl</result>
+			<!-- <result name="success"  type="freemarker">/WEB-INF/ftl/examItemList.ftl</result> -->
+			<result name="success">exam_home.html</result>
 			<!-- <result name="success">login_result.jsp</result>    -->
 			<result name="failure">loginFail.jsp</result>  
 		</action>
@@ -104,17 +105,22 @@
 			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>
 		</action>
 		<action name="addArt" class="com.asso.action.ArtEdit" method="addArticle">  
-			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
+			<result name="save" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	
+			<result name="update" type="redirect">managerArt.action</result>	                     	 
 		</action>
 		<action name="listArt" class="com.asso.action.ArtEdit" method="listArticleByCategoryId">  
 			<result name="list" type="freemarker">/WEB-INF/ftl/moment.ftl</result>	                     	 
 		</action>
+		<action name="detailArt" class="com.asso.action.ArtEdit" >  
+			<result name="success" type="freemarker">/WEB-INF/ftl/article.ftl</result>
+		</action>
 		<action name="bklistArt" class="com.asso.action.ArtEdit" method="listArticles">  
 			<result name="list" type="freemarker">/WEB-INF/ftl/listArticle.ftl</result>	                     	 
 		</action>
-		<action name="updateArt" class="com.asso.action.ArtEdit" method="updateArticle">  
-			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
+		<action name="deleteArt" class="com.asso.action.ArtEdit" method="deleteArticle">  
+			<result name="delete" type="redirect">bklistArt.action</result>	                     	 
 		</action>
+		
 		
 		<action name="intoexam" class="com.asso.action.ExamItemsList" method="loadExamItemlistFByExamId">  
 			<result name="list" type="redirect">switchexampage.action?currentpage=1</result>		                     	 

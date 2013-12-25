@@ -94,6 +94,7 @@ public class ArticleDaoImpl implements ArticleDao {
 	}
 
 
+
 //	@Override
 //	public List<Category> loadCategoryPath(int categoryid){		
 //        List<Category> rlist = new ArrayList<Category>();

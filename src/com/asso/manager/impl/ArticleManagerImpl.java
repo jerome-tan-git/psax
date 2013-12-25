@@ -54,5 +54,12 @@ public class ArticleManagerImpl implements ArticleManager {
 		return articleDao.loadArticle(articleid);	
 	}
 	
+	@Override
+	public void deleteArticle(int articleid) throws ClassNotFoundException, SQLException{
+		Article art = new Article();
+		art.setId(articleid);
+		articleDao.delete(art);
+	}
+	
 	
 }

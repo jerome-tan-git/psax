@@ -465,7 +465,7 @@ transitional.dtd">
 									<img src=${article.pic} />
 								</div>							
 								<div class="mom_body_text_withimage">
-								${article.article}
+								${article.article}  <a href="detailArt.action?articleid=${article.id}">&nbsp;&nbsp;&nbsp;更多</a>
 								</div>
 							</div>
 							<div class="mom_contetn_bottom">&nbsp;</div>

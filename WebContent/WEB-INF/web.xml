@@ -51,4 +51,16 @@
     <servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  
+  <servlet>  
+       <servlet-name>uploadServlet</servlet-name>  
+       <servlet-class>com.asso.action.CKUpload</servlet-class>  
+    </servlet>  
+
+    <servlet-mapping>  
+        <servlet-name>uploadServlet</servlet-name>  
+        <url-pattern>/servlet/upload.servlet</url-pattern>  
+    </servlet-mapping>
+  
+  
 </web-app>

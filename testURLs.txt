@@ -16,6 +16,7 @@ http://localhost:8080/psax/uploaddoc/1387800436149_12.jpg
 
 http://localhost:8080/psax/listArt.action?categoryid=1
 http://localhost:8080/psax/listArt.action
+http://localhost:8080/psax/listArt.action?page=2
 http://localhost:8080/psax/addArt.action?articleid=1
 
 http://localhost:8080/psax/bklistArt.action

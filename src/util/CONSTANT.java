@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CONSTANT {
 	
@@ -18,8 +20,10 @@ public class CONSTANT {
 	public final static int scorePerMulti = 2;
 	public final static int scorePerJudge = 1;
 	
-	public final static int pageNum = 5;
-	public final static int pageSize = 3;
+	public final static int pageNum = 5;//考题页数
+	public final static int pageSize = 3;//每页考题数量
+		
+	public final static int pageArtSize = 5;//每页文章数量
 	
 	public final static String CKeditorUrlPath = "./ckimages";
 	public final static String uploadImagesPath = "./uploadimg";
@@ -196,6 +200,15 @@ public class CONSTANT {
 			System.out.println("sesq="+seq);
 		return seqs;
 	}
+	
+	public static String replaceHtml(String html){
+		String regEx="<.+?>"; //表示标签
+		Pattern p=Pattern.compile(regEx);
+		Matcher m=p.matcher(html);
+		String s=m.replaceAll("");
+		return s;
+	}
+	
 	public static void main(String[] args){
 //		ArrayList<Integer> _orlist = new ArrayList<Integer>();
 //		for(int i=0; i<10; i++)

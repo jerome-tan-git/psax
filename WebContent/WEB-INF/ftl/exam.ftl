@@ -566,22 +566,25 @@ transitional.dtd">
 							</#list>
 						</#list>
 					</#if>
-					<#if (Session.pi<Session.totalpi) >
-					   	<div class="exam_submit"><input type="submit" name="next" value="下一页"/></div>
-					<#else>
-					   	<div class="exam_submit"><input type="submit" name="next" value="提交"/></div>
-					</#if>
-  						<div class="exam_submit"><input type="reset" value="重写"/></div>
-  						<!-- <a href="./finalizexam.action"><div class="exam_submit">结束考试</div></a> -->
-  						<div class="exam_submit"><input type="submit" name="next" value="结束考试"/></div>
-					</form>
-					<div class="exam_submit">
+					<div class="clearfix exam_pagenation">
 						<a href="./switchpage.action?pagenumber=1">1</a>
 						<a href="./switchpage.action?pagenumber=2">2</a>
 						<a href="./switchpage.action?pagenumber=3">3</a>
 						<a href="./switchpage.action?pagenumber=4">4</a>
 						<a href="./switchpage.action?pagenumber=5">5</a>
 					</div>
+					<div class="exam_btn_container">
+					<#if (Session.pi<Session.totalpi) >
+					   	<div class="exam_submit_btn"><input type="submit" name="next" value="下一页"/></div>
+					<#else>
+					   	<div class="exam_submit_btn"><input type="submit" name="next" value="提交"/></div>
+					</#if>
+  						<div class="exam_submit_btn"><input type="reset" value="重写"/></div>
+  						<!-- <a href="./finalizexam.action"><div class="exam_submit">结束考试</div></a> -->
+  						<div class="exam_submit_btn"><input type="submit" name="next" value="结束考试"/></div>
+  						</div>
+  					</form>
+					
 				</div>
 
 			</div>
