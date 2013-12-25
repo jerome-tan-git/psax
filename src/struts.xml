@@ -101,7 +101,7 @@
 		</action>
 		<!-- method="addArticley/addChannel" -->
 		<action name="managerArt" class="com.asso.action.ArtEdit" >  
-			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 
+			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>
 		</action>
 		<action name="addArt" class="com.asso.action.ArtEdit" method="addArticle">  
 			<result name="success" type="freemarker">/WEB-INF/ftl/editArticle.ftl</result>	                     	 

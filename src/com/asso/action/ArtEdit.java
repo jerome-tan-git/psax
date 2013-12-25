@@ -38,8 +38,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private ArticleManager am;	
 	private ChannelManager cm;	
 	private ArtInfo ainfo = new ArtInfo();
-	private Article article = new Article();
-	private Article art = new Article();
+	private Article article;
+	private Article art ;
 	private List<Category> categories;
 	private File pic;
 	private File addition;
@@ -177,13 +177,16 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
         	System.out.println("!!@@!!additionError"); 
         }
         
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		System.out.println("this.ainfo.getTitle()---"+this.ainfo.getTitle());
 		System.out.println("this.ainfo.getArticle()---"+this.ainfo.getArticle());
 		System.out.println("this.ainfo.getAbsinfo()---"+this.ainfo.getAbsinfo());
-		System.out.println("this.ainfo.getCategoryid()---"+this.ainfo.getCategoryid());
-		
+		System.out.println("this.ainfo.getCategoryid()---"+this.ainfo.getCategoryid());		
 		System.out.println("this.ainfo.getPubdate()---"+this.ainfo.getPubdate());
 		System.out.println("this.ainfo.getSrcdisplay()---"+this.ainfo.getSrcdisplay());
+		System.out.println("this.ainfo.getPicurl()---"+this.ainfo.getPicurl());
+		System.out.println("this.ainfo.getAdditionurl()---"+this.ainfo.getAdditionurl());
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	}
 	
 	
@@ -193,36 +196,57 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.setUploadfiles();
 		
 		this.article = new Article();
-		if(this.ainfo.getPic()!=null){
-			String path_i = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadImagesPath);
-			System.out.println("real path(imgs) = "+path_i);
-			String newImgName = System.currentTimeMillis()+"_"+this.picFileName;
-			File saveImg = new File(new File(path_i),newImgName);
-			if(!saveImg.getParentFile().exists())
-		    	saveImg.getParentFile().mkdirs();
-			try {
-				FileUtils.copyFile(this.pic, saveImg);
-			} catch (IOException e) {
-				e.printStackTrace();
+		System.out.println("-1-----------------------------------------------------------------------");
+		System.out.println("--this.ainfo.getPicurl()--"+this.ainfo.getPicurl());
+		System.out.println("--this.ainfo.getAdditionurl()--"+this.ainfo.getAdditionurl());
+		System.out.println("-2-----------------------------------------------------------------------");
+		String path_ = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadImagesPath);
+		System.out.println("real path(imgs) = "+path_);
+		System.out.println("-3-----------------------------------------------------------------------");
+		
+			if(this.ainfo.getPic()!=null){
+				String path_i = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadImagesPath);
+				System.out.println("real path(imgs) = "+path_i);
+				String newImgName = System.currentTimeMillis()+"_"+this.picFileName;
+				File saveImg = new File(new File(path_i),newImgName);
+				if(!saveImg.getParentFile().exists())
+			    	saveImg.getParentFile().mkdirs();
+				try {
+					FileUtils.copyFile(this.pic, saveImg);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				this.article.setPic(CONSTANT.uploadImagesPath+"/"+saveImg.getName());
+//				System.out.println("PIC URL---"+CONSTANT.uploadImagesPath+"/"+saveImg.getName());
+			}else{
+				if(this.ainfo.getPicurl()!=null){
+					System.out.println("--this.ainfo.getPicurl()--"+this.ainfo.getPicurl());
+					this.article.setPic(this.ainfo.getPicurl());
+				}
 			}
-			this.article.setPic(CONSTANT.uploadImagesPath+"/"+saveImg.getName());
-//			System.out.println("PIC URL---"+CONSTANT.uploadImagesPath+"/"+saveImg.getName());
-		}
-		if(this.ainfo.getAddition()!=null){
-			String path_f = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadFilesPath);		
-			System.out.println("real path(docs) = "+path_f);		
-			String newDocName = System.currentTimeMillis()+"_"+this.additionFileName;		
-			File saveDoc = new File(new File(path_f), newDocName);
-			if(!saveDoc.getParentFile().exists())
-				saveDoc.getParentFile().mkdirs();
-			try {			
-				FileUtils.copyFile(this.addition, saveDoc);
-			} catch (IOException e) {
-				e.printStackTrace();
+		
+
+		
+			if(this.ainfo.getAddition()!=null){
+				String path_f = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadFilesPath);		
+				System.out.println("real path(docs) = "+path_f);		
+				String newDocName = System.currentTimeMillis()+"_"+this.additionFileName;		
+				File saveDoc = new File(new File(path_f), newDocName);
+				if(!saveDoc.getParentFile().exists())
+					saveDoc.getParentFile().mkdirs();
+				try {			
+					FileUtils.copyFile(this.addition, saveDoc);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				this.article.setAddition(CONSTANT.uploadFilesPath+"/"+saveDoc.getName());
+	//			System.out.println("DOC URL---"+CONSTANT.uploadFilesPath+"/"+saveDoc.getName());
+			}else{
+				if(this.ainfo.getAdditionurl()!=null){
+					System.out.println("--this.ainfo.getAdditionurl()--"+this.ainfo.getAdditionurl());
+					this.article.setAddition(this.ainfo.getAdditionurl());
+				}
 			}
-			this.article.setAddition(CONSTANT.uploadFilesPath+"/"+saveDoc.getName());
-//			System.out.println("DOC URL---"+CONSTANT.uploadFilesPath+"/"+saveDoc.getName());
-		}
 		
 			this.article.setTitle(this.ainfo.getTitle());		
 			this.article.setArticle(this.ainfo.getArticle());
@@ -234,10 +258,11 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			else
 				this.article.setPubdate(CONSTANT.getNowTime());
 			
-			System.out.println("this.article.toString()-----------"+this.article.toString());		
-			
+//			System.out.println("this.article.toString()-----------"+this.article.toString());		
+		System.out.println("--this.request.getRequestURI()--"+this.request.getRequestURI());	
 		if(this.request.getParameter("articleid")!=null ){
 			this.article.setId(Integer.parseInt(this.request.getParameter("articleid")));
+			System.out.println("UPDATE---artid="+this.request.getParameter("articleid"));
 			try {
 				am.update(this.article);
 			} catch (ClassNotFoundException e) {
@@ -246,6 +271,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 				e.printStackTrace();
 			}			
 		}else{
+			System.out.println("SAVE---article");
 			try {
 				am.add(article);
 			} catch (ClassNotFoundException e) {
@@ -260,7 +286,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	
 	public String updateArticle(){
 		int articleid = 0;
-		if(this.request.getParameter("articleid")!=null){
+		if(this.request.getParameter("articleid")!=null){									  
 			articleid = Integer.parseInt(this.request.getParameter("articleid"));
 			try {
 				this.artlist = am.loadArticle(articleid);
@@ -282,10 +308,20 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	
 	public String listArticleByCategoryId(){
 		int catid = this.ainfo.getCategoryid();
-		if(this.request.getParameter("categoryid")!=null)
+		if(this.request.getParameter("categoryid")!=null){
 			catid = Integer.parseInt(this.request.getParameter("categoryid"));
-	
-		this.listArticleByCatid(catid);
+			System.out.println("catid="+catid);
+			this.listArticleByCatid(catid);
+		}else{
+			try {
+				this.artlist = am.loadArticles();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		System.out.println("this.artlist.size()="+this.artlist.size());
 		this.filterDate();
 		this.sortArtlistByDate();
 		return "list";
@@ -370,7 +406,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.categories = cm.loadCategories();
 		String artID = this.request.getParameter("articleid");	
 		System.out.println(this.request.getRealPath(".")); 
-		if(artID!=null){
+		if(artID!=null && artID.length()>0){
 			int aid = Integer.parseInt(artID);
 			List<Article> artl = new ArrayList<Article>();
 			try {
@@ -381,14 +417,17 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 				e.printStackTrace();
 			}
 			if(artl.size()==1){		
-				this.art = artl.get(0);
+				this.art = new Article(); 
+				this.art.setId(Integer.parseInt(artID));
+				this.setArt(artl.get(0));
 //				this.setArticle(art.get(0));				
-				System.out.println("_____________________"+this.art.getTitle());
-				System.out.println("_____________________"+this.art.getPubdate());
-				System.out.println("_____________________"+this.art.getAbsinfo());
-				System.out.println("_____________________"+this.art.getArticle());
-				System.out.println("_____________________"+this.art.getPic());
-				System.out.println("_____________________"+this.art.getCategoryid());
+				System.out.println("__1___________________"+this.art.getTitle());
+				System.out.println("__2___________________"+this.art.getPubdate());
+				System.out.println("__3___________________"+this.art.getAbsinfo());
+				System.out.println("__4___________________"+this.art.getArticle());
+				System.out.println("__5___________________"+this.art.getCategoryid());
+				System.out.println("__6___________________"+this.art.getPic());
+				System.out.println("__7___________________"+this.art.getAddition());
 			}
 			else
 				System.out.println("DATA ERROR, PLS INV...");

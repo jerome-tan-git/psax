@@ -109,11 +109,15 @@
 							<h3 class="panel-title">Article</h3>
 						</div>
 						<div class="panel-body">
+						<#if art?exists>
+							<form class="form-horizontal" role="form" action="addArt.action?articleid=${art.id}" method="post" enctype="multipart/form-data">
+						<#else>
 							<form class="form-horizontal" role="form" action="addArt.action" method="post" enctype="multipart/form-data">
+						</#if>
 								<div class="col-sm-12">
 									<label for="exampleInputEmail1">标题</label> 									
 									<#if art?exists>
-										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="${art.title}" name="title" />										
+										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="title" value="${art.title}"></input>										
 									<#else>
 										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="标题" name="title"/>
 									</#if>
@@ -123,7 +127,7 @@
 								 <div class="col-sm-12">
 									<label for="exampleInputEmail1">摘要</label>
 									<#if art?exists>
-										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="${art.absinfo}" name="absinfo">
+										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="absinfo" value="${art.absinfo}"></input>
 									<#else>
 										<input type="text" class="form-control" id="exampleInputEmail1" placeholder="摘要" name="absinfo">
 									</#if>
@@ -147,24 +151,34 @@
 										</#if>
 								 </div>
 								<div class="col-sm-6">
-									 <label for="exampleInputEmail1">图片</label>
-									 <input type="file" name="pic"/>
+									 <label for="exampleInputEmail1">图片</label>									
 									<#if art?exists>
-										<img src="${art.pic}">
+										<input type="file" name="pic" />
+									 	<input type="hidden" name="picurl" value="${art.pic}"/>
+										<div class="thumbnail"><img src="${art.pic}"></div>
+									<#else>
+									 	<input type="file" name="pic" />
 									</#if>
 								 </div>
 								 <div class="col-sm-12">&nbsp;</div>
 								 <div class="col-sm-6">
-									 <label for="exampleInputEmail1">附件</label>
-									 <input type="file" name="addition"/>
+									 <label for="exampleInputEmail1">附件</label>	
 									 <#if art?exists>
-										<a href="${art.addition}">${art.addition}</a><br>
-									</#if>
+									 	<input type="file" name="addition" />
+									 	<input type="hidden" name="additionurl" value="${art.addition}"/>
+										<a href="${art.addition}">${art.addition}</a>
+									 <#else>
+									 	<input type="file" name="addition" />
+									 </#if>
 								 </div>
 								 <div class="col-sm-3">
 									  <label for="exampleInputEmail1">日期</label>
 									  <div class="input-group input-append date" data-date="2012-12-02" data-date-format="yyyy-mm-dd">
-							          	<input type="text" class="form-control" size="16" readonly name="pubdate"/>
+									  <#if art?exists>
+							          	<input type="text" class="form-control" size="16" readonly name="pubdate" value="${art.pubdate}"/>
+							          <#else>
+							          	<input type="text" class="form-control" size="16" readonly name="pubdate" />
+							          </#if>
 							          	<span class="input-group-btn add-on">
 							            	<button class="btn btn-default" type="button">
 							            		<i class="glyphicon glyphicon-calendar">&nbsp;</i>

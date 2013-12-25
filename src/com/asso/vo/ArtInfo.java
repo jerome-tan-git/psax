@@ -20,11 +20,31 @@ public class ArtInfo {
 	private String picFileName;
 	private String additionFileName;
 	
-	public String getTitle() {
+	private String picurl;
+	private String additionurl;
+	
+	
+	public String getPicurl() {
+		return picurl;
+	}
+
+	public void setPicurl(String picurl) {
+		this.picurl = picurl;
+	}
+
+	public String getAdditionurl() {
+		return additionurl;
+	}
+
+	public void setAdditionurl(String additionurl) {
+		this.additionurl = additionurl;
+	}
+
+	public String getTitle() {		
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(String title) {		
 		this.title = title;
 	}
 

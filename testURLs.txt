@@ -23,3 +23,5 @@ http://localhost:8080/psax/bklistArt.action?categoryid=1
 http://localhost:8080/psax/bklistArt.action?categoryid=2
 
 http://localhost:8080/psax/managerArt.action?articleid=2
+http://localhost:8080/psax/managerArt.action?articleid=13
+http://localhost:8080/psax/managerArt.action?articleid=26

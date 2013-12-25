@@ -186,7 +186,7 @@ public class CONSTANT {
             System.out.println(format.format(d));  
             for(int j=0; j<unsorteddatelist.size(); j++){
             	Date ud = unsorteddatelist.get(j);
-            	if(ud.equals(d)){
+            	if(ud.equals(d) && !seqs.contains(j)){
             		seqs.add(j);
             		break;
             	}            		
