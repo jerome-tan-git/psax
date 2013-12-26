@@ -16,18 +16,17 @@
 		<script>
 			var selectIndex = -1;
 			CKEDITOR.disableAutoInline = true;
-			CKEDITOR.editorConfig = function(config) {
-				// Define changes to default configuration here. For example:
-				// config.language = 'fr';
-				// config.uiColor = '#AADC6E';
-
-				config.height = 500;
-			};
 			$(document).ready(function() {
-				$('#editor').ckeditor();
+				$('#editor').ckeditor({
+					height: '800px',
+					filebrowserUploadUrl: './upload.action'
+					
+				});
 				// Use CKEDITOR.replace() if element is <textarea>.
 				//$( '#editor1' ).ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
-				$('.date').datepicker()
+				var nowTemp = new Date();
+				var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+				$('.date').datepicker('setValue', now)
 				  .on('changeDate', function(ev){
 					$('.date').datepicker('hide');
 				  });

@@ -528,6 +528,17 @@ transitional.dtd">
 							<#assign seq=map_index+1>												
 							<#list keys as key>
 								<#if map[key]?exists>
+								
+									<#if seq=Session.c1hasTitle>
+										<h3>是非题：</h3><br/>
+									</#if>
+									<#if seq=Session.c2hasTitle>
+										<h3>单选题：</h3><br/>
+									</#if>
+									<#if seq=Session.c3hasTitle>
+										<h3>多选题：</h3><br/>
+									</#if>
+								
 									<div class="exam_section">	
 										<div class="exam_title">
 											<span class="exam_no">${seq}. </span>

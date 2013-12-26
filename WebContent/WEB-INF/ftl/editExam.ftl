@@ -30,9 +30,15 @@
 		    config.height = 70;
 		};
 		$( document ).ready( function() {
-			$( '#editor' ).ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
-			//$( '#editor1' ).ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
-			
+			$( '#editor' ).ckeditor(
+			{
+					toolbar:[
+					    ['Bold','Italic','Underline','Strike','-','EqnEditor'],
+					    ['TextColor','BGColor'],
+					],
+					height:"80px"
+				}
+				); 
 		} );
 		</script>
 	</head>

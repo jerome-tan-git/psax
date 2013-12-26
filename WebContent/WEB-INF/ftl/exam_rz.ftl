@@ -486,7 +486,7 @@ transitional.dtd">
 														</#if>	
 															<!--<a href="./showerror.action?seqid=${seqitem1}">${seqitem1}</a>-->															
 														<!--</div>-->
-														${seqitem1}</div></a>
+														${seqitem1?string("00")}</div></a>
 													</#if>
 												</#list>
 											</div>
@@ -517,7 +517,7 @@ transitional.dtd">
 														<!--
 															<a href="./showerror.action?seqid=${seqitem1}">${seqitem1}</a>
 														</div>-->	
-														${seqitem1}</div></a>
+														${seqitem1?string("00")}</div></a>
 													</#if>
 												</#list>
 											</div>

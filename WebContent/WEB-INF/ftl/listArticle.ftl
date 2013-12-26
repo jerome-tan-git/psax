@@ -104,9 +104,9 @@
 						<div class="panel panel-default exam_container">
 						  <div class="panel-heading clearfix">
 						  		<div class="exam_title_list pull-left ">${article.pubdate}&nbsp;&nbsp;&nbsp;${article.title}</div>
-						  		<a href="/psax/deleteArt.action?articleid=${article.id}"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
+						  		<a href="./deleteArt.action?articleid=${article.id}"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
 						  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-						  		<a href="/psax/managerArt.action?articleid=${article.id}"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
+						  		<a href="./managerArt.action?articleid=${article.id}"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
 						  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
 							  	
 							</div>
