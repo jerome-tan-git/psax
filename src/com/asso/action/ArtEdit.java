@@ -27,6 +27,8 @@ import com.asso.manager.ArticleManager;
 import com.asso.manager.ChannelManager;
 import com.asso.model.Article;
 import com.asso.model.Category;
+import com.asso.model.CategoryPath;
+import com.asso.model.Channel;
 import com.asso.vo.ArtInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -41,6 +43,9 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private Article article;
 	private Article art ;
 	private List<Category> categories;
+	private List<Channel> channels;
+	private CategoryPath catpath;
+	
 	private File pic;
 	private File addition;
 	private String picContentType;
@@ -112,6 +117,23 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 
 	public void setEndpage(int endpage) {
 		this.endpage = endpage;
+	}
+
+	
+	public CategoryPath getCatpath() {
+		return catpath;
+	}
+
+	public void setCatpath(CategoryPath catpath) {
+		this.catpath = catpath;
+	}
+
+	public List<Channel> getChannels() {
+		return channels;
+	}
+
+	public void setChannels(List<Channel> channels) {
+		this.channels = channels;
 	}
 
 	public Article getArt() {
@@ -408,18 +430,24 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private void cleanTxt(){
 		for(Article art:this.artlist){
 			String title = art.getTitle();
-			title = CONSTANT.replaceHtml(title);
-			art.setTitle(title);
+			if(title!=null && title.length()>0){
+				title = CONSTANT.replaceHtml(title);
+				art.setTitle(title);
+			}				
 			
 			String abs = art.getAbsinfo();
-			abs = CONSTANT.replaceHtml(abs);
-			art.setAbsinfo(abs);
+			if(abs!=null && abs.length()>0){
+				abs = CONSTANT.replaceHtml(abs);
+				art.setAbsinfo(abs);
+			}				
 			
 			String article = art.getArticle();
-			article = CONSTANT.replaceHtml(article);
-			if(article.length()>280)
-				article=article.substring(0,280)+"......";
-			art.setArticle(article);
+			if(article!=null && article.length()>0){
+				article = CONSTANT.replaceHtml(article);
+				if(article.length()>280)
+					article=article.substring(0,280)+"......";
+				art.setArticle(article);
+			}				
 		}
 	}
 	public String listArticles(){
@@ -496,6 +524,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	@Override
 	public String execute(){
 		this.categories = cm.loadCategories();
+		this.channels = cm.loadChannels();
 		String artID = this.request.getParameter("articleid");	
 		System.out.println(this.request.getRealPath(".")); 
 		if(artID!=null && artID.length()>0){
@@ -511,20 +540,46 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			if(artl.size()==1){		
 				this.art = new Article(); 
 				this.art.setId(Integer.parseInt(artID));
-				this.setArt(artl.get(0));
-//				this.setArticle(art.get(0));				
-				System.out.println("__1___________________"+this.art.getTitle());
-				System.out.println("__2___________________"+this.art.getPubdate());
-				System.out.println("__3___________________"+this.art.getAbsinfo());
-				System.out.println("__4___________________"+this.art.getArticle());
-				System.out.println("__5___________________"+this.art.getCategoryid());
-				System.out.println("__6___________________"+this.art.getPic());
-				System.out.println("__7___________________"+this.art.getAddition());
+				this.setArt(artl.get(0));			
+//				System.out.println("__1___________________"+this.art.getTitle());
+//				System.out.println("__2___________________"+this.art.getPubdate());
+//				System.out.println("__3___________________"+this.art.getAbsinfo());
+//				System.out.println("__4___________________"+this.art.getArticle());
+//				System.out.println("__5___________________"+this.art.getCategoryid());
+//				System.out.println("__6___________________"+this.art.getPic());
+//				System.out.println("__7___________________"+this.art.getAddition());
+//				for(Channel ch:this.channels)
+//					System.out.println("chid---"+ch.getId()+", ch name---"+ch.getChannel());
+				
+				this.catpath = new CategoryPath();
+				this.catpath.setCatId(this.art.getCategoryid());
+				for(Category cat : this.categories){
+					if(cat.getId()==this.art.getCategoryid()){
+						this.catpath.setCatName(cat.getCategory());
+						this.catpath.setChId(cat.getChannelid());
+						for(Channel ch:this.channels){
+							if(ch.getId()==cat.getChannelid()){
+								this.catpath.setChName(ch.getChannel());
+							}
+						}
+						if(cat.getParentid()>0){
+							this.catpath.setParentCatId(cat.getParentid());
+							for(Category c : this.categories){
+								if(c.getId()==cat.getParentid()){
+									this.catpath.setParentCatName(c.getCategory());
+								}
+							}
+						}
+					}
+				}
+				System.out.println("---catpath---"+this.catpath.toString());
+				
 			}
 			else
 				System.out.println("DATA ERROR, PLS INV...");
 			
 		}
+		
 			
 		return "success";
 	}

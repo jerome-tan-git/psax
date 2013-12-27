@@ -56,24 +56,29 @@ public class ChannelDaoImpl implements ChannelDao {
 	}
 	@Override
 	public List<Channel> loadChannels() {
-		ArrayList<Channel> list = new ArrayList<Channel>();
-		Session s = sessionFactory.openSession();
-//		Session s = sessionFactory.getCurrentSession(); 
-	    String hql = "select * from Channel";      
-        Query query = s.createQuery(hql);        
+		List<Channel> list = new ArrayList<Channel>();
+//		Session s = sessionFactory.openSession();
+////		Session s = sessionFactory.getCurrentSession(); 
+//	    String hql = "select * from Channel";      
+//        Query query = s.createQuery(hql);        
+//        
+//        List<Object[]> chs = query.list();		 
+//        System.out.println("  check channels rz="+chs.size());
+//        for(Object[] object : chs){     
+//    		String id = object[0].toString();     
+//    		String name = object[1].toString();
+////            System.out.println(id + " : " + name);  
+//    		Channel ch = new Channel();
+//            ch.setId(Integer.parseInt(id));
+//            ch.setChannel(name);
+//            list.add(ch);
+//        }
+//        s.close();
+		Session s = sessionFactory.openSession();		 
+	    String hql = "from Channel";      
+        Query query = s.createQuery(hql);
+        list = query.list();
         
-        List<Object[]> chs = query.list();		 
-        System.out.println("  check channels rz="+chs.size());
-        for(Object[] object : chs){     
-    		String id = object[0].toString();     
-    		String name = object[1].toString();
-//            System.out.println(id + " : " + name);  
-    		Channel ch = new Channel();
-            ch.setId(Integer.parseInt(id));
-            ch.setChannel(name);
-            list.add(ch);
-        }
-        s.close();
 	    return list;
 	}
 	

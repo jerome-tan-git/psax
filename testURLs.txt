@@ -18,6 +18,7 @@ http://localhost:8080/psax/listArt.action?categoryid=1
 http://localhost:8080/psax/listArt.action
 http://localhost:8080/psax/listArt.action?page=2
 http://localhost:8080/psax/addArt.action?articleid=1
+http://localhost:8080/psax/detailArt.action?articleid=26
 
 http://localhost:8080/psax/bklistArt.action
 http://localhost:8080/psax/bklistArt.action?categoryid=1

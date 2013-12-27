@@ -39,7 +39,7 @@ public class ChannelManagerImpl implements ChannelManager {
 	}
 
 	@Override
-	public List<Channel> loadChannels() throws ClassNotFoundException, SQLException{
+	public List<Channel> loadChannels() {
 		return channelDao.loadChannels();		
 	}
 	
