@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
+
+import util.HibernateUtil;
 
 import com.asso.dao.ArticleDao;
 import com.asso.model.Article;
@@ -31,12 +34,12 @@ public class ArticleDaoImpl implements ArticleDao {
     
 	@Override
 	public void save(Article article) {
-		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		 Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
 	     s.save(article);
 	     s.getTransaction().commit();
-	     s.close();
+//	     s.close();
 	}
 	@Override
 	public void update(Article article) {
@@ -44,52 +47,57 @@ public class ArticleDaoImpl implements ArticleDao {
 //		delart.setId(article.getId());
 //		this.delete(delart);
 //		this.save(article);
-		Session s = sessionFactory.openSession(); 
-//			Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession(); 
+			Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
-		s.update(article);	     
+		s.update(article);	 
+		s.flush();
 		s.getTransaction().commit();
-		s.close();
+//		s.close();
 	}
 	@Override
 	public void delete(Article article) {
-		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		 Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
 	     s.delete(article);	     
 	     s.getTransaction().commit();
-	     s.close();
+//	     s.close();
 	}
 	
 	@Override
 	public List<Article> loadArticles(){
-		Session s = sessionFactory.openSession();		 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession();
 	    String hql = "from Article";      
         Query query = s.createQuery(hql); 
         List<Article> rlist = query.list();
-        s.close();	    
+//        s.close();	    
 	    return rlist;
 	}
 	
 	@Override
 	public List<Article> loadArticles(int categoryid){
-		Session s = sessionFactory.openSession();		 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession();
 	    String hql = "from Article where categoryid=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+categoryid); 
         List<Article> rlist = query.list();
-        s.close();	    
+//        s.close();	
+        
 	    return rlist;
 	}
 	
 	@Override
 	public List<Article> loadArticle(int articleid){
-		Session s = sessionFactory.openSession();		 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession();
 	    String hql = "from Article where id=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+articleid); 
         List<Article> rlist = query.list();
-        s.close();	    
+//        s.close();	    
 	    return rlist;
 	}
 

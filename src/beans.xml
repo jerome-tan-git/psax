@@ -23,7 +23,35 @@
 			<value>classpath:jdbc.properties</value>
 		</property>
 	</bean>
-
+	 <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"  
+        destroy-method="close">  
+        <property name="driverClass" value="${jdbc.driverClassName}" />  
+        <property name="jdbcUrl" value="${jdbc.url}" />  
+        <property name="user" value="${jdbc.username}" />  
+        <property name="password" value="${jdbc.password}" />  
+  
+     
+        <property name="minPoolSize" value="5" />  
+     
+        <property name="maxPoolSize" value="150" />  
+     
+        <property name="initialPoolSize" value="3" />  
+     
+        <property name="maxIdleTime" value="10" />  
+     
+        <property name="acquireIncrement" value="3" />  
+        <property name="maxStatements" value="0" />  
+     
+        <property name="idleConnectionTestPeriod" value="60" />  
+     
+        <property name="acquireRetryAttempts" value="30" />  
+     
+        <property name="breakAfterAcquireFailure" value="false" />  
+     
+        <property name="testConnectionOnCheckout" value="false" />  
+    </bean>  
+	
+<!-- 
 	<bean id="dataSource" destroy-method="close"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName"
@@ -32,7 +60,12 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-
+ -->
+ 
+ 
+ 
+ 
+ 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -49,10 +82,12 @@
                 <prop key="hibernate.jdbc.batch_size">50</prop>  
                 <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
                 <prop key="hibernate.autoReconnect">true</prop>
+                <prop key="hibernate.connection.release_mode">auto</prop>
                 <!-- 
                 <prop key="hibernate.cache.use_second_level_cache">true</prop> 
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
                 <prop key="hibernate.cache.use_query_cache">true</prop>  
+                              <prop key="hibernate.current_session_context_class">thread</prop>
                    -->
 			</props>
 		</property>
@@ -83,7 +118,7 @@
     </bean>
     <bean name="articleDao" class="com.asso.dao.impl.ArticleDaoImpl">            
     </bean>
-    
+    <!-- 
 	<aop:config>
 		<aop:pointcut id="bussinessService"
 			expression="execution(public * com.asso.manager.*.*(..))" />
@@ -107,5 +142,5 @@
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
-
+	 -->
 </beans>

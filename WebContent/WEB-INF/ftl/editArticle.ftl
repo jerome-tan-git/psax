@@ -224,29 +224,19 @@
 										-->
 										<#if art.attachments?exists>
 											<#list art.attachments as attachment>
-												<div id="SWFUpload_0_10001" class="uploadify-queue-item old_files">
+												<div id="${attachment.seq}" class="uploadify-queue-item old_files">
 												<div class="cancel">
-													<a href="javascript:deleteItem('file_upload_1', 'SWFUpload_0_10001')">X</a>
+													<a href="javascript:deleteItem('file_upload_1', '${attachment.seq}')">X</a>
 												</div>
-												<span class="fileName">_产品条款.rar_</span>
+												<span class="fileName">${decode(attachment.urlPath)}</span>
 												<span class="data"> - Exists</span>
 												<input type="hidden" class="realpath"
-													value="./ckimages/516__%E4%BA%A7%E5%93%81%E6%9D%A1%E6%AC%BE.rar_">
+													value="${attachment.urlPath}">
 												</div>
 											</#list>
 										</#if>
 									 </#if>
-									 
 									
-									<div id="SWFUpload_0_10002" class="uploadify-queue-item old_files">
-										<div class="cancel">
-											<a href="javascript:deleteItem('file_upload_1', 'SWFUpload_0_10002')">X</a>
-										</div>
-										<span class="fileName">_产品条款.rar_</span>
-										<span class="data"> - Exists</span>
-										<input type="hidden" class="realpath"
-											value="./ckimages/516__%E4%BA%A7%E5%93%81%E6%9D%A1%E6%AC%BE.rar_">
-									</div>
 									<input type="hidden" class="all_realPath" name="attachments" />
 								 </div>
 

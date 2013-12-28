@@ -74,32 +74,35 @@ public class ChannelDaoImpl implements ChannelDao {
 //            list.add(ch);
 //        }
 //        s.close();
-		Session s = sessionFactory.openSession();		 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession();
 	    String hql = "from Channel";      
         Query query = s.createQuery(hql);
         list = query.list();
-        
+//        s.close();
 	    return list;
 	}
 	
 	@Override
 	public List<Category> loadCategories(int channelid){
-		Session s = sessionFactory.openSession();		 
+//		Session s = sessionFactory.openSession();	
+		Session s = sessionFactory.getCurrentSession();
 	    String hql = "from Category where channelid=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+channelid); 
         List<Category> rlist = query.list();
-        s.close();	    
+//        s.close();	    
 	    return rlist;
 	}
 	
 	@Override
 	public List<Category> loadCategories() {
-		Session s = sessionFactory.openSession();		 
+//		Session s = sessionFactory.openSession();		
+		Session s = sessionFactory.getCurrentSession();
 	    String hql = "from Category ";      
         Query query = s.createQuery(hql);
         List<Category> rlist = query.list();
-        s.close();	    
+//        s.close();	    
 	    return rlist;
 //		ArrayList<Category> rlist = new ArrayList<Category>();
 //		Session s = sessionFactory.openSession();
@@ -134,7 +137,8 @@ public class ChannelDaoImpl implements ChannelDao {
 	@Override
 	public Category loadCategory(int categoryid){
 		Category cat = new Category();		
-		Session s = sessionFactory.openSession();		 
+//		Session s = sessionFactory.openSession();		
+		Session s = sessionFactory.getCurrentSession();
 	    String hql = "from Category where id=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+categoryid); 
@@ -142,7 +146,7 @@ public class ChannelDaoImpl implements ChannelDao {
         if(rlist.size()==1){
         	cat = rlist.get(0);        	
         }        	
-        s.close();	    
+//        s.close();	    
 	    return cat;
 	}
 	@Override
