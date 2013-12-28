@@ -33,7 +33,6 @@
 			borderColor : "#cc0000",
 			color : "#cc0000"
 		}, 200);
-
 		$('#' + instanceID).uploadify('cancel', fileID);
 	}
 	$(document)
@@ -53,7 +52,7 @@
 									$('.date').datepicker('hide');
 								});
 
-						//upload
+						//upload image_file_uploader
 						$("#file_upload_1")
 								.uploadify(
 										{
@@ -81,6 +80,46 @@
 												//alert('The file ' + file.name + ' finished processing.');
 											}
 										});
+						
+						$("#image_file_uploader")
+						.uploadify(
+								{
+									removeCompleted : false,
+									buttonImage : './img/bt.png',
+									height : 36,
+									swf : './css/uploadify.swf',
+									uploader : './upload.servlet',
+									width : 106,
+									itemTemplate : '<div id="${fileID}" class="uploadify-queue-item" style="border: 1px solid #ccc;"><div class="cancel"><a href="javascript:deleteItem(\'${instanceID}\', \'${fileID}\')">X</a></div><span class="fileName">${fileName} (${fileSize})</span><span class="data"></span><input type="hidden" class="image_realpath"></input></div>',
+									'onUploadSuccess' : function(file,
+											data, response) {
+										
+										//alert(file.id);
+										var obj = jQuery
+												.parseJSON(data);
+										if (obj.type == 'success') {
+											$('#' + file.id).find(
+													'.image_realpath').val(
+													obj.path);
+											$("#image_file_uploader-queue").find(".uploadify-queue-item").each(function(){
+												if($(this).attr("id")!=file.id)
+													{
+														deleteItem("image_file_uploader", $(this).attr("id"));
+													}
+											});
+											if($("#Exist_image").size()>0)
+												{
+													deleteItem("image_file_uploader", "Exist_image");
+												}
+										}
+
+										//alert('The file was saved to: ' + obj.plugin);
+									},
+									'onUploadComplete' : function(file) {
+										//alert('The file ' + file.name + ' finished processing.');
+									}
+								});
+						
 						$(".form-horizontal").on("submit", function() {
 							var allPath = "";
 							$(".realpath").each(function() {
@@ -200,9 +239,10 @@
 								<!--  original attachments -->
 								 <input type="hidden" class="all_realPath" name="attachments" />
 							</div>
-							<div class="col-sm-3">
+							<div class="col-sm-6" style="height: 157px;">
 								<div>
-									<label for="exampleInputEmail1">图片</label> <input type="file" />
+									<label for="exampleInputEmail1">图片</label> <input type="file" id="image_file_uploader" />
+									<div id="Exist_image" class="uploadify-queue-item old_files"><div class="cancel"><a href="javascript:deleteItem('image_file_uploader', 'Exist_image')">X</a></div><span class="fileName">Penguins.jpg (760KB)</span><span class="data"> - Exists</span><input type="hidden" class="image_realpath" value="./ckimages/243_Penguins.jpg"></div>
 								</div>
 							</div>
 							<div class="col-sm-12">&nbsp;</div>
