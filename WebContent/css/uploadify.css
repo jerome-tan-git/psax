@@ -8,6 +8,11 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 	position: relative;
 	margin-bottom: 1em;
 }
+.old_files
+{
+	border: 1px solid #038B4A;
+	color: #038B4A;
+}
 .uploadify-button {
 	/*
 	background-color: #505050;

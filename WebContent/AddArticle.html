@@ -18,66 +18,79 @@
 <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 <script src="./js/jquery.uploadify.js"></script>
 <script>
-			var selectIndex = -1;
-			CKEDITOR.disableAutoInline = true;
-			CKEDITOR.editorConfig = function(config) {
-				// Define changes to default configuration here. For example:
-				// config.language = 'fr';
-				// config.uiColor = '#AADC6E';
+	var selectIndex = -1;
+	CKEDITOR.disableAutoInline = true;
+	CKEDITOR.editorConfig = function(config) {
+		// Define changes to default configuration here. For example:
+		// config.language = 'fr';
+		// config.uiColor = '#AADC6E';
 
-				config.height = 500;
-			};
-			function deleteItem(instanceID, fileID)
-			{
-				//#DF6F6F
-				$('#'+fileID).animate({borderColor:"#cc0000",color:"#cc0000" }, 200);
-				
-				$('#'+instanceID).uploadify('cancel', fileID);
-			}
-			$(document).ready(function() {
-				$('#editor').ckeditor({
-					filebrowserUploadUrl: './upload.action',
-				});
-				// Use CKEDITOR.replace() if element is <textarea>.
-				//$( '#editor1' ).ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
-				var nowTemp = new Date();
-				var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-				
-				$('.date').datepicker('setValue', now)
-				  .on('changeDate', function(ev){
-					$('.date').datepicker('hide');
-				  });
-				
-				//upload
-			    $("#file_upload_1").uploadify({
-			    	removeCompleted : false,
-			    	buttonImage: './img/bt.png',
-			        height        : 36,
-			        swf           : './css/uploadify.swf',
-			        uploader      : './upload.servlet',
-			        width         : 106,
-			        itemTemplate : '<div id="${fileID}" class="uploadify-queue-item" style="border: 1px solid #ccc;"><div class="cancel"><a href="javascript:deleteItem(\'${instanceID}\', \'${fileID}\')">X</a></div><span class="fileName">${fileName} (${fileSize})</span><span class="data"></span><input type="hidden" class="realpath"></input></div>',
-			        'onUploadSuccess' : function(file, data, response) {
-				        //alert(file.id);
-			        	var obj = jQuery.parseJSON(data);
-			        	  if (obj.type=='success')
-				          {
-			        		  $('#'+file.id).find('.realpath').html(obj.path);
-					      }
-			        	
-			            //alert('The file was saved to: ' + obj.plugin);
-			        },
-			        'onUploadComplete' : function(file) {
-			            //alert('The file ' + file.name + ' finished processing.');
-			        }
-			    });
-				$(".form-horizontal").on("submit",function()
-				{
-					alert(1);
-					return false;
-				});
-			});
-		</script>
+		config.height = 500;
+	};
+	function deleteItem(instanceID, fileID) {
+		//#DF6F6F
+		$('#' + fileID).animate({
+			borderColor : "#cc0000",
+			color : "#cc0000"
+		}, 200);
+
+		$('#' + instanceID).uploadify('cancel', fileID);
+	}
+	$(document)
+			.ready(
+					function() {
+						$('#editor').ckeditor({
+							filebrowserUploadUrl : './upload.action',
+						});
+						// Use CKEDITOR.replace() if element is <textarea>.
+						//$( '#editor1' ).ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
+						var nowTemp = new Date();
+						var now = new Date(nowTemp.getFullYear(), nowTemp
+								.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+						$('.date').datepicker('setValue', now).on('changeDate',
+								function(ev) {
+									$('.date').datepicker('hide');
+								});
+
+						//upload
+						$("#file_upload_1")
+								.uploadify(
+										{
+											removeCompleted : false,
+											buttonImage : './img/bt.png',
+											height : 36,
+											swf : './css/uploadify.swf',
+											uploader : './upload.servlet',
+											width : 106,
+											itemTemplate : '<div id="${fileID}" class="uploadify-queue-item" style="border: 1px solid #ccc;"><div class="cancel"><a href="javascript:deleteItem(\'${instanceID}\', \'${fileID}\')">X</a></div><span class="fileName">${fileName} (${fileSize})</span><span class="data"></span><input type="hidden" class="realpath"></input></div>',
+											'onUploadSuccess' : function(file,
+													data, response) {
+												//alert(file.id);
+												var obj = jQuery
+														.parseJSON(data);
+												if (obj.type == 'success') {
+													$('#' + file.id).find(
+															'.realpath').val(
+															obj.path);
+												}
+
+												//alert('The file was saved to: ' + obj.plugin);
+											},
+											'onUploadComplete' : function(file) {
+												//alert('The file ' + file.name + ' finished processing.');
+											}
+										});
+						$(".form-horizontal").on("submit", function() {
+							var allPath = "";
+							$(".realpath").each(function() {
+								allPath += ($(this).val()) + "|";
+							});
+							$(".all_realPath").val(allPath);
+							return false;
+						});
+					});
+</script>
 </head>
 <body>
 
@@ -160,10 +173,32 @@
 									</span>
 								</div>
 							</div>
-							<div class="col-sm-12"> &nbsp;</div>
+							<div class="col-sm-12">&nbsp;</div>
 							<div class="col-sm-6">
-								<label for="exampleInputEmail1">附件</label> <input type="file" id="file_upload_1" />
-
+								<label for="exampleInputEmail1">附件</label> <input type="file"
+									id="file_upload_1" />
+								<div id="SWFUpload_0_10000" class="uploadify-queue-item old_files">
+									<div class="cancel">
+										<a
+											href="javascript:deleteItem('file_upload_1', 'SWFUpload_0_10000')">X</a>
+									</div>
+									<span class="fileName">_产品条款.rar_ (6MB)</span><span
+										class="data"> - Exists</span><input type="hidden"
+										class="realpath"
+										value="./ckimages/516__%E4%BA%A7%E5%93%81%E6%9D%A1%E6%AC%BE.rar_">
+									</div>
+									<div id="SWFUpload_0_10001" class="uploadify-queue-item old_files">
+									<div class="cancel">
+										<a
+											href="javascript:deleteItem('file_upload_1', 'SWFUpload_0_10001')">X</a>
+									</div>
+									<span class="fileName">_产品条款.rar_ (6MB)</span><span
+										class="data"> - Exists</span><input type="hidden"
+										class="realpath"
+										value="./ckimages/516__%E4%BA%A7%E5%93%81%E6%9D%A1%E6%AC%BE.rar_">
+									</div>
+								<!--  original attachments -->
+								 <input type="hidden" class="all_realPath" name="attachments" />
 							</div>
 							<div class="col-sm-3">
 								<div>
