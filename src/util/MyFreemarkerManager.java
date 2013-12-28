@@ -13,7 +13,8 @@ public class MyFreemarkerManager extends FreemarkerManager{
 	protected Configuration createConfiguration(ServletContext servletContext)
 			throws TemplateException {
 		Configuration configuration = super.createConfiguration(servletContext);
-		configuration.setSharedVariable("rand", new TestLoad());
+//		configuration.setSharedVariable("rand", new TestLoad());
+		configuration.setSharedVariable("decode", new PicURLparse());
 //		configuration.setc
 		return configuration;
 	}

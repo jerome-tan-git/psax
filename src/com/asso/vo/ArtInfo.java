@@ -23,7 +23,17 @@ public class ArtInfo {
 	private String picurl;
 	private String additionurl;
 	
+	private String attachments;
 	
+	
+	public String getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(String attachments) {
+		this.attachments = attachments;
+	}
+
 	public String getPicurl() {
 		return picurl;
 	}

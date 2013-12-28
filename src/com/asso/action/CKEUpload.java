@@ -69,7 +69,6 @@ public class CKEUpload extends ActionSupport {
 				savefile.getParentFile().mkdirs();
 			FileUtils.copyFile(upload, savefile);
 			imagePath = "./ckuploadimages/"+savefile.getName();
-			System.out.println(imagePath);
 			success = true;
 
 		}

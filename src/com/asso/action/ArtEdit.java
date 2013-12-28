@@ -2,14 +2,13 @@ package com.asso.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,11 +27,11 @@ import com.alibaba.fastjson.JSON;
 import com.asso.manager.ArticleManager;
 import com.asso.manager.ChannelManager;
 import com.asso.model.Article;
+import com.asso.model.ArticleAttachment;
 import com.asso.model.Category;
 import com.asso.model.CategoryPath;
 import com.asso.model.Channel;
 import com.asso.model.JSArticle;
-import com.asso.model.JSExamRef;
 import com.asso.vo.ArtInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -60,6 +59,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private List<Article> artlist = new ArrayList<Article>();//in Session
 	private List<Article> pageartlist = new ArrayList<Article>();// in Session
 	private List<Integer> delartids = new ArrayList<Integer>(); //in Session
+//	private List<String> sequuids = new ArrayList<String>();
+	
 	
 	private String jsonText2;
 	
@@ -219,6 +220,14 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.additionFileName = additionFileName;
 	}
 	
+//	public List<String> getSequuids() {
+//		return sequuids;
+//	}
+//
+//	public void setSequuids(List<String> sequuids) {
+//		this.sequuids = sequuids;
+//	}
+
 	private void setUploadfiles(){
 		if(this.ainfo.getPic()!=null){
 			this.setPic(this.ainfo.getPic());
@@ -255,20 +264,73 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	}
 	
+	public void setAttachments(Article _art){
+		
+		List<ArticleAttachment> attachments = new ArrayList<ArticleAttachment>();
+		String addi = _art.getAddition();
+		if(addi!=null){
+			if(addi.contains("|")){
+				String[] ats = addi.split("\\|");
+				if(ats.length>=1){
+					for(String at:ats){
+						if(at.contains("/ckimages")){
+							ArticleAttachment aa = new ArticleAttachment();
+							aa.setUrlPath(at);							
+							String fname = "";
+							try {
+								fname = URLDecoder.decode(at, "UTF-8");
+							} catch (UnsupportedEncodingException e1) {
+								e1.printStackTrace();
+							}
+							File f = new File(fname);
+							fname = f.getName();
+							System.out.println("------------attachment file name----"+fname);
+							aa.setFilename(fname);
+							aa.setSeq("SWFUpload_0_"+UUID.randomUUID());
+							attachments.add(aa);
+						}
+					}
+				}						
+			}				
+		}
+		_art.setAttachments(attachments);
+		System.out.println("-2-----------------"+_art.getAttachments().toString());
+	}
 	
 	public String addArticle(){		
+		
+		System.out.println("-1-----------------------------------------------------------------------");
+		System.out.println("--this.ainfo.getAttachments()--"+this.ainfo.getAttachments());
+		System.out.println("--this.ainfo.getPicurl()--"+this.ainfo.getPicurl());
+		System.out.println("--this.ainfo.getAdditionurl()--"+this.ainfo.getAdditionurl());
 		
 		this.categories = cm.loadCategories();		
 		this.setUploadfiles();
 		
 		this.article = new Article();
-		System.out.println("-1-----------------------------------------------------------------------");
-		System.out.println("--this.ainfo.getPicurl()--"+this.ainfo.getPicurl());
-		System.out.println("--this.ainfo.getAdditionurl()--"+this.ainfo.getAdditionurl());
-		System.out.println("-2-----------------------------------------------------------------------");
-		String path_ = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadImagesPath);
-		System.out.println("real path(imgs) = "+path_);
-		System.out.println("-3-----------------------------------------------------------------------");
+		
+//		this.article.setAttachments(attachments);//after parse
+//		this.article.setAttachnames(attachnames);//after decode
+//		System.out.println("-2---Attachments----"+this.article.getAttachments().toString());
+//		System.out.println("-3---Attachnames----"+this.article.getAttachnames().toString());
+//		System.out.println("-4---sequuids----"+this.sequuids.toString());
+		
+		
+//		String output = "";
+//		if(this.ainfo.getPicurl()!=null){
+//			try {
+//				output = URLDecoder.decode(this.ainfo.getPicurl(), "UTF-8");
+//			} catch (UnsupportedEncodingException e1) {
+//				e1.printStackTrace();
+//			}
+//		}else{
+//			try {
+//				output = URLDecoder.decode("./ckimages/noimage.jpg", "UTF-8");
+//			} catch (UnsupportedEncodingException e1) {
+//				e1.printStackTrace();
+//			}
+//		}			
+//		System.out.println("-------------picURL decode-----"+output);
 		
 			if(this.ainfo.getPic()!=null){
 				String path_i = ServletActionContext.getServletContext().getRealPath(CONSTANT.uploadImagesPath);
@@ -285,10 +347,16 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 				this.article.setPic(CONSTANT.uploadImagesPath+"/"+saveImg.getName());
 //				System.out.println("PIC URL---"+CONSTANT.uploadImagesPath+"/"+saveImg.getName());
 			}else{
+				String pic = "";
 				if(this.ainfo.getPicurl()!=null){
-					System.out.println("--this.ainfo.getPicurl()--"+this.ainfo.getPicurl());
-					this.article.setPic(this.ainfo.getPicurl());
+					System.out.println("--this.ainfo.getPicurl()--"+this.ainfo.getPicurl());	
+					pic = this.ainfo.getPicurl();
+				}else{
+					System.out.println("NO input for ainfo.getPicurl()!");
+					pic = "./img/noimage10.jpg";
 				}
+				this.article.setPic(pic);
+				System.out.println("this.article.getPic()----"+this.article.getPic());
 			}
 		
 
@@ -311,6 +379,9 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 				if(this.ainfo.getAdditionurl()!=null){
 					System.out.println("--this.ainfo.getAdditionurl()--"+this.ainfo.getAdditionurl());
 					this.article.setAddition(this.ainfo.getAdditionurl());
+				}else{
+					if(this.ainfo.getAttachments()!=null)
+						this.article.setAddition(this.ainfo.getAttachments());
 				}
 			}
 		
@@ -324,8 +395,9 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			else
 				this.article.setPubdate(CONSTANT.getNowTime());
 			
-//			System.out.println("this.article.toString()-----------"+this.article.toString());		
-		System.out.println("--this.request.getRequestURI()--"+this.request.getRequestURI());	
+//		System.out.println("this.article.toString()-----------"+this.article.toString());		
+//		System.out.println("--this.request.getRequestURI()--"+this.request.getRequestURI());	
+		
 		if(this.request.getParameter("articleid")!=null ){
 			this.article.setId(Integer.parseInt(this.request.getParameter("articleid")));
 			System.out.println("UPDATE---artid="+this.request.getParameter("articleid"));
@@ -336,6 +408,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}		
+			this.setArt(this.article);
 			return "update";
 		}else{
 			System.out.println("SAVE---article");
@@ -346,6 +419,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			this.setArt(this.article);
 			return "save";
 		}		
 		
@@ -610,7 +684,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			if(artl.size()==1){		
 				this.art = new Article(); 
 				this.art.setId(Integer.parseInt(artID));
-				this.setArt(artl.get(0));			
+				this.setArt(artl.get(0));	
+				this.setAttachments(this.art);
 //				System.out.println("__1___________________"+this.art.getTitle());
 //				System.out.println("__2___________________"+this.art.getPubdate());
 //				System.out.println("__3___________________"+this.art.getAbsinfo());

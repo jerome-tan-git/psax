@@ -1,6 +1,7 @@
 package com.asso.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Article implements java.io.Serializable{
 	
@@ -19,7 +20,29 @@ public class Article implements java.io.Serializable{
 	private String month;
 	private String day;
 	
+//	private List<String> attachments;
+//	private List<String> attachnames;
+	private List<ArticleAttachment> attachments; 
 	
+	
+	public List<ArticleAttachment> getAttachments() {
+		return attachments;
+	}
+	public void setAttachments(List<ArticleAttachment> attachments) {
+		this.attachments = attachments;
+	}
+	//	public List<String> getAttachnames() {
+//		return attachnames;
+//	}
+//	public void setAttachnames(List<String> attachnames) {
+//		this.attachnames = attachnames;
+//	}
+//	public List<String> getAttachments() {
+//		return attachments;
+//	}
+//	public void setAttachments(List<String> attachments) {
+//		this.attachments = attachments;
+//	}
 	public String getYear() {
 		return year;
 	}

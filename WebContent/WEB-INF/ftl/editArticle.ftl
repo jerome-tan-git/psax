@@ -7,15 +7,27 @@
 		<link rel="stylesheet" type="text/css" href="./css/backend.css" />
 		<link rel="stylesheet" type="text/css" href="./css/docs.css" />
 		<link rel="stylesheet" type="text/css" href="./css/datepicker.css" />
+		<link rel="stylesheet" type="text/css" href="./css/uploadify.css" />
 		<script type="text/javascript" src="./js/jquery.min.js"></script>
+		<script type="text/javascript" src="./js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
 		<script src="./js/ckeditor/ckeditor.js"></script>
 		<script src="./js/ckeditor/adapters/jquery.js"></script>
 		<script src="./js/backend.js"></script>
 		<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+		<script src="./js/jquery.uploadify.js"></script>
+		<script src="./js/addarticle.js"></script>
 		<script>
 			var selectIndex = -1;
 			CKEDITOR.disableAutoInline = true;
+			function deleteItem(instanceID, fileID) {
+				//#DF6F6F
+				$('#' + fileID).animate({
+					borderColor : "#cc0000",
+					color : "#cc0000"
+				}, 200);
+				$('#' + instanceID).uploadify('cancel', fileID);
+			}
 			$(document).ready(function() {
 				$('#editor').ckeditor({
 					height: '800px',
@@ -30,7 +42,17 @@
 				  .on('changeDate', function(ev){
 					$('.date').datepicker('hide');
 				  });
-
+					
+				
+						
+						$(".form-horizontal").on("submit", function() {
+							var allPath = "";
+							$(".realpath").each(function() {
+								allPath += ($(this).val()) + "|";
+							});
+							$(".all_realPath").val(allPath);
+							return true;
+						});
 			});
 		</script>
 	</head>
@@ -149,28 +171,8 @@
 										</select>
 										</#if>
 								 </div>
+								 
 								<div class="col-sm-6">
-									 <label for="exampleInputEmail1">图片</label>									
-									<#if art?exists>
-										<input type="file" name="pic" />
-									 	<input type="hidden" name="picurl" value="${art.pic}"/>
-										<div class="thumbnail"><img src="${art.pic}"></div>
-									<#else>
-									 	<input type="file" name="pic" />
-									</#if>
-								 </div>
-								 <div class="col-sm-12">&nbsp;</div>
-								 <div class="col-sm-6">
-									 <label for="exampleInputEmail1">附件</label>	
-									 <#if art?exists>
-									 	<input type="file" name="addition" />
-									 	<input type="hidden" name="additionurl" value="${art.addition}"/>
-										<a href="${art.addition}">${art.addition}</a>
-									 <#else>
-									 	<input type="file" name="addition" />
-									 </#if>
-								 </div>
-								 <div class="col-sm-3">
 									  <label for="exampleInputEmail1">日期</label>
 									  <div class="input-group input-append date" data-date="2012-12-02" data-date-format="yyyy-mm-dd">
 									  <#if art?exists>
@@ -185,14 +187,79 @@
 							            </span>
 							          </div>
 								 </div>
+								 
 								 <div class="col-sm-12">&nbsp;</div>
+								 
+								<div class="col-sm-6" style="height: 157px;">
+									 <label for="exampleInputEmail1">图片</label>
+									 
+									 <input type="file" name="pic" id="image_file_uploader" />
+									<!--
+									<#if art?exists>
+									 	<input type="hidden" name="picurl" value="${art.pic}"/>
+										<div class="thumbnail"><img src="${art.pic}"></div>
+									</#if>
+									-->
+									<#if art?exists>										
+										<div id="Exist_image" class="uploadify-queue-item old_files">
+											<div class="cancel">
+												<a href="javascript:deleteItem('image_file_uploader', 'Exist_image')">X</a>
+											</div>
+											<span class="fileName"> ${decode(art.pic)}</span>
+											<span class="data"> - Exists</span>
+											<input type="hidden" class="image_realpath" name="picurl" value="${art.pic}">										
+										</div>
+									<#else>
+									
+									</#if>
+								 </div>
+								 
+								 <div class="col-sm-6">
+									 <label for="exampleInputEmail1">附件</label>
+									 <input type="file" name="addition" id="file_upload_1"/>	
+									 <#if art?exists>
+									 <!--
+									 	<input type="hidden" name="additionurl" value="${art.addition}"/>
+										<a href="${art.addition}">${art.addition}</a>
+										-->
+										<#if art.attachments?exists>
+											<#list art.attachments as attachment>
+												<div id="SWFUpload_0_10001" class="uploadify-queue-item old_files">
+												<div class="cancel">
+													<a href="javascript:deleteItem('file_upload_1', 'SWFUpload_0_10001')">X</a>
+												</div>
+												<span class="fileName">_产品条款.rar_</span>
+												<span class="data"> - Exists</span>
+												<input type="hidden" class="realpath"
+													value="./ckimages/516__%E4%BA%A7%E5%93%81%E6%9D%A1%E6%AC%BE.rar_">
+												</div>
+											</#list>
+										</#if>
+									 </#if>
+									 
+									
+									<div id="SWFUpload_0_10002" class="uploadify-queue-item old_files">
+										<div class="cancel">
+											<a href="javascript:deleteItem('file_upload_1', 'SWFUpload_0_10002')">X</a>
+										</div>
+										<span class="fileName">_产品条款.rar_</span>
+										<span class="data"> - Exists</span>
+										<input type="hidden" class="realpath"
+											value="./ckimages/516__%E4%BA%A7%E5%93%81%E6%9D%A1%E6%AC%BE.rar_">
+									</div>
+									<input type="hidden" class="all_realPath" name="attachments" />
+								 </div>
+
+								<div class="col-sm-12">&nbsp;</div>
 								<label  class="col-sm-12">内容</label>
 								<div class="col-sm-12">
-								<#if art?exists>
-									<textarea id="editor" name="article" >${art.article} </textarea>
-								<#else>
-									<textarea id="editor" name="article"> </textarea>
-								</#if>
+																
+									<#if art?exists>
+										<textarea id="editor" name="article" >${art.article} </textarea>
+									<#else>
+										<textarea id="editor" name="article"> </textarea>
+									</#if>
+									
 								</div>
 								<div class="col-sm-12">&nbsp;</div>
 								<div class="col-sm-12">
@@ -201,7 +268,9 @@
 									  <span class="glyphicon glyphicon-floppy-disk"></span> 保存
 									</button>
 									-->
-									<input type="submit" value="保存" />
+									<button type="submit" class="btn btn-primary pull-right">
+										<span class="glyphicon glyphicon-floppy-disk"></span> 保存
+									</button>
 									
 							    </div>
 							</div>
