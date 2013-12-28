@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,12 +24,15 @@ import org.springframework.stereotype.Component;
 import util.CONSTANT;
 import util.SpringFactory;
 
+import com.alibaba.fastjson.JSON;
 import com.asso.manager.ArticleManager;
 import com.asso.manager.ChannelManager;
 import com.asso.model.Article;
 import com.asso.model.Category;
 import com.asso.model.CategoryPath;
 import com.asso.model.Channel;
+import com.asso.model.JSArticle;
+import com.asso.model.JSExamRef;
 import com.asso.vo.ArtInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -56,6 +60,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private List<Article> artlist = new ArrayList<Article>();//in Session
 	private List<Article> pageartlist = new ArrayList<Article>();// in Session
 	private List<Integer> delartids = new ArrayList<Integer>(); //in Session
+	
+	private String jsonText2;
 	
 	private int lastpage;
 	private int nextpage;
@@ -118,8 +124,15 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	public void setEndpage(int endpage) {
 		this.endpage = endpage;
 	}
-
 	
+	public String getJsonText2() {
+		return jsonText2;
+	}
+
+	public void setJsonText2(String jsonText2) {
+		this.jsonText2 = jsonText2;
+	}
+
 	public CategoryPath getCatpath() {
 		return catpath;
 	}
@@ -357,6 +370,57 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		return "delete";
 	}
 	
+	public String listJsonArticleByCategoryId(){
+		int page = 1;
+		int catid = 1;//default
+		if(this.request.getParameter("category")!=null)
+			catid = Integer.parseInt(this.request.getParameter("category"));
+		this.listArticleByCatid(catid);
+		this.filterDate();
+		this.sortArtlistByDate();
+		
+		if(this.request.getParameter("page")!=null)
+			page = Integer.parseInt(this.request.getParameter("page"));
+		int index0 = (page-1)*CONSTANT.articleImageListLength + 1;
+		int index1 = page*CONSTANT.articleImageListLength;
+		List<Article> al = new ArrayList<Article>();
+		for(int i=0; i<this.artlist.size(); i++){
+			if((i+1)>=index0 && (i+1)<=index1)
+				al.add(this.artlist.get(i));
+		}
+		this.setArtlist(al);		
+		this.cleanTxt(CONSTANT.articleAbsMaxLength);
+		
+			
+        List<JSArticle> jsalist = new ArrayList<JSArticle>(); 
+        for(Article a:this.artlist){
+			JSArticle jsa = new JSArticle();
+			jsa.setHeight("");
+			jsa.setWidth("");
+			jsa.setPreview("");
+			jsa.setId(a.getId()+"");
+			jsa.setTitle(a.getTitle());
+			jsa.setReferer(a.getAbsinfo());			
+			jsa.setUrl("./detailArt.action?articleid="+a.getId());
+			if(a.getPic()!=null)
+				jsa.setImage(a.getPic());
+			else
+				jsa.setImage("./img/noimage10.jpg");
+			jsalist.add(jsa);
+		}
+        this.jsonText2 = JSON.toJSONString(jsalist, true);  
+        
+		String callback = "";
+		if(this.request.getParameter("callback")!=null)
+			callback = this.request.getParameter("callback");
+		this.jsonText2 = callback+"("+this.jsonText2+")";  
+		System.out.println("------"+this.jsonText2);
+		
+		ServletActionContext.getResponse().setContentType("application/json; charset=utf-8");
+		
+		return "list";
+	}
+	
 	public String listArticleByCategoryId(){
 		this.session.put("artslist", null);
 		int catid = this.ainfo.getCategoryid();
@@ -376,7 +440,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		System.out.println("this.artlist.size()="+this.artlist.size());
 		this.filterDate();
 		this.sortArtlistByDate();
-		this.cleanTxt();
+		this.cleanTxt(CONSTANT.momentMaxLength);
 		this.session.put("artslist", this.artlist);
 		return "list";
 	}
@@ -427,26 +491,32 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.setArtlist(sortedArtlist);
 	}
 	
-	private void cleanTxt(){
+	private void cleanTxt(int _maxlength){
 		for(Article art:this.artlist){
 			String title = art.getTitle();
 			if(title!=null && title.length()>0){
-				title = CONSTANT.replaceHtml(title);
-				art.setTitle(title);
-			}				
+				title = CONSTANT.replaceHtml(title);				
+			}else{
+				title = CONSTANT.noContent;
+			}
+			art.setTitle(title);
+			
+			String article = art.getArticle();
+			if(article!=null && article.length()>0){
+				article = CONSTANT.replaceHtml(article);
+				if(article.length()>_maxlength)
+					article=article.substring(0,_maxlength)+"......";				
+			}else{
+				article = CONSTANT.noContent;
+			}
+			art.setArticle(article);
 			
 			String abs = art.getAbsinfo();
 			if(abs!=null && abs.length()>0){
 				abs = CONSTANT.replaceHtml(abs);
 				art.setAbsinfo(abs);
-			}				
-			
-			String article = art.getArticle();
-			if(article!=null && article.length()>0){
-				article = CONSTANT.replaceHtml(article);
-				if(article.length()>280)
-					article=article.substring(0,280)+"......";
-				art.setArticle(article);
+			}else{
+				art.setAbsinfo(article);
 			}				
 		}
 	}

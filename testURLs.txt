@@ -19,6 +19,8 @@ http://localhost:8080/psax/listArt.action
 http://localhost:8080/psax/listArt.action?page=2
 http://localhost:8080/psax/addArt.action?articleid=1
 http://localhost:8080/psax/detailArt.action?articleid=26
+http://localhost:8080/psax/listImgArt.action?callback=jQuery191008511868864297867_1388199344481&page=1&category=1&_=1388199344482
+
 
 http://localhost:8080/psax/bklistArt.action
 http://localhost:8080/psax/bklistArt.action?categoryid=1

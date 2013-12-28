@@ -24,6 +24,11 @@ public class CONSTANT {
 	public final static int pageSize = 3;//每页考题数量
 		
 	public final static int pageArtSize = 5;//每页文章数量
+	public final static int momentMaxLength = 280;
+	public final static int articleAbsMaxLength = 90;
+	public final static int articleImageListLength = 5;
+	
+	public final static String noContent = "暂无";
 	
 	public final static String CKeditorUrlPath = "./ckimages";
 	public final static String uploadImagesPath = "./uploadimg";

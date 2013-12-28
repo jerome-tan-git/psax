@@ -1,19 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Innovate Responsive HTML Website Template</title>
-		<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="./css/backend.css" />
-		<link rel="stylesheet" type="text/css" href="./css/docs.css" />
-		<link rel="stylesheet" type="text/css" href="./css/datepicker.css" />
-		<script type="text/javascript" src="./js/jquery.min.js"></script>
-		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-		<script src="./js/ckeditor/ckeditor.js"></script>
-		<script src="./js/ckeditor/adapters/jquery.js"></script>
-		<script src="./js/backend.js"></script>
-		<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-		<script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Innovate Responsive HTML Website Template</title>
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="./css/backend.css" />
+<link rel="stylesheet" type="text/css" href="./css/docs.css" />
+<link rel="stylesheet" type="text/css" href="./css/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="./css/uploadify.css" />
+
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+<script src="./js/ckeditor/ckeditor.js"></script>
+<script src="./js/ckeditor/adapters/jquery.js"></script>
+<script src="./js/backend.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+<script src="./js/jquery.uploadify.js"></script>
+<script>
 			var selectIndex = -1;
 			CKEDITOR.disableAutoInline = true;
 			CKEDITOR.editorConfig = function(config) {
@@ -23,6 +27,13 @@
 
 				config.height = 500;
 			};
+			function deleteItem(instanceID, fileID)
+			{
+				//#DF6F6F
+				$('#'+fileID).animate({borderColor:"#cc0000",color:"#cc0000" }, 200);
+				
+				$('#'+instanceID).uploadify('cancel', fileID);
+			}
 			$(document).ready(function() {
 				$('#editor').ckeditor({
 					filebrowserUploadUrl: './upload.action',
@@ -31,175 +42,179 @@
 				//$( '#editor1' ).ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
 				var nowTemp = new Date();
 				var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-				alert(now);
+				
 				$('.date').datepicker('setValue', now)
 				  .on('changeDate', function(ev){
 					$('.date').datepicker('hide');
 				  });
-
+				
+				//upload
+			    $("#file_upload_1").uploadify({
+			    	removeCompleted : false,
+			    	buttonImage: './img/bt.png',
+			        height        : 36,
+			        swf           : './css/uploadify.swf',
+			        uploader      : './upload.servlet',
+			        width         : 106,
+			        itemTemplate : '<div id="${fileID}" class="uploadify-queue-item" style="border: 1px solid #ccc;"><div class="cancel"><a href="javascript:deleteItem(\'${instanceID}\', \'${fileID}\')">X</a></div><span class="fileName">${fileName} (${fileSize})</span><span class="data"></span><input type="hidden" class="realpath"></input></div>',
+			        'onUploadSuccess' : function(file, data, response) {
+				        //alert(file.id);
+			        	var obj = jQuery.parseJSON(data);
+			        	  if (obj.type=='success')
+				          {
+			        		  $('#'+file.id).find('.realpath').html(obj.path);
+					      }
+			        	
+			            //alert('The file was saved to: ' + obj.plugin);
+			        },
+			        'onUploadComplete' : function(file) {
+			            //alert('The file ' + file.name + ' finished processing.');
+			        }
+			    });
+				$(".form-horizontal").on("submit",function()
+				{
+					alert(1);
+					return false;
+				});
 			});
 		</script>
-	</head>
-	<body>
+</head>
+<body>
 
-		<div class="navbar-fixed-top" role="banner" style="background-color: #004A8F; width: 100%;">
-			<div class="container">
-				<div class="navbar-header">
-					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
+	<div class="navbar-fixed-top" role="banner"
+		style="background-color: #004A8F; width: 100%;">
+		<div class="container">
+			<div class="navbar-header">
+				<button class="navbar-toggle" type="button" data-toggle="collapse"
+					data-target=".bs-navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand" style="color: #fff">&nbsp;</a>
+			</div>
+
+		</div>
+	</div>
+	<div style="margin-top: 50px">
+		<div class="row" style="width: 100%;">
+			<div class="col-md-3">
+				<div class="bs-sidebar hidden-print affix" style="margin-top: 20px;">
+					<ul class="nav bs-sidenav">
+
+						<li><a href="./AddExam.html">Exam</a></li>
+						<li class="active"><a href="#transitions">Article</a></li>
+						<li><a href="#modals">workflow</a></li>
+						<li><a href="#dropdowns">Dropdown</a></li>
+						<li><a href="#scrollspy">Scrollspy</a></li>
+						<li><a href="#tabs">Tab</a></li>
+						<li><a href="#tooltips">Tooltip</a></li>
+						<li><a href="#popovers">Popover</a></li>
+						<li><a href="#alerts">Alert</a>
+							<ul class="nav">
+								<li><a href="#alerts-examples">Examples</a></li>
+								<li><a href="#alerts-usage">Usage</a></li>
+							</ul></li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="col-md-8">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Article</h3>
+					</div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form">
+							<div class="col-sm-12">
+								<label for="exampleInputEmail1">标题</label> <input type="email"
+									class="form-control" id="exampleInputEmail1" placeholder="标题">
+							</div>
+							<div class="col-sm-12">&nbsp;</div>
+							<div class="col-sm-12">
+								<label for="exampleInputEmail1">摘要</label> <input type="email"
+									class="form-control" id="exampleInputEmail1" placeholder="摘要">
+							</div>
+							<div class="col-sm-12">&nbsp;</div>
+
+							<div class="col-sm-6">
+								<label for="exampleInputEmail1">类别</label> <select
+									class="form-control">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+								</select>
+							</div>
+
+							<div class="col-sm-6">
+								<label for="exampleInputEmail1">日期</label>
+								<div class="input-group input-append date"
+									data-date="2012-12-02" data-date-format="yyyy-mm-dd">
+									<input type="text" class="form-control" size="16" readonly />
+									<span class="input-group-btn add-on">
+										<button class="btn btn-default" type="button">
+											<i class="glyphicon glyphicon-calendar">&nbsp;</i>
+										</button>
+									</span>
+								</div>
+							</div>
+							<div class="col-sm-12"> &nbsp;</div>
+							<div class="col-sm-6">
+								<label for="exampleInputEmail1">附件</label> <input type="file" id="file_upload_1" />
+
+							</div>
+							<div class="col-sm-3">
+								<div>
+									<label for="exampleInputEmail1">图片</label> <input type="file" />
+								</div>
+							</div>
+							<div class="col-sm-12">&nbsp;</div>
+							<label class="col-sm-12">内容</label>
+							<div class="col-sm-12">
+
+								<textarea id="editor"> </textarea>
+							</div>
+							<div class="col-sm-12">&nbsp;</div>
+							<div class="col-sm-12">
+								<button type="submit" class="btn btn-primary pull-right">
+									<span class="glyphicon glyphicon-floppy-disk"></span> 保存
+								</button>
+
+							</div>
+					</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Close</button>
+					<button type="button" class="btn btn-primary">Save changes
 					</button>
-					<a href="#" class="navbar-brand" style="color:#fff">&nbsp;</a>
-				</div>
-
-			</div>
-		</div>
-		<div style="margin-top: 50px">
-			<div class="row" style="width: 100%;">
-				<div class="col-md-3">
-					<div class="bs-sidebar hidden-print affix" style="margin-top: 20px;">
-						<ul class="nav bs-sidenav">
-
-							<li>
-								<a href="./AddExam.html">Exam</a>
-
-							</li>
-							<li class="active">
-								<a href="#transitions">Article</a>
-							</li>
-							<li>
-								<a href="#modals">workflow</a>
-
-							</li>
-							<li>
-								<a href="#dropdowns">Dropdown</a>
-
-							</li>
-							<li>
-								<a href="#scrollspy">Scrollspy</a>
-
-							</li>
-							<li>
-								<a href="#tabs">Tab</a>
-
-							</li>
-							<li>
-								<a href="#tooltips">Tooltip</a>
-
-							</li>
-							<li>
-								<a href="#popovers">Popover</a>
-
-							</li>
-							<li>
-								<a href="#alerts">Alert</a>
-								<ul class="nav">
-									<li>
-										<a href="#alerts-examples">Examples</a>
-									</li>
-									<li>
-										<a href="#alerts-usage">Usage</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-
-				</div>
-				<div class="col-md-8">
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<h3 class="panel-title">Article</h3>
-						</div>
-						<div class="panel-body">
-							<form class="form-horizontal" role="form">
-								<div class="col-sm-12">
-									    <label for="exampleInputEmail1">标题</label>
-									    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="标题">
-								 </div>
-								 <div class="col-sm-12">&nbsp;</div>
-								 <div class="col-sm-12">
-									    <label for="exampleInputEmail1">摘要</label>
-									    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="摘要">
-								 </div>
-								 <div class="col-sm-12">&nbsp;</div>
-								 
-								<div class="col-sm-6">
-									    <label for="exampleInputEmail1">类别</label>
-									   <select class="form-control">
-										  <option>1</option>
-										  <option>2</option>
-										  <option>3</option>
-										  <option>4</option>
-										  <option>5</option>
-										</select>
-								 </div>
-								<div class="col-sm-6">
-									    <label for="exampleInputEmail1">图片</label>
-									   <input type="file" />
-								 </div>
-								 <div class="col-sm-12">&nbsp;</div>
-								 <div class="col-sm-6">
-									    <label for="exampleInputEmail1">附件</label>
-									   <input type="file" />
-								 </div>
-								 <div class="col-sm-3">
-									    <label for="exampleInputEmail1">日期</label>
-									   	<div class="input-group input-append date" data-date="2012-12-02" data-date-format="yyyy-mm-dd">
-							            <input type="text" class="form-control" size="16" readonly />
-							            <span class="input-group-btn add-on">
-							              <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-calendar">&nbsp;</i></button>
-							            </span>
-							          </div>
-								 </div>
-								 <div class="col-sm-12">&nbsp;</div>
-								<label  class="col-sm-12">内容</label>
-								<div class="col-sm-12">
-									
-									<textarea id="editor"> </textarea>
-								</div>
-								<div class="col-sm-12">&nbsp;</div>
-								<div class="col-sm-12">
-									<button type="button" class="btn btn-primary pull-right">
-									  <span class="glyphicon glyphicon-floppy-disk"></span> 保存
-									</button>
-									
-							        </div>
-								</div>
-								  
-							</form>
-						</div>
-					</div>
 				</div>
 			</div>
+			<!-- /.modal-content -->
 		</div>
-
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-							&times;
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-					</div>
-					<div class="modal-body">
-						...
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							Close
-						</button>
-						<button type="button" class="btn btn-primary">
-							Save changes
-						</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-	</body>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+</body>
 
 </html>

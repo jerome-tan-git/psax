@@ -114,6 +114,9 @@
 		<action name="detailArt" class="com.asso.action.ArtEdit" >  
 			<result name="success" type="freemarker">/WEB-INF/ftl/article.ftl</result>
 		</action>
+		<action name="listImgArt" class="com.asso.action.ArtEdit" method="listJsonArticleByCategoryId">  
+			<result name="list" type="freemarker">/WEB-INF/ftl/imagesArtList.ftl</result>	                     	 
+		</action>
 		<action name="bklistArt" class="com.asso.action.ArtEdit" method="listArticles">  
 			<result name="list" type="freemarker">/WEB-INF/ftl/listArticle.ftl</result>	                     	 
 		</action>
