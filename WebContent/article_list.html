@@ -204,7 +204,7 @@ transitional.dtd">
 			function outBlock(obj) {
 				var textObj =obj.parent().find(".content_desc"); 
 				obj.find(".block_cover").css("height","0px");
-				obj.find(".wf_caption").show();
+				obj.parent().find(".wf_caption").show();
 				textObj.hide();
 				// obj.find(".block_cover").stop(true,true).animate({
 					// height : "0px"

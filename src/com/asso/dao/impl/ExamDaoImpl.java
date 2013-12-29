@@ -38,14 +38,14 @@ public class ExamDaoImpl implements ExamDao {
     
 	private ExamItem loadExamItemsWithExamItemId(int eid) {				
 		List<ExamItem> items = new ArrayList<ExamItem>();		
-		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession();      
+//		 Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession();      
 	     String hql = "from examitem where id=?";      
 	     Query query = s.createQuery(hql); 
 	     query.setString(0, ""+eid); 
 //	     query.setCacheable(true); 	
 	     items = query.list();    
-	     s.close();
+//	     s.close();
 		 
 	     System.out.println("Get examItem list size="+items.size());	
 		return items.get(0);//prevent null
@@ -53,28 +53,28 @@ public class ExamDaoImpl implements ExamDao {
 	
 	private List<ExamRef> loadExamRefsWithExamItemid(int itemid) {		
 		List<ExamRef> refs = new ArrayList<ExamRef>();		
-		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		 Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 		 String hql = "from ExamRef where itemid=?";      
 	     Query query = s.createQuery(hql); 
 //	     query.setCacheable(true); //////////////////////////////
 	     query.setString(0, ""+itemid);			
 	     refs = query.list();    
-	     s.close();
+//	     s.close();
 		 
 	     System.out.println("Get item="+itemid+", examrefs list size="+refs.size());
 	     return refs;
 	}
 	private int loadExamidByGroupid(int groupid){
 		 int eid = 0;
-	     Session s = sessionFactory.openSession(); 
-		//Session s = sessionFactory.getCurrentSession(); 
+//	     Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 
 	     Query query = s.createQuery("select id from exam e where e.groupid = ?")
 			    		.setParameter(0, groupid);
 //	     query.setCacheable(true); 
          List<Object> list = query.list();  
-         s.close();
+//         s.close();
 			    
 	     if(list.size() > 0) {
 			  eid = (Integer) list.get(0);
@@ -86,13 +86,13 @@ public class ExamDaoImpl implements ExamDao {
 	
 	private List<Integer> loadItemidsByExamid(int eid){
 		List<Integer> itemids = new ArrayList<Integer>();
-	     Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//	     Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 	     Query query = s.createQuery("select id from examitem er where er.examid = ?")
 			    		.setParameter(0, eid);
 //	     query.setCacheable(true); 
         List<Object> list = query.list();  
-        s.close();
+//        s.close();
 			    
 	    if(list.size() > 0) {
 	    	 for(Object o:list){
@@ -108,13 +108,13 @@ public class ExamDaoImpl implements ExamDao {
 	
 	@Override
 	public void save(Exam exam) {
-		 Session s = sessionFactory.openSession(); 
-//		 Session s = sessionFactory.getCurrentSession(); 
+//		 Session s = sessionFactory.openSession(); 
+		 Session s = sessionFactory.getCurrentSession(); 
 		 s.beginTransaction();
 		 s.save(exam);
 		 s.flush();
 		 s.getTransaction().commit();
-		 s.close();
+//		 s.close();
 	}	
 
 //	@Override
@@ -146,32 +146,31 @@ public class ExamDaoImpl implements ExamDao {
 	
 	@Override
 	public void save(ExamItem examitem) {
-		 Session s = sessionFactory.openSession(); 
-//		 Session s = sessionFactory.getCurrentSession(); 
+//		 Session s = sessionFactory.openSession(); 
+		 Session s = sessionFactory.getCurrentSession(); 
 		 s.beginTransaction();		 
 		 s.save(examitem);
 		 s.flush();
 		 s.getTransaction().commit();
-		 s.close();
-		 
+//		 s.close();		 
 	}
 	@Override
 	public void save(List<ExamRef> refs) {
 		long a = System.currentTimeMillis();
-		Session s = sessionFactory.openSession();
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession();
 		long b = System.currentTimeMillis(); 
 	    s.beginTransaction();
 	    long c = System.currentTimeMillis();
 		for(ExamRef ref:refs){
-		     s.save(ref);	
-			
+		     s.save(ref);				
 		}	
 		long d = System.currentTimeMillis();
 		s.flush();
 		long e = System.currentTimeMillis();	    
 		s.getTransaction().commit();
 		long f = System.currentTimeMillis();
-		s.close();
+//		s.close();
 		long g = System.currentTimeMillis();
 		System.out.println("=================================================");
 		System.out.println("openSession:       "+(b-a));
@@ -183,21 +182,23 @@ public class ExamDaoImpl implements ExamDao {
 	}
 	@Override
 	public void update(ExamItem examitem) {
-		Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
 	     s.update(examitem);
+	     s.flush();
 	     s.getTransaction().commit();
-	     s.close();
+//	     s.close();
 	}
 	@Override
 	public void update(ExamRef ref) {
-		Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
 		s.update(ref);
+		s.flush();
 		s.getTransaction().commit();
-		s.close();
+//		s.close();
 	}
 	@Override
 	public void update(List<ExamRef> refs) {
@@ -207,21 +208,23 @@ public class ExamDaoImpl implements ExamDao {
 	@Override
 	public void delete(ExamItem examitem) {
 		
-		Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
-		s.delete(examitem);		
+		s.delete(examitem);
+		s.flush();
 		s.getTransaction().commit();	
-		s.close();
+//		s.close();
 	}
 	@Override
 	public void delete(ExamRef ref) {
-		Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
-		s.delete(ref);		
+		s.delete(ref);
+		s.flush();
 		s.getTransaction().commit();
-		s.close();
+//		s.close();
 	}
 	@Override
 	public void deleteRefs(ExamItem examitem) {		
@@ -233,8 +236,8 @@ public class ExamDaoImpl implements ExamDao {
 	public List<Exam> loadExams() {
 		
 		ArrayList<Exam> list = new ArrayList<Exam>();
-		Session s = sessionFactory.openSession();
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession(); 
 	    String hql = "select id,name from Exam";      
         Query query = s.createQuery(hql);        
         
@@ -250,13 +253,13 @@ public class ExamDaoImpl implements ExamDao {
             e.setName(name);
             list.add(e);
         }
-        s.close();
+//        s.close();
 	    return list;
 	}
 	@Override
 	public List<ExamRef> loadExamRefById(int _id) {
-		Session s = sessionFactory.openSession();
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession(); 
 	    String hql = "from ExamRef where id=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+_id); 
@@ -264,13 +267,13 @@ public class ExamDaoImpl implements ExamDao {
 //        for(ExamRef o : ref){   
 //            System.out.println(o.toString());
 //        }   		
-        s.close();
+//        s.close();
 	    return ref;
 	}
 	@Override
 	public List<ExamRef> loadReflistByItemId(int _id) {
-		Session s = sessionFactory.openSession();
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession(); 
 	    
 	    String hql = "from ExamRef where itemid=?";      
         Query query = s.createQuery(hql); 
@@ -280,14 +283,14 @@ public class ExamDaoImpl implements ExamDao {
         for(ExamRef o : ref){   
             System.out.println(">>>"+o.toString());
         }   		
-	    s.close();
+//	    s.close();
 	    return ref;
 	}
 	
 	@Override
 	public List<ExamItem> loadExamItemById(int _id) {
-		Session s = sessionFactory.openSession();
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession(); 
 	    String hql = "from ExamItem where id=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+_id); 
@@ -295,13 +298,13 @@ public class ExamDaoImpl implements ExamDao {
 //        for(ExamItem o : item){   
 //            System.out.println(o.toString());
 //        }   		
-        s.close();
+//        s.close();
 	    return item;
 	}
 	@Override
 	public List<ExamItem> loadExamItemByQ(String _question) {
-		Session s = sessionFactory.openSession();
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession(); 
 	    String hql = "from ExamItem where question=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+_question); 
@@ -309,13 +312,13 @@ public class ExamDaoImpl implements ExamDao {
 //        for(ExamItem o : item){   
 //            System.out.println(o.toString());
 //        }   		
-        s.close();
+//        s.close();
 	    return item;
 	}
 	@Override
 	public List<ExamItem> loadExamItemByCatId(int cid) {
-		Session s = sessionFactory.openSession();
-//		Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession(); 
 	    String hql = "from ExamItem where category=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+cid); 
@@ -323,14 +326,13 @@ public class ExamDaoImpl implements ExamDao {
 //        for(ExamItem o : items){   
 //            System.out.println(o.toString());
 //        }   		
-        s.close();
+//        s.close();
 	    return items;
 	}
 	@Override
 	public List<ExamItem> loadExamItemByExamId(int eid) {
-		Session s = sessionFactory.openSession();
-//		Session s = sessionFactory.getCurrentSession(); 
-	    	    
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession();
 	    String hql = "from ExamItem where examid=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+eid); 
@@ -338,7 +340,7 @@ public class ExamDaoImpl implements ExamDao {
 //        for(ExamItem o : items){   
 //            System.out.println(o.toString());
 //        }   		
-        s.close();
+//        s.close();
 	    return items;
 	}
 	

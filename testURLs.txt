@@ -30,3 +30,5 @@ http://localhost:8080/psax/managerArt.action?articleid=2
 http://localhost:8080/psax/managerArt.action?articleid=13
 http://localhost:8080/psax/managerArt.action?articleid=26
 http://localhost:8080/psax/managerArt.action?articleid=67
+
+http://localhost:8080/psax/article_list.html?categoryid=1

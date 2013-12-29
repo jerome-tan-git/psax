@@ -1,5 +1,8 @@
 package util;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +13,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.imageio.ImageIO;
+
+import org.apache.commons.codec.binary.Base64;
 
 public class CONSTANT {
 	
@@ -44,7 +51,21 @@ public class CONSTANT {
 		"u","v","w","x","y",
 		"z"
 	};
-	
+	 public static String encodeStr(String plainText){  
+	        byte[] b=plainText.getBytes();  
+	        Base64 base64=new Base64();  
+	        b=base64.encode(b);  
+	        String s=new String(b);  
+	        return s.replaceAll("/", "_");  
+	    }  
+	 public static String decodeStr(String encodeStr){ 
+		 	encodeStr = encodeStr.replaceAll("_", "/");
+	        byte[] b=encodeStr.getBytes();  
+	        Base64 base64=new Base64();  
+	        b=base64.decode(b);  
+	        String s=new String(b);  
+	        return s;  
+	    } 
 	public final static Collection<Integer> getRandomSeq(int _rzSize, ArrayList<Integer> _orlist){
 		
 		HashSet<Integer> rzlist = new HashSet<Integer>();
@@ -214,6 +235,18 @@ public class CONSTANT {
 		return s;
 	}
 	
+	public static String[] getImgWidthHeight(String _filename) throws IOException{
+		BufferedImage bi = null;
+		
+			bi = ImageIO.read(new File(_filename));
+		
+		String[] sizes = {bi.getWidth()+"",""+bi.getHeight()};
+		System.out.println("Width=" + bi.getWidth());  
+		System.out.println("Height=" + bi.getHeight());
+		return sizes;
+	}
+	
+	
 	public static void main(String[] args){
 //		ArrayList<Integer> _orlist = new ArrayList<Integer>();
 //		for(int i=0; i<10; i++)
@@ -230,14 +263,18 @@ public class CONSTANT {
 //		System.out.println(CONSTANT.getNowTime());
 //		System.out.println(CONSTANT.getTodayDate());
 		
-		List<String> arts = new ArrayList<String>();
-		arts.add("2012-08-24 12:51:12");
-		arts.add("2012-09-12 09:45:18");
-		arts.add("2012-12-22 14:05:12");
-		arts.add("1981-06-17 02:15:49");
-		arts.add("2013-01-23 15:16:46");
-		arts.add("2013-12-24");
-		arts.add("2013-05-14 10:12:56");
-		CONSTANT.sortDatesDesc(arts);
+//		List<String> arts = new ArrayList<String>();
+//		arts.add("2012-08-24 12:51:12");
+//		arts.add("2012-09-12 09:45:18");
+//		arts.add("2012-12-22 14:05:12");
+//		arts.add("1981-06-17 02:15:49");
+//		arts.add("2013-01-23 15:16:46");
+//		arts.add("2013-12-24");
+//		arts.add("2013-05-14 10:12:56");
+//		CONSTANT.sortDatesDesc(arts);
+		
+//		CONSTANT.getImgWidthHeight("//C://Users//Administrator//workspace_2//psax_new//WebContent//images//key_img_1.png");
+//		CONSTANT.getImgWidthHeight("//C://Users//Administrator//workspace_2//psax_new//WebContent//images//10035.jpg");
+		
 	}
 }

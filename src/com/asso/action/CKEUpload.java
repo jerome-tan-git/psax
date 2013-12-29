@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
+import util.CONSTANT;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -58,15 +60,23 @@ public class CKEUpload extends ActionSupport {
 		System.out.println("realpath: " + realpath);
 		String imagePath = "";
 		boolean success = false;
+		String fileN = uploadFileName;
+		String fileSuffix = "";
+		if (uploadFileName.indexOf('.')!=-1)
+		{
+			fileN = uploadFileName.substring(0,uploadFileName.lastIndexOf('.'));
+			fileSuffix = uploadFileName.substring(uploadFileName.lastIndexOf('.'));
+		}
 		try
 		{
 		if (upload != null) {
 			File savefile = new File(new File(realpath), UUID.randomUUID()
 					.toString()
 					+ "_"
-					+ java.net.URLEncoder.encode(uploadFileName, "UTF-8"));
+					+ CONSTANT.encodeStr(fileN)+fileSuffix);
 			if (!savefile.getParentFile().exists())
 				savefile.getParentFile().mkdirs();
+			System.out.println(savefile.getName());
 			FileUtils.copyFile(upload, savefile);
 			imagePath = "./ckuploadimages/"+savefile.getName();
 			success = true;

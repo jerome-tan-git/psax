@@ -433,7 +433,7 @@ public class ExamSubmit extends ActionSupport implements ServletRequestAware,Ses
 					List<ExamRef> refs = eimap.get(key);
 					for(int i=0; i<refs.size(); i++){
 						if(refs.get(i).getIstrue()==1){
-							correct += "<li class='right_item' style='font-size: 11pt;color: #1CA527;'>"+refs.get(i).getRef()+"</li>"; 
+							correct += "<li class='right_item'>"+refs.get(i).getRef()+"</li>"; 
 						}
 					}
 //					if(correct.length()>0 && correct.endsWith(","))

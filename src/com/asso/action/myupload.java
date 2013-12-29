@@ -22,6 +22,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import util.CONSTANT;
+
 /**
  * Servlet implementation class myupload
  */
@@ -65,9 +67,18 @@ public class myupload extends HttpServlet {
 
                 } else {  
                     if (item.getName() != null && !item.getName().equals("")) {  
+                    	String uploadFileName = item.getName();
+                    	String fileN = uploadFileName;
+                		String fileSuffix = "";
+                    	if (uploadFileName.indexOf('.')!=-1)
+                		{
+                			fileN = uploadFileName.substring(0,uploadFileName.lastIndexOf('.'));
+                			fileSuffix = uploadFileName.substring(uploadFileName.lastIndexOf('.'));
+                		}
+                    	
                     	
                         // item.getName()�����ϴ��ļ��ڿͻ��˵�����·�����  
-                        String newFileName = new Random().nextInt(1000) + "_" + URLEncoder.encode(item.getName(),"UTF-8");
+                        String newFileName = new Random().nextInt(1000) + "_" + CONSTANT.encodeStr(fileN)+fileSuffix;
                         
                         File tempFile = new File(newFileName);
                         imagePath = "./ckimages/"+ newFileName;

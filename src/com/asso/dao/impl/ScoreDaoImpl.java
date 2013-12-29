@@ -38,45 +38,52 @@ public class ScoreDaoImpl implements ScoreDao {
 	@Override
 	public void save(Score score) {
 		System.out.println("score---"+score.toString());
-		 Session s = sessionFactory.openSession();		
-		 System.out.println("s----"+s);
+//		 Session s = sessionFactory.openSession();
+		 Session s = sessionFactory.getCurrentSession();		 
 	     s.beginTransaction();
 	     s.save(score);
+	     s.flush();
 	     s.getTransaction().commit();
-	     s.close();
+//	     s.close();
 	}
 	@Override
 	public void save(ScoreExamItem scoreexamitem) {
-		
-		Session s = sessionFactory.openSession(); 		 
+		Session s = sessionFactory.getCurrentSession();
+//		Session s = sessionFactory.openSession(); 		 
 	     s.beginTransaction();
 	     s.save(scoreexamitem);
+	     s.flush();
 	     s.getTransaction().commit();
-	     s.close();
+//	     s.close();
 	}
 	@Override
 	public void save(ScoreExamRef scoreexamref) {
-		Session s = sessionFactory.openSession(); 		 
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession();
 	    s.beginTransaction();
 	    s.save(scoreexamref);
+	    s.flush();
 	    s.getTransaction().commit();
-	    s.close();
+//	    s.close();
 	}
 	@Override
 	public void update(Score score) {
 		System.out.println("score---"+score.toString());
-		 Session s = sessionFactory.openSession();		
+//		 Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession();
 		 System.out.println("s----"+s);
 	     s.beginTransaction();
 	     s.saveOrUpdate(score);
+	     s.flush();
 	     s.getTransaction().commit();
-	     s.close();
+//	     s.close();
 	}
 	@Override
 	public int getScoreId(Score score) {
 		int sid = 0;
 		System.out.println("score---"+score.toString());
-		Session s = sessionFactory.openSession();		
+//		Session s = sessionFactory.openSession();
+		Session s = sessionFactory.getCurrentSession();
 		Query query = s.createQuery("select id from Score sc where sc.score = :s1 and sc.examid = :s2"
 				+ " and sc.userid = :s3 and sc.examdate = :s4")
 	    		.setParameter("s1", score.getScore())
@@ -84,9 +91,8 @@ public class ScoreDaoImpl implements ScoreDao {
 	    		.setParameter("s3", score.getUserid())
 	    		.setParameter("s4", score.getExamdate());
 	    		
-	    
 	    List<Object> list = query.list();		    
-	    s.close();		    
+//	    s.close();		    
 	    System.out.println("  getScoreId  rz="+list.size());
 	    if(list.size() == 1) {
 	    	sid = (Integer) list.get(0);

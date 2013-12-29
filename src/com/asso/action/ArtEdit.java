@@ -275,16 +275,31 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 					for(String at:ats){
 						if(at.contains("/ckimages")){
 							ArticleAttachment aa = new ArticleAttachment();
-							aa.setUrlPath(at);							
+							aa.setUrlPath(at);		
+							System.out.println("------------attachment file path----"+at);
 							String fname = "";
-							try {
-								fname = URLDecoder.decode(at, "UTF-8");
-							} catch (UnsupportedEncodingException e1) {
-								e1.printStackTrace();
-							}
+//							try {
+//								fname = URLDecoder.decode(at, "UTF-8");
+//							} catch (UnsupportedEncodingException e1) {
+//								e1.printStackTrace();
+//							}
+							
+							
+							fname = at;
 							File f = new File(fname);
 							fname = f.getName();
-							System.out.println("------------attachment file name----"+fname);
+							System.out.println("------------attachment file name-1---"+fname);
+							
+//							String fileName = fname;
+//							String fileSuffix = "";
+//							if (fileName.indexOf('.') != -1) {
+//								fileName = fname.substring(0, fname.lastIndexOf('.'));
+//								fileSuffix = fname.substring(fname.lastIndexOf('.'));
+//							}
+//							String str = CONSTANT.decodeStr(fileName) + fileSuffix;
+//							System.out.println("------------attachment file name-2---"+str);
+							
+							
 							aa.setFilename(fname);
 							aa.setSeq("SWFUpload_0_"+UUID.randomUUID());
 							attachments.add(aa);
@@ -349,7 +364,9 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			}else{
 				String pic = "";
 				if(this.ainfo.getPicurl()!=null){
-					System.out.println("--this.ainfo.getPicurl()--"+this.ainfo.getPicurl());	
+					System.out.println("--this.ainfo.getPicurl()--"+this.ainfo.getPicurl());
+					String path_i = ServletActionContext.getServletContext().getRealPath(this.ainfo.getPicurl());
+					System.out.println("------£¡£¡£¡-------real path(img) = "+path_i);
 					pic = this.ainfo.getPicurl();
 				}else{
 					System.out.println("NO input for ainfo.getPicurl()!");
@@ -469,17 +486,29 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
         List<JSArticle> jsalist = new ArrayList<JSArticle>(); 
         for(Article a:this.artlist){
 			JSArticle jsa = new JSArticle();
-			jsa.setHeight("");
-			jsa.setWidth("");
 			jsa.setPreview("");
 			jsa.setId(a.getId()+"");
 			jsa.setTitle(a.getTitle());
 			jsa.setReferer(a.getAbsinfo());			
 			jsa.setUrl("./detailArt.action?articleid="+a.getId());
-			if(a.getPic()!=null)
+			if(a.getPic()!=null && a.getPic().length()>1){
 				jsa.setImage(a.getPic());
-			else
+				String path_i = ServletActionContext.getServletContext().getRealPath(a.getPic());
+//				System.out.println("------£¡£¡£¡-------real path(img) = "+path_i);
+				try	{
+					String[] imgSizes = CONSTANT.getImgWidthHeight(path_i);
+					jsa.setHeight(imgSizes[1]);
+					jsa.setWidth(imgSizes[0]);
+				}catch(Exception e)	{
+					jsa.setImage("./img/noimage10.jpg");
+					jsa.setHeight("225");
+					jsa.setWidth("225");
+				}
+			}else{
 				jsa.setImage("./img/noimage10.jpg");
+				jsa.setHeight("225");
+				jsa.setWidth("225");
+			}
 			jsalist.add(jsa);
 		}
         this.jsonText2 = JSON.toJSONString(jsalist, true);  

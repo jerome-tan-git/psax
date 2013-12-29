@@ -33,30 +33,24 @@ public class UserDaoImpl implements UserDao {
     
 	@Override
 	public void save(User user) {
-		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		 Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
 	     s.save(user);
+	     s.flush();
 	     s.getTransaction().commit();
-	     s.close();
+//	     s.close();
 	}
 	
 	@Override
 	public int checkUserExistsWithNamePassword(User user) {
-//		  Session s = sessionFactory.getCurrentSession(); 
-		Session s = sessionFactory.openSession(); 
+		  Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession();
 			
-  
-//		    Query query = s.createQuery("select username,password from User u where u.username = ?0")
-//		    		.setParameter(0, user.getUsername());
-//			Query query = s.createQuery("select username,password from User u where u.username = '"
-//					+user.getUsername()+"'");
 			Query query = s.createQuery("select username,password from User u where u.username = :un")
-		    		.setParameter("un", user.getUsername());
-		    		
-		    
+		    		.setParameter("un", user.getUsername());		    
 		    List<Object[]> list = query.list();		    
-		    s.close();		    
+//		    s.close();		    
 		    System.out.println("  checkUserExistsWithNamePassword  rz="+list.size());
 		    if(list.size() > 0) {
 		    	for(Object[] object : list){     
@@ -77,14 +71,12 @@ public class UserDaoImpl implements UserDao {
 	public int getUserIdWithName(User user) {
 		 
 		 int id = 0;
-	     Session s = sessionFactory.openSession(); 
-//		 Session s = sessionFactory.getCurrentSession(); 
-//		 s.beginTransaction();
-		
-	     Query query = s.createQuery("select id from User u where u.username = ?")
+//	     Session s = sessionFactory.openSession(); 
+		 Session s = sessionFactory.getCurrentSession(); 
+		 Query query = s.createQuery("select id from User u where u.username = ?")
 			    		.setParameter(0, user.getUsername());
         List<Object> list = query.list();
-	     s.close();    
+//	     s.close();    
 	     if(list.size() > 0) {
 			  id = (Integer) list.get(0);
 			  System.out.println(user.getUsername() + " : " + id);
@@ -97,14 +89,12 @@ public class UserDaoImpl implements UserDao {
 	public int getMemberIdWithUserId(int userId) {
 		 
 		 int id = 0;
-	     Session s = sessionFactory.openSession(); 
-//		 Session s = sessionFactory.getCurrentSession(); 
-//		 s.beginTransaction();
-		
+//	     Session s = sessionFactory.openSession(); 
+		 Session s = sessionFactory.getCurrentSession(); 
 	     Query query = s.createQuery("select id from Member m where m.userid = ?")
 			    		.setParameter(0, userId);
         List<Object> list = query.list();  
-	     s.close();	    
+//	     s.close();	    
 	     if(list.size() > 0) {
 			  id = (Integer) list.get(0);
 			  System.out.println(id + " : " + userId);
@@ -118,20 +108,19 @@ public class UserDaoImpl implements UserDao {
 	public void saveMember(User user) {
 		
 		System.out.println("User input info ------"+user.getUsername());
-		
 		this.save(user);
 		int id= this.getUserIdWithName(user);
 		Member member  = new Member();
 		member.setMlevel(2);
 		member.setUserid(id);
 		
-		
-		Session s = sessionFactory.openSession(); 
-//			Session s = sessionFactory.getCurrentSession(); 
+//		Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession();
 		s.beginTransaction();
 		s.save(member);
+		s.flush();
 		s.getTransaction().commit();
-		s.close();
+//		s.close();
 		int memid = this.getMemberIdWithUserId(id);
 	    this.saveMemberInfo(memid,user);
 	}
@@ -174,16 +163,14 @@ public class UserDaoImpl implements UserDao {
 		int mid = this.getMemberIdWithUserId(user.getId());
 		List<MemberInfo> minfos = new ArrayList<MemberInfo>();
 		
-		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
-//	     s.beginTransaction();
-	     
+//		 Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
+	     	     
 	     String hql = "from MemberInfo where id=?";      
 	     Query query = s.createQuery(hql); 
-	     query.setString(0, ""+mid); 
-			
+	     query.setString(0, ""+mid);
 	     minfos = query.list();    
-	     s.close();
+//	     s.close();
 	     System.out.println("Get list size="+minfos.size());
 	     System.out.println("member selected info----\n"+minfos.get(0).toString());
 		

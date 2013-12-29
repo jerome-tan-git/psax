@@ -38,17 +38,14 @@ public class ArticleDaoImpl implements ArticleDao {
 		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
 	     s.save(article);
+	     s.flush();
 	     s.getTransaction().commit();
 //	     s.close();
 	}
 	@Override
-	public void update(Article article) {
-//		Article delart = new Article();
-//		delart.setId(article.getId());
-//		this.delete(delart);
-//		this.save(article);
+	public void update(Article article) {		
 //		Session s = sessionFactory.openSession(); 
-			Session s = sessionFactory.getCurrentSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 		s.beginTransaction();
 		s.update(article);	 
 		s.flush();
@@ -60,7 +57,8 @@ public class ArticleDaoImpl implements ArticleDao {
 //		 Session s = sessionFactory.openSession(); 
 		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
-	     s.delete(article);	     
+	     s.delete(article);
+	     s.flush();
 	     s.getTransaction().commit();
 //	     s.close();
 	}
@@ -102,19 +100,5 @@ public class ArticleDaoImpl implements ArticleDao {
 	}
 
 
-
-//	@Override
-//	public List<Category> loadCategoryPath(int categoryid){		
-//        List<Category> rlist = new ArrayList<Category>();
-//        Category cat = this.loadCategory(categoryid);
-//        rlist.add(cat);
-//        while(cat.getParentid()>0){        	
-//        	cat = this.loadCategory(cat.getParentid());
-//        	rlist.add(cat);
-//        }        	
-//	    return rlist;
-//	}
-
-	
 
 }

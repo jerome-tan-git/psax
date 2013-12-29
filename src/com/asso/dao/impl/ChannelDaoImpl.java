@@ -38,21 +38,23 @@ public class ChannelDaoImpl implements ChannelDao {
     
 	@Override
 	public void save(Channel channel) {
-		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		 Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
 	     s.save(channel);
+	     s.flush();
 	     s.getTransaction().commit();
-	     s.close();
+//	     s.close();
 	}
 	@Override
 	public void save(Category category) {
-		 Session s = sessionFactory.openSession(); 
-//		Session s = sessionFactory.getCurrentSession(); 
+//		 Session s = sessionFactory.openSession(); 
+		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
 	     s.save(category);
+	     s.flush();
 	     s.getTransaction().commit();
-	     s.close();
+//	     s.close();
 	}
 	@Override
 	public List<Channel> loadChannels() {

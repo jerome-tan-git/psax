@@ -173,90 +173,10 @@ transitional.dtd">
 		<div id="page_wrap">
 			<!-- Header Start -->
 			<div class="header">
-		    <div class="logo">
-		    	<div class="logo_container">
-		    		<a href="./index.html"><img src="./images/logo_new.png" alt="img" /></a>
-		    	</div>
-		    	<div class="logo_search">
-		    		<div class="search_box">
-					    <form action="#" method="get">
-					    <div style="width:210px" class="clearfix">
-					    <div style="width:150px; float: left">	
-					    	<input id="error_search" type="text" name="s">
-					    </div>
-				    	<input  type="submit" value="" style="float: right">
-					    </div>
-					    </form>
-					</div>
-				</div>
-		    </div>
-				<#include "./menubar.ftl">
-				<div class="small_menu">
-					<div class="small_menu_title clearfix">
-						<img src="./images/1382292132_menu-alt.png"  />
-					</div>
-					<div class="small_menu_list clearfix">
-						<div class="clearfix">
-							<a href="./index.html">
-							<div class="small_menu_item">
-								<div class="small_menu_image">
-									<img src="./images/1382294136_playback_play.png" />
-								</div>
-								首页
-							</div> </a>
-							<a href="./about_us.html">
-							<div class="small_menu_item">
-								<div class="small_menu_image">
-									<img src="./images/1382294136_playback_play.png" />
-								</div>
-								关于我们
-							</div> </a>
-							<div class="small_menu_item">
-								<div class="small_menu_image">
-									<img src="./images/1382294136_playback_play.png" />
-								</div>
-								舆情动态
-							</div>
-							<div class="small_menu_item">
-								<div class="small_menu_image">
-									<img src="./images/1382294136_playback_play.png" />
-								</div>
-								公开办事 | 肉制品报告
-							</div>
-							<div class="small_menu_item">
-								<div class="small_menu_image">
-									<img src="./images/1382294136_playback_play.png" />
-								</div>
-								公开办事 | 标准备案
-							</div>
-							<div class="small_menu_item">
-								<div class="small_menu_image">
-									<img src="./images/1382294136_playback_play.png" />
-								</div>
-								公开办事 | 添加剂报告
-							</div>
-							<div class="small_menu_item">
-								<div class="small_menu_image">
-									<img src="./images/1382294136_playback_play.png" />
-								</div>
-								公开办事 | 委托加工备案
-							</div>
-							<div class="small_menu_item">
-								<div class="small_menu_image">
-									<img src="./images/1382294136_playback_play.png" />
-								</div>
-								政策法规
-							</div>
-							<div class="small_menu_item">
-								<div class="small_menu_image">
-									<img src="./images/1382294136_playback_play.png" />
-								</div>
-								会议培训
-							</div>
-						</div>
-					</div>
-
-				</div>
+		   		<#include "../commons/logo.ftl">
+				<#include "../commons/menubar.ftl">
+				<#include "../commons/smallmenu.ftl">
+	
 				<!-- <nav>
 				<div id="myslidemenu" class="jqueryslidemenu">
 				<ul>
@@ -314,18 +234,23 @@ transitional.dtd">
 					</div>
 				</div>
 				<div class="article_detail_body">					
-					${art.pubdate?default("")}
+					${art.article?default("")}
 				</div>
+				
+				<#if art.attachments?exists>
+				<#if (art.attachments?size>0) >
 				<div class="article_detail_attach">
 					<div class="article_detail_attach_title">附件</div>
-					<div class="article_detail_attach_block">
-						<#if art.addition?exists>
-						<a href="${art.addition}">${art.addition}</a>
-						<#else>
-							无
-						</#if>
-					</div>
+						<#list art.attachments as att>
+						<a target="_blank" href="${att.urlPath}"><div class="article_detail_attach_block">
+							${decode(att.filename)}
+							
+							</div></a>
+						</#list>
 				</div>
+				</#if>
+				</#if>
+				
 			</div>
 			</div>
 			<!-- Teaser End -->
@@ -335,7 +260,7 @@ transitional.dtd">
 			<!-- Content End -->
 
 			<!-- Bottom Section Start -->
-			<#include "./footertest.ftl">
+			<#include "../commons/footertest.ftl">
 			<!-- Bottom Section End -->
 
 		</div>

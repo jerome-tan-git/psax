@@ -33,6 +33,7 @@
       <param-name>sessionFactoryBeanName</param-name>
       <param-value>sessionFactory</param-value>
     </init-param>
+    
   </filter>
   <filter-mapping>
     <filter-name>openSessionInView</filter-name>
