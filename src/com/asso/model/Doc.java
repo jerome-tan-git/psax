@@ -1,5 +1,7 @@
 package com.asso.model;
 
+import java.util.List;
+
 public class Doc {
 
 	private int docid;
@@ -7,7 +9,15 @@ public class Doc {
 	private int step;
 	private int userid;
 	private int formid;
+	private List<FieldValue> fvlist;
 	
+	
+	public List<FieldValue> getFvlist() {
+		return fvlist;
+	}
+	public void setFvlist(List<FieldValue> fvlist) {
+		this.fvlist = fvlist;
+	}
 	public int getDocid() {
 		return docid;
 	}

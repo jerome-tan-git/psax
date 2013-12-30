@@ -1,10 +1,13 @@
 package com.asso.model;
 
+import java.util.List;
+
 public class Form {
 
 	private int formid;
 	private String displayname;
 	private String frontendtpl;
+	private List<Fields> fields;
 	
 	public int getFormid() {
 		return formid;
@@ -24,9 +27,16 @@ public class Form {
 	public void setFrontendtpl(String frontendtpl) {
 		this.frontendtpl = frontendtpl;
 	}
+	public List<Fields> getFields() {
+		return fields;
+	}
+	public void setFields(List<Fields> fields) {
+		this.fields = fields;
+	}
 	
 	public String toString(){
-		return this.formid+":"+this.displayname+":"+this.frontendtpl;
+		return this.formid+":"+this.displayname+":"+this.frontendtpl+",\n"
+				+this.fields.toString();
 	}
 	
 }

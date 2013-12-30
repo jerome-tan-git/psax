@@ -31,23 +31,15 @@
         <property name="password" value="${jdbc.password}" />  
   
      
-        <property name="minPoolSize" value="5" />  
-     
-        <property name="maxPoolSize" value="150" />  
-     
-        <property name="initialPoolSize" value="3" />  
-     
+        <property name="minPoolSize" value="5" />       
+        <property name="maxPoolSize" value="150" />
+        <property name="initialPoolSize" value="3" />
         <property name="maxIdleTime" value="10" />  
-     
         <property name="acquireIncrement" value="3" />  
-        <property name="maxStatements" value="0" />  
-     
-        <property name="idleConnectionTestPeriod" value="60" />  
-     
+        <property name="maxStatements" value="0" />
+        <property name="idleConnectionTestPeriod" value="60" />
         <property name="acquireRetryAttempts" value="30" />  
-     
-        <property name="breakAfterAcquireFailure" value="false" />  
-     
+        <property name="breakAfterAcquireFailure" value="false" />
         <property name="testConnectionOnCheckout" value="false" />  
     </bean>  
 	
@@ -108,6 +100,10 @@
 	</bean>
 	<bean id="articleManager" class="com.asso.manager.impl.ArticleManagerImpl">		
 	</bean>
+	<bean id="formManager" class="com.asso.manager.impl.FormManagerImpl">		
+	</bean>
+	<bean id="docManager" class="com.asso.manager.impl.DocManagerImpl">		
+	</bean>
 	<bean name="userDao" class="com.asso.dao.impl.UserDaoImpl">            
     </bean>
     <bean name="examDao" class="com.asso.dao.impl.ExamDaoImpl">            
@@ -117,6 +113,10 @@
     <bean name="channelDao" class="com.asso.dao.impl.ChannelDaoImpl">            
     </bean>
     <bean name="articleDao" class="com.asso.dao.impl.ArticleDaoImpl">            
+    </bean>
+    <bean name="formDao" class="com.asso.dao.impl.FormDaoImpl">            
+    </bean>
+    <bean name="docDao" class="com.asso.dao.impl.DocDaoImpl">            
     </bean>
     <!-- 
 	<aop:config>

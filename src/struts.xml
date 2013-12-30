@@ -142,7 +142,17 @@
 		<action name="test" class="com.asso.action.test" >  
 			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
 		</action>
-		 <action name="upload" class="com.asso.action.CKEUpload"  method="myExecute" />
+		<action name="testform" class="com.asso.action.test"  method="addform" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
+		<action name="updateform" class="com.asso.action.test"  method="updateform" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>		
+		<action name="adddoc" class="com.asso.action.test"  method="addDoc" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
+		
+		<action name="upload" class="com.asso.action.CKEUpload"  method="myExecute" />
     </package>
 
     <include file="example.xml"/>
