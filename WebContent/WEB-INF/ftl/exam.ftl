@@ -406,6 +406,11 @@ transitional.dtd">
 						<a href="./switchpage.action?pagenumber=3">3</a>
 						<a href="./switchpage.action?pagenumber=4">4</a>
 						<a href="./switchpage.action?pagenumber=5">5</a>
+						<a href="./switchpage.action?pagenumber=6">6</a>
+						<a href="./switchpage.action?pagenumber=7">7</a>
+						<a href="./switchpage.action?pagenumber=8">8</a>
+						<a href="./switchpage.action?pagenumber=9">9</a>
+						<a href="./switchpage.action?pagenumber=10">10</a>
 					</div>
 					<div class="exam_btn_container clearfix">
 					<div class="clearfix" style="margin: auto;width: 200px;">

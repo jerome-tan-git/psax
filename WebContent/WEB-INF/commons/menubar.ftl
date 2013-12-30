@@ -17,9 +17,10 @@
 							<div class="list_item intro">
 								协会简介
 							</div></a>
+							<a href="./listArt.action?categoryid=1">
 							<div class="list_item pen">
 								大事记
-							</div>
+							</div></a>
 						</div>
 					</div>
 
@@ -29,12 +30,14 @@
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header"></div>
+							<a href="./listArticles.action?categoryid=3">
 							<div class="list_item target">
 								社会热点
-							</div>
+							</div></a>
+							<a href="./listArticles.action?categoryid=4">
 							<div class="list_item news">
 								实时新闻
-							</div>
+							</div></a>
 						</div>
 					</div>
 					<div class="menu_item">
@@ -55,24 +58,28 @@
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header" ></div>
+							<a href="./listArticles.action?categoryid=11">
 							<div class="list_item meeting">
 								会议
-							</div>
-
+							</div></a>
 							<div class="list_item help">
 								培训
-								<div class="sub_menu">
+								<div class="sub_menu">								
+									<a href="./exam_home.html">
 									<div class="list_item exam">
 										在线考试
-									</div>
+									</div></a>
+									<a href="./listArticles.action?categoryid=14">
 									<div class="list_item download">
 										资料下载
-									</div>
+									</div></a>
 								</div>
 							</div>
+							<a href="./listArticles.action?categoryid=13">
 							<div class="list_item meeting">
 								实操视频
-							</div>
+							</div></a>
+							
 						</div>
 					</div>
 					<div class="menu_item">
@@ -81,12 +88,14 @@
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header"></div>
+							<a href="./listArticles.action?categoryid=5">
 							<div class="list_item shield">
 								行业法规
-							</div>
+							</div></a>
+							<a href="./listArticles.action?categoryid=6">
 							<div class="list_item arrow">
 								政策导向
-							</div>
+							</div></a>
 						</div>
 					</div>
 					<div class="menu_item">

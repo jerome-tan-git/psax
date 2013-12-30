@@ -74,56 +74,7 @@
 		</div>
 		<div style="margin-top: 50px">
 			<div class="row" style="width: 100%;">
-				<div class="col-md-3">
-					<div class="bs-sidebar hidden-print affix" style="margin-top: 20px;">
-						<ul class="nav bs-sidenav">
-
-							<li>
-								<a href="./AddExam.html">Exam</a>
-
-							</li>
-							<li class="active">
-								<a href="#transitions">Article</a>
-							</li>
-							<li>
-								<a href="#modals">workflow</a>
-
-							</li>
-							<li>
-								<a href="#dropdowns">Dropdown</a>
-
-							</li>
-							<li>
-								<a href="#scrollspy">Scrollspy</a>
-
-							</li>
-							<li>
-								<a href="#tabs">Tab</a>
-
-							</li>
-							<li>
-								<a href="#tooltips">Tooltip</a>
-
-							</li>
-							<li>
-								<a href="#popovers">Popover</a>
-
-							</li>
-							<li>
-								<a href="#alerts">Alert</a>
-								<ul class="nav">
-									<li>
-										<a href="#alerts-examples">Examples</a>
-									</li>
-									<li>
-										<a href="#alerts-usage">Usage</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-
-				</div>
+				<#include "../commons/marginmenu.ftl">
 				<div class="col-md-8">
 					<div class="panel panel-info">
 						<div class="panel-heading">

@@ -20,19 +20,20 @@ import org.apache.commons.codec.binary.Base64;
 
 public class CONSTANT {
 	
-	public final static int singleChoiceNum = 5;
-	public final static int multipleChoiceNum = 5;
-	public final static int judgeNum = 5;
 	public final static int scorePerSingle = 1;
 	public final static int scorePerMulti = 2;
 	public final static int scorePerJudge = 1;
 	
-	public final static int pageNum = 5;//考题页数
-	public final static int pageSize = 3;//每页考题数量
-		
+	public final static int singleChoiceNum = 10;
+	public final static int multipleChoiceNum = 10;
+	public final static int judgeNum = 10;
+	
+	public final static int pageNum = 10;//考题页数
+	public final static int pageSize = 3;//每页考题数量		
 	public final static int pageArtSize = 5;//每页文章数量
+	
 	public final static int momentMaxLength = 280;
-	public final static int articleAbsMaxLength = 90;
+	public final static int articleAbsMaxLength = 45;
 	public final static int articleImageListLength = 5;
 	
 	public final static String noContent = "暂无";

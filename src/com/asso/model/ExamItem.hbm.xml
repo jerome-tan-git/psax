@@ -13,7 +13,7 @@
             <column name="examid" length="11" />
         </property>
         <property name="question" type="java.lang.String">
-            <column name="question" length="255" />
+            <column name="question" length="2000" />
         </property>
         <property name="category" type="int">
             <column name="category" length="11" />

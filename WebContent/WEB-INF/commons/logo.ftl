@@ -1,4 +1,17 @@
- 			<div class="logo">
+ 			<div class="logo"> 			
+ 			<!--	
+ 				<form action="./gologin.action" method="get">
+ 				<div class="login_text">
+ 					<input type="submit" value="登录">
+ 				</div>
+ 				</form>
+ 			-->
+ 				<a href="./login.html">登录</a>
+ 				<form action="./userlogout.action" method="get">
+ 				<div class="login_text"> 					
+ 					<input type="submit" value="登出">
+ 				</div>
+ 				</form>
 		    	<div class="logo_container">
 		    		<a href="./index.html"><img src="./images/logo_new.png" alt="img" /></a>
 		    	</div>

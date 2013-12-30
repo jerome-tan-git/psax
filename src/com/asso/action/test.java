@@ -12,6 +12,16 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class test extends ActionSupport implements ServletRequestAware,SessionAware{
 	private HttpServletRequest request;
+	
+	public String test(){
+		
+		Map root = new HahsMap();
+		root.put("message", "Hello FreeMarker!");
+		
+		
+		
+		return "test";
+	}
 
 	@Override
 	public String execute(){

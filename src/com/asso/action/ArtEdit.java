@@ -480,7 +480,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 				al.add(this.artlist.get(i));
 		}
 		this.setArtlist(al);		
-		this.cleanTxt(CONSTANT.articleAbsMaxLength);
+		this.cleanTxt(CONSTANT.articleAbsMaxLength,CONSTANT.articleAbsMaxLength);
 		
 			
         List<JSArticle> jsalist = new ArrayList<JSArticle>(); 
@@ -519,13 +519,22 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.jsonText2 = callback+"("+this.jsonText2+")";  
 		System.out.println("------"+this.jsonText2);
 		
-		ServletActionContext.getResponse().setContentType("application/json; charset=utf-8");
-		
+		ServletActionContext.getResponse().setContentType("application/json; charset=utf-8");		
 		return "list";
 	}
 	
+	public String list(){
+		int catid = 1;
+		if(this.request.getParameter("categoryid")!=null)
+			catid = Integer.parseInt(this.request.getParameter("categoryid"));
+		this.buildCatPathByCatId(catid);
+//		this.catpath = new CategoryPath();
+//		this.catpath.setCatId(catid);
+		return "list"; 
+	}
+	
 	public String listArticleByCategoryId(){
-		this.session.put("artslist", null);
+		
 		int catid = this.ainfo.getCategoryid();
 		if(this.request.getParameter("categoryid")!=null){
 			catid = Integer.parseInt(this.request.getParameter("categoryid"));
@@ -543,8 +552,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		System.out.println("this.artlist.size()="+this.artlist.size());
 		this.filterDate();
 		this.sortArtlistByDate();
-		this.cleanTxt(CONSTANT.momentMaxLength);
-		this.session.put("artslist", this.artlist);
+		this.cleanTxt(CONSTANT.momentMaxLength,CONSTANT.momentMaxLength);
+		
 		return "list";
 	}
 	private void listArticleByCatid(int _catid){
@@ -594,7 +603,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.setArtlist(sortedArtlist);
 	}
 	
-	private void cleanTxt(int _maxlength){
+	private void cleanTxt(int _maxlength1,int _maxlength2){
 		for(Article art:this.artlist){
 			String title = art.getTitle();
 			if(title!=null && title.length()>0){
@@ -607,8 +616,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			String article = art.getArticle();
 			if(article!=null && article.length()>0){
 				article = CONSTANT.replaceHtml(article);
-				if(article.length()>_maxlength)
-					article=article.substring(0,_maxlength)+"......";				
+				if(article.length()>_maxlength1)
+					article=article.substring(0 , _maxlength1)+"......";				
 			}else{
 				article = CONSTANT.noContent;
 			}
@@ -617,6 +626,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			String abs = art.getAbsinfo();
 			if(abs!=null && abs.length()>0){
 				abs = CONSTANT.replaceHtml(abs);
+				if(abs.length()>_maxlength2)
+					abs=abs.substring(0 , _maxlength2)+"......";
 				art.setAbsinfo(abs);
 			}else{
 				art.setAbsinfo(article);
@@ -693,13 +704,38 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		return "list";
 	}
 
+	private void buildCatPathByCatId(int _catid){
+		this.categories = cm.loadCategories();
+		this.channels = cm.loadChannels();
+		this.catpath = new CategoryPath();
+		this.catpath.setCatId(_catid);
+		for(Category cat : this.categories){
+			if(cat.getId()==_catid){
+				this.catpath.setCatName(cat.getCategory());
+				this.catpath.setChId(cat.getChannelid());
+				for(Channel ch:this.channels){
+					if(ch.getId()==cat.getChannelid()){
+						this.catpath.setChName(ch.getChannel());
+					}
+				}
+				if(cat.getParentid()>0){
+					this.catpath.setParentCatId(cat.getParentid());
+					for(Category c : this.categories){
+						if(c.getId()==cat.getParentid()){
+							this.catpath.setParentCatName(c.getCategory());
+						}
+					}
+				}
+			}
+		}
+		System.out.println("--build-catpath-over--"+this.catpath.toString());
+	}
 	
 	@Override
 	public String execute(){
-		this.categories = cm.loadCategories();
-		this.channels = cm.loadChannels();
+		
 		String artID = this.request.getParameter("articleid");	
-		System.out.println(this.request.getRealPath(".")); 
+		System.out.println(this.request.getRealPath(".")); //
 		if(artID!=null && artID.length()>0){
 			int aid = Integer.parseInt(artID);
 			List<Article> artl = new ArrayList<Article>();
@@ -725,35 +761,43 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 //				for(Channel ch:this.channels)
 //					System.out.println("chid---"+ch.getId()+", ch name---"+ch.getChannel());
 				
-				this.catpath = new CategoryPath();
-				this.catpath.setCatId(this.art.getCategoryid());
-				for(Category cat : this.categories){
-					if(cat.getId()==this.art.getCategoryid()){
-						this.catpath.setCatName(cat.getCategory());
-						this.catpath.setChId(cat.getChannelid());
-						for(Channel ch:this.channels){
-							if(ch.getId()==cat.getChannelid()){
-								this.catpath.setChName(ch.getChannel());
-							}
-						}
-						if(cat.getParentid()>0){
-							this.catpath.setParentCatId(cat.getParentid());
-							for(Category c : this.categories){
-								if(c.getId()==cat.getParentid()){
-									this.catpath.setParentCatName(c.getCategory());
-								}
-							}
-						}
-					}
-				}
-				System.out.println("---catpath---"+this.catpath.toString());
 				
+				System.out.println("--------------managerArt------------tobuildCAT------");
+				this.buildCatPathByCatId(this.art.getCategoryid());
+//				this.categories = cm.loadCategories();
+//				this.channels = cm.loadChannels();
+//				this.catpath = new CategoryPath();
+//				this.catpath.setCatId(this.art.getCategoryid());
+//				for(Category cat : this.categories){
+//					if(cat.getId()==this.art.getCategoryid()){
+//						this.catpath.setCatName(cat.getCategory());
+//						this.catpath.setChId(cat.getChannelid());
+//						for(Channel ch:this.channels){
+//							if(ch.getId()==cat.getChannelid()){
+//								this.catpath.setChName(ch.getChannel());
+//							}
+//						}
+//						if(cat.getParentid()>0){
+//							this.catpath.setParentCatId(cat.getParentid());
+//							for(Category c : this.categories){
+//								if(c.getId()==cat.getParentid()){
+//									this.catpath.setParentCatName(c.getCategory());
+//								}
+//							}
+//						}
+//					}
+//				}
+//				System.out.println("---catpath---"+this.catpath.toString());
+				System.out.println("--------------managerArt------build cat-over-----------");
 			}
 			else
 				System.out.println("DATA ERROR, PLS INV...");
-			
+				
+		}else{
+			this.categories = cm.loadCategories();
+			this.channels = cm.loadChannels();
 		}
-		
+		System.out.println("--------------managerArt---------over-----------");
 			
 		return "success";
 	}

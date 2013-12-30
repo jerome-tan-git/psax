@@ -9,6 +9,7 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 
 public class ParseObjects {
+	
 	private String type;
 	private HashMap<String, Object> content = new HashMap<String, Object>();
 	private List<FieldObject> tmpContainer = new ArrayList<FieldObject>();

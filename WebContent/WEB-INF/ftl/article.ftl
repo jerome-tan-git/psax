@@ -206,13 +206,31 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
+					<!--
 					<h2>大事记</h2>
 					<div class="sub_header_description">
 						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">大事记&raquo;</span>
-						<!--span>首页</span-->
+						<span class="page">大事记&raquo;</span>						
 					</div>
-
+					-->
+					<h2>${catpath.catName}</h2>
+					<div class="sub_header_description">
+						<span><a href="./index.html">首页 &raquo;</a></span>
+						<#if catpath.parentCatId?exists>
+						<#if (catpath.parentCatId>0) >
+						<span class="page">
+							<a href="./listArticles.action?categoryid=${catpath.parentCatId}">
+								${catpath.parentCatName}&raquo;
+							</a>
+						</span>	
+						</#if>
+						</#if>
+						<span class="page">
+							<a href="./listArticles.action?categoryid=${catpath.catId}">
+								${catpath.catName}&raquo;
+							</a>
+						</span>						
+					</div>
 				</div>
 				<div class="exam_type">
 					

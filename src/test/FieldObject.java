@@ -1,10 +1,12 @@
 package test;
 
 public class FieldObject {
+	
 	private String fieldName;
 	private String fieldValue;
 	private String fieldGroup;
 	private int fieldIndex;
+	
 	public int getFieldIndex() {
 		return fieldIndex;
 	}

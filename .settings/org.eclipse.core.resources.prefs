@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/commons/footertest.ftl=UTF-8
 encoding//WebContent/WEB-INF/commons/logo.ftl=UTF-8
+encoding//WebContent/WEB-INF/commons/marginmenu.ftl=UTF-8
 encoding//WebContent/WEB-INF/commons/menubar.ftl=UTF-8
 encoding//WebContent/WEB-INF/commons/smallmenu.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/article.ftl=UTF-8
