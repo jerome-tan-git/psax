@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd//hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.asso.model.Form" table="form" catalog="asso">
+        <id name="formid" type="java.lang.Integer">
+            <column name="formid" />
+            <generator class="identity" />
+        </id>
+        <property name="displayname" type="java.lang.String">
+            <column name="displayname" length="50" />
+        </property>        
+        <property name="frontendtpl" type="java.lang.String">
+            <column name="frontendtpl" length="50" />
+        </property>
+                
+    </class>
+</hibernate-mapping>

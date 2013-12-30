@@ -1,5 +1,6 @@
 package com.asso.action;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -15,7 +16,7 @@ public class test extends ActionSupport implements ServletRequestAware,SessionAw
 	
 	public String test(){
 		
-		Map root = new HahsMap();
+		Map root = new HashMap();
 		root.put("message", "Hello FreeMarker!");
 		
 		

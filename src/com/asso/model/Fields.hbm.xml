@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd//hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.asso.model.Fields" table="fields" catalog="asso">
+        <id name="fieldid" type="java.lang.Integer">
+            <column name="fieldid" />
+            <generator class="identity" />
+        </id>
+        <property name="fieldtype" type="int">
+            <column name="fieldtype" length="11" />
+        </property>
+        <property name="fieldname" type="java.lang.String">
+            <column name="fieldname" length="50" />
+        </property>        
+        <property name="groupname" type="java.lang.String">
+            <column name="groupname" length="50" />
+        </property>
+        <property name="formid" type="int">
+            <column name="formid" length="11" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

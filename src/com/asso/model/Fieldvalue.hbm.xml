@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd//hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.asso.model.FieldValue" table="fieldvalue" catalog="asso">
+        <id name="fieldvalueid" type="java.lang.Integer">
+            <column name="fieldvalueid" />
+            <generator class="identity" />
+        </id>
+        <property name="docid" type="int">
+            <column name="docid" length="11" />
+        </property>
+        <property name="fieldid" type="int">
+            <column name="fieldid" length="11" />
+        </property>        
+        <property name="value" type="java.lang.String">
+            <column name="value" length="50" />
+        </property>
+        <property name="fieldvalueindex" type="int">
+            <column name="fieldvalueindex" length="11" />
+        </property>
+        
+    </class>
+</hibernate-mapping>
