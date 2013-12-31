@@ -96,7 +96,7 @@ public class FormDaoImpl implements FormDao{
 		Form form = new Form();
 		List<Form> rlist = new ArrayList<Form>();
 		Session s = sessionFactory.getCurrentSession();
-		String hql = "from form where formid=?";      
+		String hql = "from Form where formid=?";      
         Query query = s.createQuery(hql); 
         query.setString(0, ""+_formid); 
         rlist = query.list();
@@ -157,12 +157,5 @@ public class FormDaoImpl implements FormDao{
 	           
 	}
 	
-	
-	/*build|update|delete|select a new doc----
-	 * # build|update|delete|select doc
-	 * # build|update|delete|select fieldvalue
-	 * # select form
-	 * # select fields
-	 * */
 
 }

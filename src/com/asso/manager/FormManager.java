@@ -13,6 +13,11 @@ public interface FormManager {
 	void addForm(Form _form) throws ClassNotFoundException, SQLException;
 
 	void updateForm(Form _form) throws ClassNotFoundException, SQLException;
+
+	Form loadFormById(int _formid) throws ClassNotFoundException, SQLException;
+
+	Form loadFormWithFieldsById(int _formid) throws ClassNotFoundException,
+			SQLException;
 	
 
 }

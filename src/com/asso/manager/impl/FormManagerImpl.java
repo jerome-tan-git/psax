@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.asso.dao.FormDao;
 import com.asso.manager.FormManager;
 import com.asso.model.Article;
+import com.asso.model.Fields;
 import com.asso.model.Form;
 
 @Component("formManager")
@@ -40,11 +41,17 @@ public class FormManagerImpl implements FormManager {
 //	public List<Article> loadArticles(int categoryid) throws ClassNotFoundException, SQLException{
 //		return articleDao.loadArticles(categoryid);		
 //	}
-//	
-//	@Override
-//	public List<Article> loadArticles() throws ClassNotFoundException, SQLException{
-//		return articleDao.loadArticles();		
-//	}
+	
+	@Override
+	public Form loadFormById(int _formid) throws ClassNotFoundException, SQLException{		
+		return formDao.loadForm(_formid);
+	}
+	@Override
+	public Form loadFormWithFieldsById(int _formid) throws ClassNotFoundException, SQLException{
+		Form f = formDao.loadForm(_formid);
+		f.setFields(formDao.loadFieldsByFormId(_formid));
+		return f;
+	}
 //
 //	@Override
 //	public List<Article> loadArticle(int articleid) throws ClassNotFoundException, SQLException{

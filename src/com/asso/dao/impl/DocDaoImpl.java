@@ -1,5 +1,6 @@
 package com.asso.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -40,35 +41,66 @@ public class DocDaoImpl implements DocDao{
 	     s.beginTransaction();
 	     s.save(doc);
 	     s.flush();
-	     int docid = this.getNewDocId(doc.getCreatedate());
-	     List<FieldValue> fvs = doc.getFvlist(); 
-	     if(fvs!=null && fvs.size()>=1){
-	    	 for(FieldValue fv:fvs){
-	    		 fv.setDocid(docid);
-	    		 s.save(fv);
-	    		 s.flush();
-	    	 }
-	     }else{
-	    	 System.out.println("Lack of List<FieldValue>!!!");
-	     }
+//	     int docid = this.getNewDocId(doc.getCreatedate());
+//	     List<FieldValue> fvs = doc.getFvlist(); 
+//	     if(fvs!=null && fvs.size()>=1){
+//	    	 for(FieldValue fv:fvs){
+//	    		 fv.setDocid(docid);
+//	    		 s.save(fv);
+//	    		 s.flush();
+//	    	 }
+//	     }else{
+//	    	 System.out.println("Lack of List<FieldValue>!!!");
+//	     }
 	     s.getTransaction().commit();	     
 	}
 	@Override
 	public void updateDoc(Doc _doc) {
-		// TODO Auto-generated method stub
-		
+		int docid = _doc.getDocid();
+		if(docid>0){
+			 Session s = sessionFactory.getCurrentSession(); 
+		     s.beginTransaction();
+		     s.update(_doc);
+		     s.flush();
+		     s.getTransaction().commit();		     		     
+//		     List<FieldValue> fvs = _doc.getFvlist(); 
+//		     if(fvs!=null && fvs.size()>=1){
+//		    	 this.delFieldValueListByDocId(docid);
+//		    	 List<FieldValue> fvl = _doc.getFvlist();
+//		    	 for(FieldValue fv:fvl){
+//		    		 fv.setDocid(docid);		    		 
+//		    		 this.saveFieldValue(fv);
+//		    	 }
+//		     }else{
+//		    	 System.out.println("Lack of List<FieldValue>!!!");
+//		     } 
+			
+		}else{
+			this.saveDoc(_doc);
+		}
+		 
 	}
 	
-//	@Override
-//	public void saveField(Fields field){
-//		Session s = sessionFactory.getCurrentSession(); 
-//	    s.beginTransaction();
-//		s.save(field);
-//		s.flush();
-//		s.getTransaction().commit();
-//	}
-//	
-	private int getNewDocId(String _date){
+	@Override
+	public void updateFieldValue(FieldValue _fv) {
+		Session s = sessionFactory.getCurrentSession(); 
+	    s.beginTransaction();
+		s.update(_fv);
+		s.flush();
+		s.getTransaction().commit();
+	}
+	
+	@Override
+	public void saveFieldValue(FieldValue fv){
+		Session s = sessionFactory.getCurrentSession(); 
+	    s.beginTransaction();
+		s.save(fv);
+		s.flush();
+		s.getTransaction().commit();
+	}
+	
+	@Override
+	public int getNewDocId(String _date){
 		int did = 0;
 		Session s = sessionFactory.getCurrentSession();
 		Query query = s.createQuery("select docid from Doc d where d.createdate = :s1")
@@ -87,84 +119,86 @@ public class DocDaoImpl implements DocDao{
 	    }
 		return did;
 	}
-//	
-//	@Override
-//	public List<Fields> loadFieldsByFormId(int _formid){
-//		List<Fields> rlist = new ArrayList<Fields>();
-//		Session s = sessionFactory.getCurrentSession();
-//		String hql = "from Fields where formid=?";      
-//        Query query = s.createQuery(hql); 
-//        query.setString(0, ""+_formid); 
-//        rlist = query.list();
-//		return rlist;
-//	}
-//	@Override
-//	public Form loadForm(int _formid){
-//		Form form = new Form();
-//		List<Form> rlist = new ArrayList<Form>();
-//		Session s = sessionFactory.getCurrentSession();
-//		String hql = "from form where formid=?";      
-//        Query query = s.createQuery(hql); 
-//        query.setString(0, ""+_formid); 
-//        rlist = query.list();
-//        if(rlist.size()==1){
-//        	form = rlist.get(0);
-//        }else{
-//        	if(rlist.size()>1)
-//        		form = rlist.get(rlist.size()-1);
-//        }
-//        form.setFields(this.loadFieldsByFormId(_formid));
-//        return form;
-//	}
-//	
-//	@Override
-//	public void delFieldsByFormId(int _formid){
-//		List<Fields> dlist = this.loadFieldsByFormId(_formid);
-//		Session s1 = sessionFactory.getCurrentSession(); 
-//	    s1.beginTransaction();
-//		for(Fields f:dlist){
-//			s1.delete(f);
-//		    s1.flush();
-//		}
-//		s1.getTransaction().commit();
-//	}
-//	
-//	@Override
-//	public void delField(Fields _field){
-//		Session s1 = sessionFactory.getCurrentSession(); 
-//	     s1.beginTransaction();
-//	     s1.delete(_field);
-//	     s1.flush();
-//	     s1.getTransaction().commit();
-//	}
-//	
-//	@Override
-//	public void updateForm(Form _form) {
-////		 if(_form.getFormid()!=null){
-////			 
-////		 }////???
-//	     if( _form.getFormid()>0){
-//	    	 Session s = sessionFactory.getCurrentSession(); 
-//		     s.beginTransaction();
-//	    	 s.update(_form);	     
-//		     s.flush();		     		     		     
-//		     s.getTransaction().commit();	
-//		     
-//		     int formid = _form.getFormid();
-//		     if(_form.getFields()!=null && _form.getFields().size()>0){
-//		    	 this.delFieldsByFormId(formid);
-//		    	 List<Fields> fields = _form.getFields();
-//		    	 for(Fields field:fields){
-//		    		 field.setFormid(formid);
-//		    		 this.saveField(field);
-//		    	 }
-//		     }
-//	     }else
-//	    	 this.saveForm(_form);
-//	           
-//	}
-//	
 	
+	@Override
+	public List<FieldValue> loadFieldValueListByDocId(int _docid){
+		List<FieldValue> rlist = new ArrayList<FieldValue>();
+		Session s = sessionFactory.getCurrentSession();
+		String hql = "from FieldValue where docid=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+_docid); 
+        rlist = query.list();
+        System.out.println("-------------------DocDaoImpl. loadFieldValueListByDocId rz.size="+rlist.size());
+		return rlist;
+	}
+	
+	@Override
+	public List<Doc> loadDocs(int _formid){		
+		List<Doc> rlist = new ArrayList<Doc>();
+		Session s = sessionFactory.getCurrentSession();
+		String hql = "from Doc where formid=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+_formid); 
+        rlist = query.list();    
+        System.out.println("-------------------DocDaoImpl. loadDocs rz.size="+rlist.size());
+        return rlist;
+	}
+	
+	@Override
+	public Doc loadDoc(int _docid){	
+		Doc doc = new Doc();
+		List<Doc> rlist = new ArrayList<Doc>();
+		Session s = sessionFactory.getCurrentSession();
+		String hql = "from Doc where docid=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+_docid); 
+        rlist = query.list();
+        if(rlist!=null && rlist.size()==1)
+        	doc = rlist.get(0);
+        else
+        	System.out.println("NO doc selected!!!");
+//        System.out.println("-------------------DocDaoImpl. loadDocs rz.size="+rlist.size());
+        System.out.println("DocDao-------"+doc.toString());
+        return doc;
+	}
+	
+	@Override
+	public void delFieldValueListByDocId(int _docid){
+		List<FieldValue> dlist = this.loadFieldValueListByDocId(_docid);
+		Session s1 = sessionFactory.getCurrentSession(); 
+	    s1.beginTransaction();
+		for(FieldValue f:dlist){
+			s1.delete(f);
+		    s1.flush();
+		}
+		s1.getTransaction().commit();
+	}
+	
+	@Override
+	public void delFieldValue(FieldValue _fieldValue){
+		Session s1 = sessionFactory.getCurrentSession(); 
+	     s1.beginTransaction();
+	     s1.delete(_fieldValue);
+	     s1.flush();
+	     s1.getTransaction().commit();
+	}
+	
+	@Override
+	public int maxFieldValueIndex(int _docid){
+		Session s = sessionFactory.getCurrentSession(); 
+		String hql = "select max(fv.fieldvalueindex) from FieldValue fv"
+				+ " where fv.docid=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+_docid); 
+		Integer c = 0;
+		if(query.list().size()>0){
+			Object o = query.list().get(0);
+			c = (Integer)o;
+		}			 
+		System.out.println("-----------------docid="+_docid+", maxindex="+c);
+		return c;
+	}
+
 
 
 }

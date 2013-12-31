@@ -51,6 +51,7 @@ public class Doc {
 	
 	public String toString(){
 		return this.docid+":"+this.createdate+":"+this.step+":"+this.userid+":"+this.formid;
+//				this.fvlist.toString();
 	}
 	
 }

@@ -37,3 +37,11 @@ http://localhost:8080/psax/listArticles.action?categoryid=1
 http://localhost:8080/psax/testform.action
 http://localhost:8080/psax/updateform.action
 http://localhost:8080/psax/adddoc.action
+http://localhost:8080/psax/updatedoc.action
+http://localhost:8080/psax/updatevls.action
+http://localhost:8080/psax/addvls.action
+http://localhost:8080/psax/loadform.action
+http://localhost:8080/psax/loaddocs.action
+
+http://localhost:8080/psax/loaddoc.action?formid=4&docid=4
+

@@ -151,7 +151,26 @@
 		<action name="adddoc" class="com.asso.action.test"  method="addDoc" >
 			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
 		</action>
+		<action name="updatedoc" class="com.asso.action.test"  method="updateDoc" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
 		
+		<action name="updatevls" class="com.asso.action.test"  method="updateFieldValues" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
+		<action name="addvls" class="com.asso.action.test"  method="addFieldValues" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
+		<action name="loadform" class="com.asso.action.test"  method="loadForm" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
+		<action name="loaddocs" class="com.asso.action.test"  method="loadDocs" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
+		
+		<action name="loaddoc" class="com.asso.action.FormEdit"  method="listJsonDocById" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/form.ftl</result>	                     	 
+		</action>
 		<action name="upload" class="com.asso.action.CKEUpload"  method="myExecute" />
     </package>
 
