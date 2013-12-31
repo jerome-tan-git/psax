@@ -69,11 +69,19 @@
        <servlet-name>myupload</servlet-name>  
        <servlet-class>com.asso.action.myupload</servlet-class>  
     </servlet>  
-
     <servlet-mapping>  
         <servlet-name>myupload</servlet-name>  
         <url-pattern>/upload.servlet</url-pattern>  
     </servlet-mapping>
+    
+    <servlet>
+	   <servlet-name>hello</servlet-name>
+	   <servlet-class>com.asso.action.HelloServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	   <servlet-name>hello</servlet-name>
+	   <url-pattern>/hello</url-pattern>
+	</servlet-mapping>
   
   
 </web-app>

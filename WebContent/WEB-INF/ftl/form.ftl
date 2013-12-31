@@ -221,11 +221,22 @@ transitional.dtd">
 							<input class="editor" form_data="title"/></td>
 						<td><div class="display" form_data="options">333</div><input class="editor" form_data="options"/></td>
 					</tr>
-					
 					<!--
+					<h3>${formDataMap}</h3>
+					<h3>${formValueMap}</h3>
+					<h3>${formDataMapModel}</h3>
+					
+					<#assign keys=formDataMap?keys>
+						<#list keys as key>
+							<#if formDataMap[key]?exists>
+								<h3>${key}</h3>
+							</#if>	
+						</#list>
+					
+					-->
 					<tbody id='data_2_container'>
 					<tr form_data="_loop" target_data = "data_2">
-						<td><div class="display" form_data="field_1">&nbsp;</div><input class="editor" form_data="field_1" value="" /></td>
+						<td>yuy<div class="display" form_data="field_1">&nbsp;</div><input class="editor" form_data="field_1" value="" /></td>
 						<td><div class="display" form_data="field_2">&nbsp;</div><input class="editor" form_data="field_2" value="" /></td>
 						<td><div class="display" form_data="field_3">&nbsp;</div><input class="editor" form_data="field_3" value="" /></td>
 						<td><div class="display" form_data="field_4">&nbsp;</div><input class="editor" form_data="field_4" value="" /></td>
@@ -241,7 +252,7 @@ transitional.dtd">
 						<input class="editor" form_data="field_3" value="" /></td>
 					</tr>
 					</tbody>
-					-->
+					
 				</table>
 				<input type="button" value="      a      " onclick="addNewLine('data_2','edit')"/>
 				<input type="button" value="      b      " onclick="addNewLine('data_1','edit')"/>

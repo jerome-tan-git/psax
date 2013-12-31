@@ -56,31 +56,31 @@ public class ParseObjects {
 		ParseObjects po = new ParseObjects("edit");
 
 		FieldObject fo0 = new FieldObject();
-		fo0.setFieldName("fo1_f");
+		fo0.setFieldName("fo114514556_f");
 		fo0.setFieldValue("f");
 
 		FieldObject fo1 = new FieldObject();
-		fo1.setFieldName("fo1_f");
-		fo1.setFieldValue("f_1");
+		fo1.setFieldName("fo1_f8888888888888888888");
+		fo1.setFieldValue("f_1555555555555");
 		fo1.setFieldGroup("g1");
 		fo1.setFieldIndex(1);
 
 		FieldObject fo3 = new FieldObject();
 		fo3.setFieldName("fo1_f");
-		fo3.setFieldValue("f_1");
-		fo3.setFieldGroup("g2");
+		fo3.setFieldValue("f_1111111111111");
+		fo3.setFieldGroup("g1");
 		fo3.setFieldIndex(1);
 
 		FieldObject fo2 = new FieldObject();
-		fo2.setFieldName("fo1_f");
+		fo2.setFieldName("fo1_f5454546544");
 		fo2.setFieldValue("f_3");
 		fo2.setFieldGroup("g1");
 		fo2.setFieldIndex(3);
 
 		FieldObject fo4 = new FieldObject();
-		fo4.setFieldName("fo1_f");
+		fo4.setFieldName("fo1_f0000000000000000");
 		fo4.setFieldValue("f_2");
-		fo4.setFieldGroup("g2");
+		fo4.setFieldGroup("g1");
 		fo4.setFieldIndex(2);
 
 		FieldObject fo5 = new FieldObject();

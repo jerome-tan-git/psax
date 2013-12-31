@@ -172,6 +172,10 @@
 			<result name="success" type="freemarker">/WEB-INF/ftl/form.ftl</result>	                     	 
 		</action>
 		<action name="upload" class="com.asso.action.CKEUpload"  method="myExecute" />
+		
+		<action name="*" class="com.asso.action.FormEdit" >
+            <result type="freemarker">/WEB-INF/tmpl/{1}.ftl</result>
+        </action>
     </package>
 
     <include file="example.xml"/>

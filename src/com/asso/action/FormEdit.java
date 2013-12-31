@@ -268,43 +268,44 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 	    	}
 	    		
 	    }else{//no group
-	    	List<Map<String,String>> groupmap = new ArrayList<Map<String,String>>();
-    		String gn = "data_1"; 
-    		for(Integer index:indexes){
-    			System.out.println("----index="+index);
-    			HashMap<String,String> unit = new HashMap<String,String>();
-    			
-    			List<FieldValue> uniFvs = new ArrayList<FieldValue>();//get teamFieldValue belonging to this index
-				for(FieldValue fv :fvs){
-					if(fv.getFieldvalueindex()==index)
-						uniFvs.add(fv);
-				}
-				for(FieldValue v:uniFvs){//show teamFieldValue with fieldname						
-					int fieldid = v.getFieldid();
-					for(Fields field:group.get(gn)){
-						if(field.getFieldid()==fieldid){
-							System.out.println("field.getFieldname()---"+field.getFieldname());
-							unit.put(field.getFieldname(),v.getValue());	//SET the unit form data/value
-							if(this.formDataMap.keySet().contains(gn))		//SET data for .ftl <table>
-								this.formDataMap.get(gn).add(field.getFieldname());
-							else{
-								List<String> data = new ArrayList<String>();
-								data.add(field.getFieldname());
-								this.formDataMap.put(gn, data);								
-							}
-							if(this.formValueMap.keySet().contains(gn))
-								this.formValueMap.get(gn).add(v.getValue());
-							else{
-								List<String> value = new ArrayList<String>();
-								value.add(v.getValue());
-								this.formValueMap.put(gn, value);
-							}
-						}
-					}
-				}
-    			groupmap.add(unit);
-    		}
-    		jmap.put(gn, groupmap);
+	    	
+//	    	List<Map<String,String>> groupmap = new ArrayList<Map<String,String>>();
+//    		String gn = "data_1"; 
+//    		for(Integer index:indexes){
+//    			System.out.println("----index="+index);
+//    			HashMap<String,String> unit = new HashMap<String,String>();
+//    			
+//    			List<FieldValue> uniFvs = new ArrayList<FieldValue>();//get teamFieldValue belonging to this index
+//				for(FieldValue fv :fvs){
+//					if(fv.getFieldvalueindex()==index)
+//						uniFvs.add(fv);
+//				}
+//				for(FieldValue v:uniFvs){//show teamFieldValue with fieldname						
+//					int fieldid = v.getFieldid();
+//					for(Fields field:group.get(gn)){
+//						if(field.getFieldid()==fieldid){
+//							System.out.println("field.getFieldname()---"+field.getFieldname());
+//							unit.put(field.getFieldname(),v.getValue());	//SET the unit form data/value
+//							if(this.formDataMap.keySet().contains(gn))		//SET data for .ftl <table>
+//								this.formDataMap.get(gn).add(field.getFieldname());
+//							else{
+//								List<String> data = new ArrayList<String>();
+//								data.add(field.getFieldname());
+//								this.formDataMap.put(gn, data);								
+//							}
+//							if(this.formValueMap.keySet().contains(gn))
+//								this.formValueMap.get(gn).add(v.getValue());
+//							else{
+//								List<String> value = new ArrayList<String>();
+//								value.add(v.getValue());
+//								this.formValueMap.put(gn, value);
+//							}
+//						}
+//					}
+//				}
+//    			groupmap.add(unit);
+//    		}
+//    		jmap.put(gn, groupmap);
 	    }
 		System.out.println("FINAL JSONTEXT------");
 		this.jsonText3=JSON.toJSONString(jmap, true); 
@@ -333,7 +334,7 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 	@Override
 	public String execute(){
 		
-		
+		this.jsonText3 = "andy";
 			
 		return "success";
 	}
