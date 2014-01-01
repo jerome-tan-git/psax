@@ -229,10 +229,15 @@ transitional.dtd">
 					
 					<tbody id='data_1_container'>
 					<tr form_data="_loop" target_data = "data_1">
-						<td><div class="display" form_data="field_1">&nbsp;</div><input class="editor" form_data="field_1" value="" /></td>
-						<td><div class="display" form_data="field_2">&nbsp;</div><input class="editor" form_data="field_2" value="" /></td>
-						<td colspan="3"><div class="display" form_data="field_3">&nbsp;</div>
-						<input class="editor" form_data="field_3" value="" /></td>
+						<td><div class="display" form_data="field_1">太阳</div>
+							<input class="editor" form_data="field_1" value="" />
+						</td>
+						<td><div class="display" form_data="field_2">月亮</div>
+							<input class="editor" form_data="field_2" value="" />
+						</td>
+						<td colspan="3"><div class="display" form_data="field_3">星星</div>
+							<input class="editor" form_data="field_3" value="" />
+						</td>
 					</tr>
 					</tbody>
 					
@@ -240,8 +245,9 @@ transitional.dtd">
 				<input type="button" value="      a      " onclick="addNewLine('data_2','edit')"/>
 				<input type="button" value="      b      " onclick="addNewLine('data_1','edit')"/>
 				
-				<form action="saveDoc.action" method="post" >
+				
 				<table width="653" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999">
+				<form action="saveDoc.action" method="post" >
 				  <tr>
 				    <td colspan="10" bordercolor="#F0F0F0" bgcolor="#FFFFFF"><div align="right">QR-ZJ005-</div></td>
 				  </tr>
@@ -269,28 +275,40 @@ transitional.dtd">
 				    <td bgcolor="#FFFFFF">领用人</td>
 				  </tr>
 				  <tr>
-				  <#if valuelist?exists>
-					  <#list valuelist as value>
-					    <td width="80" bgcolor="#FFFFFF">${value}</td>
-					  </#list>
-				  </#if>
-				  </tr>
+					    <td width="80" bgcolor="#FFFFFF">					    
+					    	<input class="editor" form_data="accepter1" value="" name="" type="text" readonly="true" style="width:50px;height:20px" />
+					    </td>
+					    <td width="80" bgcolor="#FFFFFF">	
+					    <div class="display" form_data="batchnumber1" ></div>				    
+					    	<input class="editor" form_data="batchnumber1" value="" name="" type="text" style="width:50px;height:20px" />
+					    </td>
+					    <td width="80" bgcolor="#FFFFFF">		<div class="display" form_data="batchnumber2" ></div>			    
+					    	<input class="editor" form_data="batchnumber2" value="" name="" type="text" style="width:50px;height:20px" />
+					    </td><td width="80" bgcolor="#FFFFFF">					    
+					    	<input class="editor" form_data="chemicalname1" value="" name="" type="text" style="width:50px;height:20px" />
+					    </td><td width="80" bgcolor="#FFFFFF">					    
+					    	<input class="editor" form_data="date1" value="" name="date1" type="text" style="width:50px;height:20px" />
+					    </td><td width="80" bgcolor="#FFFFFF">					    
+					    	<input class="editor" form_data="operator1" value="" name="" type="text" style="width:50px;height:20px" />
+					    </td><td width="80" bgcolor="#FFFFFF">					    
+					    	<input class="editor" form_data="quantity1" value="" name="" type="text" style="width:50px;height:20px" />
+					    </td><td width="80" bgcolor="#FFFFFF">					    
+					    	<input class="editor" form_data="quantity2" value="" name="" type="text" style="width:50px;height:20px" />
+					    </td>
+					    <td width="80" bgcolor="#FFFFFF">					    
+					    	<input class="editor" form_data="stock1" value="" name="" type="text" style="width:50px;height:20px" />
+					    </td>
+					    <td width="80" bgcolor="#FFFFFF">					    
+					    	<input class="editor" form_data="volumn1" value="" name="" type="text" style="width:50px;height:20px" />
+					    </td>
+					    </tr>
 				  <tr>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				  </tr>
+
 				  
-				 
-				</table>
 				</form>
+				</table>sfasdf
+								 <input type="submit" value="save" />
+				
 			</div>
 			<!-- Teaser End -->
 

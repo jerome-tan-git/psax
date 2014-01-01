@@ -1,7 +1,5 @@
 package com.asso.action;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,37 +7,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import util.CONSTANT;
 import util.SpringFactory;
 
 import com.alibaba.fastjson.JSON;
-import com.asso.manager.ArticleManager;
-import com.asso.manager.ChannelManager;
 import com.asso.manager.DocManager;
 import com.asso.manager.FormManager;
-import com.asso.model.Article;
-import com.asso.model.ArticleAttachment;
-import com.asso.model.Category;
-import com.asso.model.CategoryPath;
-import com.asso.model.Channel;
 import com.asso.model.Doc;
 import com.asso.model.FieldValue;
 import com.asso.model.Fields;
 import com.asso.model.Form;
-import com.asso.model.JSArticle;
-import com.asso.vo.ArtInfo;
+import com.asso.vo.FormInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -60,6 +46,7 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 	
 	private HttpServletRequest request;	
 	private Map session;
+	private FormInfo finfo;
 
 	public FormEdit(){		
 		fm = (FormManager) SpringFactory.getObject("formManager");
@@ -83,6 +70,13 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 	}
 	
 	
+	public FormInfo getFinfo() {
+		return finfo;
+	}
+	public void setFinfo(FormInfo finfo) {
+		this.finfo = finfo;
+	}
+
 	public Map<String, List<String>> getFormDataMap() {
 		return formDataMap;
 	}	
@@ -332,7 +326,19 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 	
 	
 	public String updateDoc(){
+		System.out.println("GOT finfo----");
+		System.out.println(this.finfo.getField_1());
+		System.out.println(this.finfo.getField_2());
+		System.out.println(this.finfo.getField_3());
+		System.out.println(this.finfo.getField_4());
+		System.out.println(this.finfo.getField_5());
+		System.out.println(this.finfo.getField_6());
+		System.out.println(this.finfo.getField_7());
+		System.out.println(this.finfo.getField_8());
+		System.out.println(this.finfo.getField_9());
+		System.out.println(this.finfo.getField_10());
 		
+		return SUCCESS;
 	}
 
 	@Override
@@ -359,8 +365,7 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 
 	@Override
 	public Object getModel() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.finfo;
 	}
 	
 

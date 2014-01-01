@@ -127,8 +127,8 @@
 			<result name="delete" type="redirect">bklistArt.action</result>	                     	 
 		</action>
 		
-		<action name="saveDoc" class="com.asso.action.test" method="updateDoc">  
-			<result name="list" type="freemarker">/WEB-INF/ftl/examItemList.ftl</result>	                     	 
+		<action name="saveDoc" class="com.asso.action.FormEdit" method="updateDoc">  
+			<result name="list" type="freemarker">/WEB-INF/ftl/login.ftl</result>	                     	 
 		</action>
 		
 		

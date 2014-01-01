@@ -311,12 +311,29 @@ public class HelloServlet  extends HttpServlet{
 	        root.put("valuelist", this.formValuelist);
 	        response.setCharacterEncoding("utf-8");
 	        Writer out = response.getWriter();
-	        
-	        
+	        Enumeration<String> e = request.getParameterNames();
+	        while(e.hasMoreElements())
+	        {
+	        	String parameterName = (e.nextElement());
+	        	String[] values = request.getParameterValues(parameterName);
+	        	if(values!=null)
+	        	{
+		        	for(int i=0;i<values.length;i++)
+		        	{
+		        		int fieldIndex = i;
+		        		String fieldName = parameterName;
+		        		String fieldValue = values[i];
+		        		
+		        		//new a field and insert into field Value table
+		        		
+		        		
+		        	}
+	        	}
+	        }
 	        
 	        Template t = cfg.getTemplate("tmpl/chemicalManageRecord.ftl"); 
 	        t.setEncoding("utf-8");
-	        System.out.println(t.toString());
+//	        System.out.println(t.toString());
 	        //response.setContentType("text/html; charset=" + t.getEncoding());
 	        
 	        try{
