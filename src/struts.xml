@@ -127,6 +127,12 @@
 			<result name="delete" type="redirect">bklistArt.action</result>	                     	 
 		</action>
 		
+		<action name="saveDoc" class="com.asso.action.test" method="updateDoc">  
+			<result name="list" type="freemarker">/WEB-INF/ftl/examItemList.ftl</result>	                     	 
+		</action>
+		
+		
+		
 		
 		<action name="intoexam" class="com.asso.action.ExamItemsList" method="loadExamItemlistFByExamId">  
 			<result name="list" type="redirect">switchexampage.action?currentpage=1</result>		                     	 
@@ -173,7 +179,7 @@
 		</action>
 		<action name="upload" class="com.asso.action.CKEUpload"  method="myExecute" />
 		
-		<action name="*" class="com.asso.action.FormEdit" >
+		<action name="*">
             <result type="freemarker">/WEB-INF/tmpl/{1}.ftl</result>
         </action>
     </package>

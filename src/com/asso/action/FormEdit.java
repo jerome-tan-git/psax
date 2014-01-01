@@ -330,6 +330,10 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 		return SUCCESS;
 	}
 	
+	
+	public String updateDoc(){
+		
+	}
 
 	@Override
 	public String execute(){

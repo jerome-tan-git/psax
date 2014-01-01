@@ -163,6 +163,28 @@ public class DocDaoImpl implements DocDao{
 	}
 	
 	@Override
+	public List<Doc> loadDocsByUser(int _userid){
+		List<Doc> rlist = new ArrayList<Doc>();
+		Session s = sessionFactory.getCurrentSession();
+		String hql = "from Doc where userid=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+_userid); 
+        rlist = query.list();
+        return rlist;
+	}
+	
+	@Override
+	public List<Doc> loadDocs(int _userid, int _formid){
+		List<Doc> rlist = new ArrayList<Doc>();
+		Session s = sessionFactory.getCurrentSession();
+		String hql = "from Doc where userid=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+_userid); 
+        rlist = query.list();
+        return rlist;
+	}
+	
+	@Override
 	public void delFieldValueListByDocId(int _docid){
 		List<FieldValue> dlist = this.loadFieldValueListByDocId(_docid);
 		Session s1 = sessionFactory.getCurrentSession(); 

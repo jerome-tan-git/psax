@@ -44,4 +44,6 @@ http://localhost:8080/psax/loadform.action
 http://localhost:8080/psax/loaddocs.action
 
 http://localhost:8080/psax/loaddoc.action?formid=4&docid=4
+http://localhost:8080/psax/hello
+http://localhost:8080/psax/saveDoc.action
 

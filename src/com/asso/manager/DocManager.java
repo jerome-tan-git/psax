@@ -30,4 +30,7 @@ public interface DocManager {
 	Doc loadDocWithFieldValueList(int _docid) throws ClassNotFoundException,
 			SQLException;
 
+	List<Doc> loadDocByFormidUserid(int _docid, int _formid)
+			throws ClassNotFoundException, SQLException;
+
 }

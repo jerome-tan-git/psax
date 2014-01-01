@@ -100,6 +100,13 @@ public class DocManagerImpl implements DocManager {
 		doc.setFvlist(docDao.loadFieldValueListByDocId(_docid));
 		return doc;
 	}
+	
+	@Override
+	public List<Doc> loadDocByFormidUserid(int _docid, int _formid) throws ClassNotFoundException,
+			SQLException {
+		List<Doc> rlist = null;
+		return rlist;
+	}
 
 //	@Override
 //	public List<Article> loadArticles() throws ClassNotFoundException, SQLException{
