@@ -58,21 +58,8 @@ transitional.dtd">
 		</style>
 		<script type="text/javascript">
 			$(document).ready(function() {
-
-				// bancy bo=x
-				// jQuery("a#example6").fancybox({
-					// 'titlePosition' : 'outside',
-					// 'overlayColor' : '#000',
-					// 'overlayOpacity' : 0.9
-				// });
-				//slider
-				// var sudoSlider = jQuery("#testimonail").sudoSlider({
-				// continuous:true,
-				// numeric:false
-				// });
 				$('.banner').unslider();
 
-				//menu_item
 				$(".menu_item").hover(function() {
 					$(this).addClass("selected");
 					var myList = $(this).find(".menu_list");
@@ -197,10 +184,10 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>用户登录</h2>
+					<h2>�û���¼</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">用户登录</span>
+						<span><a href="./index.html">��ҳ &raquo;</a></span>
+						<span class="page">�û���¼</span>
 					</div>
 
 				</div>
@@ -220,7 +207,7 @@ transitional.dtd">
 					<tr>						
 						<td><div class="display" form_data="options">333display</div>
 							<input class="editor" form_data="options"/></td>
-						<td colspan="4"><div class="display" form_data="title">化学物品管理记录display</div>
+						<td colspan="4"><div class="display" form_data="title">��ѧ��Ʒ������¼display</div>
 							<input class="editor" form_data="title"/></td>						
 						<td><div class="display" form_data="options">333display</div>
 							<input class="editor" form_data="options"/></td>
@@ -228,14 +215,14 @@ transitional.dtd">
 				
 					<tbody id='data_1_container'>
 					<tr form_data="_loop" target_data = "data_1">
-						<td><div class="display" form_data="field_1">太阳d</div>
-							<input class="editor" form_data="field_1" value="太阳e" />
+						<td><div class="display" form_data="field_1">̫��d</div>
+							<input class="editor" form_data="field_1" value="̫��e" />
 						</td>
-						<td><div class="display" form_data="field_2">月亮d</div>
-							<input class="editor" form_data="field_2" value="月亮e" />
+						<td><div class="display" form_data="field_2">����d</div>
+							<input class="editor" form_data="field_2" value="����e" />
 						</td>
-						<td colspan="3"><div class="display" form_data="field_3">星星d</div>
-							<input class="editor" form_data="field_3" value="星星e" />
+						<td colspan="3"><div class="display" form_data="field_3">����d</div>
+							<input class="editor" form_data="field_3" value="����e" />
 						</td>
 					</tr>
 					</tbody>
@@ -243,40 +230,64 @@ transitional.dtd">
 				</table>
 				-->
 				
-				<input type="button" value="      a      " onclick="addNewLine('data_2','edit')"/>
-				<input type="button" value="      b      " onclick="addNewLine('data_1','edit')"/>
-				
 				<form action="saveDoc.action" method="post" >
-				<!--<form action="./test" method="post" >-->
+				<table style="border:1px solid black;" width="534" height="559" border="1" cellpadding="1" cellspacing="1" bordercolor="#666666">
+				
+				<tbody id='data_1_container'>
+				  <tr>
+				    <td height="40" colspan="2"><div align="center">
+				      <h2>���������Ҫ</h2>
+				    </div></td>
+				  </tr>
+				  <tr>
+				    <td width="266" > <div align="justify"></div></td>
+				    <td width="265" align="center">No:
+				    	<div class="display" form_data="qmn_no" ></div>
+					    <input class="editor" form_data="qmn_no" name="qmn_no" 
+					    	type="text" style="width:50px;height:20px" ></input>
+				    </td>
+				  </tr>
+				  
+				  <tr>
+				    <td height="24">����ʱ�䣺
+				    	<div class="display" form_data="qmn_meetingtime" ></div>
+					    <input class="editor" form_data="qmn_meetingtime" name="qmn_meetingtime" 
+					    	type="text" style="width:50px;height:20px" ></input>
+				    </td>
+				    <td>����ص㣺
+					    <div class="display" form_data="qmn_meetingplace" ></div>
+						<input class="editor" form_data="qmn_meetingplace" name="qmn_meetingplace" 
+					    	type="text" style="width:50px;height:20px" ></input>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td height="58" colspan="2">�λ���Ա��</td>
+				  </tr>
+				  <tr>
+				    <td height="211" colspan="2" valign="top">������Ҫ���ݣ�</td>
+				  </tr>
+				  
+				  <tr>
+				    <td height="111" colspan="2" valign="top" bordercolor="#666666">��ע��</td>
+				  </tr>
+				  
+				  <tr>
+				    <td>��ˣ�</td>
+				    <td bordercolor="#666666">��¼��</td>
+				  </tr>
+				  </tbody>
+				
+				</table>
+				
+					<input type="hidden" value="${docid}" name="docid" />
+ 					<input type="submit" value="����" />
+				</form>
+				
+				
 				<table width="653" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999">
+				<form action="saveDoc.action" method="post" >
 				
-				
-				  <tr>
-				    <td colspan="10" bordercolor="#F0F0F0" bgcolor="#FFFFFF"><div align="right">QR-ZJ005-</div></td>
-				  </tr>
-				  <tr>
-				    <td colspan="10" bordercolor="#F0F0F0" bgcolor="#FFFFFF">化学物品管理记录</td>
-				  </tr>
-				  <tr>
-				    <td colspan="8" bordercolor="#F0F0F0" bgcolor="#FFFFFF">&nbsp;</td>
-				    <td colspan="2" bordercolor="#F0F0F0" bgcolor="#FFFFFF">No：</td>
-				  </tr>
-				  <tr>
-				    <td rowspan="2" bgcolor="#FFFFFF">日期</td>
-				    <td rowspan="2" bgcolor="#FFFFFF">化学物品名称</td>
-				    <td rowspan="2" bgcolor="#FFFFFF">规 格</td>
-				    <td colspan="2" bgcolor="#FFFFFF"><div align="center">进货情况</div></td>
-				    <td colspan="3" bgcolor="#FFFFFF"><div align="center">领用情况</div></td>
-				    <td rowspan="2" bgcolor="#FFFFFF">库存数量</td>
-				    <td rowspan="2" bgcolor="#FFFFFF">经手人</td>
-				  </tr>
-				  <tr>
-				    <td bgcolor="#FFFFFF">数量</td>
-				    <td bgcolor="#FFFFFF">批号</td>
-				    <td bgcolor="#FFFFFF">数量</td>
-				    <td bgcolor="#FFFFFF">批号</td>
-				    <td bgcolor="#FFFFFF">领用人</td>
-				  </tr>
+				 
 				  
 				  <tbody id='data_1_container'>
 				  <tr form_data="_loop" target_data = "data_1">
@@ -337,9 +348,9 @@ transitional.dtd">
 					<input type="hidden" value="${docid}" name="docid" />
  					<input type="submit" value="save" />
 				  </tr>
-				
+				</form>
 				</table>sfasdf
-				</form>			
+								
 				
 			</div>
 			<!-- Teaser End -->

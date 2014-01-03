@@ -47,3 +47,6 @@ http://localhost:8080/psax/loaddoc.action?formid=4&docid=4
 http://localhost:8080/psax/hello
 http://localhost:8080/psax/saveDoc.action
 
+http://localhost:8080/psax/hello?docid=6&mode=edit
+http://localhost:8080/psax/hello?docid=5&mode=edit
+

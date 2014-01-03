@@ -137,8 +137,11 @@ public class DocManagerImpl implements DocManager {
 //			else
 //				fvid = this.getFieldValueId(_docid, fid, _fvindex);
 			System.out.println("updateSingleFieldValueByFieldName  fid="+fid);
-			FieldValue fv = new FieldValue();			
-			fv.setFieldvalueindex(0);
+			FieldValue fv = new FieldValue();	
+			if( _fvindex<0)
+				fv.setFieldvalueindex(0);
+			else
+				fv.setFieldvalueindex(_fvindex);
 			fv.setValue(_value);
 			fv.setDocid(_docid);
 			fv.setFieldid(fid);	

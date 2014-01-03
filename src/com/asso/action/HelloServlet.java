@@ -135,8 +135,7 @@ public class HelloServlet  extends HttpServlet{
 	public void setIndexes(HashSet<Integer> indexes) {
 		this.indexes = indexes;
 	}
-
-
+	
 	private void setDocForm(int _docid){
 		try {
 			this.doc = dm.loadDocWithFieldValueList(_docid);
@@ -199,17 +198,25 @@ public class HelloServlet  extends HttpServlet{
 			return 0;
 	}
 	
-	private void assembleJsonText(){
+	private void assembleJsonText(int _docid, String _mode){
+		
 		this.doc = new Doc();
-		this.doc.setDocid(6);
-		this.setDocForm(6);//docid=4|6 
+		this.doc.setDocid(_docid);
+		this.setDocForm(_docid);//docid=4|6 
 		int groupnum = this.buildGroup();
 		System.out.println("groupnum="+groupnum);
+		
 		List<FieldValue> fvs = this.doc.getFvlist();
 		Map jmap = new HashMap();  
 		jmap.put("options", "options_");
 	    jmap.put("title",f.getDisplayname());
-	    jmap.put("type","edit");
+	    if(_mode.equals("edit"))
+	    	jmap.put("type","edit");
+	    else{
+	    	jmap.put("type","display");
+	    	if(!_mode.equals("display"));
+	    		System.out.println("No mode chosen!");
+	    }
 		if(groupnum==0){
 			if(this.indexes.size()<=1){
 				for(FieldValue fv:fvs){
@@ -303,11 +310,43 @@ public class HelloServlet  extends HttpServlet{
 	        cfg.setEncoding(Locale.CHINA, "UTF-8");
 	    }
 	    
-	    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{        
+	    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{      
+	    	System.out.println("request-----------docid="+request.getParameter("docid"));
+	    	System.out.println("request-----------mode="+request.getParameter("mode"));
+//	    	int docid = Integer.parseInt(request.getParameter("docid"));
+//	    	int formid = Integer.parseInt(request.getParameter("formid"));
+//	    	String mode = request.getParameter("mode");   	
+	    	
+//	    	if(formid>0){
+//	    		//new doc
+//	    		try {
+//					this.f = fm.loadFormWithFieldsById(formid);
+//				} catch (ClassNotFoundException e1) {
+//					e1.printStackTrace();
+//				} catch (SQLException e1) {
+//					e1.printStackTrace();
+//				}
+//	    		Map jmap = new HashMap();  
+//	    		jmap.put("options", "options_");
+//	    	    jmap.put("title",f.getDisplayname());
+//	    	    jmap.put("type","edit");
+//	    	    
+//	    	    for(Fields fd:this.f.getFields()){	    	    	
+//	    	    	System.out.println("key---"+fd.getFieldname()+",value---");
+//	    	    	jmap.put(fd.getFieldname(),"");
+//				}
+//	    		
+//	    	}
+//	    	if(docid>0){
+//	    		//display
+//	    		//or
+//	    		//edit
+//	    	}
 	        
 	        Map root = new HashMap();
 	        root.put("message", "Hello FreeMarker!");     
-	        this.assembleJsonText();
+	        this.assembleJsonText(Integer.parseInt(request.getParameter("docid")),
+	        		request.getParameter("mode"));
 	        root.put("jsonText3", this.jsonText3); 
 	        root.put("docid", this.doc.getDocid()); 
 //	        root.put("datalist", this.formDatalist);
@@ -333,10 +372,15 @@ public class HelloServlet  extends HttpServlet{
 		        	}
 	        	}
 	        }
-	        
-	        Template t = cfg.getTemplate("tmpl/chemicalManageRecord.ftl"); 
+
+	        Template t = cfg.getTemplate("tmpl/"+f.getFrontendtpl());
+//	        Template t = cfg.getTemplate("tmpl/chemicalManageRecord.ftl"); 
 	        t.setEncoding("utf-8");
-//	        System.out.println(t.toString());
+	        
+	        
+	        
+	        
+	        //System.out.println(t.toString());
 	        //response.setContentType("text/html; charset=" + t.getEncoding());
 	        
 	        try{

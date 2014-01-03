@@ -68,65 +68,56 @@ public class test extends ActionSupport implements ServletRequestAware,SessionAw
 	
 	public String addform(){
 		Form form  = new Form();		
-		form.setDisplayname("化学物品管理记录");
-		form.setFrontendtpl("chemicalManageRecord.ftl");
+		form.setDisplayname("采购清单");
+		form.setFrontendtpl("buyingListing.ftl");
 		
 		List<Fields> flist = new ArrayList<Fields>();
 		//1
 		Fields fs = new Fields();
-		fs.setFieldname("日期");
+		fs.setFieldname("No:");
 		fs.setFieldtype(1);//?
 		flist.add(fs);
 		//2
 		fs = new Fields();
-		fs.setFieldname("化学物品名称");
+		fs.setFieldname("采购时间：");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//3
 		fs = new Fields();
-		fs.setFieldname("规格");
+		fs.setFieldname("原辅材料");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//4
 		fs = new Fields();
 		fs.setFieldname("数量");
-		fs.setFieldtype(1);
-		fs.setGroupname("进货情况");
+		fs.setFieldtype(1);		
 		flist.add(fs);
 		//5
 		fs = new Fields();
-		fs.setFieldname("批号");
+		fs.setFieldname("供应商");
 		fs.setFieldtype(1);
-		fs.setGroupname("进货情况");
 		flist.add(fs);
 		//6
 		fs = new Fields();
-		fs.setFieldname("数量");
+		fs.setFieldname("单价");
 		fs.setFieldtype(1);
-		fs.setGroupname("领用情况");
 		flist.add(fs);
 		//7
 		fs = new Fields();
-		fs.setFieldname("批号");
+		fs.setFieldname("金额");
 		fs.setFieldtype(1);
-		fs.setGroupname("领用情况");
-		flist.add(fs);
+		flist.add(fs);	
 		//8
 		fs = new Fields();
-		fs.setFieldname("领用人");
+		fs.setFieldname("审核： ");
 		fs.setFieldtype(1);
-		fs.setGroupname("领用情况");
 		flist.add(fs);
 		//9
 		fs = new Fields();
-		fs.setFieldname("库存数量");
+		fs.setFieldname("申请：");
 		fs.setFieldtype(1);
 		flist.add(fs);
-		//10
-		fs = new Fields();
-		fs.setFieldname("经手人");
-		fs.setFieldtype(1);
-		flist.add(fs);
+		
 		
 		form.setFields(flist);
 		try {
@@ -409,9 +400,9 @@ public class test extends ActionSupport implements ServletRequestAware,SessionAw
 
 	public String addDoc(){
 		Doc doc = new Doc();
-		doc.setFormid(4);
+		doc.setFormid(5);
 		doc.setCreatedate(CONSTANT.getNowTime());
-		doc.setUserid(3);
+		doc.setUserid(2);
 		doc.setStep(1);
 		
 		int maxindex = 0;
