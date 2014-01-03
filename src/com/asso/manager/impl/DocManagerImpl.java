@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import com.asso.dao.DocDao;
+import com.asso.dao.FormDao;
 import com.asso.manager.DocManager;
 import com.asso.model.Doc;
 import com.asso.model.FieldValue;
@@ -17,6 +18,7 @@ public class DocManagerImpl implements DocManager {
 
 	//For WEB test
 	private DocDao docDao;
+	private FormDao fmDao;
 	
 	public DocDao getDocDao() {
 		return docDao;
@@ -26,6 +28,14 @@ public class DocManagerImpl implements DocManager {
 		this.docDao = docDao;
 	}
 	
+	
+	public FormDao getFmDao() {
+		return fmDao;
+	}
+	@Resource(name="formDao")
+	public void setFmDao(FormDao fmDao) {
+		this.fmDao = fmDao;
+	}
 	
 	@Override
 	public void addDoc(Doc _doc) throws ClassNotFoundException, SQLException {		
@@ -64,6 +74,89 @@ public class DocManagerImpl implements DocManager {
 	    	 System.out.println("Lack of List<FieldValue>!!!");
 	     } 		
 	}
+	@Override
+	public void updateFieldValue(FieldValue _fv){		 
+	     if(_fv!=null && _fv.getFieldvalueid()>=1){	    	 
+	    	 this.docDao.updateFieldValue(_fv);	
+	     }else{
+	    	 System.out.println("Lack of FieldValue!!!");
+	     } 		
+	}
+	
+	private int getFieldValueId(int _docid, int _fieldid, int _fvindex){
+		int fvid = 0;
+		List<FieldValue> rlist = this.docDao.loadFieldValue(_docid, _fieldid, _fvindex);
+		if(rlist!=null && rlist.size()>0){
+			if(rlist.size()==1)
+				fvid = rlist.get(0).getFieldvalueid();
+			else
+				fvid = rlist.get(rlist.size()-1).getFieldvalueid();
+		}else
+			System.out.println("No fieldvalueid picked! New add!");
+				
+		return fvid;
+	}
+	private int getFieldValueId(int _docid, int _fieldid){
+		int fvid = 0;
+		List<FieldValue> rlist = this.docDao.loadFieldValue(_docid, _fieldid);
+		if(rlist!=null && rlist.size()>0){
+			if(rlist.size()==1)
+				fvid = rlist.get(0).getFieldvalueid();
+			else
+				fvid = rlist.get(rlist.size()-1).getFieldvalueid();
+		}else
+			System.out.println("No fieldvalueid picked! New add!");
+				
+		return fvid;
+	}
+	
+	@Override
+	public void updateFieldValueByFieldName(String _fn, String _value, int _docid, int _fvindex){
+		if(_fn!=null && _fn.length()>0){
+			int fid = this.fmDao.getFieldIdByName(_fn).getFieldid();
+			int fvid = this.getFieldValueId(_docid, fid, _fvindex);
+			FieldValue fv = new FieldValue();
+			fv.setFieldid(fid);
+			fv.setFieldvalueid(fvid);
+			fv.setValue(_value);
+			fv.setDocid(_docid);			
+			fv.setFieldvalueindex(_fvindex);
+			this.docDao.updateFieldValue(fv);			
+		}	     		
+	}
+	
+	@Override
+	public void updateSingleFieldValueByFieldName(String _fn, String _value, int _docid, int _fvindex){
+		if(_fn!=null && _fn.length()>0){			
+			System.out.println("this.fmDao.getFieldIdByName(_fn)---"+this.fmDao.getFieldIdByName(_fn).toString());
+			int fid = this.fmDao.getFieldIdByName(_fn).getFieldid();
+				
+//			int fvid = 0 ;
+//			if(_fvindex==-1)
+//				fvid = this.getFieldValueId(_docid, fid);
+//			else
+//				fvid = this.getFieldValueId(_docid, fid, _fvindex);
+			System.out.println("updateSingleFieldValueByFieldName  fid="+fid);
+			FieldValue fv = new FieldValue();			
+			fv.setFieldvalueindex(0);
+			fv.setValue(_value);
+			fv.setDocid(_docid);
+			fv.setFieldid(fid);	
+//			if(fvid==0){				
+				this.docDao.saveFieldValue(fv);
+//			}else{
+//				fv.setFieldvalueid(fvid);				
+//				this.docDao.updateFieldValue(fv);
+//			}						
+		}else{
+			System.out.println("field name data ERROR, pls INV...");
+		}
+	}
+	@Override
+	public void deleteFieldValueListByDocId(int _docid){
+		this.docDao.delFieldValueListByDocId(_docid);
+	}
+	
 	
 	@Override
 	public int getMaxFVIndex(int _docid){

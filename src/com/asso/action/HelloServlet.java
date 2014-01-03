@@ -35,19 +35,19 @@ public class HelloServlet  extends HttpServlet{
 	private Form f;
 	private List<Doc> doclist;
 	private Doc doc;
-	private Map<String, List<String>> formDataMap;
-	private Map<String, List<String>> formValueMap;
-	private Map<String, List<String>> formDataMapModel;
-	private List<String> formDatalist;
-	private List<String> formValuelist;
+//	private Map<String, List<String>> formDataMap;
+//	private Map<String, List<String>> formValueMap;
+//	private Map<String, List<String>> formDataMapModel;
+//	private List<String> formDatalist;
+//	private List<String> formValuelist;
 	private HashMap<String,List<Fields>> group;//KEY-groupname, VALUE-fieldname 
 	private HashSet<Integer> indexes;
 	
 	public HelloServlet(){		
 		fm = (FormManager) SpringFactory.getObject("formManager");
 		dm = (DocManager) SpringFactory.getObject("docManager");
-		this.formDatalist = new ArrayList<String>();
-		this.formValuelist = new ArrayList<String>();
+//		this.formDatalist = new ArrayList<String>();
+//		this.formValuelist = new ArrayList<String>();
 	}	
 		
 	
@@ -93,36 +93,36 @@ public class HelloServlet  extends HttpServlet{
 	public void setDoc(Doc doc) {
 		this.doc = doc;
 	}
-	public Map<String, List<String>> getFormDataMap() {
-		return formDataMap;
-	}
-	public void setFormDataMap(Map<String, List<String>> formDataMap) {
-		this.formDataMap = formDataMap;
-	}
-	public Map<String, List<String>> getFormValueMap() {
-		return formValueMap;
-	}
-	public void setFormValueMap(Map<String, List<String>> formValueMap) {
-		this.formValueMap = formValueMap;
-	}
-	public Map<String, List<String>> getFormDataMapModel() {
-		return formDataMapModel;
-	}
-	public void setFormDataMapModel(Map<String, List<String>> formDataMapModel) {
-		this.formDataMapModel = formDataMapModel;
-	}	
-	public List<String> getFormDatalist() {
-		return formDatalist;
-	}
-	public void setFormDatalist(List<String> formDatalist) {
-		this.formDatalist = formDatalist;
-	}
-	public List<String> getFormValuelist() {
-		return formValuelist;
-	}
-	public void setFormValuelist(List<String> formValuelist) {
-		this.formValuelist = formValuelist;
-	}
+//	public Map<String, List<String>> getFormDataMap() {
+//		return formDataMap;
+//	}
+//	public void setFormDataMap(Map<String, List<String>> formDataMap) {
+//		this.formDataMap = formDataMap;
+//	}
+//	public Map<String, List<String>> getFormValueMap() {
+//		return formValueMap;
+//	}
+//	public void setFormValueMap(Map<String, List<String>> formValueMap) {
+//		this.formValueMap = formValueMap;
+//	}
+//	public Map<String, List<String>> getFormDataMapModel() {
+//		return formDataMapModel;
+//	}
+//	public void setFormDataMapModel(Map<String, List<String>> formDataMapModel) {
+//		this.formDataMapModel = formDataMapModel;
+//	}	
+//	public List<String> getFormDatalist() {
+//		return formDatalist;
+//	}
+//	public void setFormDatalist(List<String> formDatalist) {
+//		this.formDatalist = formDatalist;
+//	}
+//	public List<String> getFormValuelist() {
+//		return formValuelist;
+//	}
+//	public void setFormValuelist(List<String> formValuelist) {
+//		this.formValuelist = formValuelist;
+//	}
 	public HashMap<String, List<Fields>> getGroup() {
 		return group;
 	}
@@ -200,6 +200,8 @@ public class HelloServlet  extends HttpServlet{
 	}
 	
 	private void assembleJsonText(){
+		this.doc = new Doc();
+		this.doc.setDocid(6);
 		this.setDocForm(6);//docid=4|6 
 		int groupnum = this.buildGroup();
 		System.out.println("groupnum="+groupnum);
@@ -219,8 +221,8 @@ public class HelloServlet  extends HttpServlet{
 							key = fd.getFieldname();
 					}
 					System.out.println("key---"+key+",value---"+value);
-					this.formDatalist.add(key);
-					this.formValuelist.add(value);
+//					this.formDatalist.add(key);
+//					this.formValuelist.add(value);
 					jmap.put(key,value);
 				}			
 			}else{
@@ -306,9 +308,10 @@ public class HelloServlet  extends HttpServlet{
 	        Map root = new HashMap();
 	        root.put("message", "Hello FreeMarker!");     
 	        this.assembleJsonText();
-	        root.put("jsonText3", this.jsonText3);   
-	        root.put("datalist", this.formDatalist);
-	        root.put("valuelist", this.formValuelist);
+	        root.put("jsonText3", this.jsonText3); 
+	        root.put("docid", this.doc.getDocid()); 
+//	        root.put("datalist", this.formDatalist);
+//	        root.put("valuelist", this.formValuelist);
 	        response.setCharacterEncoding("utf-8");
 	        Writer out = response.getWriter();
 	        Enumeration<String> e = request.getParameterNames();
@@ -339,8 +342,8 @@ public class HelloServlet  extends HttpServlet{
 	        try{
 	            t.process(root, out);
 	        } 
-	        catch (TemplateException e){
-	            throw new ServletException("", e);
+	        catch (TemplateException e1){
+	            throw new ServletException("", e1);
 	        }
 	        out.flush();
 	    }

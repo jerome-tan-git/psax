@@ -119,6 +119,37 @@ public class DocDaoImpl implements DocDao{
 	    }
 		return did;
 	}
+
+	@Override
+	public List<FieldValue> loadFieldValue(int _docid, int _fieldid, int _fvindex){
+		List<FieldValue> rlist = new ArrayList<FieldValue>();
+		Session s = sessionFactory.getCurrentSession();
+		
+		Query query = s.createQuery("from FieldValue fv where fv.docid = :f1 and fv.fieldid = :f2"
+				+ " and fv.fieldvalueindex = :f3")
+	    		.setParameter("f1", _docid)
+	    		.setParameter("f2", _fieldid)
+	    		.setParameter("f3", _fvindex);	   		
+	   
+        rlist = query.list();
+        System.out.println("-------------------DocDaoImpl. loadFieldValue rz.size="+rlist.size());
+		return rlist;
+	}
+	
+	@Override
+	public List<FieldValue> loadFieldValue(int _docid, int _fieldid){
+		List<FieldValue> rlist = new ArrayList<FieldValue>();
+		Session s = sessionFactory.getCurrentSession();
+		
+		Query query = s.createQuery("from FieldValue fv where fv.docid = :f1 and fv.fieldid = :f2")
+	    		.setParameter("f1", _docid)
+	    		.setParameter("f2", _fieldid);	   		
+	   
+        rlist = query.list();
+        System.out.println("-------------------DocDaoImpl. loadFieldValue rz.size="+rlist.size());
+		return rlist;
+	}
+	
 	
 	@Override
 	public List<FieldValue> loadFieldValueListByDocId(int _docid){

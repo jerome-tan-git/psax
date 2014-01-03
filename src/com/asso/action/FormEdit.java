@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -326,17 +327,66 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 	
 	
 	public String updateDoc(){
-		System.out.println("GOT finfo----");
-		System.out.println(this.finfo.getField_1());
-		System.out.println(this.finfo.getField_2());
-		System.out.println(this.finfo.getField_3());
-		System.out.println(this.finfo.getField_4());
-		System.out.println(this.finfo.getField_5());
-		System.out.println(this.finfo.getField_6());
-		System.out.println(this.finfo.getField_7());
-		System.out.println(this.finfo.getField_8());
-		System.out.println(this.finfo.getField_9());
-		System.out.println(this.finfo.getField_10());
+		int docid = 0;
+		int fvindex = 0;
+		if(this.request.getParameter("docid")!=null && this.request.getParameter("docid").length()>0){
+			docid = Integer.parseInt(this.request.getParameter("docid"));
+			System.out.println("docid--->"+this.request.getParameter("docid"));
+			
+		}
+		
+		System.out.println("GOT finfo----");		
+		Map map =  this.request.getParameterMap();
+		Set<Object> reqkeys = (Set<Object>) map.keySet();
+		for(Object reqo :reqkeys){
+			System.out.println("KEY---"+reqo.toString());
+			if(this.request.getParameter(reqo.toString())!=null){
+				System.out.println(this.request.getParameter(reqo.toString()));
+				fvindex = 1;//仅提交一条数据
+			}				
+			else{
+				System.out.println(this.request.getParameterValues(reqo.toString()).toString());
+				fvindex = this.request.getParameterValues(reqo.toString()).length;//提交多条数据，需要清空旧数据，重新给index
+			}				
+		}
+		
+		if(fvindex>0){			
+			System.out.println("fvindex--->"+fvindex);
+			this.dm.deleteFieldValueListByDocId(docid);
+			
+			if(fvindex==1){//没有group
+				for(Object reqo :reqkeys){
+					if(reqo.toString().equals("docid"))
+						continue;
+					System.out.println("To UPDATE---fieldname="+reqo.toString()+", fieldvalue="+this.request.getParameter(reqo.toString())
+							+", docid="+docid+", fvindex="+fvindex);					
+					this.dm.updateSingleFieldValueByFieldName(reqo.toString(), 
+							this.request.getParameter(reqo.toString()), docid, -1);
+				}
+			}else{
+				//update multi fieldvalue				
+				for(int i=0;i<fvindex;i++){
+					System.out.println("Adding No."+i+" line data...");
+					for(Object reqo :reqkeys){
+						if(reqo.toString().equals("docid"))
+							continue;
+						System.out.println("GETting "+reqo.toString()+", value="+
+								this.request.getParameterValues(reqo.toString())[i]);
+						String fv= this.request.getParameterValues(reqo.toString())[i];
+						if( fv!=null &&fv.length()>0 ){
+							fv = fv.trim();
+						}else
+							fv = "";
+						this.dm.updateSingleFieldValueByFieldName(reqo.toString(),fv,docid,fvindex);
+					}
+				}
+			}
+				
+		}
+		
+		
+		
+//		this.dm.updateFieldValueByFieldName(_fn, _value, _docid, _fvindex);
 		
 		return SUCCESS;
 	}

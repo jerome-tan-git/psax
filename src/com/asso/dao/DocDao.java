@@ -35,6 +35,10 @@ public interface DocDao {
 	List<Doc> loadDocsByUser(int _userid);
 
 	List<Doc> loadDocs(int _userid, int _formid);
+
+	List<FieldValue> loadFieldValue(int _docid, int _fieldid, int _fvindex);
+
+	List<FieldValue> loadFieldValue(int _docid, int _fieldid);
 	
 
 }

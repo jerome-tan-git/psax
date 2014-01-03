@@ -33,4 +33,14 @@ public interface DocManager {
 	List<Doc> loadDocByFormidUserid(int _docid, int _formid)
 			throws ClassNotFoundException, SQLException;
 
+	void updateFieldValue(FieldValue _fv);
+
+	void updateFieldValueByFieldName(String _fn, String _value, int _docid,
+			int _fvindex);
+
+	void updateSingleFieldValueByFieldName(String _fn, String _value,
+			int _docid, int _fvindex);
+
+	void deleteFieldValueListByDocId(int _docid);
+
 }

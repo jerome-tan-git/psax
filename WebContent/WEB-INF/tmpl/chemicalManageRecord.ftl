@@ -200,7 +200,7 @@ transitional.dtd">
 					<h2>用户登录</h2>
 					<div class="sub_header_description">
 						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">用户登录hello, *|1, ${message}</span>
+						<span class="page">用户登录</span>
 					</div>
 
 				</div>
@@ -218,25 +218,25 @@ transitional.dtd">
 				<table style="width:100%">
 					<tr>
 						
-						<td><div class="display" form_data="options">333</div>
-							<input class="editor" form_data="options"/>123456</td>
-						<td colspan="4"><div class="display" form_data="title">化学物品管理记录</div>
-							<input class="editor" form_data="title"/>化学物品管理记录</td>						
-						<td><div class="display" form_data="options">333</div>
+						<td><div class="display" form_data="options">333display</div>
+							<input class="editor" form_data="options"/>123456editor</td>
+						<td colspan="4"><div class="display" form_data="title">化学物品管理记录display</div>
+							<input class="editor" form_data="title"/>化学物品管理记录editor</td>						
+						<td><div class="display" form_data="options">333display</div>
 							<input class="editor" form_data="options"/></td>
 					</tr>
 				
 					
 					<tbody id='data_1_container'>
 					<tr form_data="_loop" target_data = "data_1">
-						<td><div class="display" form_data="field_1">太阳</div>
-							<input class="editor" form_data="field_1" value="" />
+						<td><div class="display" form_data="field_1">太阳d</div>
+							<input class="editor" form_data="field_1" value="太阳e" />
 						</td>
-						<td><div class="display" form_data="field_2">月亮</div>
-							<input class="editor" form_data="field_2" value="" />
+						<td><div class="display" form_data="field_2">月亮d</div>
+							<input class="editor" form_data="field_2" value="月亮e" />
 						</td>
-						<td colspan="3"><div class="display" form_data="field_3">星星</div>
-							<input class="editor" form_data="field_3" value="" />
+						<td colspan="3"><div class="display" form_data="field_3">星星d</div>
+							<input class="editor" form_data="field_3" value="星星e" />
 						</td>
 					</tr>
 					</tbody>
@@ -276,38 +276,64 @@ transitional.dtd">
 				  </tr>
 				  <tr>
 					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<input class="editor" form_data="accepter1" value="" name="" type="text" readonly="true" style="width:50px;height:20px" />
+					    	<div class="display" form_data="date1" ></div>
+					    	<input class="editor" form_data="date1" name="date1" 
+					    	type="text" style="width:50px;height:20px" ></input>
+					    </td>
+					    <td width="80" bgcolor="#FFFFFF">					    
+					    	<div class="display" form_data="chemicalname1" ></div>
+					    	<input class="editor" form_data="chemicalname1" name="chemicalname1" 
+					    	type="text" style="width:50px;height:20px" ></input>
+					    </td>
+					    <td width="80" bgcolor="#FFFFFF">					    
+					    	<div class="display" form_data="volumn1" ></div>
+					    	<input class="editor" form_data="volumn1" name="volumn1" 
+					    	type="text" style="width:50px;height:20px" ></input>
+					    </td>
+					    <td width="80" bgcolor="#FFFFFF">					    
+					    	<div class="display" form_data="quantity1" ></div>
+					    	<input class="editor" form_data="quantity1" name="quantity1" 
+					    	type="text" style="width:50px;height:20px" ></input>
 					    </td>
 					    <td width="80" bgcolor="#FFFFFF">	
-					    <div class="display" form_data="batchnumber1" ></div>				    
-					    	<input class="editor" form_data="batchnumber1" value="" name="" type="text" style="width:50px;height:20px" />
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">		<div class="display" form_data="batchnumber2" ></div>			    
-					    	<input class="editor" form_data="batchnumber2" value="" name="" type="text" style="width:50px;height:20px" />
-					    </td><td width="80" bgcolor="#FFFFFF">					    
-					    	<input class="editor" form_data="chemicalname1" value="" name="" type="text" style="width:50px;height:20px" />
-					    </td><td width="80" bgcolor="#FFFFFF">					    
-					    	<input class="editor" form_data="date1" value="" name="date1" type="text" style="width:50px;height:20px" />
-					    </td><td width="80" bgcolor="#FFFFFF">					    
-					    	<input class="editor" form_data="operator1" value="" name="" type="text" style="width:50px;height:20px" />
-					    </td><td width="80" bgcolor="#FFFFFF">					    
-					    	<input class="editor" form_data="quantity1" value="" name="" type="text" style="width:50px;height:20px" />
-					    </td><td width="80" bgcolor="#FFFFFF">					    
-					    	<input class="editor" form_data="quantity2" value="" name="" type="text" style="width:50px;height:20px" />
+					    	<div class="display" form_data="batchnumber1" ></div>				    
+					    	<input class="editor" form_data="batchnumber1" name="batchnumber1" 
+					    	type="text" style="width:50px;height:20px" ></input>
 					    </td>
 					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<input class="editor" form_data="stock1" value="" name="" type="text" style="width:50px;height:20px" />
+					    	<div class="display" form_data="quantity2" ></div>
+					    	<input class="editor" form_data="quantity2" name="quantity2" 
+					    	type="text" style="width:50px;height:20px" ></input>
+					    </td>
+					    <td width="80" bgcolor="#FFFFFF">
+					    	<div class="display" form_data="batchnumber2" ></div>			    
+					    	<input class="editor" form_data="batchnumber2" name="batchnumber2"
+					    	type="text" style="width:50px;height:20px" ></input>
+					    </td>
+					    <td width="80" bgcolor="#FFFFFF">	
+					   		<div class="display" form_data="accepter1" ></div>
+					    	<input class="editor" form_data="accepter1" name="accepter1" 
+					    	type="text" style="width:50px;height:20px" ></input><!-- readonly="true"  -->
 					    </td>
 					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<input class="editor" form_data="volumn1" value="" name="" type="text" style="width:50px;height:20px" />
+					    	<div class="display" form_data="stock1" ></div>
+					    	<input class="editor" form_data="stock1" name="stock1" 
+					    	type="text" style="width:50px;height:20px" ></input>
 					    </td>
+					    <td width="80" bgcolor="#FFFFFF">					    
+					    	<div class="display" form_data="operator1" ></div>
+					    	<input class="editor" form_data="operator1" name="operator1" 
+					    	type="text" style="width:50px;height:20px" ></input>
+					    </td>
+					    
 					    </tr>
 				  <tr>
-
+					<input type="hidden" value="${docid}" name="docid" />
+ 					<input type="submit" value="save" />
 				  
 				</form>
 				</table>sfasdf
-								 <input type="submit" value="save" />
+								
 				
 			</div>
 			<!-- Teaser End -->

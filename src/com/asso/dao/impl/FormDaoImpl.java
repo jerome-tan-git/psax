@@ -111,6 +111,26 @@ public class FormDaoImpl implements FormDao{
 	}
 	
 	@Override
+	public Fields getFieldIdByName(String _name){
+		Fields fields = new Fields();
+		List<Fields> rlist = new ArrayList<Fields>();
+		Session s = sessionFactory.getCurrentSession();
+		String hql = "from Fields where fieldname=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+_name); 
+        rlist = query.list();
+        System.out.println("getFieldIdByName _input field name="+_name+", rlist.size="+rlist.size());
+        if(rlist.size()==1){
+        	fields = rlist.get(0);
+        }else{
+        	if(rlist.size()>1)
+        		fields = rlist.get(rlist.size()-1);
+        }
+        System.out.println("getFieldIdByName fields="+fields.toString() );
+        return fields;
+	}
+	
+	@Override
 	public void delFieldsByFormId(int _formid){
 		List<Fields> dlist = this.loadFieldsByFormId(_formid);
 		Session s1 = sessionFactory.getCurrentSession(); 

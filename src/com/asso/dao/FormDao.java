@@ -17,5 +17,6 @@ public interface FormDao {
 	void delFieldsByFormId(int _formid);
 	void delField(Fields _field);
 	void saveField(Fields field);
+	Fields getFieldIdByName(String _name);
 	
 }
