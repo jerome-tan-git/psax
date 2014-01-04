@@ -184,10 +184,10 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>�û���¼</h2>
+					<h2>用户登录</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">��ҳ &raquo;</a></span>
-						<span class="page">�û���¼</span>
+						<span><a href="./index.html">首页 &raquo;</a></span>
+						<span class="page">用户登录</span>
 					</div>
 
 				</div>
@@ -207,7 +207,7 @@ transitional.dtd">
 					<tr>						
 						<td><div class="display" form_data="options">333display</div>
 							<input class="editor" form_data="options"/></td>
-						<td colspan="4"><div class="display" form_data="title">��ѧ��Ʒ������¼display</div>
+						<td colspan="4"><div class="display" form_data="title">化学物品管理记录display</div>
 							<input class="editor" form_data="title"/></td>						
 						<td><div class="display" form_data="options">333display</div>
 							<input class="editor" form_data="options"/></td>
@@ -215,14 +215,14 @@ transitional.dtd">
 				
 					<tbody id='data_1_container'>
 					<tr form_data="_loop" target_data = "data_1">
-						<td><div class="display" form_data="field_1">̫��d</div>
-							<input class="editor" form_data="field_1" value="̫��e" />
+						<td><div class="display" form_data="field_1">太阳d</div>
+							<input class="editor" form_data="field_1" value="太阳e" />
 						</td>
-						<td><div class="display" form_data="field_2">����d</div>
-							<input class="editor" form_data="field_2" value="����e" />
+						<td><div class="display" form_data="field_2">月亮d</div>
+							<input class="editor" form_data="field_2" value="月亮e" />
 						</td>
-						<td colspan="3"><div class="display" form_data="field_3">����d</div>
-							<input class="editor" form_data="field_3" value="����e" />
+						<td colspan="3"><div class="display" form_data="field_3">星星d</div>
+							<input class="editor" form_data="field_3" value="星星e" />
 						</td>
 					</tr>
 					</tbody>
@@ -236,7 +236,7 @@ transitional.dtd">
 				<tbody id='data_1_container'>
 				  <tr>
 				    <td height="40" colspan="2"><div align="center">
-				      <h2>���������Ҫ</h2>
+				      <h2>质量会议纪要</h2>
 				    </div></td>
 				  </tr>
 				  <tr>
@@ -244,113 +244,64 @@ transitional.dtd">
 				    <td width="265" align="center">No:
 				    	<div class="display" form_data="qmn_no" ></div>
 					    <input class="editor" form_data="qmn_no" name="qmn_no" 
-					    	type="text" style="width:50px;height:20px" ></input>
+					    	type="text" style="width:80px;height:20px" ></input>
 				    </td>
-				  </tr>
-				  
+				  </tr>				  
 				  <tr>
-				    <td height="24">����ʱ�䣺
+				    <td height="24">会议时间：
 				    	<div class="display" form_data="qmn_meetingtime" ></div>
 					    <input class="editor" form_data="qmn_meetingtime" name="qmn_meetingtime" 
-					    	type="text" style="width:50px;height:20px" ></input>
+					    	type="text" style="width:80px;height:20px" ></input>
 				    </td>
-				    <td>����ص㣺
+				    <td>会议地点：
 					    <div class="display" form_data="qmn_meetingplace" ></div>
 						<input class="editor" form_data="qmn_meetingplace" name="qmn_meetingplace" 
-					    	type="text" style="width:50px;height:20px" ></input>
+					    	type="text" style="width:80px;height:20px" ></input>
 				    </td>
 				  </tr>
 				  <tr>
-				    <td height="58" colspan="2">�λ���Ա��</td>
+				    <td height="58" colspan="2">参会人员：
+				    	<div class="display" form_data="qmn_members" ></div>
+						<input class="editor" form_data="qmn_members" name="qmn_members" 
+					    	type="textarea" style="" ></input>
+				    </td>
 				  </tr>
 				  <tr>
-				    <td height="211" colspan="2" valign="top">������Ҫ���ݣ�</td>
+				    <td height="211" colspan="2" valign="top">会议主要内容：
+				    	<div class="display" form_data="qmn_meetingguideline" ></div>
+						<input class="editor" form_data="qmn_meetingguideline" name="qmn_meetingguideline" 
+					    	type="textarea" style="" ></input>
+				    </td>
 				  </tr>
 				  
 				  <tr>
-				    <td height="111" colspan="2" valign="top" bordercolor="#666666">��ע��</td>
+				    <td height="111" colspan="2" valign="top" bordercolor="#666666">备注：
+				    	<div class="display" form_data="qmn_remarks" ></div>
+						<input class="editor" form_data="qmn_remarks" name="qmn_remarks" 
+					    	type="textarea" style="width:80px;height:20px" ></input>
+				    </td>
 				  </tr>
 				  
 				  <tr>
-				    <td>��ˣ�</td>
-				    <td bordercolor="#666666">��¼��</td>
+				    <td>审核：
+				    	<div class="display" form_data="qmn_checker" ></div>
+						<input class="editor" form_data="qmn_checker" name="qmn_checker" 
+					    	type="text" style="width:80px;height:20px" ></input>				    
+				    </td>
+				    <td bordercolor="#666666">记录：
+				    	<div class="display" form_data="qmn_recorder" ></div>
+						<input class="editor" form_data="qmn_recorder" name="qmn_recorder" 
+					    	type="text" style="width:80px;height:20px" ></input>				    
+				    </td>
 				  </tr>
 				  </tbody>
 				
 				</table>
 				
 					<input type="hidden" value="${docid}" name="docid" />
- 					<input type="submit" value="����" />
+ 					<input type="submit" value="保存" />
 				</form>
 				
-				
-				<table width="653" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999">
-				<form action="saveDoc.action" method="post" >
-				
-				 
-				  
-				  <tbody id='data_1_container'>
-				  <tr form_data="_loop" target_data = "data_1">
-					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<div class="display" form_data="date1" ></div>
-					    	<input class="editor" form_data="date1" name="date1" 
-					    	type="text" style="width:50px;height:20px" ></input>
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<div class="display" form_data="chemicalname1" ></div>
-					    	<input class="editor" form_data="chemicalname1" name="chemicalname1" 
-					    	type="text" style="width:50px;height:20px" ></input>
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<div class="display" form_data="volumn1" ></div>
-					    	<input class="editor" form_data="volumn1" name="volumn1" 
-					    	type="text" style="width:50px;height:20px" ></input>
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<div class="display" form_data="quantity1" ></div>
-					    	<input class="editor" form_data="quantity1" name="quantity1" 
-					    	type="text" style="width:50px;height:20px" ></input>
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">	
-					    	<div class="display" form_data="batchnumber1" ></div>				    
-					    	<input class="editor" form_data="batchnumber1" name="batchnumber1" 
-					    	type="text" style="width:50px;height:20px" ></input>
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<div class="display" form_data="quantity2" ></div>
-					    	<input class="editor" form_data="quantity2" name="quantity2" 
-					    	type="text" style="width:50px;height:20px" ></input>
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">
-					    	<div class="display" form_data="batchnumber2" ></div>			    
-					    	<input class="editor" form_data="batchnumber2" name="batchnumber2"
-					    	type="text" style="width:50px;height:20px" ></input>
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">	
-					   		<div class="display" form_data="accepter1" ></div>
-					    	<input class="editor" form_data="accepter1" name="accepter1" 
-					    	type="text" style="width:50px;height:20px" ></input><!-- readonly="true"  -->
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<div class="display" form_data="stock1" ></div>
-					    	<input class="editor" form_data="stock1" name="stock1" 
-					    	type="text" style="width:50px;height:20px" ></input>
-					    </td>
-					    <td width="80" bgcolor="#FFFFFF">					    
-					    	<div class="display" form_data="operator1" ></div>
-					    	<input class="editor" form_data="operator1" name="operator1" 
-					    	type="text" style="width:50px;height:20px" ></input>
-					    </td>
-					    
-				  </tr>
-				  </tbody>
-				  <tr>
-					<input type="hidden" value="${docid}" name="docid" />
- 					<input type="submit" value="save" />
-				  </tr>
-				</form>
-				</table>sfasdf
-								
 				
 			</div>
 			<!-- Teaser End -->

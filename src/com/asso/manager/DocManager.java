@@ -43,4 +43,6 @@ public interface DocManager {
 
 	void deleteFieldValueListByDocId(int _docid);
 
+	int getDocIdByCreateDate(String _date);
+
 }

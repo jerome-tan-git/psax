@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 
 import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 
+import util.CONSTANT;
 import util.SpringFactory;
 
 import com.alibaba.fastjson.JSON;
@@ -35,37 +36,28 @@ public class HelloServlet  extends HttpServlet{
 	private Form f;
 	private List<Doc> doclist;
 	private Doc doc;
-//	private Map<String, List<String>> formDataMap;
-//	private Map<String, List<String>> formValueMap;
-//	private Map<String, List<String>> formDataMapModel;
-//	private List<String> formDatalist;
-//	private List<String> formValuelist;
+
 	private HashMap<String,List<Fields>> group;//KEY-groupname, VALUE-fieldname 
 	private HashSet<Integer> indexes;
 	
 	public HelloServlet(){		
 		fm = (FormManager) SpringFactory.getObject("formManager");
 		dm = (DocManager) SpringFactory.getObject("docManager");
-//		this.formDatalist = new ArrayList<String>();
-//		this.formValuelist = new ArrayList<String>();
 	}	
 		
 	
 	public FormManager getFm() {
 		return fm;
 	}
-//	@Resource(name="formManager")
 	public void setFm(FormManager fm) {
 		this.fm = fm;
 	}
 	public DocManager getDm() {
 		return dm;
 	}
-//	@Resource(name="docManager")
 	public void setDm(DocManager dm) {
 		this.dm = dm;
 	}
-	
 	
 	
 	
@@ -93,36 +85,7 @@ public class HelloServlet  extends HttpServlet{
 	public void setDoc(Doc doc) {
 		this.doc = doc;
 	}
-//	public Map<String, List<String>> getFormDataMap() {
-//		return formDataMap;
-//	}
-//	public void setFormDataMap(Map<String, List<String>> formDataMap) {
-//		this.formDataMap = formDataMap;
-//	}
-//	public Map<String, List<String>> getFormValueMap() {
-//		return formValueMap;
-//	}
-//	public void setFormValueMap(Map<String, List<String>> formValueMap) {
-//		this.formValueMap = formValueMap;
-//	}
-//	public Map<String, List<String>> getFormDataMapModel() {
-//		return formDataMapModel;
-//	}
-//	public void setFormDataMapModel(Map<String, List<String>> formDataMapModel) {
-//		this.formDataMapModel = formDataMapModel;
-//	}	
-//	public List<String> getFormDatalist() {
-//		return formDatalist;
-//	}
-//	public void setFormDatalist(List<String> formDatalist) {
-//		this.formDatalist = formDatalist;
-//	}
-//	public List<String> getFormValuelist() {
-//		return formValuelist;
-//	}
-//	public void setFormValuelist(List<String> formValuelist) {
-//		this.formValuelist = formValuelist;
-//	}
+
 	public HashMap<String, List<Fields>> getGroup() {
 		return group;
 	}
@@ -196,6 +159,44 @@ public class HelloServlet  extends HttpServlet{
 			return gnames.size();
 		else
 			return 0;
+	}
+	
+	private void assembleNewDocJsonText(int _formid){
+		
+		String time = CONSTANT.getNowTime();
+		this.doc = new Doc();
+		doc.setFormid(_formid);
+		doc.setCreatedate(time);
+		try {
+			dm.addDoc(this.doc);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		this.doc.setDocid(dm.getDocIdByCreateDate(time));
+		
+		try {
+			this.f = fm.loadFormWithFieldsById(_formid);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		Map jmap = new HashMap();  
+		jmap.put("options", "options_");
+	    jmap.put("title",f.getDisplayname());
+	    jmap.put("type","edit");
+	    
+	    for(Fields fd:this.f.getFields()){		    	
+//	    	System.out.println("key---"+fd.getFieldname()+",value---");
+	    	jmap.put(fd.getFieldname(),"");
+		}
+	    
+	    this.jsonText3=JSON.toJSONString(jmap, true); 
+		System.out.println(this.jsonText3);
+		System.out.println("------------------------assembleNewDocJsonText over!--------------------------------------");
 	}
 	
 	private void assembleJsonText(int _docid, String _mode){
@@ -313,65 +314,45 @@ public class HelloServlet  extends HttpServlet{
 	    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{      
 	    	System.out.println("request-----------docid="+request.getParameter("docid"));
 	    	System.out.println("request-----------mode="+request.getParameter("mode"));
-//	    	int docid = Integer.parseInt(request.getParameter("docid"));
-//	    	int formid = Integer.parseInt(request.getParameter("formid"));
-//	    	String mode = request.getParameter("mode");   	
-	    	
-//	    	if(formid>0){
-//	    		//new doc
-//	    		try {
-//					this.f = fm.loadFormWithFieldsById(formid);
-//				} catch (ClassNotFoundException e1) {
-//					e1.printStackTrace();
-//				} catch (SQLException e1) {
-//					e1.printStackTrace();
-//				}
-//	    		Map jmap = new HashMap();  
-//	    		jmap.put("options", "options_");
-//	    	    jmap.put("title",f.getDisplayname());
-//	    	    jmap.put("type","edit");
-//	    	    
-//	    	    for(Fields fd:this.f.getFields()){	    	    	
-//	    	    	System.out.println("key---"+fd.getFieldname()+",value---");
-//	    	    	jmap.put(fd.getFieldname(),"");
-//				}
-//	    		
-//	    	}
-//	    	if(docid>0){
-//	    		//display
-//	    		//or
-//	    		//edit
-//	    	}
+	
+	    	if(request.getParameter("formid")!=null && Integer.parseInt(request.getParameter("formid"))>0){
+	    		//new doc
+	    		int formid = Integer.parseInt(request.getParameter("formid"));
+	    		this.assembleNewDocJsonText(formid);	    		
+	    	}else{
+	    		String strdid = request.getParameter("docid");
+	    		String smode = request.getParameter("mode");
+	    		if(strdid!=null && Integer.parseInt(strdid)>0){
+		    		//display .or. edit
+	    			this.assembleJsonText(Integer.parseInt(strdid),smode);
+		    	}
+	    	}    	
 	        
-	        Map root = new HashMap();
-	        root.put("message", "Hello FreeMarker!");     
-	        this.assembleJsonText(Integer.parseInt(request.getParameter("docid")),
-	        		request.getParameter("mode"));
+	        Map root = new HashMap();	        
 	        root.put("jsonText3", this.jsonText3); 
 	        root.put("docid", this.doc.getDocid()); 
-//	        root.put("datalist", this.formDatalist);
-//	        root.put("valuelist", this.formValuelist);
+	        
 	        response.setCharacterEncoding("utf-8");
 	        Writer out = response.getWriter();
-	        Enumeration<String> e = request.getParameterNames();
-	        while(e.hasMoreElements())
-	        {
-	        	String parameterName = (e.nextElement());
-	        	String[] values = request.getParameterValues(parameterName);
-	        	if(values!=null)
-	        	{
-		        	for(int i=0;i<values.length;i++)
-		        	{
-		        		int fieldIndex = i;
-		        		String fieldName = parameterName;
-		        		String fieldValue = values[i];
-		        		
-		        		//new a field and insert into field Value table
-		        		
-		        		
-		        	}
-	        	}
-	        }
+//	        Enumeration<String> e = request.getParameterNames();
+//	        while(e.hasMoreElements())
+//	        {
+//	        	String parameterName = (e.nextElement());
+//	        	String[] values = request.getParameterValues(parameterName);
+//	        	if(values!=null)
+//	        	{
+//		        	for(int i=0;i<values.length;i++)
+//		        	{
+//		        		int fieldIndex = i;
+//		        		String fieldName = parameterName;
+//		        		String fieldValue = values[i];
+//		        		
+//		        		//new a field and insert into field Value table
+//		        		
+//		        		
+//		        	}
+//	        	}
+//	        }
 
 	        Template t = cfg.getTemplate("tmpl/"+f.getFrontendtpl());
 //	        Template t = cfg.getTemplate("tmpl/chemicalManageRecord.ftl"); 

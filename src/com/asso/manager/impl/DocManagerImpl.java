@@ -165,6 +165,10 @@ public class DocManagerImpl implements DocManager {
 	public int getMaxFVIndex(int _docid){
 		return docDao.maxFieldValueIndex(_docid);
 	}
+	@Override
+	public int getDocIdByCreateDate(String _date){
+		return docDao.getNewDocId(_date);
+	}
 	
 	
 	@Override

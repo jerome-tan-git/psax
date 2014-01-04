@@ -136,30 +136,6 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 	
 	
 	private void setDocForm(int _docid){
-//		this.doclist = new ArrayList<Doc>();
-//		try {
-//			doclist = dm.loadDocsWithFieldValueList(formid);
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		for(Doc d :doclist){
-//			System.out.println("LOAD doc---"+d.toString());
-//		}
-//		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LOAD doclist.size---"+doclist.size());	
-//		Doc doc = new Doc();		
-//		if(docid>0 && doclist.size()>0){
-//			for(Doc d:doclist){
-//				if(docid==d.getDocid()){
-//					doc=d;
-//					break;
-//				}					
-//			}
-//		}else{
-//			System.out.println("DATA ERROR, PLS INV...");
-//		}
-//		System.out.println("~~~~~~~~~~~~~~~~~~~~~ chosen DOC ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		
 		try {
 			this.doc = dm.loadDocWithFieldValueList(_docid);
@@ -341,8 +317,7 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 		int fvindex = 0;
 		if(this.request.getParameter("docid")!=null && this.request.getParameter("docid").length()>0){
 			docid = Integer.parseInt(this.request.getParameter("docid"));
-			System.out.println("docid--->"+this.request.getParameter("docid"));
-			
+			System.out.println("docid--->"+this.request.getParameter("docid"));			
 		}
 		
 		System.out.println("GOT finfo----");	
@@ -395,46 +370,10 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 					}
 				}
 			}
-			
-			
-			
-//			
-//			this.dm.deleteFieldValueListByDocId(docid);
-//			
-//			if(fvindex==1){//Ã»ÓÐgroup
-//				for(Object reqo :reqkeys){
-//					if(reqo.toString().equals("docid"))
-//						continue;
-//					System.out.println("To UPDATE---fieldname="+reqo.toString()+", fieldvalue="+this.request.getParameter(reqo.toString())
-//							+", docid="+docid+", fvindex="+fvindex);					
-//					this.dm.updateSingleFieldValueByFieldName(reqo.toString(), 
-//							this.request.getParameter(reqo.toString()), docid, -1);
-//				}
-//			}else{
-//				//update multi fieldvalue				
-//				for(int i=0;i<fvindex;i++){
-//					System.out.println("Adding No."+i+" line data...");
-//					for(Object reqo :reqkeys){
-//						if(reqo.toString().equals("docid"))
-//							continue;
-//						System.out.println("GETting "+reqo.toString()+", value="+
-//								this.request.getParameterValues(reqo.toString())[i]);
-//						String fv= this.request.getParameterValues(reqo.toString())[i];
-//						if( fv!=null &&fv.length()>0 ){
-//							fv = fv.trim();
-//						}else
-//							fv = "";
-//						this.dm.updateSingleFieldValueByFieldName(reqo.toString(),fv,docid,fvindex);
-//					}
-//				}
-//			}
 				
 		}
 		
-		
-		
-//		this.dm.updateFieldValueByFieldName(_fn, _value, _docid, _fvindex);
-		
+	
 		return SUCCESS;
 	}
 
