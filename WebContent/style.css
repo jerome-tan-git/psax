@@ -1427,29 +1427,215 @@ padding-left: 19px;
 	margin-right: auto;
 
 }
-.right_item
-{
-	font-size: 11pt;
-	color: #1CA527 !important;
-}
+
 .exam_pagenation
 {
 	text-align: center;
 margin-bottom: 10px;
 font-size: 14pt;
 }
-.exam_type_text
+
+.member_block
 {
-	border-left: 4px solid #F00;
-padding-top: 8px;
-padding-left: 25px;
-background-color: #F7F7F7;
-margin-left: 10px;
+	width: 238px;
+	border: 1px solid #ccc;
+	float: left;
+	height: 215px;
+	margin: 10px;
+	overflow: hidden;
+	position: relative;
 }
-.exam_btn
+
+.member_block_icon
 {
-	height: 37px;
-width: 101px;
-font-size: 13pt;
-color: #727272;
+	width: 129px;
+	height: 128px;
+	position: absolute;
+	top: 14px;
+	left: 14px;
+}
+.member_block_icon.gkbs
+{
+	background: url('./images/iconmonstr-direction-8-icon-64.png') no-repeat;
+}
+.member_block_icon.jgdt
+{
+	background: url('./images/iconmonstr-eye-6-icon-64.png') no-repeat;
+}
+.member_block_icon.qygl
+{
+	background: url('./images/iconmonstr-network-6-icon-64.png') no-repeat;
+}
+.member_block_icon.tz
+{
+	background: url('./images/iconmonstr-warning-4-icon-64.png') no-repeat;
+}
+
+.member_block_icon.xz
+{
+	background: url('./images/iconmonstr-download-9-icon-64.png') no-repeat;
+}
+
+
+.member_block.blue
+{
+	background: url('./images/gkbs_bg_.png') repeat-x;
+}
+.member_block.jgdt
+{
+	background: url('./images/jgdt.png') repeat-x;
+}
+.member_block.qygl
+{
+	background: url('./images/qygl_bg_.png') repeat-x;
+}
+.member_block.tz
+{
+	background: url('./images/tz_bg_.png') repeat-x;
+}
+.member_block.xz
+{
+	background: url('./images/xz_bg_.png') repeat-x;
+}
+.member_block_title
+{
+	position: absolute;
+	bottom: 20px;
+	right: 23px;
+	font-size: 20pt;
+	color: #fff;
+}
+.member_block_icon_bg
+{
+	width: 256px;
+	height: 256px;
+	position: absolute;
+	top: -57px;
+	left: -56px;
+}
+.member_block_icon_bg.gkbs_bg
+{
+	background: url('./images/gkbs-256.png') no-repeat;
+}
+.member_block_icon_bg.qygl_bg
+{
+	background: url('./images/qygl_bg.png') no-repeat;
+}
+.member_block_icon_bg.jgdt_bg
+{
+	background: url('./images/eye_bg.png') no-repeat;
+}
+.member_block_icon_bg.tz_bg
+{
+	background: url('./images/tz_bg.png') no-repeat;
+}
+.member_block_icon_bg.xz_bg
+{
+	background: url('./images/xz_bg.png') no-repeat;
+}
+.member_block_download
+{
+	width: 324px;
+	border: 1px solid #ccc;
+	float: left;
+	height: 60px;
+	margin: 10px;
+	overflow: hidden;
+	position: relative;
+}
+.member_block_download.blue
+{
+	background: url('./images/download_bg.png') repeat-x;
+}
+.member_block_download_title
+{
+	position: absolute;
+	font-size: 17pt;
+	color: #fff;
+	top: 10px;
+	left: 63px;
+}
+.member_download_icon
+{
+	width: 129px;
+	height: 128px;
+	position: absolute;
+	top: 14px;
+	left: 14px;
+	background: url('./images/iconmonstr-download-2-icon-32.png') no-repeat;
+}
+.member_upload_icon
+{
+	width: 129px;
+	height: 128px;
+	position: absolute;
+	top: 14px;
+	left: 14px;
+	background: url('./images/iconmonstr-upload-9-icon-32.png') no-repeat;
+}
+.member_block_upload
+{
+	width: 324px;
+	border: 1px solid #ccc;
+	float: left;
+	height: 60px;
+	margin: 10px;
+	overflow: hidden;
+	position: relative;
+}
+.member_block_upload.blue
+{
+	background: url('./images/upload_bg.png') repeat-x;
+}
+.member_block_upload_title
+{
+	position: absolute;
+	font-size: 17pt;
+	color: #fff;
+	top: 10px;
+	left: 63px;
+}
+.member_block_upload_desc
+{
+	position: absolute;
+	font-size: 9pt;
+	color: #C9C6C6;
+	right: 10px;
+	bottom: 7px;
+}
+.user_info_left
+{
+	width:200px;
+	float:left;
+}
+.user_info_right
+{
+	width:800px;
+	border-left:1px solid #ccc;
+	float:left;
+	padding-left: 36px;
+}
+.avator_container
+{
+	border: 1px solid #ccc;
+	width: 100px;
+	padding: 10px;
+	margin: auto;
+}
+input.userinfo
+{
+	height: 20px;
+	padding: 5px;
+	font-size: 15pt;
+	color: #666;
+	margin-top: 10px;
+}
+.userinfo_title
+{
+	font-size: 15pt;
+	margin-bottom: 30px;
+}
+.button_chinese_font
+{
+	font-family: "微软雅黑",Arial,"宋体" !important;
 }

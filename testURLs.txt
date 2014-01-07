@@ -53,3 +53,11 @@ http://localhost:8080/psax/hello?formid=5
 http://localhost:8080/psax/hello?docid=14&mode=dis
 http://localhost:8080/psax/hello?docid=14&mode=edit
 
+http://localhost:8080/psax/hello?formid=6
+
+http://localhost:8080/psax/gologin.action
+http://localhost:8080/psax/usercenter.action
+
+http://localhost:8080/psax/page.action?categoryid=2
+
+

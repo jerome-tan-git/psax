@@ -26,6 +26,10 @@ import com.opensymphony.xwork2.ActionSupport;
 @Component("channeledit") 
 public class ChannelEdit extends ActionSupport implements ServletRequestAware,SessionAware{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ChannelManager cm;	
 	private Channel channel;
 	private Category category;
@@ -99,6 +103,30 @@ public class ChannelEdit extends ActionSupport implements ServletRequestAware,Se
 	
 	@Override
 	public String execute(){
+		String cat = this.request.getParameter("categoryid");
+		System.out.println("cat-----------"+cat);
+		if(cat!=null && cat.length()>0){
+			int c = Integer.parseInt(cat);
+		
+			if(c==2)
+				return "cat2";
+			if(c==15)
+				return "cat15";
+			
+			if(c==7)
+				return "cat7";
+			if(c==8)
+				return "cat8";
+			if(c==9)
+				return "cat9";
+			if(c==10)
+				return "cat10";
+			if(c==11)
+				return "cat11";
+			if(c==12)
+				return "cat12";
+						
+		}
 		return "success";
 	}
 
@@ -107,11 +135,14 @@ public class ChannelEdit extends ActionSupport implements ServletRequestAware,Se
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		  this.request=request;
+		  System.out.println("request.getSession()----"+request.getSession());
 	}
 
 	@Override
-	public void setSession(Map session) {	  	
-		 this.session=session;			
+	public void setSession(Map<String, Object> _s) {
+		this.session = _s;
+		System.out.println("setSESSION----after--"+_s.toString());
 	}
+
 
 }

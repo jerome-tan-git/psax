@@ -1,5 +1,7 @@
 package com.asso.action;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
@@ -22,6 +26,7 @@ import util.SpringFactory;
 import com.asso.manager.UserManager;
 import com.asso.model.User;
 import com.asso.vo.UserRegisterInfo;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -32,42 +37,106 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 	private UserRegisterInfo uInfo = new UserRegisterInfo();
 	private UserManager um;	
 	private User user; 
-//	private ApplicationContext ctx;
+	
+	private File ptrt;
+	private String ptrtContentType;
+	private String ptrtFileName;
+	private UserRegisterInfo uinfo = new UserRegisterInfo();
+	
 	private HttpServletRequest request;	
 	private Map session;
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public UserLogin(){
-//		ctx = new ClassPathXmlApplicationContext("beans.xml");
-//		um = (UserManager) ctx.getBean("userManager");
 		um = (UserManager) SpringFactory.getObject("userManager");
 	}
 	
 	public UserManager getUm() {
 		return um;
 	}
-
 	@Resource(name="userManager")//直接注入，替代初始化userManager
 	public void setUm(UserManager um) {
 		this.um = um;
 	}
 	
-		
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}	
 	public UserRegisterInfo getuInfo() {
 		return uInfo;
 	}
-
 	public void setuInfo(UserRegisterInfo uInfo) {
 		this.uInfo = uInfo;
 	}
+	public File getPtrt() {
+		return ptrt;
+	}
+	public void setPtrt(File ptrt) {
+		this.ptrt = ptrt;
+	}
+	public String getPtrtContentType() {
+		return ptrtContentType;
+	}
+	public void setPtrtContentType(String ptrtContentType) {
+		this.ptrtContentType = ptrtContentType;
+	}
+	public String getPtrtFileName() {
+		return ptrtFileName;
+	}
+	public void setPtrtFileName(String ptrtFileName) {
+		this.ptrtFileName = ptrtFileName;
+	}
+	public UserRegisterInfo getUinfo() {
+		return uinfo;
+	}
+	public void setUinfo(UserRegisterInfo uinfo) {
+		this.uinfo = uinfo;
+	}
+
+	private void setUploadfiles(){
+		
+		System.out.println("GET username--->"+this.uInfo.getUsername());
+		System.out.println("GET password--->"+this.uInfo.getPassword());
+		System.out.println("GET nickname--->"+this.uInfo.getNickname());
+		System.out.println("GET portrait--->"+this.uInfo.getPortrait());
+		
+		
+		if(this.uinfo.getPortrait()!=null){
+			this.setPtrt(this.uinfo.getPortrait());
+			this.setPtrtContentType(this.uinfo.getPortraitContentType());
+			this.setPtrtFileName(this.uinfo.getPortraitFileName());
+			
+			System.out.println("this.uinfo.getPortrait()---"+this.uinfo.getPortrait());
+			System.out.println("this.uinfo.getPortraitContentType()---"+this.uinfo.getPortraitContentType());
+			System.out.println("this.uinfo.getPortraitFileName()---"+this.uinfo.getPortraitFileName());
+			
+			if(this.ptrt==null || this.ptrt.length()>4194304 ){  
+	            System.out.println("!!@@!!imageError");   
+	        } 
+		}else{
+			System.out.println("No portrait upload!!!");
+		}
+	}
 	
+	public String updateUserInfo() throws IOException{  
+		this.setUploadfiles();
+            String realpath = ServletActionContext.getServletContext().getRealPath("/ckimages");  
+            if(this.ptrt!=null)  
+            {  
+            	String newImgName = System.currentTimeMillis()+"_"+this.ptrtFileName;  
+                File savefile = new File(realpath,newImgName);  
+                if(!savefile.getParentFile().exists())  
+                    savefile.getParentFile().mkdirs();  
+  
+                FileUtils.copyFile(this.ptrt,savefile);  
+                System.out.println("realpath="+realpath+", name="+savefile.getName()); 
+            }  
+            return "success";  
+     }  
+
 
 	public String gologin(){
 		String referer = request.getHeader("referer");
@@ -111,7 +180,7 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 
 	@Override
 	public Object getModel() {
-		// TODO Auto-generated method stub
+		System.out.println("uinfo----"+uinfo.toString());
 		return this.uInfo;
 	}
 	
@@ -137,20 +206,27 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		  this.request=request;		
-		  System.out.println("Struts REQUEST info----"+this.request.getRequestedSessionId()			
-				  +"   $$$   "+this.request.getRequestURI()); 
+		  System.out.println("Struts REQUEST info [request.getRequestedSessionId]----"+
+				  this.request.getRequestedSessionId()+"   $$$   "+this.request.getRequestURI()); 
 		  System.out.println("request.getSession()----"+request.getSession());
 	}
 
 	@Override
 	public void setSession(Map session) {	  	
 
-		  User u = new User();
-		  u.setId(10);
-		  u.setUsername("ggg");
-		  u.setLevel(3);
-		  request.getSession().setAttribute("user", u);		  
-		  System.out.println("setSESSION1----after----"+request.getSession().getAttribute("user").toString());
+//		  User u = new User();
+//		  u.setId(10);
+//		  u.setUsername("ggg");
+//		  u.setLevel(3);
+//		  request.getSession().setAttribute("user", u);		  
+//		  System.out.println("setSESSION_1----after----"+request.getSession().getAttribute("user").toString());
+		if(request.getSession().getAttribute("user_")!=null){
+		  System.out.println("setSESSION_1----after----"+request.getSession().getAttribute("user_").toString());
+		  User user = (User) request.getSession().getAttribute("user_");
+		  System.out.println("setSESSION_1----username----"+user.getUsername());
+		}
+		else
+			System.out.println("setSESSION_1----after--session.getuser=null");
 		  
 	}
 
@@ -158,16 +234,47 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 		System.out.println("this.uInfo.getUsername()"+this.uInfo.getUsername());
 		 User u = new User();
 		 u.setUsername(this.uInfo.getUsername());
+		 u.setPassword(this.uInfo.getPassword());
 		 int userid = 0;
 		 userid= um.getUserId(u);			
 		 u.setId(userid);
 		 request.getSession().setAttribute("user_", u);
-		 System.out.println("setSession2----Session().user_----"+
+		 System.out.println("setSession_2----Session().user_----"+
 				 request.getSession().getAttribute("user_").toString());
 		 
 		  
 	}
 	
+	public String userCenter(){
+		
+		User u = new User();
+//		u = (User) this.session.get("user_");
+		u = (User) request.getSession().getAttribute("user_");
+		System.out.println("Session user----"+u.toString());
+		
+		if(u!=null){
+			
+			User user = new User();
+			try {
+				user = um.loadUser(u);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			if(user.getNickname()!=null){
+				System.out.println("Load user----"+user.toString());
+				u.setNickname(user.getNickname());
+				request.getSession().setAttribute("user_", u);
+//				System.out.println("Session user----"+this.session.get("user_").toString());
+				System.out.println("Session user----"+this.request.getSession().getAttribute("user_").toString());
+			}
+			
+		}
+		
+		return SUCCESS;
+	}
 
 
 }

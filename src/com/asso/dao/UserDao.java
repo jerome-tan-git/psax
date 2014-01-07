@@ -21,6 +21,7 @@ public interface UserDao {
 	public int getMemberIdWithUserId(int userid);
 	public void updateMemberInfoWithId(MemberInfo minfo);
 	public List<MemberInfo> loadMemberInfoWithUserId(User user);
+	User loadUserWithNamePassword(User _user);
 	
 	
 	

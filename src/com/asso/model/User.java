@@ -10,8 +10,15 @@ public class User {
 	private String username;
 	private String password;
 	private int level;
+	private String nickname;
 	
 	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public int getId() {
 		return id;
 	}
@@ -46,7 +53,8 @@ public class User {
 //	}
 	
 	public String toString(){
-		return this.id+":"+this.getUsername()+":"+this.getPassword()+":"+this.level;
+		return this.id+":"+this.getUsername()+":"+this.getPassword()+":"+this.level
+				+":"+this.nickname;
 	}
 	
 

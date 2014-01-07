@@ -20,6 +20,20 @@
         </global-exception-mappings>
 		 -->
 		 
+		<action name="page" class="com.asso.action.ChannelEdit">  
+			<result name="cat2" type="freemarker">/WEB-INF/ccpage/about_us.ftl</result>
+			<result name="cat15" type="freemarker">/WEB-INF/ccpage/exam_home.ftl</result>
+			
+			<result name="cat7" >success.html</result>
+			<result name="cat8">success.html</result>
+			<result name="cat9" >success.html</result>
+			<result name="cat10" >success.html</result>
+			<result name="cat11" >success.html</result>
+			<result name="cat12" >success.html</result>							 
+		</action>
+		 
+		 
+		 
 		<action name="memberedit" class="com.asso.action.MemberEdit">  
 			<result name="success">success.html</result>			 
 		</action>
@@ -31,10 +45,21 @@
 		<action name="userlogin" class="com.asso.action.UserLogin">  
 			<!-- <result name="success">loginSuccess.jsp</result> -->
 			<!-- <result name="success"  type="freemarker">/WEB-INF/ftl/examItemList.ftl</result> -->
-			<result name="success">exam_home.html</result>
-			<!-- <result name="success">login_result.jsp</result>    -->
+			<!-- <result name="success">exam_home.html</result> -->
+			<!-- <result name="success" type="freemarker">/WEB-INF/ftl/exam_home.ftl</result> -->
+			<!-- <result name="success">login_result.jsp</result> -->
+			<result name="success" type="freemarker">/WEB-INF/ftl/membercenter.ftl</result>
 			<result name="failure">loginFail.jsp</result>  
 		</action>
+		
+		<action name="usercenter" class="com.asso.action.UserLogin" method="userCenter">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/usercenter.ftl</result>			 
+		</action>
+		<action name="userupdate" class="com.asso.action.UserLogin" method="updateUserInfo">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/usercenter.ftl</result>			 
+		</action>
+		
+		
 		<action name="userbuilt" class="com.asso.action.UserLogin" method="save">  
 			<result name="save">loginSuccess.jsp</result>			 
 		</action>
@@ -109,7 +134,7 @@
 			<result name="update" type="redirect">managerArt.action</result>	                     	 
 		</action>
 		<action name="listArt" class="com.asso.action.ArtEdit" method="listArticleByCategoryId">  
-			<result name="list" type="freemarker">/WEB-INF/ftl/moment.ftl</result>	                     	 
+			<result name="list" type="freemarker">/WEB-INF/ccpage/moment.ftl</result>	                     	 
 		</action>
 		<action name="listArticles" class="com.asso.action.ArtEdit" method="list">  
 			<result name="list" type="freemarker">/WEB-INF/ftl/articles.ftl</result>	                     	 
@@ -178,16 +203,18 @@
 			<result name="success" type="freemarker">/WEB-INF/ftl/form.ftl</result>	                     	 
 		</action>
 		<action name="upload" class="com.asso.action.CKEUpload"  method="myExecute" />
-	
+		
+		
     </package>
 
     <include file="example.xml"/>
 <!-- TEST URLs
 
+	<action name="*">
+            <result type="freemarker">/WEB-INF/ccpage/{1}.ftl</result>
+    </action>
 	
-		<action name="*">
-            <result type="freemarker">/WEB-INF/tmpl/{1}.ftl</result>
-        </action>
+		
 
  -->
     <!-- Add packages here -->

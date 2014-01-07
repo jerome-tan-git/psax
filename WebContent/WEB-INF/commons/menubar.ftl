@@ -13,7 +13,7 @@
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header"></div>
-							<a href="./about_us.html">
+							<a href="./page.action?categoryid=2">
 							<div class="list_item intro">
 								协会简介
 							</div></a>
@@ -65,7 +65,8 @@
 							<div class="list_item help">
 								培训
 								<div class="sub_menu">								
-									<a href="./exam_home.html">
+									<!--<a href="./exam_home.html">-->
+									<a href="./page.action?categoryid=15">
 									<div class="list_item exam">
 										在线考试
 									</div></a>

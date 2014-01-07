@@ -18,5 +18,8 @@
         <property name="level" type="int">
             <column name="level" length="11" />
         </property>
+        <property name="nickname" type="string">
+            <column name="nickname" length="20" />
+        </property>
     </class>
 </hibernate-mapping>

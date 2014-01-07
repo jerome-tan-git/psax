@@ -23,5 +23,7 @@ public interface UserManager {
 
 	public int getUserId(User user);
 
+	User loadUser(User user) throws ClassNotFoundException, SQLException;
+
 
 }

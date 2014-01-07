@@ -41,6 +41,68 @@ public class UserDaoImpl implements UserDao {
 	     s.getTransaction().commit();
 //	     s.close();
 	}
+
+	
+	@Override
+	public User loadUserWithNamePassword(User _user) {
+		
+//		Session s = sessionFactory.getCurrentSession();			
+//		Query query = s.createQuery("from User u where u.username = :un")
+//		    		.setParameter("un", _user.getUsername());		    
+//		List<Object[]> list = query.list();		    
+//		    
+//		System.out.println("  loadUserWithNamePassword  rz="+list.size());
+//		User u = new User();
+//		
+//		    if(list.size() > 0) {
+//		    	
+//		    	for(Object[] object : list){     
+//			    	if(object.length==5){
+//			    		for(Object obj:object)
+//			    			System.out.println("obj------"+obj.toString());
+//			    				    		
+//			    		u.setId((Integer)object[0]);
+//			    		u.setUsername((String)object[1]);
+//			    		u.setPassword((String)object[2]);
+//			    		u.setLevel((Integer)object[3]);
+//			    		u.setNickname((String)object[4]);
+//			    		
+//			    		System.out.println( "user: " +u.toString());		            
+//			        }
+//			    	else{
+//			    		System.out.println("!! object size wrong, ="+object.length);
+//			    	}
+//		    	}
+//		    }
+//	        
+//		return u;
+		 	
+		User u = new User();
+		Session s = sessionFactory.getCurrentSession(); 
+		Query query = s.createQuery("select username,password,nickname,id from User u where u.username = :un")
+		   		.setParameter("un", _user.getUsername());		    
+		List<Object[]> list = query.list();		    
+			    
+		System.out.println("  loadUserWithNamePassword  rz="+list.size());
+			    if(list.size() > 0) {
+			    	for(Object[] object : list){     
+			    		String passwd = (String)object[1];     
+			    		String name = (String)object[0];
+			    		String nickname= (String)object[2];
+//			    		String id = (String)object[3];
+			            System.out.println(name + " : " + passwd);
+			            System.out.println(nickname + " : " );
+			            u.setNickname(nickname);
+			            u.setPassword(passwd);
+			            u.setUsername(name);
+			        }
+			    }
+		return u;
+		
+		
+		
+	}
+	
 	
 	@Override
 	public int checkUserExistsWithNamePassword(User user) {
@@ -57,11 +119,12 @@ public class UserDaoImpl implements UserDao {
 		    		String passwd = (String)object[1];     
 		    		String name = (String)object[0];
 		            System.out.println(name + " : " + passwd);
-		            if(passwd!=null && passwd.length()>0 
-		            		&& passwd.trim().equalsIgnoreCase(user.getPassword().trim()))
-		            	return 1;
-		            else
-		            	return 3;
+		            if(passwd!=null && passwd.length()>0 ){
+		            	if(passwd.trim().equalsIgnoreCase(user.getPassword().trim()))		            		
+		            		return 1;		            	
+		            }else
+	            		return 3;
+		            	
 		        }
 		    }
 	        return 2;

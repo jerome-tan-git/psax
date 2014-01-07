@@ -68,56 +68,70 @@ public class test extends ActionSupport implements ServletRequestAware,SessionAw
 	
 	public String addform(){
 		Form form  = new Form();		
-		form.setDisplayname("采购清单");
-		form.setFrontendtpl("buyingListing.ftl");
+		form.setDisplayname("仪器设备管理台账");
+		form.setFrontendtpl("instrumentsManageringList.ftl");
 		
 		List<Fields> flist = new ArrayList<Fields>();
 		//1
 		Fields fs = new Fields();
-		fs.setFieldname("No:");
+		fs.setFieldname("iml_instrumentName");
 		fs.setFieldtype(1);//?
 		flist.add(fs);
 		//2
 		fs = new Fields();
-		fs.setFieldname("采购时间：");
+		fs.setFieldname("iml_usingcode");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//3
 		fs = new Fields();
-		fs.setFieldname("原辅材料");
+		fs.setFieldname("iml_seriesNumber");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//4
 		fs = new Fields();
-		fs.setFieldname("数量");
+		fs.setFieldname("iml_precision");
 		fs.setFieldtype(1);		
 		flist.add(fs);
 		//5
 		fs = new Fields();
-		fs.setFieldname("供应商");
+		fs.setFieldname("iml_manufacturingCode");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//6
 		fs = new Fields();
-		fs.setFieldname("单价");
+		fs.setFieldname("iml_manufacturer");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//7
 		fs = new Fields();
-		fs.setFieldname("金额");
+		fs.setFieldname("iml_usingDepartment");
 		fs.setFieldtype(1);
 		flist.add(fs);	
 		//8
 		fs = new Fields();
-		fs.setFieldname("审核： ");
+		fs.setFieldname("iml_checkPeriod");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//9
 		fs = new Fields();
-		fs.setFieldname("申请：");
+		fs.setFieldname("iml_checkDate1");
 		fs.setFieldtype(1);
 		flist.add(fs);
-		
+		//10
+		fs = new Fields();
+		fs.setFieldname("iml_checkDate2");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//11
+		fs = new Fields();
+		fs.setFieldname("iml_checkDate3");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//12
+		fs = new Fields();
+		fs.setFieldname("iml_checkDate4");
+		fs.setFieldtype(1);
+		flist.add(fs);
 		
 		form.setFields(flist);
 		try {

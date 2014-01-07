@@ -1,0 +1,12 @@
+iml_instrumentName
+iml_usingcode
+iml_seriesNumber
+iml_precision
+iml_manufacturingCode
+iml_manufacturer
+iml_usingDepartment
+iml_checkPeriod
+iml_checkDate1
+iml_checkDate2
+iml_checkDate3
+iml_checkDate4

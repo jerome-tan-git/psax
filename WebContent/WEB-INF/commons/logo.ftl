@@ -1,17 +1,23 @@
- 			<div class="logo"> 			
- 			<!--	
- 				<form action="./gologin.action" method="get">
- 				<div class="login_text">
- 					<input type="submit" value="登录">
- 				</div>
- 				</form>
- 			-->
- 				<a href="./login.html">登录</a>
- 				<form action="./userlogout.action" method="get">
- 				<div class="login_text"> 					
- 					<input type="submit" value="登出">
- 				</div>
- 				</form>
+ <#--
+<#assign s=JspTaglibs["/WEB-INF/struts-tags.tld"]>
+ -->
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-
+transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	</head>
+	<body>
+ 			<div class="logo"> 		
+ 			
+ 				<#if Session.user_?exists>
+ 					<a href="./userlogout.action">登出</a>
+ 				<#else> 					
+ 					<a href="./gologin.action">登录</a>
+ 				</#if>
+ 				<a href="./usercenter.action">用户中心</a>
+ 				
 		    	<div class="logo_container">
 		    		<a href="./index.html"><img src="./images/logo_new.png" alt="img" /></a>
 		    	</div>
@@ -28,3 +34,5 @@
 					</div>
 				</div>
 		    </div>
+	</body>    
+</html>
