@@ -24,6 +24,7 @@
 			<result name="cat2" type="freemarker">/WEB-INF/ccpage/about_us.ftl</result>
 			<result name="cat15" type="freemarker">/WEB-INF/ccpage/exam_home.ftl</result>
 			
+			
 			<result name="cat7" >success.html</result>
 			<result name="cat8">success.html</result>
 			<result name="cat9" >success.html</result>
@@ -57,8 +58,13 @@
 		</action>
 		<action name="userupdate" class="com.asso.action.UserLogin" method="updateUserInfo">  
 			<result name="success" type="freemarker">/WEB-INF/ftl/usercenter.ftl</result>			 
+		</action>		
+		<action name="uploadfilesmanager" class="com.asso.action.UserBuilt" method="manager">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/uploadlist.ftl</result>			 
+		</action>		
+		<action name="useruploadfiles" class="com.asso.action.UserBuilt" method="upload">  
+			<result name="upload" type="freemarker">/WEB-INF/ftl/uploadlist.ftl</result>			 
 		</action>
-		
 		
 		<action name="userbuilt" class="com.asso.action.UserLogin" method="save">  
 			<result name="save">loginSuccess.jsp</result>			 

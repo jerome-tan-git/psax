@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 import com.asso.dao.UserDao;
 import com.asso.dao.impl.UserDaoImpl;
 import com.asso.manager.UserManager;
+import com.asso.model.Article;
 import com.asso.model.MemberInfo;
+import com.asso.model.Uploadfiles;
 import com.asso.model.User;
 
 @Component("userManager")
@@ -81,5 +83,22 @@ public class UserManagerImpl implements UserManager {
 			
 	}
 	
+	@Override
+	public void addUploadfiles(Uploadfiles uploadfile) throws ClassNotFoundException, SQLException{
+		userDao.save(uploadfile);
+	}
+	
+	@Override
+	public List<Uploadfiles> loadUploadedFilesByUserid(int _userid) throws ClassNotFoundException, SQLException{		
+		System.out.println("loadUploadedFilesByUserid, input userid ------"+_userid);
+		return userDao.loadUploadfilesByUserId(_userid);	
+	}
 
+	@Override
+	public void deleteUploadedFile(int _uploadedfileid) throws ClassNotFoundException, SQLException{
+		Uploadfiles uf = new Uploadfiles();
+		uf.setId(_uploadedfileid);
+		userDao.delete(uf);
+	}
+	
 }

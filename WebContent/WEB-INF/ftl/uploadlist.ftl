@@ -17,6 +17,7 @@ transitional.dtd">
 		<link rel="stylesheet" type="text/css" href="./css/portfolio.css" />
 		<link rel="stylesheet" type="text/css" href="./css/quicksand.css" />
 		<link rel="stylesheet" type="text/css" href="./css/skin.css" />
+		<link rel="stylesheet" type="text/css" href="./css/uploadify.css" />
 
 
 		<script type="text/javascript" src="./js/jquery.min.js"></script>
@@ -31,7 +32,9 @@ transitional.dtd">
 		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
 
 		<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-
+		<script src="./js/jquery.uploadify.js"></script>
+		<script src="./js/uploadfile_list.js"></script>
+		
 		<style type="text/css">
 			html, body, p {
 				margin: 0;
@@ -54,7 +57,20 @@ transitional.dtd">
 
 		</style>
 		<script type="text/javascript">
+		function deleteItem(instanceID, fileID) {
+			//#DF6F6F
+			$('#' + fileID).animate({
+				borderColor : "#cc0000",
+				color : "#cc0000"
+			}, 200);
+			$('#' + instanceID).uploadify('cancel', fileID);
+		}
 			$(document).ready(function() {
+				
+				
+				
+				
+				
 
 				// bancy bo=x
 				// jQuery("a#example6").fancybox({
@@ -167,6 +183,15 @@ transitional.dtd">
 					}
 				}
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		</script>
 	</head>
 	<body>
@@ -222,38 +247,39 @@ transitional.dtd">
 
 			<!-- Teaser Start -->
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
-				<div class="member_block blue">
-					<div class="member_block_icon gkbs">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_title">公开办事</div>
-				</div>
-				<div class="member_block jgdt">
-					<div class="member_block_icon jgdt">&nbsp;</div>
-					<div class="member_block_icon_bg jgdt_bg">&nbsp;</div>
-					<div class="member_block_title">监管动态</div>
-				</div>
-				<!--<a href="./upload_list.html">-->
-				<a href="./uploadfilesmanager.action">
-				<div class="member_block qygl">
-					<div class="member_block_icon qygl">&nbsp;</div>
-					<div class="member_block_icon_bg  qygl_bg">&nbsp;</div>
-					<div class="member_block_title">企业管理</div>
-				</div>
-				</a>
-				<a href="./notice.html">
-				<div class="member_block tz">
-					<div class="member_block_icon tz">&nbsp;</div>
-					<div class="member_block_icon_bg tz_bg">&nbsp;</div>
-					<div class="member_block_title">通知</div>
-				</div>
-				</a>
-				<a href="./download.html">
-				<div class="member_block xz">
-					<div class="member_block_icon xz">&nbsp;</div>
-					<div class="member_block_icon_bg xz_bg">&nbsp;</div>
-					<div class="member_block_title">相关下载</div>
-				</div>
-				</a>
+			<div class="clearfix">
+			<#if upflist?exists>
+				<#list upflist as upf>
+					<div class="member_block_upload blue">
+						<div class="member_upload_icon">&nbsp;</div>
+						<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
+						<div class="member_block_upload_title">${upf.fname}</div>
+						<div class="member_block_upload_desc">${upf.uploadtime}</div>
+						<div class="del_upload">
+							<a href="./uploadfilesmanager.action?upfid=${upf.id}">x</a>
+						</div>
+					</div>		
+					<div></div>
+				</#list>
+			</#if>
+			</div>
+				
+				<#if Session.user_?exists>
+					<#assign user=Session.user_>	
+				<div style="border-bottom: 1px solid #ccc;margin-left:10px;margin-right:10px;margin-bottom:10px">&nbsp;</div>
+				<div style="margin-left:9px;position:relative;">
+					<form action="./useruploadfiles.action">
+						<input type="file" id="file_upload_1" name="uploadfiles"/>
+						<input type="hidden" name="userid" value="${user.id?default("")}"/>
+						<!--
+						<div style="position:absolute;top: 0px;left: 113px;">
+							<input type="image" src="./images/bt_save.png" name="image" />
+						</div>-->
+						<input type="submit" value="save">
+					</form>
+				</div>	
+				</#if>
+				
 			</div>
 			<!-- Teaser End -->
 

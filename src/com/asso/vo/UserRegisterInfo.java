@@ -9,13 +9,23 @@ public class UserRegisterInfo {
 	private String password1;
 	private int id;
 	private String nickname;
+	private String userid;
 	
 	private File portrait;	
 	private String portraitContentType;	
 	private String portraitFileName;
 
-
+	private String[] uploadfiles;	
+	private String[] uploadfilenames;
 	
+	
+	
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 	public String getNickname() {
 		return nickname;
 	}
@@ -64,6 +74,18 @@ public class UserRegisterInfo {
 	}
 	public void setPortraitFileName(String portraitFileName) {
 		this.portraitFileName = portraitFileName;
+	}
+	public String[] getUploadfiles() {
+		return uploadfiles;
+	}
+	public void setUploadfiles(String[] uploadfiles) {
+		this.uploadfiles = uploadfiles;
+	}
+	public String[] getUploadfilenames() {
+		return uploadfilenames;
+	}
+	public void setUploadfilenames(String[] uploadfilenames) {
+		this.uploadfilenames = uploadfilenames;
 	}
 	
 

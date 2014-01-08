@@ -15,6 +15,7 @@ import util.ObjectToClass;
 import com.asso.dao.UserDao;
 import com.asso.model.Member;
 import com.asso.model.MemberInfo;
+import com.asso.model.Uploadfiles;
 import com.asso.model.User;
 
 @Component("userDao")//≥ı ºªØuserDao
@@ -33,49 +34,16 @@ public class UserDaoImpl implements UserDao {
     
 	@Override
 	public void save(User user) {
-//		 Session s = sessionFactory.openSession(); 
 		Session s = sessionFactory.getCurrentSession(); 
 	     s.beginTransaction();
 	     s.save(user);
 	     s.flush();
 	     s.getTransaction().commit();
-//	     s.close();
 	}
 
 	
 	@Override
 	public User loadUserWithNamePassword(User _user) {
-		
-//		Session s = sessionFactory.getCurrentSession();			
-//		Query query = s.createQuery("from User u where u.username = :un")
-//		    		.setParameter("un", _user.getUsername());		    
-//		List<Object[]> list = query.list();		    
-//		    
-//		System.out.println("  loadUserWithNamePassword  rz="+list.size());
-//		User u = new User();
-//		
-//		    if(list.size() > 0) {
-//		    	
-//		    	for(Object[] object : list){     
-//			    	if(object.length==5){
-//			    		for(Object obj:object)
-//			    			System.out.println("obj------"+obj.toString());
-//			    				    		
-//			    		u.setId((Integer)object[0]);
-//			    		u.setUsername((String)object[1]);
-//			    		u.setPassword((String)object[2]);
-//			    		u.setLevel((Integer)object[3]);
-//			    		u.setNickname((String)object[4]);
-//			    		
-//			    		System.out.println( "user: " +u.toString());		            
-//			        }
-//			    	else{
-//			    		System.out.println("!! object size wrong, ="+object.length);
-//			    	}
-//		    	}
-//		    }
-//	        
-//		return u;
 		 	
 		User u = new User();
 		Session s = sessionFactory.getCurrentSession(); 
@@ -97,10 +65,7 @@ public class UserDaoImpl implements UserDao {
 			            u.setUsername(name);
 			        }
 			    }
-		return u;
-		
-		
-		
+		return u;		
 	}
 	
 	
@@ -238,6 +203,40 @@ public class UserDaoImpl implements UserDao {
 	     System.out.println("member selected info----\n"+minfos.get(0).toString());
 		
 		return minfos;
+	}
+	
+	@Override
+	public List<Uploadfiles> loadUploadfilesByUserId(int _userid) {
+		List<Uploadfiles> ufiles = new ArrayList<Uploadfiles>();
+		Session s = sessionFactory.getCurrentSession(); 
+		String hql = "from Uploadfiles where userid=?";      
+	    Query query = s.createQuery(hql); 
+	    query.setString(0, ""+_userid);
+		ufiles = query.list();
+		System.out.println("ufiles size="+ufiles.size());
+		for(Uploadfiles uf:ufiles)
+			System.out.println("-----###-----"+uf.toString());
+		return ufiles;
+	}
+	
+	@Override
+	public void save(Uploadfiles _uploadfiles) {
+		Session s = sessionFactory.getCurrentSession(); 
+	     s.beginTransaction();
+	     s.save(_uploadfiles);
+	     s.flush();
+	     s.getTransaction().commit();
+		
+	}
+	
+	@Override
+	public void delete(Uploadfiles _uploadfiles) {
+		Session s = sessionFactory.getCurrentSession(); 
+	     s.beginTransaction();
+	     s.delete(_uploadfiles);
+	     s.flush();
+	     s.getTransaction().commit();
+		
 	}
 	
 	

@@ -3,6 +3,7 @@ package com.asso.dao;
 import java.util.List;
 
 import com.asso.model.MemberInfo;
+import com.asso.model.Uploadfiles;
 import com.asso.model.User;
 
 public interface UserDao {
@@ -22,6 +23,9 @@ public interface UserDao {
 	public void updateMemberInfoWithId(MemberInfo minfo);
 	public List<MemberInfo> loadMemberInfoWithUserId(User user);
 	User loadUserWithNamePassword(User _user);
+	List<Uploadfiles> loadUploadfilesByUserId(int _userid);
+	void save(Uploadfiles _uploadfiles);
+	void delete(Uploadfiles _uploadfiles);
 	
 	
 	
