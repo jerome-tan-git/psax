@@ -18,5 +18,6 @@ public interface FormDao {
 	void delField(Fields _field);
 	void saveField(Fields field);
 	Fields getFieldIdByName(String _name);
+	List<Form> loadAllForms();
 	
 }

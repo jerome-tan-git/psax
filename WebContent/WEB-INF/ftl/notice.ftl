@@ -17,6 +17,7 @@ transitional.dtd">
 		<link rel="stylesheet" type="text/css" href="./css/portfolio.css" />
 		<link rel="stylesheet" type="text/css" href="./css/quicksand.css" />
 		<link rel="stylesheet" type="text/css" href="./css/skin.css" />
+			<link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet">
 
 
 		<script type="text/javascript" src="./js/jquery.min.js"></script>
@@ -27,10 +28,12 @@ transitional.dtd">
 		<script type="text/javascript" src="./js/custom.js"></script>
 		<script type="text/javascript" src="./js/unslider.js"></script>
 		<script type="text/javascript" src="./js/fancybox/jquery.fancybox-1.3.4.js"></script>
+		<script type="text/javascript" src="./js/frontend.js"></script>
 
-		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
 
-		<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+	<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+
+		<script type="text/javascript" src="./js/jquery.easing.1.3.js"></script>
 
 		<style type="text/css">
 			html, body, p {
@@ -130,6 +133,33 @@ transitional.dtd">
 					}, 500);
 				});
 				
+				$( "#dialog" ).dialog({
+					autoOpen: false,
+					width: 400,
+					modal: true, 
+					buttons: [
+						{
+							text: "开始",
+							click: function() {
+								if($('#user_name_input').val()=="")
+								{
+									alert('请填写姓名！');
+								}
+								else
+								{
+									$( this ).dialog( "close" );
+									$('#go_exam').submit();
+								}
+							}
+						},
+						{
+							text: "取消",
+							click: function() {
+								$( this ).dialog( "close" );
+							}
+						}
+					]
+				});
 				$(".click_down").click(function(){
 					var toHeight = $(".exam_no_container").outerHeight();
 					var beginHeight = $(".exam_no_outer").outerHeight();
@@ -155,6 +185,7 @@ transitional.dtd">
 					}
 				});
 			});
+
 			function checkOptions() {
 				var op = $(this).find("input");
 				var label = $(this).find("." + (op.attr("id")));
@@ -167,9 +198,20 @@ transitional.dtd">
 					}
 				}
 			}
+			
+			$(document).ready(function() {
+				$('.portfolio_content').click(function()
+				{
+					//beginexam.action?examid=2
+					$("#dialog" ).dialog( "open" );					
+					$('#go_exam').attr('action','beginexam.action?examid='+$(this).attr('examid'));
+					event.preventDefault();
+				});
+			});
 		</script>
 	</head>
 	<body>
+
 		<div id="page_wrap">
 			<!-- Header Start -->
 			<div class="header">
@@ -205,10 +247,10 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>用户登录</h2>
+					<h2>站内消息</h2>
 					<div class="sub_header_description">
 						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">用户登录</span>
+						<span class="page">大事记</span>
 					</div>
 
 				</div>
@@ -222,40 +264,80 @@ transitional.dtd">
 
 			<!-- Teaser Start -->
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
-				<div class="member_block blue">
-					<div class="member_block_icon gkbs">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_title">公开办事</div>
+			<#if messagelist?exists>
+			<#list messagelist as message>
+				<div class="mom_content notice_content">
+					<div class="mom_left">10/20</div>
+					<div class="mom_icon">
+						<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
+					</div>
+					<div class="mom_inner_content">
+						<div class="mom_contetn_header">
+							<div class="mom_header_text">
+								${message.title}
+							</div>
+							<div class="mom_date">${message.pubdate}</div>
+						</div>
+						<div class="mom_contetn_body clearfix">
+							<div class="mom_body_text">
+								${message.absinfo}
+							</div>
+						</div>
+						<div class="mom_contetn_bottom">&nbsp;</div>
+					</div>
 				</div>
-				<div class="member_block jgdt">
-					<div class="member_block_icon jgdt">&nbsp;</div>
-					<div class="member_block_icon_bg jgdt_bg">&nbsp;</div>
-					<div class="member_block_title">监管动态</div>
-				</div>
-				<!--<a href="./upload_list.html">-->
-				<a href="./uploadfilesmanager.action">
-				<div class="member_block qygl">
-					<div class="member_block_icon qygl">&nbsp;</div>
-					<div class="member_block_icon_bg  qygl_bg">&nbsp;</div>
-					<div class="member_block_title">企业管理</div>
-				</div>
-				</a>
-				<!--<a href="./notice.html">-->
-				<a href="./listnotice.action">
-				<div class="member_block tz">
-					<div class="member_block_icon tz">&nbsp;</div>
-					<div class="member_block_icon_bg tz_bg">&nbsp;</div>
-					<div class="member_block_title">通知</div>
-				</div>
-				</a>
-				<!--<a href="./download.html">-->
-				<a href="./listtodownloads.action">				
-				<div class="member_block xz">
-					<div class="member_block_icon xz">&nbsp;</div>
-					<div class="member_block_icon_bg xz_bg">&nbsp;</div>
-					<div class="member_block_title">相关下载</div>
-				</div>
-				</a>
+			</#list>
+			</#if>
+						<div class="mom_content notice_content">
+						<div class="mom_left"><span class="mom_year">2012 </span>10/20</div>
+						<div class="mom_icon">
+							<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
+							
+						</div>
+						<div class="mom_inner_content">
+							<div class="mom_contetn_header">
+							<div class="mom_header_text">
+								手机导航、MM业务年末大促销活动
+							</div>
+							<div class="mom_date">2013/12/12 12:30</div>
+							</div>
+							<div class="mom_contetn_body clearfix">
+								<div class="mom_body_text">
+								三、活动内容使用手机导航、MM客户端有机会获5元电子券。MM应用下载达人排名靠前有机会获2元至3000元电子券大奖。拨打12585或12580转4查交通尾数逢8可获赠2元话费。					
+								活动一：客户端使用有礼
+								活动时间：2013年12月17日起至2014年2月28日
+								活动对象：上海移动客户					
+								活动内容：
+								</div>
+							</div>
+							<div class="mom_contetn_bottom">&nbsp;</div>
+						</div>
+					</div>
+					
+					
+						<div class="mom_content notice_content">
+						<div class="mom_left"><span class="mom_year">2012 </span>10/20</div>
+						<div class="mom_icon">
+							<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
+							
+						</div>
+						<div class="mom_inner_content">
+							<div class="mom_contetn_header">
+							<div class="mom_header_text">
+								手机导航、MM业务年末大促销活动
+							</div>
+							<div class="mom_date">2013/12/12 12:30</div>
+							</div>
+							<div class="mom_contetn_body clearfix">
+								<div class="mom_body_text">
+								
+								</div>
+							</div>
+							<div class="mom_contetn_bottom">&nbsp;</div>
+						</div>
+					</div>
+					
+					
 			</div>
 			<!-- Teaser End -->
 

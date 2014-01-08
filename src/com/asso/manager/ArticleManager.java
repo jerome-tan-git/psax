@@ -6,6 +6,7 @@ import java.util.List;
 import com.asso.model.Article;
 import com.asso.model.Category;
 import com.asso.model.Channel;
+import com.asso.model.Message;
 
 public interface ArticleManager {
 
@@ -22,6 +23,9 @@ public interface ArticleManager {
 	List<Article> loadArticles() throws ClassNotFoundException, SQLException;
 
 	void deleteArticle(int articleid) throws ClassNotFoundException,
+			SQLException;
+
+	List<Message> loadMessages(int userid) throws ClassNotFoundException,
 			SQLException;
 
 }

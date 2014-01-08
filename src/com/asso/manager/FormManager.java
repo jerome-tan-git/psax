@@ -18,6 +18,8 @@ public interface FormManager {
 
 	Form loadFormWithFieldsById(int _formid) throws ClassNotFoundException,
 			SQLException;
+
+	List<Form> loadForms() throws ClassNotFoundException, SQLException;
 	
 
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd//hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.asso.model.Message" table="message" catalog="asso">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="title" type="java.lang.String">
+            <column name="title" length="100" />
+        </property>
+        <property name="absinfo" type="java.lang.String">
+            <column name="absinfo" length="300" />
+        </property>        
+        <property name="pic" type="java.lang.String">
+            <column name="pic" length="200" />
+        </property>
+        <property name="addition" type="java.lang.String">
+            <column name="addition" length="200" />
+        </property>
+        <property name="article" type="java.lang.String">
+            <column name="article" length="20000" />
+        </property>
+        <property name="pubdate" type="java.lang.String">
+            <column name="pubdate" length="16" />
+        </property>        
+        <property name="userid" type="int">
+            <column name="userid" length="11" />
+        </property>
+        <property name="isread" type="int">
+            <column name="isread" length="11" />
+        </property>
+    </class>
+</hibernate-mapping>

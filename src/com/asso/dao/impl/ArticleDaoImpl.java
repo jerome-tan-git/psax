@@ -17,6 +17,7 @@ import com.asso.dao.ArticleDao;
 import com.asso.model.Article;
 import com.asso.model.Category;
 import com.asso.model.Channel;
+import com.asso.model.Message;
 
 @Component("articleDao")
 public class ArticleDaoImpl implements ArticleDao {
@@ -98,7 +99,34 @@ public class ArticleDaoImpl implements ArticleDao {
 //        s.close();	    
 	    return rlist;
 	}
+	
+	@Override
+	public List<Message> loadMessagesByUserid(int userid){
+		List<Message> rlist = new ArrayList<Message>();
+		Session s = sessionFactory.getCurrentSession();
+	    String hql = "from Message where userid=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+userid); 
+        rlist = query.list();
+	    return rlist;
+	}
 
-
+	@Override
+	public void save(Message message) {
+		Session s = sessionFactory.getCurrentSession(); 
+	     s.beginTransaction();
+	     s.save(message);
+	     s.flush();
+	     s.getTransaction().commit();
+	}
+	
+	@Override
+	public void update(Message message) {
+		Session s = sessionFactory.getCurrentSession(); 
+	     s.beginTransaction();
+	     s.update(message);
+	     s.flush();
+	     s.getTransaction().commit();
+	}
 
 }

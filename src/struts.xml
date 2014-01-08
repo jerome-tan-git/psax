@@ -65,6 +65,12 @@
 		<action name="useruploadfiles" class="com.asso.action.UserBuilt" method="upload">  
 			<result name="upload" type="freemarker">/WEB-INF/ftl/uploadlist.ftl</result>			 
 		</action>
+		<action name="listtodownloads" class="com.asso.action.UserDownloads">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/downloadlist.ftl</result>			 
+		</action>
+		<action name="listnotice" class="com.asso.action.UserDownloads" method="getNotice">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/notice.ftl</result>			 
+		</action>
 		
 		<action name="userbuilt" class="com.asso.action.UserLogin" method="save">  
 			<result name="save">loginSuccess.jsp</result>			 

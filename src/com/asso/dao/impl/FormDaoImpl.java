@@ -109,6 +109,15 @@ public class FormDaoImpl implements FormDao{
         form.setFields(this.loadFieldsByFormId(_formid));
         return form;
 	}
+	@Override
+	public List<Form> loadAllForms(){		
+		List<Form> rlist = new ArrayList<Form>();
+		Session s = sessionFactory.getCurrentSession();
+		String hql = "from Form";      
+        Query query = s.createQuery(hql);
+        rlist = query.list();
+        return rlist;
+	}
 	
 	@Override
 	public Fields getFieldIdByName(String _name){

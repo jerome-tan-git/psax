@@ -8,7 +8,16 @@ public class Form {
 	private String displayname;
 	private String frontendtpl;
 	private List<Fields> fields;
+	private String path;
 	
+	
+	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 	public int getFormid() {
 		return formid;
 	}
@@ -35,8 +44,11 @@ public class Form {
 	}
 	
 	public String toString(){
-		return this.formid+":"+this.displayname+":"+this.frontendtpl+",\n"
+		if(this.fields!=null)
+			return this.formid+":"+this.displayname+":"+this.frontendtpl+":"+this.path+",\n"
 				+this.fields.toString();
+		else
+			return this.formid+":"+this.displayname+":"+this.frontendtpl+":"+this.path;
 	}
 	
 }

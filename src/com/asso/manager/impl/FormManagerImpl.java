@@ -42,6 +42,11 @@ public class FormManagerImpl implements FormManager {
 //		return articleDao.loadArticles(categoryid);		
 //	}
 	
+	
+	@Override
+	public List<Form> loadForms() throws ClassNotFoundException, SQLException{		
+		return formDao.loadAllForms();
+	}
 	@Override
 	public Form loadFormById(int _formid) throws ClassNotFoundException, SQLException{		
 		return formDao.loadForm(_formid);

@@ -14,6 +14,7 @@ import com.asso.manager.ChannelManager;
 import com.asso.model.Article;
 import com.asso.model.Category;
 import com.asso.model.Channel;
+import com.asso.model.Message;
 
 @Component("articleManager")
 public class ArticleManagerImpl implements ArticleManager {
@@ -59,6 +60,11 @@ public class ArticleManagerImpl implements ArticleManager {
 		Article art = new Article();
 		art.setId(articleid);
 		articleDao.delete(art);
+	}
+	
+	@Override
+	public List<Message> loadMessages(int userid) throws ClassNotFoundException, SQLException{
+		return articleDao.loadMessagesByUserid(userid);		
 	}
 	
 	

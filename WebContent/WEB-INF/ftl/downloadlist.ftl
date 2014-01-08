@@ -222,66 +222,15 @@ transitional.dtd">
 
 			<!-- Teaser Start -->
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
-				<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>
-								<div class="member_block_download blue">
-					<div class="member_download_icon">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_download_title">aaaaaaaa</div>
-				</div>		
+			<#if formlist?exists>
+				<#list formlist as userform>
+					<div class="member_block_download blue">
+						<div class="member_download_icon">&nbsp;</div>
+						<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
+						<div class="member_block_download_title">${userform.displayname}</div>
+					</div>
+				</#list>
+			</#if>
 			</div>
 			<!-- Teaser End -->
 
