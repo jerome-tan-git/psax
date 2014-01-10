@@ -205,10 +205,10 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>用户登录</h2>
+					<h2>用户中心</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">用户登录</span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
+						<span class="page">用户中心</span>
 					</div>
 
 				</div>
@@ -254,6 +254,20 @@ transitional.dtd">
 					<div class="member_block_icon xz">&nbsp;</div>
 					<div class="member_block_icon_bg xz_bg">&nbsp;</div>
 					<div class="member_block_title">相关下载</div>
+				</div>
+				</a>
+				<a href="./beginexam.action">				
+				<div class="member_block xz">
+					<div class="member_block_icon xz">&nbsp;</div>
+					<div class="member_block_icon_bg xz_bg">&nbsp;</div>
+					<div class="member_block_title">考试中心</div>
+				</div>
+				</a>
+				<a href="./usercenter.action">				
+				<div class="member_block xz">
+					<div class="member_block_icon xz">&nbsp;</div>
+					<div class="member_block_icon_bg xz_bg">&nbsp;</div>
+					<div class="member_block_title">基本信息</div>
 				</div>
 				</a>
 			</div>

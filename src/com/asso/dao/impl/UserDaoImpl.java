@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import util.ObjectToClass;
 
 import com.asso.dao.UserDao;
+import com.asso.model.Form;
 import com.asso.model.Member;
 import com.asso.model.MemberInfo;
 import com.asso.model.Uploadfiles;
@@ -40,7 +41,22 @@ public class UserDaoImpl implements UserDao {
 	     s.flush();
 	     s.getTransaction().commit();
 	}
-
+	@Override
+	public void update(User user) {
+		Session s = sessionFactory.getCurrentSession(); 
+	     s.beginTransaction();
+	     s.update(user);
+	     s.flush();
+	     s.getTransaction().commit();
+	}
+	@Override
+	public void delete(User user) {
+		Session s = sessionFactory.getCurrentSession(); 
+	     s.beginTransaction();
+	     s.delete(user);
+	     s.flush();
+	     s.getTransaction().commit();
+	}
 	
 	@Override
 	public User loadUserWithNamePassword(User _user) {
@@ -66,6 +82,34 @@ public class UserDaoImpl implements UserDao {
 			        }
 			    }
 		return u;		
+	}
+	
+	@Override
+	public User loadUser(int _userid){
+		User u = new User();
+		List<User> rlist = new ArrayList<User>();
+		Session s = sessionFactory.getCurrentSession();
+		String hql = "from User where id=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+_userid); 
+        rlist = query.list();
+        if(rlist.size()==1){
+        	u = rlist.get(0);
+        }else{
+        	if(rlist.size()>1)
+        		u = rlist.get(rlist.size()-1);
+        }        
+        return u;
+	}
+	@Override
+	public List<User> loadAllUsers(){	
+		
+		List<User> rlist = new ArrayList<User>();
+		Session s = sessionFactory.getCurrentSession();
+		String hql = "from User";      
+        Query query = s.createQuery(hql);
+        rlist = query.list();
+        return rlist;
 	}
 	
 	

@@ -1,6 +1,6 @@
 			<div class="menubar clearfix">
 
-					<a href="./index.html">
+					<a href="./page.action?categoryid=0">
 					<div class="menu_item">
 						<div class="menu_text">
 							首页

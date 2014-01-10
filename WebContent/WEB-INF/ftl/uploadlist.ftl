@@ -230,10 +230,11 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>用户登录</h2>
+					<h2>企业管理</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">用户登录</span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
+						<span><a href="./page.action?categoryid=1">用户中心 &raquo;</a></span>
+						<span class="page">企业管理</span>
 					</div>
 
 				</div>
@@ -271,11 +272,11 @@ transitional.dtd">
 					<form action="./useruploadfiles.action">
 						<input type="file" id="file_upload_1" name="uploadfiles"/>
 						<input type="hidden" name="userid" value="${user.id?default("")}"/>
-						<!--
+						
 						<div style="position:absolute;top: 0px;left: 113px;">
 							<input type="image" src="./images/bt_save.png" name="image" />
-						</div>-->
-						<input type="submit" value="save">
+						</div>
+						<!--<input type="submit" value="save">-->
 					</form>
 				</div>	
 				</#if>

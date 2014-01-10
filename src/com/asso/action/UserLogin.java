@@ -41,7 +41,7 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 	private File ptrt;
 	private String ptrtContentType;
 	private String ptrtFileName;
-	private UserRegisterInfo uinfo = new UserRegisterInfo();
+	
 	
 	private HttpServletRequest request;	
 	private Map session;
@@ -89,53 +89,93 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 	public void setPtrtFileName(String ptrtFileName) {
 		this.ptrtFileName = ptrtFileName;
 	}
-	public UserRegisterInfo getUinfo() {
-		return uinfo;
-	}
-	public void setUinfo(UserRegisterInfo uinfo) {
-		this.uinfo = uinfo;
-	}
 
-	private void setUploadfiles(){
-		
-		System.out.println("GET username--->"+this.uInfo.getUsername());
-		System.out.println("GET password--->"+this.uInfo.getPassword());
-		System.out.println("GET nickname--->"+this.uInfo.getNickname());
-		System.out.println("GET portrait--->"+this.uInfo.getPortrait());
-		
-		
-		if(this.uinfo.getPortrait()!=null){
-			this.setPtrt(this.uinfo.getPortrait());
-			this.setPtrtContentType(this.uinfo.getPortraitContentType());
-			this.setPtrtFileName(this.uinfo.getPortraitFileName());
-			
-			System.out.println("this.uinfo.getPortrait()---"+this.uinfo.getPortrait());
-			System.out.println("this.uinfo.getPortraitContentType()---"+this.uinfo.getPortraitContentType());
-			System.out.println("this.uinfo.getPortraitFileName()---"+this.uinfo.getPortraitFileName());
-			
-			if(this.ptrt==null || this.ptrt.length()>4194304 ){  
-	            System.out.println("!!@@!!imageError");   
-	        } 
-		}else{
-			System.out.println("No portrait upload!!!");
-		}
-	}
+
+//	private void setUploadfiles(){
+//		
+//		System.out.println("GET username--->"+this.uInfo.getUsername());
+//		System.out.println("GET password--->"+this.uInfo.getPassword());
+//		System.out.println("GET nickname--->"+this.uInfo.getNickname());
+//		System.out.println("GET portrait--->"+this.uInfo.getPortrait());
+//		
+//		
+//		if(this.uInfo.getPortrait()!=null){
+//			this.setPtrt(this.uInfo.getPortrait());
+//			this.setPtrtContentType(this.uInfo.getPortraitContentType());
+//			this.setPtrtFileName(this.uInfo.getPortraitFileName());
+//			
+//			System.out.println("this.uinfo.getPortrait()---"+this.uInfo.getPortrait());
+//			System.out.println("this.uinfo.getPortraitContentType()---"+this.uInfo.getPortraitContentType());
+//			System.out.println("this.uinfo.getPortraitFileName()---"+this.uInfo.getPortraitFileName());
+//			
+//			if(this.ptrt==null || this.ptrt.length()>4194304 ){  
+//	            System.out.println("!!@@!!imageError");   
+//	        } 
+//		}else{
+//			System.out.println("No portrait upload!!!");
+//		}
+//	}
+//	
+//	public String updateUserInfo() throws IOException{  
+//		this.setUploadfiles();
+//            String realpath = ServletActionContext.getServletContext().getRealPath("/ckimages");  
+//            if(this.ptrt!=null)  
+//            {  
+//            	String newImgName = System.currentTimeMillis()+"_"+this.ptrtFileName;  
+//                File savefile = new File(realpath,newImgName);  
+//                if(!savefile.getParentFile().exists())  
+//                    savefile.getParentFile().mkdirs();  
+//  
+//                FileUtils.copyFile(this.ptrt,savefile);  
+//                System.out.println("realpath="+realpath+", name="+savefile.getName()); 
+//            }  
+//            return "success";  
+//     }  
+//	
 	
-	public String updateUserInfo() throws IOException{  
-		this.setUploadfiles();
-            String realpath = ServletActionContext.getServletContext().getRealPath("/ckimages");  
-            if(this.ptrt!=null)  
-            {  
-            	String newImgName = System.currentTimeMillis()+"_"+this.ptrtFileName;  
-                File savefile = new File(realpath,newImgName);  
-                if(!savefile.getParentFile().exists())  
-                    savefile.getParentFile().mkdirs();  
-  
-                FileUtils.copyFile(this.ptrt,savefile);  
-                System.out.println("realpath="+realpath+", name="+savefile.getName()); 
-            }  
-            return "success";  
-     }  
+	private boolean isEmpty(String _str){
+		if(_str!=null && _str.length()>0)
+			return false;
+		else
+			return true;
+	}
+	public String updateInfo() throws IOException{
+		this.user = new User();
+		this.user = (User)this.request.getSession().getAttribute("user_");
+		System.out.println("updateInfo---session user"+this.user.toString());//null point
+		System.out.println("updateInfo---this.uInfo.getIssave()---"+this.uInfo.getIssave());
+		if(this.uInfo.getIssave()!=null){
+			if(this.uInfo.getIssave().equals("±£´æ")){
+				if(!this.isEmpty(this.uInfo.getUsername()))
+					this.user.setUsername(this.uInfo.getUsername());
+				if(!this.isEmpty(this.uInfo.getPassword()))
+					this.user.setPassword(this.uInfo.getPassword());
+				if(!this.isEmpty(this.uInfo.getNickname()))
+					this.user.setNickname(this.uInfo.getNickname());
+				if(!this.isEmpty(this.uInfo.getEmail()))
+					this.user.setEmail(this.uInfo.getEmail());
+				if(!this.isEmpty(this.uInfo.getPhone()))
+					this.user.setPhone(this.uInfo.getPhone());
+				if(!this.isEmpty(this.uInfo.getPortrait()))
+					this.user.setPortrait(this.uInfo.getPortrait());
+				
+				try {
+					um.update(user);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				this.request.getSession().setAttribute("user_", this.user);			
+			}	
+		}else{
+			//
+		}
+		
+		
+		this.userCenter();
+		return "success";  
+    }  
 
 
 	public String gologin(){
@@ -180,7 +220,7 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 
 	@Override
 	public Object getModel() {
-		System.out.println("uinfo----"+uinfo.toString());
+		System.out.println("uInfo----"+uInfo.toString());
 		return this.uInfo;
 	}
 	
@@ -263,11 +303,13 @@ public class UserLogin extends ActionSupport implements ModelDriven,ServletReque
 				e.printStackTrace();
 			}
 			
-			if(user.getNickname()!=null){
+//			if(user.getNickname()!=null){
+			if(user!=null){
 				System.out.println("Load user----"+user.toString());
-				u.setNickname(user.getNickname());
-				request.getSession().setAttribute("user_", u);
+//				u.setNickname(user.getNickname());
+//				request.getSession().setAttribute("user_", u);
 //				System.out.println("Session user----"+this.session.get("user_").toString());
+				request.getSession().setAttribute("user_", user);
 				System.out.println("Session user----"+this.request.getSession().getAttribute("user_").toString());
 			}
 			

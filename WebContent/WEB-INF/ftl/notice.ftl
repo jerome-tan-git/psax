@@ -249,8 +249,9 @@ transitional.dtd">
 				<div class="sub_header_title">
 					<h2>站内消息</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">大事记</span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
+						<span><a href="./page.action?categoryid=1">用户中心 &raquo;</a></span>
+						<span class="page">站内消息</span>
 					</div>
 
 				</div>
@@ -265,78 +266,78 @@ transitional.dtd">
 			<!-- Teaser Start -->
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
 			<#if messagelist?exists>
-			<#list messagelist as message>
-				<div class="mom_content notice_content">
-					<div class="mom_left">10/20</div>
-					<div class="mom_icon">
-						<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
-					</div>
-					<div class="mom_inner_content">
-						<div class="mom_contetn_header">
-							<div class="mom_header_text">
-								${message.title}
+				<#if (messagelist?size>0) >			 
+					<#list messagelist as message>
+						<div class="mom_content notice_content">
+							<div class="mom_left"><span class="mom_year">${message.year?default("")} </span>${message.month?default("")}/${message.day?default("")} </div>
+							<div class="mom_icon">
+								<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
 							</div>
-							<div class="mom_date">${message.pubdate}</div>
-						</div>
-						<div class="mom_contetn_body clearfix">
-							<div class="mom_body_text">
-								${message.absinfo}
+							<div class="mom_inner_content">
+								<div class="mom_contetn_header">
+									<div class="mom_header_text">
+										${message.title?default("")}
+									</div>
+									<div class="mom_date">${message.pubdate?default("")}</div>
+								</div>
+								<div class="mom_contetn_body clearfix">
+									<div class="mom_body_text">
+										${message.absinfo?default("")}
+									</div>
+								</div>
+								<div class="mom_contetn_bottom">&nbsp;</div>
 							</div>
 						</div>
-						<div class="mom_contetn_bottom">&nbsp;</div>
-					</div>
-				</div>
-			</#list>
+					</#list>
+				<#else>
+					<div class="mom_content notice_content">
+							<div class="mom_left"></div>
+							<div class="mom_icon">
+								<div class="mom_logo_div"></div>							
+							</div>
+							<div class="mom_inner_content">
+								<div class="mom_contetn_header">
+								<div class="mom_header_text">
+									暂无新信息
+								</div>
+								<div class="mom_date"></div>
+								</div>
+								<div class="mom_contetn_body clearfix">
+									<div class="mom_body_text">
+									
+									</div>
+								</div>
+								<div class="mom_contetn_bottom">&nbsp;</div>
+							</div>
+						</div>
+				</#if>
+				
 			</#if>
-						<div class="mom_content notice_content">
-						<div class="mom_left"><span class="mom_year">2012 </span>10/20</div>
-						<div class="mom_icon">
-							<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
-							
-						</div>
-						<div class="mom_inner_content">
-							<div class="mom_contetn_header">
-							<div class="mom_header_text">
-								手机导航、MM业务年末大促销活动
-							</div>
-							<div class="mom_date">2013/12/12 12:30</div>
-							</div>
-							<div class="mom_contetn_body clearfix">
-								<div class="mom_body_text">
-								三、活动内容使用手机导航、MM客户端有机会获5元电子券。MM应用下载达人排名靠前有机会获2元至3000元电子券大奖。拨打12585或12580转4查交通尾数逢8可获赠2元话费。					
-								活动一：客户端使用有礼
-								活动时间：2013年12月17日起至2014年2月28日
-								活动对象：上海移动客户					
-								活动内容：
-								</div>
-							</div>
-							<div class="mom_contetn_bottom">&nbsp;</div>
-						</div>
-					</div>
+						
 					
-					
+					<!--
 						<div class="mom_content notice_content">
-						<div class="mom_left"><span class="mom_year">2012 </span>10/20</div>
-						<div class="mom_icon">
-							<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
-							
-						</div>
-						<div class="mom_inner_content">
-							<div class="mom_contetn_header">
-							<div class="mom_header_text">
-								手机导航、MM业务年末大促销活动
-							</div>
-							<div class="mom_date">2013/12/12 12:30</div>
-							</div>
-							<div class="mom_contetn_body clearfix">
-								<div class="mom_body_text">
+							<div class="mom_left"><span class="mom_year">2012 </span>10/20</div>
+							<div class="mom_icon">
+								<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
 								
-								</div>
 							</div>
-							<div class="mom_contetn_bottom">&nbsp;</div>
+							<div class="mom_inner_content">
+								<div class="mom_contetn_header">
+									<div class="mom_header_text">
+										手机导航、MM业务年末大促销活动
+									</div>
+									<div class="mom_date">2013/12/12 12:30</div>
+								</div>
+								<div class="mom_contetn_body clearfix">
+									<div class="mom_body_text">
+									
+									</div>
+								</div>
+								<div class="mom_contetn_bottom">&nbsp;</div>
+							</div>
 						</div>
-					</div>
-					
+					-->
 					
 			</div>
 			<!-- Teaser End -->

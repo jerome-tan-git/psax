@@ -15,8 +15,30 @@ public class Message implements java.io.Serializable{
 	private String pubdate;
 	private int isread;
 	private int userid;
+	private String month;
+	private String day;
+	private String year;
 	
 	
+	
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
 	public int getIsread() {
 		return isread;
 	}

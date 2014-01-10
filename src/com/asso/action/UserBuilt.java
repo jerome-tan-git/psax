@@ -90,43 +90,43 @@ public class UserBuilt extends ActionSupport implements ModelDriven,ServletReque
 		}		
 		return SUCCESS;
 	}
-	public String upload(){
-		System.out.println("---------------upload---------------");
-		
-		String userid = this.uInfo.getUserid();
-		System.out.println("GET userid--->"+userid);
-		
-		String[] upfileNames = this.uInfo.getUploadfilenames();
-		if(upfileNames!=null){
-			for(String ufn:upfileNames){
-				System.out.println("GET uploadfile name--->"+ufn);
-			}
-			
-			String[] upfiles = this.uInfo.getUploadfiles();
-			if(upfileNames.length!=upfiles.length)
-				System.out.println("ERROR!!!!---->upfileNames.length!=upfiles.length");
-			for(int i=0;i<upfiles.length; i++){
-				String uf = upfiles[i];
-				String ufn = upfileNames[i];
-				System.out.println("GET uploadfile--->"+uf);
-				Uploadfiles uploadfiles = new Uploadfiles();
-				uploadfiles.setFile(uf);
-				uploadfiles.setFname(ufn);
-				uploadfiles.setUserid(Integer.parseInt(userid));
-				uploadfiles.setUploadtime(CONSTANT.getNowTime());
-				try {
-					um.addUploadfiles(uploadfiles);
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}		
-		}		
-		
-		this.buildLoadedFiles(Integer.parseInt(userid));
-		return "upload";
-	}
+//	public String upload(){
+//		System.out.println("---------------upload---------------");
+//		
+//		String userid = this.uInfo.getUserid();
+//		System.out.println("GET userid--->"+userid);
+//		
+//		String[] upfileNames = this.uInfo.getUploadfilenames();
+//		if(upfileNames!=null){
+//			for(String ufn:upfileNames){
+//				System.out.println("GET uploadfile name--->"+ufn);
+//			}
+//			
+//			String[] upfiles = this.uInfo.getUploadfiles();
+//			if(upfileNames.length!=upfiles.length)
+//				System.out.println("ERROR!!!!---->upfileNames.length!=upfiles.length");
+//			for(int i=0;i<upfiles.length; i++){
+//				String uf = upfiles[i];
+//				String ufn = upfileNames[i];
+//				System.out.println("GET uploadfile--->"+uf);
+//				Uploadfiles uploadfiles = new Uploadfiles();
+//				uploadfiles.setFile(uf);
+//				uploadfiles.setFname(ufn);
+//				uploadfiles.setUserid(Integer.parseInt(userid));
+//				uploadfiles.setUploadtime(CONSTANT.getNowTime());
+//				try {
+//					um.addUploadfiles(uploadfiles);
+//				} catch (ClassNotFoundException e) {
+//					e.printStackTrace();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}		
+//		}		
+//		
+//		this.buildLoadedFiles(Integer.parseInt(userid));
+//		return "upload";
+//	}
 	
 	private void buildLoadedFiles(int _userid){
 		this.upflist = new ArrayList<Uploadfiles>();

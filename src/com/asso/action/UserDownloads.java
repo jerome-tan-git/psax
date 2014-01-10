@@ -13,10 +13,12 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import util.CONSTANT;
 import util.SpringFactory;
 
 import com.asso.manager.ArticleManager;
 import com.asso.manager.FormManager;
+import com.asso.model.Article;
 import com.asso.model.Form;
 import com.asso.model.Message;
 import com.asso.model.User;
@@ -25,9 +27,13 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Scope("prototype")
 @Component("userdownloads") 
-public class UserDownloads extends ActionSupport implements ModelDriven,ServletRequestAware,SessionAware {
+//public class UserDownloads extends ActionSupport implements ModelDriven,ServletRequestAware,SessionAware {
+public class UserDownloads extends ActionSupport implements ServletRequestAware,SessionAware {
 	
-//	private UserRegisterInfo uInfo = new UserRegisterInfo();
+
+
+	private static final long serialVersionUID = 40968698194325250L;
+	//	private UserRegisterInfo uInfo = new UserRegisterInfo();
 //	private UserManager um;
 	private FormManager fm;
 	private ArticleManager am;
@@ -37,6 +43,8 @@ public class UserDownloads extends ActionSupport implements ModelDriven,ServletR
 	private User user;
 	private List<Form> formlist;
 	private List<Message> messagelist;
+	private String message;
+//	private String[] userids;
 
 	public UserDownloads(){
 		fm = (FormManager) SpringFactory.getObject("formManager");
@@ -75,73 +83,113 @@ public class UserDownloads extends ActionSupport implements ModelDriven,ServletR
 	}
 	public void setMessagelist(List<Message> messagelist) {
 		this.messagelist = messagelist;
+	}	
+	public String getMessage() {
+		return message;
 	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+//	public String[] getUserids() {
+//		return userids;
+//	}
+//	public void setUserids(String[] userids) {
+//		this.userids = userids;
+//	}
 
-	public String getNotice(){
-		System.out.println("-------------------getNotice-------------------");
-		if(this.session!=null){
-			User u = (User) this.session.get("user_");
-			System.out.println("session user------"+u.toString());
-			
-			if(u!=null){
-				this.user = new User();
-				this.setUser(u);
-				
+	public String sendNotice(){
+		System.out.println("Got message---"+this.message);
+		String[] ids = this.request.getParameterValues("userids");
+		if(ids!=null && ids.length>0){
+			for(String userid:ids){
+				System.out.println("GOT usrid-------"+userid);
+				Message message = new Message();
+				message.setTitle(this.message);
+				message.setUserid(Integer.parseInt(userid));
+				message.setPubdate(CONSTANT.getTodayDate());
 				try {
-					this.setMessagelist(am.loadMessages(u.getId()));
+					am.add(message);
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
+
+		}
+		return "success";
+	}
+	public String getNotice(){
+		System.out.println("-------------------getNotice-------------------");
+		if(this.session!=null){
+			User u = (User) this.session.get("user_");
+			System.out.println("session user------"+u.toString());
 			
-		
-			for(Message m:this.messagelist){
-				System.out.println("---------->>>"+m.toString());
-				//to update to isread=1
+			List<Message> ms = new ArrayList<Message>();
+			if(u!=null){
+				this.user = new User();
+				this.setUser(u);
+				
+				try {
+					ms = am.loadMessages(u.getId());
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}				
 			}
 			
+			this.messagelist = new ArrayList<Message>();
+			for(Message m:ms){
+				System.out.println("---------->>>"+m.toString());				
+				if(m.getIsread()==1)
+					continue;
+				else{
+					this.setYMD(m);
+					this.messagelist.add(m);
+					this.updateMessageToReaded(m);
+				}
+			}
 		}		
 		return SUCCESS;
 	}
-//	public String upload(){
-//		System.out.println("---------------upload---------------");
-//		
-//		String userid = this.uInfo.getUserid();
-//		System.out.println("GET userid--->"+userid);
-//		
-//		String[] upfileNames = this.uInfo.getUploadfilenames();
-//		if(upfileNames!=null){
-//			for(String ufn:upfileNames){
-//				System.out.println("GET uploadfile name--->"+ufn);
-//			}
-//			
-//			String[] upfiles = this.uInfo.getUploadfiles();
-//			if(upfileNames.length!=upfiles.length)
-//				System.out.println("ERROR!!!!---->upfileNames.length!=upfiles.length");
-//			for(int i=0;i<upfiles.length; i++){
-//				String uf = upfiles[i];
-//				String ufn = upfileNames[i];
-//				System.out.println("GET uploadfile--->"+uf);
-//				Uploadfiles uploadfiles = new Uploadfiles();
-//				uploadfiles.setFile(uf);
-//				uploadfiles.setFname(ufn);
-//				uploadfiles.setUserid(Integer.parseInt(userid));
-//				uploadfiles.setUploadtime(CONSTANT.getNowTime());
-//				try {
-//					um.addUploadfiles(uploadfiles);
-//				} catch (ClassNotFoundException e) {
-//					e.printStackTrace();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}		
-//		}		
-//		
-//		this.buildLoadedFiles(Integer.parseInt(userid));
-//		return "upload";
-//	}
+	
+	
+	private void updateMessageToReaded(Message m){
+		//to update to isread=1
+//		Message update_m = new Message();
+//		update_m.setIsread(1);
+//		update_m.setId(m.getId());				
+//		update_m.setPubdate(m.getPubdate());
+//		update_m.setAbsinfo(m.getAbsinfo());
+//		update_m.setAddition(m.getAddition());
+//		update_m.setArticle(m.getArticle());
+//		update_m.setPic(m.getPic());
+//		update_m.setTitle(m.getTitle());
+//		update_m.setUserid(m.getUserid());
+		m.setIsread(1);
+		try {
+//			am.update(update_m);
+			am.update(m);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	private void setYMD(Message _message){
+		String _date = _message.getPubdate();
+		if(_date.length()>=10 && _message!=null){
+			String y = _date.substring(0,4);
+			if(y.equals(CONSTANT.getThisYear()))
+				_message.setYear("");
+			else
+				_message.setYear(y);
+			_message.setMonth(_date.substring(5, 7));
+			_message.setDay(_date.substring(8,10));
+		}else
+			System.out.println("Time DATA ERROR, PLS INV...");
+	}
 	
 	private void build2DownloadFiles(){
 		this.formlist = new ArrayList<Form>();
@@ -174,10 +222,10 @@ public class UserDownloads extends ActionSupport implements ModelDriven,ServletR
 	
 	}
 	
-	@Override
-	public Object getModel() {		
-		return null;
-	}
+//	@Override
+//	public Object getModel() {		
+//		return null;
+//	}
 
 	@Override
 	public void setSession(Map<String, Object> session) {

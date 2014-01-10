@@ -26,6 +26,10 @@ public interface UserDao {
 	List<Uploadfiles> loadUploadfilesByUserId(int _userid);
 	void save(Uploadfiles _uploadfiles);
 	void delete(Uploadfiles _uploadfiles);
+	User loadUser(int _userid);
+	void update(User user);
+	List<User> loadAllUsers();
+	void delete(User user);
 	
 	
 	

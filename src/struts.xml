@@ -8,7 +8,7 @@
     <constant name="struts.enable.DynamicMethodInvocation" value="true" />
     <constant name="struts.devMode" value="false" />
 
-    <package name="com.maggie.ssh1" namespace="/" extends="struts-default">
+    <package name="com.asso" namespace="/" extends="struts-default">
 
         <default-action-ref name="index" />
         <!-- 
@@ -21,6 +21,8 @@
 		 -->
 		 
 		<action name="page" class="com.asso.action.ChannelEdit">  
+			<result name="cat0" type="freemarker">/WEB-INF/ccpage/index.ftl</result>
+			<result name="cat1" type="freemarker">/WEB-INF/ftl/membercenter.ftl</result>
 			<result name="cat2" type="freemarker">/WEB-INF/ccpage/about_us.ftl</result>
 			<result name="cat15" type="freemarker">/WEB-INF/ccpage/exam_home.ftl</result>
 			
@@ -52,11 +54,18 @@
 			<result name="success" type="freemarker">/WEB-INF/ftl/membercenter.ftl</result>
 			<result name="failure">loginFail.jsp</result>  
 		</action>
+		<action name="userlogout" class="com.asso.action.UserLogout" >  
+			<result name="success" type="freemarker">/WEB-INF/ccpage/index.ftl</result>
+		</action>
 		
 		<action name="usercenter" class="com.asso.action.UserLogin" method="userCenter">  
 			<result name="success" type="freemarker">/WEB-INF/ftl/usercenter.ftl</result>			 
 		</action>
+		<!-- 
 		<action name="userupdate" class="com.asso.action.UserLogin" method="updateUserInfo">  
+			<result name="success" type="freemarker">/WEB-INF/ftl/usercenter.ftl</result>			 
+		</action> -->	
+		<action name="userupdateinfo" class="com.asso.action.UserLogin" method="updateInfo">  
 			<result name="success" type="freemarker">/WEB-INF/ftl/usercenter.ftl</result>			 
 		</action>		
 		<action name="uploadfilesmanager" class="com.asso.action.UserBuilt" method="manager">  
@@ -71,33 +80,46 @@
 		<action name="listnotice" class="com.asso.action.UserDownloads" method="getNotice">  
 			<result name="success" type="freemarker">/WEB-INF/ftl/notice.ftl</result>			 
 		</action>
+		<action name="sendmessage" class="com.asso.action.UserDownloads" method="sendNotice">  
+			<result name="success" type="redirect">manageruser.action</result>			 
+		</action>
 		
+		<!-- 
 		<action name="userbuilt" class="com.asso.action.UserLogin" method="save">  
 			<result name="save">loginSuccess.jsp</result>			 
 		</action>
 		<action name="checksession" class="com.asso.action.CheckSession" >  
 			<result name="success">loginSuccess.jsp</result>			 
 		</action>
-		<action name="userlogout" class="com.asso.action.UserLogout" >  
-			<result name="success">hello.html</result>			 
-		</action>
-		
-		
+				
 		<action name="newexam" class="com.asso.action.ExamItemsList" method="addExam">  
 			<result name="save">inputExam.jsp?examsave=1</result>			 
 		</action>
 		<action name="newitem" class="com.asso.action.ExamItemsList" method="addItem">   
 			<result name="save">inputExam.jsp?examsave=2</result>			 
 		</action>
-		<!-- 
+		
 		<action name="manageritemlist" class="com.asso.action.ExamItemsList" method="loadItemlistFByExamId">  
 			<result name="list">examItemsList.jsp</result>		                     	 
 		</action>
- 		-->
  		
 		<action name="managerexamcontext" class="com.asso.action.ExamItemsList" method="managerExamContext">  
 			<result name="success">inputExam_.jsp?examsave=0</result>		                     	 
 		</action>
+		-->
+		<action name="manageruser" class="com.asso.action.UserEdit">
+			<result name="list" type="freemarker">/WEB-INF/ftl/userlist.ftl</result>
+		</action>
+		<action name="updateuser" class="com.asso.action.UserEdit" method="updateUser">
+			<result name="update" type="redirect">manageruser.action</result>
+		</action>		
+		<action name="deleteuser" class="com.asso.action.UserEdit" method="deleteUser">					
+			<result name="delete" type="redirect">manageruser.action</result>
+		</action>
+		<action name="adduser" class="com.asso.action.UserEdit" method="addUser">					
+			<result name="add" type="redirect">manageruser.action</result>
+		</action>
+		
 		<action name="managerexam" class="com.asso.action.ExamItemsList" method="managerExamContext">
 			<result name="success" type="freemarker">/WEB-INF/ftl/editExam_.ftl</result>		                     	 
 		</action>

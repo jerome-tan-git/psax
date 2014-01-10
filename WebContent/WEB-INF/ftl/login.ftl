@@ -207,7 +207,7 @@ transitional.dtd">
 				<div class="sub_header_title">
 					<h2>用户登录</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
 						<span class="page">用户登录</span>
 					</div>
 
@@ -222,7 +222,7 @@ transitional.dtd">
 
 			<!-- Teaser Start -->
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
-				<form name="login_form" action="userlogin.action">
+				<form name="login_form" method="post" action="userlogin.action">
 					<div class="login_form">
 						<div class="user_input">
 							<input type="text" placeholder="用户名" name="username" />

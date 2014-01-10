@@ -55,6 +55,16 @@ public class UserManagerImpl implements UserManager {
 	public void add(User user) throws ClassNotFoundException, SQLException{		
 		userDao.save(user);					
 	}
+	@Override
+	public void update(User user) throws ClassNotFoundException, SQLException{		
+		userDao.update(user);				
+	}
+	@Override
+	public void delete(int userid) throws ClassNotFoundException, SQLException{		
+		User u = new User();
+		u.setId(userid);
+		userDao.delete(u);	
+	}
 	
 	@Override
 	public void addMember(User user) throws ClassNotFoundException, SQLException{		
@@ -71,13 +81,17 @@ public class UserManagerImpl implements UserManager {
 		System.out.println("Member input userid ------"+user.getId());
 		return userDao.loadMemberInfoWithUserId(user);		
 	}
-	
+	@Override
+	public List<User> loadusers() throws ClassNotFoundException, SQLException{
+		return userDao.loadAllUsers();
+	}
 	@Override
 	public User loadUser(User user) throws ClassNotFoundException, SQLException{		
 		System.out.println("User input userid ------"+user.getId()+", password-----"+user.getPassword());
 		int r = userDao.checkUserExistsWithNamePassword(user);
 		if(r==1)
-			return userDao.loadUserWithNamePassword(user);
+//			return userDao.loadUserWithNamePassword(user);
+			return userDao.loadUser(user.getId());
 		else
 			return new User();
 			

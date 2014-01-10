@@ -66,6 +66,14 @@ public class ArticleManagerImpl implements ArticleManager {
 	public List<Message> loadMessages(int userid) throws ClassNotFoundException, SQLException{
 		return articleDao.loadMessagesByUserid(userid);		
 	}
+	@Override
+	public void update(Message message) throws ClassNotFoundException, SQLException {		
+		articleDao.update(message);		
+	}
+	@Override
+	public void add(Message message) throws ClassNotFoundException, SQLException {		
+		articleDao.save(message);
+	}
 	
 	
 }

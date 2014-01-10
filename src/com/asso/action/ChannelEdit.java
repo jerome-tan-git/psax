@@ -108,6 +108,10 @@ public class ChannelEdit extends ActionSupport implements ServletRequestAware,Se
 		if(cat!=null && cat.length()>0){
 			int c = Integer.parseInt(cat);
 		
+			if(c==0)
+				return "cat0";
+			if(c==1)
+				return "cat1";
 			if(c==2)
 				return "cat2";
 			if(c==15)

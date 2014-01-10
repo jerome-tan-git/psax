@@ -35,5 +35,13 @@ public interface UserManager {
 	void deleteUploadedFile(int _uploadedfileid) throws ClassNotFoundException,
 			SQLException;
 
+	void update(User user) throws ClassNotFoundException, SQLException;
+
+	List<User> loadusers() throws ClassNotFoundException, SQLException;
+
+	void delete(int userid) throws ClassNotFoundException, SQLException;
+
+
+
 
 }

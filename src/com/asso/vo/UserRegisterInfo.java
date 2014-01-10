@@ -10,19 +10,28 @@ public class UserRegisterInfo {
 	private int id;
 	private String nickname;
 	private String userid;
+	private String email;
+	private String phone;
+	private String portrait;
+	private String issave;
 	
-	private File portrait;	
-	private String portraitContentType;	
-	private String portraitFileName;
+//	private File portrait;	
+//	private String portraitContentType;	
+//	private String portraitFileName;
 
-	private String[] uploadfiles;	
-	private String[] uploadfilenames;
+//	private String[] uploadfiles;	
+//	private String[] uploadfilenames;
 	
 	
-	
+	public String getIssave() {
+		return issave;
+	}
+	public void setIssave(String issave) {
+		this.issave = issave;
+	}
 	public String getUserid() {
 		return userid;
-	}
+	}	
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
@@ -56,37 +65,55 @@ public class UserRegisterInfo {
 	public void setPassword1(String password1) {
 		this.password1 = password1;
 	}
-	
-	public File getPortrait() {
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getPortrait() {
 		return portrait;
 	}
-	public void setPortrait(File portrait) {
+	public void setPortrait(String portrait) {
 		this.portrait = portrait;
 	}
-	public String getPortraitContentType() {
-		return portraitContentType;
-	}
-	public void setPortraitContentType(String portraitContentType) {
-		this.portraitContentType = portraitContentType;
-	}
-	public String getPortraitFileName() {
-		return portraitFileName;
-	}
-	public void setPortraitFileName(String portraitFileName) {
-		this.portraitFileName = portraitFileName;
-	}
-	public String[] getUploadfiles() {
-		return uploadfiles;
-	}
-	public void setUploadfiles(String[] uploadfiles) {
-		this.uploadfiles = uploadfiles;
-	}
-	public String[] getUploadfilenames() {
-		return uploadfilenames;
-	}
-	public void setUploadfilenames(String[] uploadfilenames) {
-		this.uploadfilenames = uploadfilenames;
-	}
+	
+//	public File getPortrait() {
+//		return portrait;
+//	}
+//	public void setPortrait(File portrait) {
+//		this.portrait = portrait;
+//	}
+//	public String getPortraitContentType() {
+//		return portraitContentType;
+//	}
+//	public void setPortraitContentType(String portraitContentType) {
+//		this.portraitContentType = portraitContentType;
+//	}
+//	public String getPortraitFileName() {
+//		return portraitFileName;
+//	}
+//	public void setPortraitFileName(String portraitFileName) {
+//		this.portraitFileName = portraitFileName;
+//	}
+//	public String[] getUploadfiles() {
+//		return uploadfiles;
+//	}
+//	public void setUploadfiles(String[] uploadfiles) {
+//		this.uploadfiles = uploadfiles;
+//	}
+//	public String[] getUploadfilenames() {
+//		return uploadfilenames;
+//	}
+//	public void setUploadfilenames(String[] uploadfilenames) {
+//		this.uploadfilenames = uploadfilenames;
+//	}
 	
 
 }

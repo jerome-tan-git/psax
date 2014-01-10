@@ -60,5 +60,6 @@ http://localhost:8080/psax/usercenter.action
 
 http://localhost:8080/psax/page.action?categoryid=2
 http://localhost:8080/psax/listtodownloads.action
+http://localhost:8080/psax/manageruser.action
 
 

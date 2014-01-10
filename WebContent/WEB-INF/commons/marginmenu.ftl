@@ -9,13 +9,13 @@
 								<a href="./managerArt.action">Article</a>
 							</li>
 							<li>
+								<a href="./manageruser.action">User</a>
+							</li>
+							<li>
 								<a href="#modals">workflow</a>
 
 							</li>
-							<li>
-								<a href="#dropdowns">Dropdown</a>
-
-							</li>
+							
 							<li>
 								<a href="#scrollspy">Scrollspy</a>
 

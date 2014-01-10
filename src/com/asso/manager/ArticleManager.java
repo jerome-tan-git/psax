@@ -28,4 +28,8 @@ public interface ArticleManager {
 	List<Message> loadMessages(int userid) throws ClassNotFoundException,
 			SQLException;
 
+	void update(Message message) throws ClassNotFoundException, SQLException;
+
+	void add(Message message) throws ClassNotFoundException, SQLException;
+
 }

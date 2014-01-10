@@ -7,12 +7,14 @@
 		<link rel="stylesheet" type="text/css" href="./css/backend.css" />
 		<link rel="stylesheet" type="text/css" href="./css/docs.css" />
 		
+		
 		<script type="text/javascript" src="./js/jquery.min.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
 		<script src="./js/ckeditor/ckeditor.js"></script>
 		<script src="./js/ckeditor/adapters/jquery.js"></script>
 		<script src="./js/backend.js"></script>
 		<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+		<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 		<script>
 		var selectIndex = -1;
 		CKEDITOR.disableAutoInline = true;
@@ -32,6 +34,7 @@
 		$( document ).ready( function() {
 			$( '#editor' ).ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
 			//$( '#editor1' ).ckeditor(); // Use CKEDITOR.replace() if element is <textarea>.
+			$('.date').datepicker();
 			
 		} );
 		</script>
@@ -49,42 +52,57 @@
 					</button>
 					<a href="#" class="navbar-brand" style="color:#fff">&nbsp;</a>
 				</div>
+
 			</div>
 		</div>
 		<div style="margin-top: 50px">
 			<div class="row" style="width: 100%;">
 				<#include "../commons/marginmenu.ftl">
-				
 				<div class="col-md-8">
 					<div class="col-md-12">
-					<#if artlist?exists>
-						<#list artlist as article>
-						<#if article?exists>
+					<form method="post" action="sendmessage.action">
+					<#if userslist?exists>
+						<#list userslist as user>
+							<div class="panel panel-default exam_container">
+								<div class="panel-heading clearfix">						  	
+								  	<div class="exam_title_list pull-left ">
+								  	<span><input type="checkbox" name="userids" value="${user.id}"/></span>${user.username}</div>
+								  	<a href="./deleteuser.action?userid=${user.id}">
+								  		<span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
+								  	<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+								  	<a href="./manageruser.action?userid=${user.id}">
+								  		<span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
+								  	<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+								</div>
+							</div>
+						</#list>
+					</#if>
+						
+												
+																
+						<ul class="pager">
+						  <li class="previous"><a class="exam_pager" href="#"><span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
+						  <li class="previous"><a class="exam_pager" href="#"><span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;
+						  <li class="next"><a class="exam_pager" href="#">末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
+						  <li class="next"><a class="exam_pager" href="#">后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;
+						  
+						</ul>
+						
+						
 						<div class="panel panel-default exam_container">
-						  <div class="panel-heading clearfix">
-						  		<div class="exam_title_list pull-left ">${article.pubdate}&nbsp;&nbsp;&nbsp;${article.title}</div>
-						  		<a href="./deleteArt.action?articleid=${article.id}"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
+							<div class="panel-heading clearfix">
+						  		<div class="exam_title_list pull-left ">站内信：
+						  			<!--<textarea> </textarea>-->
+						  			<input type="textarea" name="message"></input>
+						  			<input type="submit" value="发送"/>
+						  		</div>
+						  		<a href="#"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
 						  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-						  		<a href="./managerArt.action?articleid=${article.id}"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
-						  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-							  	
+						  		<a href="#"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
+						  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>							  	
 							</div>
 						</div>
-						</#if>
-						</#list>
-																	
-					</#if>
-														
-						<ul class="pager">
-						  <li class="previous"><a class="exam_pager" href="/psax/bklistArt.action?page=1">
-						  	<span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
-						  <li class="previous"><a class="exam_pager" href="/psax/bklistArt.action?page=${lastpage}">
-						  	<span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;
-						  <li class="next">
-						  	<a class="exam_pager" href="/psax/bklistArt.action?page=${endpage}">末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
-						  <li class="next">
-						  	<a class="exam_pager" href="/psax/bklistArt.action?page=${nextpage}">后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;						  
-						</ul>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -113,7 +131,8 @@
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+		</div>
+		<!-- /.modal -->
 	</body>
 
 </html>

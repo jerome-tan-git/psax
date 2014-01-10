@@ -185,17 +185,18 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>用户登录</h2>
+					<h2>基本信息</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">用户登录</span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
+						<span><a href="./page.action?categoryid=1">用户中心 &raquo;</a></span>
+						<span class="page">基本信息</span>
 					</div>
 
 				</div>
 				<div class="exam_type">
 					<#if Session.user_?exists>
 					<#assign user=Session.user_>						
-						你好，${user.nickname}
+						你好，${user.nickname?default("")}
 	 				<#else> 					
 	 					你好！
 	 				</#if>
@@ -206,13 +207,15 @@ transitional.dtd">
 			<!-- Flex Slider End -->
 
 			<!-- Teaser Start -->
+			<form method="post" action="userupdateinfo.action">
+			<#if Session.user_?exists>
+					<#assign user=Session.user_>
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
 				<div class="user_info_left">
-					<div class="avator_container clearfix"><img align="middle" src="./images/a_1.png" /></div>
+					<div class="avator_container clearfix"><img align="middle" src="${user.portrait?default('./images/a_1.png')}" /></div>
 				</div>
 				<div class="user_info_right">
-				<#if Session.user_?exists>
-					<#assign user=Session.user_>
+				
 					<div class="userinfo_title">
 						<div>用户名</div>
 						<div>
@@ -237,28 +240,54 @@ transitional.dtd">
 						<div>邮箱</div>
 						<div>
 							<input class="userinfo"  type="email" name="email" placeholder="" name="email"
-							value=""></input>
+							value="${user.email?default("")}"></input>
 						</div>
 					</div>
 					<div class="userinfo_title">
 						<div>联系电话</div>
 						<div>
-							<input class="userinfo" />
+							<input class="userinfo" type="text" placeholder="" name="phone" 
+							value="${user.phone?default("")}"></input>
 						</div>
 					</div>					
 					<div class="userinfo_title">
 						<div>头像选择</div>
 						<div>
-							<input class="userinfo" type="radio" name="selfpic" value="./img/a2.jpg" />
-							<input class="userinfo" type="radio" name="selfpic" value="./img/a4.jpg" />
-							<input class="userinfo" type="radio" name="selfpic" value="./img/a5.jpg" />
-							<input class="userinfo" type="radio" name="selfpic" value="./img/a6.jpg" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_1.png" />
+								<img src="./img/tx_1.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_2.png" />
+								<img src="./img/tx_2.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_3.png" />
+								<img src="./img/tx_3.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_4.png" />
+								<img src="./img/tx_4.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_5.png" />
+								<img src="./img/tx_5.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_6.png" />
+								<img src="./img/tx_6.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_7.png" />
+								<img src="./img/tx_7.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_8.png" />
+								<img src="./img/tx_8.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_9.png" />
+								<img src="./img/tx_9.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_10.png" />
+								<img src="./img/tx_10.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_11.png" />
+								<img src="./img/tx_11.png" >
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_12.png" />
+								<img src="./img/tx_12.png" >
 						</div>
-					</div>					
-					
-				</#if>
-				</div>
+					</div>	
+					<div class="userinfo_title">				
+						<input type="submit" name="issave" value="保存"></input>
+						<input type="submit" name="issave" value="取消"></input>						
+					</div>	
+				
+				</div>				
 			</div>
+			</#if>
+			</form>
 			<!-- Teaser End -->
 
 			<!-- Content Start -->

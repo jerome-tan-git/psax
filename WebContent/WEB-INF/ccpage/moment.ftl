@@ -250,7 +250,7 @@ transitional.dtd">
 				<div class="sub_header_title">
 					<h2>大事记</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
 						<span class="page">大事记</span>
 					</div>
 

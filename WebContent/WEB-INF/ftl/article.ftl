@@ -205,17 +205,10 @@ transitional.dtd">
 			<!-- Flex Slider Start -->
 			<div class="sub_header  exam_bg">
 
-				<div class="sub_header_title">
-					<!--
-					<h2>大事记</h2>
-					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">大事记&raquo;</span>						
-					</div>
-					-->
+				<div class="sub_header_title">					
 					<h2>${catpath.catName}</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
 						<#if catpath.parentCatId?exists>
 						<#if (catpath.parentCatId>0) >
 						<span class="page">

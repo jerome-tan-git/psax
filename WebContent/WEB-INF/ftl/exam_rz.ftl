@@ -212,7 +212,7 @@ transitional.dtd">
 				<div class="sub_header_title">
 					<h2>在线考试</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
 						<span class="page">培训&nbsp;&raquo;</span>
 						<span class="page">在线考试</span>
 					</div>

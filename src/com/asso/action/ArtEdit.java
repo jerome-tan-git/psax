@@ -735,7 +735,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	public String execute(){
 		
 		String artID = this.request.getParameter("articleid");	
-		System.out.println(this.request.getRealPath(".")); //
+//		System.out.println(this.request.getRealPath(".")); //
 		if(artID!=null && artID.length()>0){
 			int aid = Integer.parseInt(artID);
 			List<Article> artl = new ArrayList<Article>();

@@ -189,7 +189,7 @@ transitional.dtd">
 	<div class="sub_header_title">
 	    <h2>关于我们</h2>
 	    <div class="sub_header_description">
-	        <span><a href="./index.html">首页 &raquo;</a></span>
+	        <span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
 	        <span class="page">关于我们</span>
 		</div>
 	</div>

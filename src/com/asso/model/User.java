@@ -11,8 +11,29 @@ public class User {
 	private String password;
 	private int level;
 	private String nickname;
+	private String portrait;
+	private String phone; 
+	private String email;
 	
 	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPortrait() {
+		return portrait;
+	}
+	public void setPortrait(String portrait) {
+		this.portrait = portrait;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public String getNickname() {
 		return nickname;
 	}
@@ -54,7 +75,7 @@ public class User {
 	
 	public String toString(){
 		return this.id+":"+this.getUsername()+":"+this.getPassword()+":"+this.level
-				+":"+this.nickname;
+				+":"+this.nickname+":"+this.portrait+":"+this.phone+":"+this.email;
 	}
 	
 

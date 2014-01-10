@@ -5,7 +5,7 @@
 					<div class="small_menu_list clearfix">
 
 						<div class="clearfix">
-							<a href="./index.html">
+							<a href="./page.action?categoryid=0">
 							<div class="small_menu_item">
 								<div class="small_menu_image">
 									<img src="./images/1382294136_playback_play.png" />
