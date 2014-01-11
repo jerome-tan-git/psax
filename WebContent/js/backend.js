@@ -320,3 +320,10 @@ function read_editor_title()
 
 }
 
+function showUserDialog(userName, password, userID)
+{
+	$('#myModal').modal('show');
+	$('#userNameInput').val(userName);
+	$('#userPasswordInput').val(password);
+	$('#userIDInput').val(userID);
+}
