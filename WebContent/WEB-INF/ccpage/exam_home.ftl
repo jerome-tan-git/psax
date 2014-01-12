@@ -268,7 +268,7 @@ transitional.dtd">
 		    <li data-id="id-2" class="scenery">
 		        <div class="portfolio_content"  examid="2">
 		        <img src="./images/portfolio_3col_img_2.png" alt="img" style="opacity: 1;">
-		        <h4 style="color: rgb(86, 86, 86);">考试三</h4>
+		        <h4 style="color: rgb(86, 86, 86);">中级食品检验工</h4>
 		        
 		        <div class="link_btn" style="display: block;">
 		            <a id="example6" href="#" class="zoom" style="opacity: 0;"></a>

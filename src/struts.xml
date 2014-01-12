@@ -35,13 +35,14 @@
             <exception-mapping exception="java.lang.Exception" result="exception"/>
         </global-exception-mappings>
         
-		 
+		<action name="wip" class="com.asso.action.ChannelEdit" method="wip">  
+			<result name="success" type="freemarker">/WEB-INF/ccpage/wip.ftl</result>							 
+		</action> 
 		<action name="page" class="com.asso.action.ChannelEdit">  
 			<result name="cat0" type="freemarker">/WEB-INF/ccpage/index.ftl</result>
 			<result name="cat1" type="freemarker">/WEB-INF/ftl/membercenter.ftl</result>
 			<result name="cat2" type="freemarker">/WEB-INF/ccpage/about_us.ftl</result>
-			<result name="cat15" type="freemarker">/WEB-INF/ccpage/exam_home.ftl</result>
-							 
+			<result name="cat15" type="freemarker">/WEB-INF/ccpage/exam_home.ftl</result>							 
 		</action>
 		 
 		 

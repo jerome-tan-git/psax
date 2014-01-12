@@ -200,20 +200,6 @@ transitional.dtd">
 		    </ul>
 		</div>
 		<!-- Flex Slider End -->
-		
-		<!-- Teaser Start -->
-		<div class="teaser">
-		
-		<div class="teaser_content">
-			<!-- <h3>10月18日，自治区政府召开全区食品药品安全和监管体制改革工作电视电话会议，正式启动广西的食品药品监管体制改革，今后食品从生产、流通到 ...</h3> -->
-		</div>
-		<div class="teaser_button">
-			<a href="#" class="button">&nbsp;&nbsp;&nbsp;打&nbsp;开&nbsp;&nbsp;&nbsp;</a>
-		</div>
-		
-		</div>
-		<!-- Teaser End -->
-		
 		<!-- Content Start -->
 		<div id="content">
 		

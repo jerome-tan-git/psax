@@ -173,9 +173,9 @@ transitional.dtd">
 		<div id="page_wrap">
 			<!-- Header Start -->
 			<div class="header">
-		    <#include "../commons/logo.ftl">
-		  	<#include "../commons/menubar.ftl">
-			<#include "../commons/smallmenu.ftl"> 
+			    <#include "../commons/logo.ftl">
+			  	<#include "../commons/menubar.ftl">
+				<#include "../commons/smallmenu.ftl"> 
 				<!-- <nav>
 				<div id="myslidemenu" class="jqueryslidemenu">
 				<ul>
@@ -205,10 +205,10 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>用户中心</h2>
+					<h2>建设中</h2>
 					<div class="sub_header_description">
-						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
-						<span class="page">用户中心</span>
+						<span><a href="./index.html">首页 &raquo;</a></span>
+						<span class="page">建设中</span>
 					</div>
 
 				</div>
@@ -222,55 +222,9 @@ transitional.dtd">
 
 			<!-- Teaser Start -->
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
-				<div class="member_block blue">
-					<div class="member_block_icon gkbs">&nbsp;</div>
-					<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
-					<div class="member_block_title">公开办事</div>
+				<div style="margin: 0 auto;width: 500px;">
+				<img src="./images/doing.jpg" />
 				</div>
-				<div class="member_block jgdt">
-					<div class="member_block_icon jgdt">&nbsp;</div>
-					<div class="member_block_icon_bg jgdt_bg">&nbsp;</div>
-					<div class="member_block_title">监管动态</div>
-				</div>
-				<!--<a href="./upload_list.html">-->
-				<a href="./uploadfilesmanager.action">
-				<div class="member_block qygl">
-					<div class="member_block_icon qygl">&nbsp;</div>
-					<div class="member_block_icon_bg  qygl_bg">&nbsp;</div>
-					<div class="member_block_title">企业管理</div>
-				</div>
-				</a>
-				<!--<a href="./notice.html">-->
-				<a href="./listnotice.action">
-				<div class="member_block tz">
-					<div class="member_block_icon tz">&nbsp;</div>
-					<div class="member_block_icon_bg tz_bg">&nbsp;</div>
-					<div class="unread">3000&nbsp;<img src="./images/iconmonstr-email-4-icon-16.png" /></div>
-					<div class="member_block_title">通知</div>
-				</div>
-				</a>
-				<!--<a href="./download.html">-->
-				<a href="./listtodownloads.action">				
-				<div class="member_block xz">
-					<div class="member_block_icon xz">&nbsp;</div>
-					<div class="member_block_icon_bg xz_bg">&nbsp;</div>
-					<div class="member_block_title">相关下载</div>
-				</div>
-				</a>
-				<a href="./page.action?categoryid=15">				
-				<div class="member_block ks">
-					<div class="member_block_icon ks">&nbsp;</div>
-					<div class="member_block_icon_bg ks_bg">&nbsp;</div>
-					<div class="member_block_title">考试中心</div>
-				</div>
-				</a>
-				<a href="./usercenter.action">				
-				<div class="member_block jbxx">
-					<div class="member_block_icon jbxx">&nbsp;</div>
-					<div class="member_block_icon_bg jbxx_bg">&nbsp;</div>
-					<div class="member_block_title">基本信息</div>
-				</div>
-				</a>
 			</div>
 			<!-- Teaser End -->
 

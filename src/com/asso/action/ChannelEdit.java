@@ -131,6 +131,9 @@ public class ChannelEdit extends ActionSupport implements ServletRequestAware,Se
 	public String index(){
 		return "success";
 	}
+	public String wip(){
+		return "success";
+	}
 	
 	@Override
 	public String execute(){

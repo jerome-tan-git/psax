@@ -68,6 +68,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private int lastpage;
 	private int nextpage;
 	private int endpage;
+	private int curpage;
 	
 	private HttpServletRequest request;	
 	private Map session;
@@ -127,6 +128,14 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.endpage = endpage;
 	}
 	
+	public int getCurpage() {
+		return curpage;
+	}
+
+	public void setCurpage(int curpage) {
+		this.curpage = curpage;
+	}
+
 	public String getJsonText2() {
 		return jsonText2;
 	}
@@ -655,6 +664,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		int page = 1;		
 		if(this.request.getParameter("page")!=null && this.request.getParameter("page").length()>0)
 			page = Integer.parseInt(this.request.getParameter("page"));
+		
 		int index0 = (page-1)*CONSTANT.pageArtSize+1;
 		int index1 = page*CONSTANT.pageArtSize;
 		if((page-1)>=1)
@@ -682,6 +692,10 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		this.endpage = this.artlist.size()/CONSTANT.pageArtSize;
 		if(this.endpage*CONSTANT.pageArtSize<this.artlist.size())
 			this.endpage += 1;
+		if(page>this.endpage)
+			page = this.endpage;		
+		this.curpage = page;
+		
 		if((page+1)<=this.endpage)
 			this.nextpage = page+1;
 		else

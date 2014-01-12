@@ -1,16 +1,4 @@
- <#--
-<#assign s=JspTaglibs["/WEB-INF/struts-tags.tld"]>
- -->
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-
-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-	</head>
-	<body>
- 			<div class="logo"> 		
- 			<div style="margin-top: 7px;float: right;margin-right: 15px;">	
+<div style="margin-top: 7px;float: right;margin-right: 15px;">	
  				<#if Session.user_?exists>
  					<a href="./userlogout.action">登出</a>
  				<#else>
@@ -19,6 +7,8 @@ transitional.dtd">
  				<!--<a href="./usercenter.action">用户中心</a>-->
  				<a href="./page.action?categoryid=1">用户中心</a>
  			</div>
+ 			<div class="logo"> 		
+ 			
  				
 		    	<div class="logo_container">
 		    		<a href="./page.action?categoryid=0"><img src="./images/logo_new.png" alt="img" /></a>
@@ -36,5 +26,3 @@ transitional.dtd">
 					</div>
 				</div>
 		    </div>
-	</body>    
-</html>

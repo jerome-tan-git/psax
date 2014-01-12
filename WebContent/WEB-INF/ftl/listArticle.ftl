@@ -82,14 +82,38 @@
 					</#if>
 														
 						<ul class="pager">
-						  <li class="previous"><a class="exam_pager" href="./ bklistArt.action?page=1&categoryid=${cateogry.id?default("")}">
-						  	<span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
-						  <li class="previous"><a class="exam_pager" href="./bklistArt.action?page=${lastpage}&categoryid=${cateogry.id?default("")}">
-						  	<span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;
+						  <li class="previous">						  	
+						  	<#if (curpage<2)>
+						  		<a class="exam_pager disabled" href="#">
+						  	<#else>
+						  		<a class="exam_pager" href="./bklistArt.action?page=1&categoryid=${cateogry.id?default("")}">						  		
+						  	</#if>						  	
+						  	<span class="glyphicon glyphicon-fast-backward"></span> 首页</a>
+						  </li>&nbsp;
+						  <li class="previous">
+						  	<#if (curpage<2)>
+						  		<a class="exam_pager disabled" href="#">
+						  	<#else>
+							  	<a class="exam_pager" href="./bklistArt.action?page=${lastpage}&categoryid=${cateogry.id?default("")}">							  	
+						  	</#if>	
+						  	<span class="glyphicon glyphicon-backward"></span> 前一页</a>
+						  </li>&nbsp;
 						  <li class="next">
-						  	<a class="exam_pager" href="./bklistArt.action?page=${endpage}&categoryid=${cateogry.id?default("")}">末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
+						  	<#if (curpage==endpage)>
+						  	<a class="exam_pager disabled" href="#">
+						  	<#else>
+						  	<a class="exam_pager" href="./bklistArt.action?page=${endpage}&categoryid=${cateogry.id?default("")}">
+						  	</#if>
+						  	末页<span class="glyphicon glyphicon-fast-forward"></span> </a>
+						  	</li>&nbsp;
 						  <li class="next">
-						  	<a class="exam_pager" href="./bklistArt.action?page=${nextpage}&categoryid=${cateogry.id?default("")}">后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;						  
+						  	<#if (curpage>(endpage-1))>
+						  	<a class="exam_pager disabled" href="#">
+						  	<#else>
+						  	<a class="exam_pager" href="./bklistArt.action?page=${nextpage}&categoryid=${cateogry.id?default("")}">
+						  	</#if>
+						  	后一页<span class="glyphicon glyphicon-forward"></span> </a>
+						  </li>&nbsp;						  
 						</ul>
 					</div>
 				</div>

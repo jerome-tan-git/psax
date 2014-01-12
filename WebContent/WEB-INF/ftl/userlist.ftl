@@ -106,7 +106,7 @@
 							<div class="panel panel-default exam_container">
 								<div class="panel-heading clearfix">						  	
 								  	<div class="exam_title_list pull-left ">
-								  	<span><input type="checkbox" name="userids" value="${user.id}"/></span>${user.username}</div>
+								  	<span><input type="checkbox" name="userids" value="${user.id}"/></span>&nbsp;&nbsp;${user.username}</div>
 								  	<a href="./deleteuser.action?userid=${user.id}">
 								  		<span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
 								  	<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
@@ -122,10 +122,35 @@
 												
 																
 						<ul class="pager">
-						  <li class="previous"><a class="exam_pager" href="./manageruser.action?page=1"><span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
-						  <li class="previous"><a class="exam_pager" href="./manageruser.action?page=${lastpage}"><span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;
-						  <li class="next"><a class="exam_pager" href="./manageruser.action?page=${endpage}">末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
-						  <li class="next"><a class="exam_pager" href="./manageruser.action?page=${nextpage}">后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;
+							<li class="previous">
+							<#if (page==1)>
+								<a class="exam_pager disabled" href="#">
+							<#else>
+								<a class="exam_pager" href="./manageruser.action?page=1">
+							</#if>
+								<span class="glyphicon glyphicon-fast-backward"></span> 首页</a>
+							</li>&nbsp;
+							<li class="previous">
+							<#if>
+							<#else>
+								<a class="exam_pager" href="./manageruser.action?page=${lastpage}">
+							</#if>
+						  		<span class="glyphicon glyphicon-backward"></span> 前一页</a>
+							</li>&nbsp;
+							<li class="next">
+							<#if>
+							<#else>
+								<a class="exam_pager" href="./manageruser.action?page=${endpage}">
+							</#if>
+								末页 <span class="glyphicon glyphicon-fast-forward"></span> </a>
+							</li>&nbsp;
+							<li class="next">
+							<#if>
+							<#else>
+								<a class="exam_pager" href="./manageruser.action?page=${nextpage}">
+							</#if>
+								后一页 <span class="glyphicon glyphicon-forward"></span> </a>
+							</li>&nbsp;
 						  
 						</ul>
 						
