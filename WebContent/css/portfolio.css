@@ -14,7 +14,9 @@
 }
 .portfolio_content h4 {
 	padding-bottom:15px;
-	font-size:17px;
+	
+	padding-top: 10px;
+	font-size: 15px;
 }
 .portfolio_content a {
 	padding-bottom:14px;
@@ -57,7 +59,7 @@ a.zoom {
 	height:54px;
 	display:block;
 	right: -40px;
-	bottom: 189px;
+	bottom: 170px;
 	margin-top:-27px;
 	position:absolute;
 	cursor:pointer;

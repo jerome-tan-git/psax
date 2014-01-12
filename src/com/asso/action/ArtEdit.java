@@ -45,6 +45,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private ArtInfo ainfo = new ArtInfo();
 	private Article article;
 	private Article art ;
+	private Category cateogry;
 	private List<Category> categories;
 	private List<Channel> channels;
 	private CategoryPath catpath;
@@ -227,6 +228,13 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 //	public void setSequuids(List<String> sequuids) {
 //		this.sequuids = sequuids;
 //	}
+
+	public Category getCateogry() {
+		return cateogry;
+	}
+	public void setCateogry(Category cateogry) {
+		this.cateogry = cateogry;
+	}
 
 	private void setUploadfiles(){
 		if(this.ainfo.getPic()!=null){
@@ -637,11 +645,15 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	public String listArticles(){
 		
 		int catid = 0;
-		if(this.request.getParameter("categoryid")!=null)
+		if(this.request.getParameter("categoryid")!=null && this.request.getParameter("categoryid").length()>0){
 			catid = Integer.parseInt(this.request.getParameter("categoryid"));
+			this.cateogry = new Category();
+			this.setCateogry(cm.loadCategory(catid));
+			System.out.println("----------------listArticles----------catid="+this.cateogry.getId()+", cat="+this.cateogry.getCategory());
+		}
 		
 		int page = 1;		
-		if(this.request.getParameter("page")!=null)
+		if(this.request.getParameter("page")!=null && this.request.getParameter("page").length()>0)
 			page = Integer.parseInt(this.request.getParameter("page"));
 		int index0 = (page-1)*CONSTANT.pageArtSize+1;
 		int index1 = page*CONSTANT.pageArtSize;
@@ -663,7 +675,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 						
 		}else{
 			System.out.println("LOAD articles in the category="+catid);
-			this.listArticleByCatid(catid);			
+			this.listArticleByCatid(catid);				
 		}
 		this.sortArtlistByDate();
 		
@@ -701,6 +713,9 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			}						
 		}		
 		System.out.println("this.artlist size="+this.artlist.size());
+		
+		
+		
 		return "list";
 	}
 

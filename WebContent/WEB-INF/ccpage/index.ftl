@@ -29,7 +29,7 @@ transitional.dtd">
 		<script type="text/javascript" src="./js/fancybox/jquery.fancybox-1.3.4.js"></script>
 
 		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
-
+		<script type="text/javascript" src="js/jquery.nailthumb.1.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 		<style type="text/css">
 			html, body, p {
@@ -72,6 +72,8 @@ transitional.dtd">
 
 
 			$(document).ready(function() {
+			
+				 jQuery('.nailthumb-container').nailthumb({width:326,height:218});
 				
 				// bancy bo=x
 				jQuery("a#example6").fancybox({
@@ -156,26 +158,7 @@ transitional.dtd">
 		    <#include "../commons/logo.ftl">
 		  	<#include "../commons/menubar.ftl">
 			<#include "../commons/smallmenu.ftl"> 
-		    <!-- <nav>
-		    <div id="myslidemenu" class="jqueryslidemenu">
-		        <ul>
-		            <li><a class="active" href="./index.html">首页</a></li>
-		            <li><a href="./about.html">关于我们</a></li>
-		            <li><a href="./index.html">舆情动态</a></li>
-		            
-		            <li><a href="./portfolio.html">公开办事</a>
-		                <ul>
-		                    <li><a href="./portfolio_3col.html">肉制品报告</a></li>
-		                    <li><a href="./portfolio_3col.html">标准备案</a></li>
-		                    <li><a href="./portfolio_2col.html">添加剂报告</a></li>
-		                    <li><a href="./portfolio_1col.html">委托加工备案</a></li>
-		                </ul>
-		            </li>
-		            <li><a href="./blog.html">政策法规</a></li>
-		            <li><a href="./contact.html">咨询服务</a></li>
-		      </ul>
-		    </div>
-		    </nav> -->
+		    
 		</div>
 		<!-- Header End -->
 		
@@ -275,45 +258,7 @@ transitional.dtd">
 		</div>
 		</div>
 		
-		<div class="v_space clear"></div>
 		
-		<div class="title_holder">
-		    <h3><span>今日头条</span></h3>
-		</div>
-		<div class="banner">
-			
-		    <ul>
-		        <li>
-		        	<div class="row_news">
-			        	<p>【食源性疾病成我国头号食品安全问题】卫生部食品安全风险评估重点实验室抽样调查表明，
-			        	食源性疾病是目前我国头号食品安全问题。调查人群的食源性疾病发病次数为0.157次每人
-			        	每年，即每6人中有1人在过去一年中曾发生食源性疾病。食源性疾病高峰在夏季，主要临床
-			        	症状是急性胃肠炎</p>
-			        	<span>-- 新华网</span>
-		        	</div>
-		        </li>
-		        <li>
-		        	<div class="row_news">
-			        	 <p>不久前有经济学者在电视访谈节目中称，转基因玉米让老鼠长肿瘤、美国连牲畜都被禁止喂食
-			        	转基因饲料。转基因食品(行情 专区)的安全性问题再度成为社会焦点。转基因食品致癌或让
-			        	人“绝育无后”？老外不吃转基因食品？对此，记者采访了部分国内外生物技术专家及业内人士，
-			        	求证有关热点问题。</p>
-			        	<span>-- 东方财富网</span>
-		        	</div>
-				</li>
-		        <li>
-		        	<div class="row_news">
-			        	【深圳商报讯】（记者 黄青山 实习生 邹鹏）福田皇冠配餐中心的经营模式，为解决都市人用餐
-			        	的“老大难”问题提供了有力参考，其食品安全管理也是一大亮点。18日，皇冠配餐中心举行“金
-			        	百味食品安全内部培训月”活动，对100多名金百味员工进行专业的食品安全培训，周明明、唐雪
-			        	梅两位深圳市人大代表和深圳市市场监督管理局福田分局相关工作人员，也利用此次机会进行实
-			        	地参观和考察</p>
-			        	<span>-- 网易</span>
-		        	</div>
-				</li>
-		    </ul>
-
-		</div>
 		
 		<div class="v_space"></div>
 		
@@ -323,6 +268,23 @@ transitional.dtd">
 		
 		<div class="demo">
 		<ul id="list" class="image-grid_3col">
+		 	<#if newslist?exists>
+		    	<#list newslist as news>
+		    	 <li>
+			        <div class="portfolio_content">
+			        <div class="nailthumb-container">
+			            <img src="${news.pic}" alt="img" />
+			            </div>
+			            <h4>${news.title}</h4>
+			            <div class="link_btn">
+			                <a id="example6" href="${news.pic}" class="zoom"></a>
+			                
+			                <div class="overlay"></div>
+			            </div>
+			        </div>
+			    </li>
+		    	</#list>
+		    <#else>	
 		    <li>
 		        <div class="portfolio_content">
 		            <img src="./images/portfolio_3col_img_1.png" alt="img" />
@@ -359,10 +321,59 @@ transitional.dtd">
 		            </div>
 		        </div>
 		    </li>
-		
+			</#if>
 		</ul>
 		</div>
+		<div class="v_space clear"></div>
 		
+		<div class="title_holder">
+		    <h3><span>今日头条</span></h3>
+		</div>
+		<div class="banner">
+			
+		    <ul>
+		    <#if artlist?exists>
+		    	<#list artlist as article>		    
+		    	 <li>
+		        	<div class="row_news">
+			        	<p>${article.absinfo}</p>
+			        	<span></span>
+		        	</div>
+		        </li>
+		       </#list>
+		    <#else>
+		        <li>
+		        	<div class="row_news">
+			        	<p>【食源性疾病成我国头号食品安全问题】卫生部食品安全风险评估重点实验室抽样调查表明，
+			        	食源性疾病是目前我国头号食品安全问题。调查人群的食源性疾病发病次数为0.157次每人
+			        	每年，即每6人中有1人在过去一年中曾发生食源性疾病。食源性疾病高峰在夏季，主要临床
+			        	症状是急性胃肠炎</p>
+			        	<span>-- 新华网</span>
+		        	</div>
+		        </li>
+		        <li>
+		        	<div class="row_news">
+			        	 <p>不久前有经济学者在电视访谈节目中称，转基因玉米让老鼠长肿瘤、美国连牲畜都被禁止喂食
+			        	转基因饲料。转基因食品(行情 专区)的安全性问题再度成为社会焦点。转基因食品致癌或让
+			        	人“绝育无后”？老外不吃转基因食品？对此，记者采访了部分国内外生物技术专家及业内人士，
+			        	求证有关热点问题。</p>
+			        	<span>-- 东方财富网</span>
+		        	</div>
+				</li>
+		        <li>
+		        	<div class="row_news">
+			        	【深圳商报讯】（记者 黄青山 实习生 邹鹏）福田皇冠配餐中心的经营模式，为解决都市人用餐
+			        	的“老大难”问题提供了有力参考，其食品安全管理也是一大亮点。18日，皇冠配餐中心举行“金
+			        	百味食品安全内部培训月”活动，对100多名金百味员工进行专业的食品安全培训，周明明、唐雪
+			        	梅两位深圳市人大代表和深圳市市场监督管理局福田分局相关工作人员，也利用此次机会进行实
+			        	地参观和考察</p>
+			        	<span>-- 网易</span>
+		        	</div>
+				</li>
+			</#if>
+		    </ul>
+
+		</div>
 		</div>
 		
 		<!-- Content End -->

@@ -47,6 +47,10 @@ public class ChannelManagerImpl implements ChannelManager {
 	public List<Category> loadCategories() {
 		return channelDao.loadCategories();		
 	}
+	@Override
+	public Category loadCategory(int _catid) {
+		return channelDao.loadCategory(_catid);		
+	}
 	
 	@Override
 	public List<Category> loadCategories(int channelid) throws ClassNotFoundException, SQLException{

@@ -14,5 +14,6 @@ public interface ChannelManager {
 	List<Category> loadCategories(int channelid) throws ClassNotFoundException,SQLException;
 	List<Category> loadCategoryPath(int categoryid)throws ClassNotFoundException, SQLException;
 	void add(Category category) throws ClassNotFoundException, SQLException;
+	Category loadCategory(int _catid);
 
 }

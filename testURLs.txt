@@ -33,7 +33,7 @@ http://localhost:8080/psax/managerArt.action?articleid=67
 
 http://localhost:8080/psax/article_list.html?categoryid=1。。。。。。
 http://localhost:8080/psax/listArticles.action?categoryid=1
-
+http://player.youku.com/embed/XNTk0MTAzNjY4
 http://localhost:8080/psax/testform.action
 http://localhost:8080/psax/updateform.action
 http://localhost:8080/psax/adddoc.action
@@ -61,5 +61,6 @@ http://localhost:8080/psax/usercenter.action
 http://localhost:8080/psax/page.action?categoryid=2
 http://localhost:8080/psax/listtodownloads.action
 http://localhost:8080/psax/manageruser.action
+http://localhost:8080/psax/index
 
 

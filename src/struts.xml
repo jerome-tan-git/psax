@@ -33,7 +33,8 @@
         </global-results>        
         <global-exception-mappings>            
             <exception-mapping exception="java.lang.Exception" result="exception"/>
-        </global-exception-mappings> 
+        </global-exception-mappings>
+        
 		 
 		<action name="page" class="com.asso.action.ChannelEdit">  
 			<result name="cat0" type="freemarker">/WEB-INF/ccpage/index.ftl</result>
@@ -269,5 +270,13 @@
     <include file="example.xml"/>
 
     <!-- Add packages here -->
+    
+    <package name="default" namespace="/" extends="struts-default">
+	    <default-action-ref name="index"/>
+	    <action name="index" class="com.asso.action.ChannelEdit" method="index">
+	        <result name="success" type="redirect">page.action</result>
+	    </action>
+	</package>
+
 
 </struts>

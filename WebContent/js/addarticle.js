@@ -46,6 +46,7 @@ $("#file_upload_1")
 										var obj = jQuery
 												.parseJSON(data);
 										if (obj.type == 'success') {
+											
 											$('#' + file.id).find(
 													'.image_realpath').val(
 													obj.path);

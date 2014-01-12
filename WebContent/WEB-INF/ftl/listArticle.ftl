@@ -56,6 +56,12 @@
 				<#include "../commons/marginmenu.ftl">
 				
 				<div class="col-md-8">
+				<div class="page-header" style="margin-top: 20px;margin-left: 20px;border-bottom: 1px solid #D6D6D6;position: relative;">
+				  <h1><small>${cateogry.category?default("")}</small></h1>
+				  <div style="float: right;position: absolute;right: 20px;top: 10px;font-size: 13pt;color: #333;">
+				  	<a href="./managerArt.action"><span class="glyphicon glyphicon-plus"></span></a> 新建
+				  </div>
+				</div>
 					<div class="col-md-12">
 					<#if artlist?exists>
 						<#list artlist as article>
@@ -76,14 +82,14 @@
 					</#if>
 														
 						<ul class="pager">
-						  <li class="previous"><a class="exam_pager" href="./ bklistArt.action?page=1">
+						  <li class="previous"><a class="exam_pager" href="./ bklistArt.action?page=1&categoryid=${cateogry.id?default("")}">
 						  	<span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
-						  <li class="previous"><a class="exam_pager" href="./bklistArt.action?page=${lastpage}">
+						  <li class="previous"><a class="exam_pager" href="./bklistArt.action?page=${lastpage}&categoryid=${cateogry.id?default("")}">
 						  	<span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;
 						  <li class="next">
-						  	<a class="exam_pager" href="./bklistArt.action?page=${endpage}">末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
+						  	<a class="exam_pager" href="./bklistArt.action?page=${endpage}&categoryid=${cateogry.id?default("")}">末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
 						  <li class="next">
-						  	<a class="exam_pager" href="./bklistArt.action?page=${nextpage}">后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;						  
+						  	<a class="exam_pager" href="./bklistArt.action?page=${nextpage}&categoryid=${cateogry.id?default("")}">后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;						  
 						</ul>
 					</div>
 				</div>
