@@ -256,18 +256,20 @@ transitional.dtd">
 		<ul id="list" class="image-grid_3col">
 		 	<#if newslist?exists>
 		    	<#list newslist as news>
-		    	 <li>
+		    	 <li><a href="./detailArt.action?articleid=${news.id}">
 			        <div class="portfolio_content">
 			        <div class="nailthumb-container">
 			            <img src="${news.pic}" alt="img" />
 			            </div>
 			            <h4>${news.title}</h4>
+			            
 			            <div class="link_btn">
 			                <a id="example6" href="${news.pic}" class="zoom"></a>
 			                
 			                <div class="overlay"></div>
 			            </div>
-			        </div>
+			            
+			        </div></a>
 			    </li>
 		    	</#list>
 		    <#else>	

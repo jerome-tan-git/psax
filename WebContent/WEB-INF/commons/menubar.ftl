@@ -46,10 +46,10 @@
 						</div>
 						<div class="menu_list">
 							<div class="menu_list_header"></div>
-							<div class="list_item menu">生产许可咨询</div>
-							<div class="list_item paper">企业标准备案</div>
-							<div class="list_item note">食品添加剂备案</div>
-							<div class="list_item case">委托加工备案</div>
+							<a href="./wip.action"><div class="list_item menu">生产许可咨询</div></a>
+							<a href="./wip.action"><div class="list_item paper">企业标准备案</div></a>
+							<a href="./wip.action"><div class="list_item note">食品添加剂备案</div></a>
+							<a href="./wip.action"><div class="list_item case">委托加工备案</div></a>
 						</div>
 					</div>
 					<div class="menu_item">
@@ -100,13 +100,15 @@
 						</div>
 					</div>
 					<div class="menu_item">
+						<a href="./wip.action">
 						<div class="menu_text">
 							供需平台
-						</div>
+						</div></a>
 					</div>
 					<div class="menu_item">
+						<a href="./wip.action">
 						<div class="menu_text">
 							BBS论坛
-						</div>
+						</div></a>
 					</div>
 				</div>

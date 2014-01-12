@@ -256,7 +256,7 @@ transitional.dtd">
 		    <li data-id="id-1" class="photo">
 		        <div class="portfolio_content" examid="1">
 		        <img src="./images/portfolio_3col_img_1.png" alt="img" style="opacity: 1;">
-		        <h4 style="color: rgb(86, 86, 86);">考试一</h4>
+		        <h4 style="color: rgb(86, 86, 86);">考题完善中。。。。</h4>
 		        
 		        <div class="link_btn" style="display: block;">
 		            <a id="example6" href="#" class="zoom" style="opacity: 0;"></a>
@@ -280,7 +280,7 @@ transitional.dtd">
 		    <li data-id="id-3" class="photo">
 		        <div class="portfolio_content"  examid="3">
 		        <img src="./images/portfolio_3col_img_3.png" alt="img">
-		        <h4>考试二</h4>
+		        <h4>考题完善中。。。。</h4>
 		        
 		        <div class="link_btn">
 		            <a id="example6" href="#" class="zoom" style="opacity: 0;"></a>

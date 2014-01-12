@@ -131,21 +131,24 @@
 								<span class="glyphicon glyphicon-fast-backward"></span> 首页</a>
 							</li>&nbsp;
 							<li class="previous">
-							<#if>
+							<#if (page<2)>
+								<a class="exam_pager disabled" href="#">
 							<#else>
 								<a class="exam_pager" href="./manageruser.action?page=${lastpage}">
 							</#if>
 						  		<span class="glyphicon glyphicon-backward"></span> 前一页</a>
 							</li>&nbsp;
 							<li class="next">
-							<#if>
+							<#if (page==endpage)>
+								<a class="exam_pager disabled" href="#">
 							<#else>
 								<a class="exam_pager" href="./manageruser.action?page=${endpage}">
 							</#if>
 								末页 <span class="glyphicon glyphicon-fast-forward"></span> </a>
 							</li>&nbsp;
 							<li class="next">
-							<#if>
+							<#if (page>(endpage-1))>
+								<a class="exam_pager disabled" href="#">
 							<#else>
 								<a class="exam_pager" href="./manageruser.action?page=${nextpage}">
 							</#if>

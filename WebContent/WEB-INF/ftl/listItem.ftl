@@ -120,13 +120,33 @@
 												
 																	
 						<ul class="pager">
-						  <li class="previous"><a class="exam_pager" href="./listitem.action?examid=${examid}&page=1">
+						  <li class="previous">
+						  <#if (thispage==1)>
+						  	<a class="exam_pager disabled" href="#">
+						  <#else>						  
+						  	<a class="exam_pager" href="./listitem.action?examid=${examid}&page=1">
+						  </#if>
 						  	<span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
-						  <li class="previous"><a class="exam_pager" href="./listitem.action?examid=${examid}&page=${lastpage}">
+						  <li class="previous">
+						  <#if (thispage==1)>
+						  	<a class="exam_pager disabled" href="#">
+						  <#else>
+						  	<a class="exam_pager" href="./listitem.action?examid=${examid}&page=${lastpage}">
+						  </#if>
 						  	<span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;
-						  <li class="next"><a class="exam_pager" href="./listitem.action?examid=${examid}&page=${endpage}">
+						  <li class="next">
+						  <#if (thispage==endpage)>
+						  	<a class="exam_pager disabled" href="#">
+						  <#else>
+						  	<a class="exam_pager" href="./listitem.action?examid=${examid}&page=${endpage}">
+						  </#if>
 						  	末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
-						  <li class="next"><a class="exam_pager" href="./listitem.action?examid=${examid}&page=${nextpage}">
+						  <li class="next">
+						  <#if (thispage==endpage)>
+						  	<a class="exam_pager disabled" href="#">
+						  <#else>
+						  	<a class="exam_pager" href="./listitem.action?examid=${examid}&page=${nextpage}">
+						  </#if>
 						  	后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;
 						  
 						</ul>
