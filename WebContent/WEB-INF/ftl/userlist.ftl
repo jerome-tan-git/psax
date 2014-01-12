@@ -38,6 +38,10 @@
 			
 		} );
 		</script>
+			<style>
+					.modal-dialog {
+			  padding-top: 15%;
+			}</style>
 	</head>
 	<body>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

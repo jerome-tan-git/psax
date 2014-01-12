@@ -256,7 +256,7 @@ transitional.dtd">
 					<div class="member_block_title">相关下载</div>
 				</div>
 				</a>
-				<a href="./beginexam.action">				
+				<a href="./page.action?categoryid=15">				
 				<div class="member_block xz">
 					<div class="member_block_icon xz">&nbsp;</div>
 					<div class="member_block_icon_bg xz_bg">&nbsp;</div>

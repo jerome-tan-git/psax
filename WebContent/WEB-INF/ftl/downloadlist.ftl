@@ -228,7 +228,9 @@ transitional.dtd">
 					<div class="member_block_download blue">
 						<div class="member_download_icon">&nbsp;</div>
 						<div class="member_block_icon_bg gkbs_bg">&nbsp;</div>
+						<a href="${userform.path}">
 						<div class="member_block_download_title">${userform.displayname}</div>
+						</a>
 					</div>
 				</#list>
 			</#if>

@@ -19,8 +19,8 @@ public class UserRegisterInfo {
 //	private String portraitContentType;	
 //	private String portraitFileName;
 
-//	private String[] uploadfiles;	
-//	private String[] uploadfilenames;
+	private String[] uploadfiles;	
+	private String[] uploadfilenames;
 	
 	
 	public String getIssave() {
@@ -102,18 +102,18 @@ public class UserRegisterInfo {
 //	public void setPortraitFileName(String portraitFileName) {
 //		this.portraitFileName = portraitFileName;
 //	}
-//	public String[] getUploadfiles() {
-//		return uploadfiles;
-//	}
-//	public void setUploadfiles(String[] uploadfiles) {
-//		this.uploadfiles = uploadfiles;
-//	}
-//	public String[] getUploadfilenames() {
-//		return uploadfilenames;
-//	}
-//	public void setUploadfilenames(String[] uploadfilenames) {
-//		this.uploadfilenames = uploadfilenames;
-//	}
+	public String[] getUploadfiles() {
+		return uploadfiles;
+	}
+	public void setUploadfiles(String[] uploadfiles) {
+		this.uploadfiles = uploadfiles;
+	}
+	public String[] getUploadfilenames() {
+		return uploadfilenames;
+	}
+	public void setUploadfilenames(String[] uploadfilenames) {
+		this.uploadfilenames = uploadfilenames;
+	}
 	
 
 }
