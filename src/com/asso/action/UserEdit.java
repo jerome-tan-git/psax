@@ -13,6 +13,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import util.CONSTANT;
 import util.SpringFactory;
 
 import com.asso.manager.UserManager;
@@ -30,7 +31,13 @@ public class UserEdit extends ActionSupport implements ServletRequestAware,Sessi
 	private UserManager um;	
 	private User user;
 	private List<User> userslist;
-	
+	private String username;
+	private String password;
+	private String userid;	
+	private int page;
+	private int nextpage;
+	private int lastpage;
+	private int endpage;
 	
 	private HttpServletRequest request;	
 	private Map session;
@@ -61,8 +68,50 @@ public class UserEdit extends ActionSupport implements ServletRequestAware,Sessi
 	}
 	public void setUm(UserManager um) {
 		this.um = um;
+	}	
+	public String getUsername() {
+		return username;
 	}
-	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getNextpage() {
+		return nextpage;
+	}
+	public void setNextpage(int nextpage) {
+		this.nextpage = nextpage;
+	}
+	public int getLastpage() {
+		return lastpage;
+	}
+	public void setLastpage(int lastpage) {
+		this.lastpage = lastpage;
+	}
+	public int getEndpage() {
+		return endpage;
+	}
+	public void setEndpage(int endpage) {
+		this.endpage = endpage;
+	}
+
 	private void buildUsersList(){
 		this.userslist = new ArrayList<User>();		
 		try {
@@ -72,7 +121,46 @@ public class UserEdit extends ActionSupport implements ServletRequestAware,Sessi
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("-----userlist.size="+this.userslist.size());
+		
+		this.pagination();
+		this.partUserList();
+	}
+	
+	private void pagination(){
+		this.page = 1;
+		if(this.request.getParameter("page")!=null && this.request.getParameter("page").length()>0){
+			this.page = Integer.parseInt(this.request.getParameter("page"));		
+		}
+		int listsize = this.userslist.size();
+		System.out.println("-----userlist.size="+listsize);
+		this.endpage = listsize/CONSTANT.pageUserSize;
+		if(listsize>this.endpage*CONSTANT.pageUserSize)
+			this.endpage += 1;		
+		
+		if(this.page<2){
+			this.page = 1;
+			this.lastpage = 1;
+			this.nextpage = this.page+1;
+		}else{
+			if(this.page>=this.endpage){
+				this.page = this.endpage;
+				this.nextpage = this.endpage;
+				this.lastpage = this.page-1;
+			}else{
+				this.lastpage = this.page-1;
+				this.nextpage = this.page+1;
+			}			
+		}	
+	}
+	private void partUserList(){
+		List<User> rlist = new ArrayList<User>();
+		int b = (this.page-1)*CONSTANT.pageUserSize;
+		int e = b+CONSTANT.pageUserSize;
+		for(int i=0; i<this.userslist.size(); i++){
+			if(i>=b && i<e)
+				rlist.add(this.userslist.get(i));
+		}
+		this.setUserslist(rlist);
 	}
 	
 	public String deleteUser(){
@@ -100,16 +188,26 @@ public class UserEdit extends ActionSupport implements ServletRequestAware,Sessi
 	
 	public String addUser(){
 		this.user = new User();
-		if(this.request.getParameter("un")!=null)
-			this.user.setUsername(this.request.getParameter("n"));
-		if(this.request.getParameter("pw")!=null)
-			this.user.setPassword(this.request.getParameter("pw"));
-		try {
-			um.add(user);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		this.user.setUsername(username);
+		this.user.setPassword(password);
+		if(this.userid!=null && this.userid.length()>0 || this.request.getParameter("userid")!=null
+				&& this.request.getParameter("userid").length()>0){
+			this.user.setId(Integer.parseInt(this.userid));
+			try {
+				um.update(this.user);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}else{
+			try {
+				um.add(user);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return "add";
 	}

@@ -8,7 +8,7 @@
 							<li class="active">
 								<a href="./managerArt.action">Article</a>
 							</li>
-							<li>
+							<li class="active">
 								<a href="./manageruser.action">User</a>
 							</li>
 							<li>

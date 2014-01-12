@@ -31,6 +31,7 @@ public class CONSTANT {
 	public final static int pageNum = 10;//考题页数
 	public final static int pageSize = 3;//每页考题数量		
 	public final static int pageArtSize = 5;//每页文章数量
+	public final static int pageUserSize = 10;//每页用户数量
 	
 	public final static int momentMaxLength = 280;
 	public final static int articleAbsMaxLength = 45;

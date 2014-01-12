@@ -76,14 +76,14 @@
 					</#if>
 														
 						<ul class="pager">
-						  <li class="previous"><a class="exam_pager" href="/psax/bklistArt.action?page=1">
+						  <li class="previous"><a class="exam_pager" href="./ bklistArt.action?page=1">
 						  	<span class="glyphicon glyphicon-fast-backward"></span> 首页</a></li>&nbsp;
-						  <li class="previous"><a class="exam_pager" href="/psax/bklistArt.action?page=${lastpage}">
+						  <li class="previous"><a class="exam_pager" href="./bklistArt.action?page=${lastpage}">
 						  	<span class="glyphicon glyphicon-backward"></span> 前一页</a></li>&nbsp;
 						  <li class="next">
-						  	<a class="exam_pager" href="/psax/bklistArt.action?page=${endpage}">末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
+						  	<a class="exam_pager" href="./bklistArt.action?page=${endpage}">末页 <span class="glyphicon glyphicon-fast-forward"></span> </a></li>&nbsp;
 						  <li class="next">
-						  	<a class="exam_pager" href="/psax/bklistArt.action?page=${nextpage}">后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;						  
+						  	<a class="exam_pager" href="./bklistArt.action?page=${nextpage}">后一页 <span class="glyphicon glyphicon-forward"></span> </a></li>&nbsp;						  
 						</ul>
 					</div>
 				</div>
