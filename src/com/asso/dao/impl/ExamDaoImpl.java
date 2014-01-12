@@ -16,6 +16,7 @@ import util.ObjectToClass;
 
 import com.asso.dao.ExamDao;
 import com.asso.dao.UserDao;
+import com.asso.model.Article;
 import com.asso.model.Exam;
 import com.asso.model.ExamItem;
 import com.asso.model.ExamRef;
@@ -231,6 +232,20 @@ public class ExamDaoImpl implements ExamDao {
 		List<ExamRef> refs = this.loadExamRefsWithExamItemid(examitem.getId());		
 		for(ExamRef ref:refs)			
 			this.delete(ref);
+	}
+
+	@Override
+	public Exam loadExamById(int _examid) {
+		
+		ArrayList<Exam> rlist = new ArrayList<Exam>();
+		Session s = sessionFactory.getCurrentSession(); 
+	    String hql = "from Exam where id=?";      
+        Query query = s.createQuery(hql); 
+        query.setString(0, ""+_examid); 
+        rlist = (ArrayList<Exam>) query.list();
+        if(rlist.size()>0)
+        	return rlist.get(0);
+        return new Exam();
 	}
 	@Override
 	public List<Exam> loadExams() {

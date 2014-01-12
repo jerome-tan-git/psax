@@ -15,8 +15,8 @@
         <property name="groupid" type="int">
             <column name="groupid" length="11" />
         </property>
-        <property name="targetdate" type="int">
-            <column name="targetdate" length="11" />
+        <property name="targetdate" type="java.lang.String">
+            <column name="targetdate" length="20" />
         </property>
     </class>
 </hibernate-mapping>

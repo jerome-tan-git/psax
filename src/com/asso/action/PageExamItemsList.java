@@ -46,7 +46,6 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 	private ExamManager em;		
 	private HttpServletRequest request;	
 	
-	
 	public PageExamItemsList(){		
 		em = (ExamManager) SpringFactory.getObject("examManager");
 	}
@@ -70,6 +69,7 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 	private int nextpage;
 	private int endpage;
 	private List<Integer> itemIds4Ilist;
+	private Exam exam;
 
 
 	public List<Integer> getItemIds4Ilist() {
@@ -131,6 +131,13 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 		this.itemlistSeq = itemlistSeq;
 	}
 
+	public Exam getExam() {
+		return exam;
+	}
+
+	public void setExam(Exam exam) {
+		this.exam = exam;
+	}
 
 	public String deleteItem(){
 		this.examid = (String) this.request.getParameter("examid");
@@ -185,8 +192,17 @@ public class PageExamItemsList extends ActionSupport implements ServletRequestAw
 	}
 	public String loadPageItemlistFByExamId(){
 		
-		if(this.examid!=null)
-			this.eInfo.setExamid(Integer.parseInt(this.examid));
+		if(this.examid!=null && this.examid.length()>0){
+			int eid = Integer.parseInt(this.examid);
+			this.eInfo.setExamid(eid);
+			try {
+				this.setExam(em.loadExam(eid));
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		else
 			this.examid = (String) this.request.getParameter("examid");
 		System.out.println("---_examid---"+this.eInfo.getExamid());

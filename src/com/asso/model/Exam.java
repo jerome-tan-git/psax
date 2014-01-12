@@ -8,7 +8,7 @@ public class Exam implements java.io.Serializable{
 	private int id;
 	private String name;
 	private int groupid;
-	private Date targetdate;
+	private String targetdate;
 	
 	public int getId() {
 		return id;
@@ -28,10 +28,10 @@ public class Exam implements java.io.Serializable{
 	public void setGroupid(int groupid) {
 		this.groupid = groupid;
 	}
-	public Date getTargetdate() {
+	public String getTargetdate() {
 		return targetdate;
 	}
-	public void setTargetdate(Date targetdate) {
+	public void setTargetdate(String targetdate) {
 		this.targetdate = targetdate;
 	}
 	

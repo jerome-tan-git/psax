@@ -100,6 +100,11 @@ public class ExamManagerImpl implements ExamManager {
 		examDao.delete(examitem);
 	}
 	
+	@Override
+	public Exam loadExam(int _examid) throws ClassNotFoundException,SQLException {
+		System.out.println("EXAMmanagerImpl----loadExamById-----"+_examid);
+		return examDao.loadExamById(_examid);
+	}	
 
 	@Override
 	public List<Exam> loadExams() throws ClassNotFoundException,SQLException {

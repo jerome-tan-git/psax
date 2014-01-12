@@ -56,6 +56,12 @@
 			<div class="row" style="width: 100%;">
 				<#include "../commons/marginmenu.ftl">
 				<div class="col-md-8">
+					<div class="page-header" style="margin-top: 20px;margin-left: 20px;border-bottom: 1px solid #D6D6D6;position: relative;">
+					  <h1><small>${exam.name?default("")}</small></h1>
+					  <div style="float: right;position: absolute;right: 20px;top: 10px;font-size: 13pt;color: #333;">
+					  	<a href="./managerexam.action"><span class="glyphicon glyphicon-plus"></span></a> 新建
+					  </div>
+					</div>
 					<div class="col-md-12">
 					<#if itemlistSeq?exists>
 						<#list itemlistSeq as map>

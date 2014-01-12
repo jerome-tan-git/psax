@@ -34,6 +34,7 @@ public interface ExamManager {
 	public List<ExamItem> loadItemlistByCatid(int catid) throws ClassNotFoundException, SQLException;
 	public List<ExamItem> loadItemlistByExamid(int examid) throws ClassNotFoundException, SQLException;
 	public List<Exam> loadExams() throws ClassNotFoundException, SQLException;
+	Exam loadExam(int _examid) throws ClassNotFoundException, SQLException;
 	
 	
 	

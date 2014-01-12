@@ -29,6 +29,7 @@ public interface ExamDao {
 	public List<ExamItem> loadExamItemByExamId(int eid);
 	public List<ExamItem> loadExamItemByQ(String question);
 	public List<Exam> loadExams();
+	Exam loadExamById(int _examid);
 	
 	
 	
