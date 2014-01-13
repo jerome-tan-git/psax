@@ -15,7 +15,8 @@ public class MyFreemarkerManager extends FreemarkerManager{
 		Configuration configuration = super.createConfiguration(servletContext);
 //		configuration.setSharedVariable("rand", new TestLoad());
 		configuration.setSharedVariable("decode", new PicURLparse());
-//		configuration.setc
+		configuration.setSharedVariable("stats", new UserStats());
+		
 		return configuration;
 	}
 }

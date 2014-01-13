@@ -27,7 +27,7 @@
             <column name="article" length="20000" />
         </property>
         <property name="pubdate" type="java.lang.String">
-            <column name="pubdate" length="16" />
+            <column name="pubdate" length="20" />
         </property>
         <property name="srcdisplay" type="java.lang.String">
             <column name="srcdisplay" length="100" />

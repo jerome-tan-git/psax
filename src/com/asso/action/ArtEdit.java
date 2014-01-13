@@ -424,8 +424,13 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			this.article.setAbsinfo(this.ainfo.getAbsinfo());		
 			this.article.setCategoryid(this.ainfo.getCategoryid());
 			this.article.setSrcdisplay(this.ainfo.getSrcdisplay());
-			if(this.ainfo.getPubdate()!=null && this.ainfo.getPubdate().trim().length()>=4)				
-				this.article.setPubdate(this.ainfo.getPubdate());
+			String date = this.ainfo.getPubdate(); 
+			if(date!=null && date.length()>=8){
+				if(date.length()<16)
+					this.article.setPubdate(date.substring(0, 10)+" "+CONSTANT.getNowTimeWithoutDay());
+				else
+					this.article.setPubdate(this.ainfo.getPubdate());
+			}
 			else
 				this.article.setPubdate(CONSTANT.getNowTime());
 			
@@ -648,7 +653,11 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 				art.setAbsinfo(abs);
 			}else{
 				art.setAbsinfo(article);
-			}				
+			}			
+			
+			String pubdate = art.getPubdate();//20140113 21:58
+			if(pubdate.length()>10)
+				art.setPubdate(pubdate.substring(0,10));
 		}
 	}
 	public String listArticles(){
@@ -723,7 +732,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			if(art!=null){				
 				if(art.getPubdate()!=null && art.getPubdate().trim().length()>=10)
 					date = art.getPubdate();				
-				art.setPubdate(date);
+//				art.setPubdate(date);//20140113 21:52
+				art.setPubdate(date.substring(0,10));
 			}						
 		}		
 		System.out.println("this.artlist size="+this.artlist.size());
@@ -759,6 +769,7 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		}
 		System.out.println("--build-catpath-over--"+this.catpath.toString());
 	}
+	
 	
 	@Override
 	public String execute(){

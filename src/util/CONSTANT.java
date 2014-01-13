@@ -154,6 +154,11 @@ public class CONSTANT {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return formatter.format(currentTime);
 	}
+	public final static String getNowTimeWithoutDay(){
+		Date currentTime = new Date();   
+		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+		return formatter.format(currentTime);
+	}
 	
 	public static String getJSCateName(int _categoryid){
         String type = "single_selection";
@@ -179,7 +184,7 @@ public class CONSTANT {
 		List<Integer> seqs = new ArrayList<Integer>();
 		List<Date> datelist = new ArrayList<Date>();		
 		List<Date> unsorteddatelist = new ArrayList<Date>();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");  
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");  
 		 /**×Ö·û´®×ªÊ±¼ä**/  
 		for(String dt:_datelist){
 			try {

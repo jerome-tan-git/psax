@@ -245,7 +245,12 @@ transitional.dtd">
 				<div class="member_block tz">
 					<div class="member_block_icon tz">&nbsp;</div>
 					<div class="member_block_icon_bg tz_bg">&nbsp;</div>
-					<div class="unread">3000&nbsp;<img src="./images/iconmonstr-email-4-icon-16.png" /></div>
+					<#if Session.user_?exists>
+					<#assign user=Session.user_>						
+					<div class="unread">${stats(user.id)}&nbsp;<img src="./images/iconmonstr-email-4-icon-16.png" /></div>
+					<#else>
+					<div class="unread">&nbsp;<img src="./images/iconmonstr-email-4-icon-16.png" /></div>
+					</#if>
 					<div class="member_block_title">通知</div>
 				</div>
 				</a>

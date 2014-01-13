@@ -168,11 +168,7 @@
 								 <div class="col-sm-6">
 									 <label for="exampleInputEmail1">附件</label>
 									 <input type="file" name="addition" id="file_upload_1"/>	
-									 <#if art?exists>
-									 <!--
-									 	<input type="hidden" name="additionurl" value="${art.addition}"/>
-										<a href="${art.addition}">${art.addition}</a>
-										-->
+									 <#if art?exists>									 
 										<#if art.attachments?exists>
 											<#list art.attachments as attachment>
 												<div id="${attachment.seq}" class="uploadify-queue-item old_files">
