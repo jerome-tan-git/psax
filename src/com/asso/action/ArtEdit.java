@@ -800,7 +800,10 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 //				System.out.println("__7___________________"+this.art.getAddition());
 //				for(Channel ch:this.channels)
 //					System.out.println("chid---"+ch.getId()+", ch name---"+ch.getChannel());
-				
+				String pubdate = this.art.getPubdate();
+				if(pubdate.length()>10){
+					 this.art.setPubdate(pubdate.substring(0,10));
+				}
 				
 				System.out.println("--------------managerArt------------tobuildCAT------");
 				this.buildCatPathByCatId(this.art.getCategoryid());

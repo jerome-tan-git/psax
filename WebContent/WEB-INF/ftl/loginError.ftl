@@ -222,6 +222,7 @@ transitional.dtd">
 
 			<!-- Teaser Start -->
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
+			登录失败，请重新输入用户名密码。
 				<form name="login_form" method="post" action="userlogin.action">
 					<div class="login_form">
 						<div class="user_input">

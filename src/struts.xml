@@ -57,7 +57,8 @@
 			<!-- <result name="success" type="freemarker">/WEB-INF/ftl/exam_home.ftl</result> -->
 			<!-- <result name="success">login_result.jsp</result> -->
 			<result name="success" type="freemarker">/WEB-INF/ftl/membercenter.ftl</result>
-			<result name="failure">loginFail.jsp</result>  
+			<!-- <result name="failure">loginFail.jsp</result> -->
+			<result name="failure" type="freemarker">/WEB-INF/ftl/loginError.ftl</result>    
 		</action>
 		<action name="userlogout" class="com.asso.action.UserLogout" >  
 			<result name="success" type="freemarker">/WEB-INF/ccpage/index.ftl</result>

@@ -7,7 +7,7 @@ transitional.dtd">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-		<title>jQa</title>
+		<title>上海市浦东新区食品生产安全管理协会</title>
 		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
 		<link rel="stylesheet" type="text/css" href="./css/layout.css" />
 		<link rel="stylesheet" type="text/css" href="./css/flexslider.css" />

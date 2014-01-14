@@ -4,7 +4,7 @@ transitional.dtd">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-		<title>jQa</title>
+		<title>上海市浦东新区食品生产安全管理协会</title>
 		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
 		<link rel="stylesheet" type="text/css" href="./css/layout.css" />
 		<link rel="stylesheet" type="text/css" href="./css/flexslider.css" />
@@ -249,7 +249,7 @@ transitional.dtd">
 					<#assign user=Session.user_>						
 					<div class="unread">${stats(user.id)}&nbsp;<img src="./images/iconmonstr-email-4-icon-16.png" /></div>
 					<#else>
-					<div class="unread">&nbsp;<img src="./images/iconmonstr-email-4-icon-16.png" /></div>
+					<div class="unread">&nbsp;</div>
 					</#if>
 					<div class="member_block_title">通知</div>
 				</div>
