@@ -8,7 +8,7 @@
 	});
 	
 
-
+/**
 	$(document).ready(function() {
 		$('.notice_content').hover(function(){
 			$(this).find('.mom_icon_img').attr('src','./images/notice_red.png');
@@ -17,3 +17,4 @@
 			$(this).find('.mom_icon_img').attr('src','./images/notice_gray.png');
 		});
 	});
+	*/
