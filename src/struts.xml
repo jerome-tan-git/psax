@@ -176,8 +176,13 @@
 		<action name="bklistArt" class="com.asso.action.ArtEdit" method="listArticles">  
 			<result name="list" type="freemarker">/WEB-INF/ftl/listArticle.ftl</result>	                     	 
 		</action>
+		<!-- 
 		<action name="deleteArt" class="com.asso.action.ArtEdit" method="deleteArticle">  
 			<result name="delete" type="redirect">bklistArt.action</result>	                     	 
+		</action>
+		 -->
+		<action name="deleteArt" class="com.asso.action.ArtEdit" method="deleteArticle">  
+			<result name="delete" type="freemarker">/WEB-INF/ftl/listArticle.ftl</result>	                     	 
 		</action>
 		
 		<action name="saveDoc" class="com.asso.action.FormEdit" method="updateDoc">  

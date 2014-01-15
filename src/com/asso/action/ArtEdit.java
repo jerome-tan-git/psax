@@ -466,20 +466,38 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	
 	public String deleteArticle(){
 		int articleid = 0;
+		Article article = new Article(); 
 		if(this.request.getParameter("articleid")!=null){									  
 			articleid = Integer.parseInt(this.request.getParameter("articleid"));
+			List<Article> alist = new ArrayList<Article>(); 
+			try {
+				alist = am.loadArticle(articleid);
+				if(alist.size()>0)
+					article = alist.get(0);
+				else
+					System.out.println("DATA ERROR, pls inv...");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			this.setCateogry(cm.loadCategory(article.getCategoryid()));
+			System.out.println("this.cateogry"+this.cateogry.toString());
 			try {
 				am.deleteArticle(articleid);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}			
+			}
 		}else
 			System.out.println("DATA ERROR, Pls INV...");
 		
 		System.out.println("Delete article, articleid="+articleid);
 //		this.listArticleByCategoryId();//can't get catid
+		
+		this.listArticles();
 		return "delete";
 	}
 	
@@ -668,7 +686,11 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			this.cateogry = new Category();
 			this.setCateogry(cm.loadCategory(catid));
 			System.out.println("----------------listArticles----------catid="+this.cateogry.getId()+", cat="+this.cateogry.getCategory());
+		}else{
+			if(this.cateogry!=null && this.cateogry.getId()>0)
+				catid = this.cateogry.getId();
 		}
+			
 		
 		int page = 1;		
 		if(this.request.getParameter("page")!=null && this.request.getParameter("page").length()>0)

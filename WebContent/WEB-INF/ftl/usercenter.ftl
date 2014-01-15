@@ -253,29 +253,66 @@ transitional.dtd">
 					<div class="userinfo_title">
 						<div>头像选择</div>
 						<div>
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_1.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_1.png"  
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_1.png")>checked</#if>
+							<#else>checked
+							</#if> />
 								<img src="./img/tx_1.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_2.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_2.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_2.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_2.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_3.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_3.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_3.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_3.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_4.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_4.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_4.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_4.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_5.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_5.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_5.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_5.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_6.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_6.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_6.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_6.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_7.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_7.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_7.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_7.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_8.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_8.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_8.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_8.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_9.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_9.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_9.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_9.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_10.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_10.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_10.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_10.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_11.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_11.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_11.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_11.png" >
-							<input class="userinfo" type="radio" name="portrait" value="./img/tx_12.png" />
+							<input class="userinfo" type="radio" name="portrait" value="./img/tx_12.png" 
+							<#if user.portrait?exists>
+								<#if (user.portrait="./img/tx_12.png")>checked</#if>
+							</#if> />
 								<img src="./img/tx_12.png" >
 						</div>
 					</div>	

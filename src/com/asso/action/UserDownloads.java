@@ -43,6 +43,7 @@ public class UserDownloads extends ActionSupport implements ServletRequestAware,
 	private User user;
 	private List<Form> formlist;
 	private List<Message> messagelist;
+	private List<Message> readmessagelist;
 	private String message;
 //	private String[] userids;
 
@@ -83,7 +84,14 @@ public class UserDownloads extends ActionSupport implements ServletRequestAware,
 	}
 	public void setMessagelist(List<Message> messagelist) {
 		this.messagelist = messagelist;
-	}	
+	}
+	public List<Message> getReadmessagelist() {
+		return readmessagelist;
+	}
+	public void setReadmessagelist(List<Message> readmessagelist) {
+		this.readmessagelist = readmessagelist;
+	}
+
 	public String getMessage() {
 		return message;
 	}
@@ -140,36 +148,27 @@ public class UserDownloads extends ActionSupport implements ServletRequestAware,
 			}
 			
 			this.messagelist = new ArrayList<Message>();
+			this.readmessagelist = new ArrayList<Message>();
 			for(Message m:ms){
-				System.out.println("---------->>>"+m.toString());				
+				System.out.println("------------>>>"+m.toString());		
+				this.setYMD(m);
 				if(m.getIsread()==1)
-					continue;
-				else{
-					this.setYMD(m);
+//					continue;
+					this.readmessagelist.add(m);
+				else{					
 					this.messagelist.add(m);
 					this.updateMessageToReaded(m);
 				}
 			}
+			System.out.println("-suc!!!!!");
 		}		
 		return SUCCESS;
 	}
 	
 	
-	private void updateMessageToReaded(Message m){
-		//to update to isread=1
-//		Message update_m = new Message();
-//		update_m.setIsread(1);
-//		update_m.setId(m.getId());				
-//		update_m.setPubdate(m.getPubdate());
-//		update_m.setAbsinfo(m.getAbsinfo());
-//		update_m.setAddition(m.getAddition());
-//		update_m.setArticle(m.getArticle());
-//		update_m.setPic(m.getPic());
-//		update_m.setTitle(m.getTitle());
-//		update_m.setUserid(m.getUserid());
+	private void updateMessageToReaded(Message m){		
 		m.setIsread(1);
 		try {
-//			am.update(update_m);
 			am.update(m);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

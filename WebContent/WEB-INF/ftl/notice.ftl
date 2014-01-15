@@ -289,8 +289,39 @@ transitional.dtd">
 							</div>
 						</div>
 					</#list>
-				<#else>
-					<div class="mom_content notice_content">
+				</#if>	
+			</#if>
+			
+			<#if readmessagelist?exists>
+				<#if (readmessagelist?size>0) >			 
+					<#list readmessagelist as message>
+								<div class="mom_content notice_content">
+									<div class="mom_left"><span class="mom_year">${message.year?default("")} </span>${message.month?default("")}/${message.day?default("")} </div>
+									<div class="mom_icon">
+										<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_red.png"/></div>
+									</div>
+									<div class="mom_inner_content">
+										<div class="mom_contetn_header">
+											<div class="mom_header_text">
+												${message.title?default("")}
+											</div>
+											<div class="mom_date">${message.pubdate?default("")}</div>
+										</div>
+										<div class="mom_contetn_body clearfix">
+											<div class="mom_body_text">
+												${message.absinfo?default("")}
+											</div>
+										</div>
+										<div class="mom_contetn_bottom">&nbsp;</div>
+									</div>
+								</div>
+								
+							</#list>
+						</#if>
+					</#if>
+					<#if !readmessagelist?exists>
+						<#if !messagelist?exists>
+						<div class="mom_content notice_content">
 							<div class="mom_left"></div>
 							<div class="mom_icon">
 								<div class="mom_logo_div"></div>							
@@ -310,24 +341,21 @@ transitional.dtd">
 								<div class="mom_contetn_bottom">&nbsp;</div>
 							</div>
 						</div>
-				</#if>
-				
-			</#if>
-						
-					
-					<!--
+						</#if>
+					</#if>
+					<#if (readmessagelist?size==0)>
+						<#if (messagelist?size==0)>
 						<div class="mom_content notice_content">
-							<div class="mom_left"><span class="mom_year">2012 </span>10/20</div>
+							<div class="mom_left"></div>
 							<div class="mom_icon">
-								<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
-								
+								<div class="mom_logo_div"></div>							
 							</div>
 							<div class="mom_inner_content">
 								<div class="mom_contetn_header">
-									<div class="mom_header_text">
-										手机导航、MM业务年末大促销活动
-									</div>
-									<div class="mom_date">2013/12/12 12:30</div>
+								<div class="mom_header_text">
+									暂无新信息
+								</div>
+								<div class="mom_date"></div>
 								</div>
 								<div class="mom_contetn_body clearfix">
 									<div class="mom_body_text">
@@ -337,8 +365,12 @@ transitional.dtd">
 								<div class="mom_contetn_bottom">&nbsp;</div>
 							</div>
 						</div>
-					-->
-					
+						</#if>
+					</#if>
+				
+				
+						
+										
 			</div>
 			<!-- Teaser End -->
 

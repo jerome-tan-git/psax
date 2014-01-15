@@ -151,6 +151,7 @@ public class ChannelDaoImpl implements ChannelDao {
 //        s.close();	    
 	    return cat;
 	}
+	
 	@Override
 	public List<Category> loadCategoryPath(int categoryid){		
         List<Category> rlist = new ArrayList<Category>();
