@@ -1,11 +1,11 @@
 <div style="margin-top: 7px;float: right;margin-right: 15px;">	
  				<#if Session.user_?exists>
- 					<a href="./userlogout.action">登出</a>
+ 					<a style="color: #333;" href="./userlogout.action">登出</a>
  				<#else>
- 					<a href="./gologin.action">登录</a>
+ 					<a style="color: #333;" href="./gologin.action">登录</a>
  				</#if>
  				<!--<a href="./usercenter.action">用户中心</a>-->
- 				<a href="./page.action?categoryid=1">用户中心</a>
+ 				<a style="color: #333;" href="./page.action?categoryid=1">用户中心</a>
  			</div>
  			<div class="logo"> 		
  			

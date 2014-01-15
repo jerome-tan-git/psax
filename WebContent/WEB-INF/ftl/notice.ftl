@@ -271,7 +271,7 @@ transitional.dtd">
 						<div class="mom_content notice_content">
 							<div class="mom_left"><span class="mom_year">${message.year?default("")} </span>${message.month?default("")}/${message.day?default("")} </div>
 							<div class="mom_icon">
-								<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_gray.png"/></div>
+								<div class="mom_logo_div"><img src="./images/notice_red.png"/></div>
 							</div>
 							<div class="mom_inner_content">
 								<div class="mom_contetn_header">
@@ -298,7 +298,7 @@ transitional.dtd">
 								<div class="mom_content notice_content">
 									<div class="mom_left"><span class="mom_year">${message.year?default("")} </span>${message.month?default("")}/${message.day?default("")} </div>
 									<div class="mom_icon">
-										<div class="mom_logo_div"><img class="mom_icon_img" src="./images/notice_red.png"/></div>
+										<div class="mom_logo_div"><img src="./images/notice_gray.png"/></div>
 									</div>
 									<div class="mom_inner_content">
 										<div class="mom_contetn_header">
