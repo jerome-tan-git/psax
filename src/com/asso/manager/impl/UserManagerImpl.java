@@ -96,6 +96,11 @@ public class UserManagerImpl implements UserManager {
 			return new User();
 			
 	}
+	@Override
+	public User loadUserByid(int _userid) throws ClassNotFoundException, SQLException{		
+		System.out.println("loadUserByid----------------------User input userid ------"+_userid);
+		return userDao.loadUser(_userid);
+	}
 	
 	@Override
 	public void addUploadfiles(Uploadfiles uploadfile) throws ClassNotFoundException, SQLException{

@@ -185,6 +185,19 @@
 			<result name="delete" type="freemarker">/WEB-INF/ftl/listArticle.ftl</result>	                     	 
 		</action>
 		
+		
+		
+		<action name="bbs_*" class="com.asso.action.BbsEdit" method="{1}">
+            <result name="input" type="freemarker">/WEB-INF/ftl/topicbuilt.ftl</result>
+            <result name="update" type="freemarker">/WEB-INF/ftl/topicbuilt.ftl</result>
+            <result name="built" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>
+            <result name="list" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>
+            <result name="delete" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>   
+            <result name="detail" type="freemarker">/WEB-INF/ftl/topicdetail.ftl</result>            
+            <interceptor-ref name="mystack" />
+        </action>
+		
+		
 		<action name="saveDoc" class="com.asso.action.FormEdit" method="updateDoc">  
 			<result name="success" type="freemarker">/WEB-INF/ftl/login.ftl</result>	                     	 
 		</action>

@@ -4,7 +4,7 @@ transitional.dtd">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-		<title>上海市浦东新区食品生产安全管理协会</title>
+		<title>jQa</title>
 		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
 		<link rel="stylesheet" type="text/css" href="./css/layout.css" />
 		<link rel="stylesheet" type="text/css" href="./css/flexslider.css" />
@@ -17,7 +17,6 @@ transitional.dtd">
 		<link rel="stylesheet" type="text/css" href="./css/portfolio.css" />
 		<link rel="stylesheet" type="text/css" href="./css/quicksand.css" />
 		<link rel="stylesheet" type="text/css" href="./css/skin.css" />
-			<link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet">
 
 
 		<script type="text/javascript" src="./js/jquery.min.js"></script>
@@ -28,12 +27,10 @@ transitional.dtd">
 		<script type="text/javascript" src="./js/custom.js"></script>
 		<script type="text/javascript" src="./js/unslider.js"></script>
 		<script type="text/javascript" src="./js/fancybox/jquery.fancybox-1.3.4.js"></script>
-		<script type="text/javascript" src="./js/frontend.js"></script>
 
+		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
 
-	<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
-
-		<script type="text/javascript" src="./js/jquery.easing.1.3.js"></script>
+		<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 
 		<style type="text/css">
 			html, body, p {
@@ -133,33 +130,6 @@ transitional.dtd">
 					}, 500);
 				});
 				
-				$( "#dialog" ).dialog({
-					autoOpen: false,
-					width: 400,
-					modal: true, 
-					buttons: [
-						{
-							text: "开始",
-							click: function() {
-								if($('#user_name_input').val()=="")
-								{
-									alert('请填写姓名！');
-								}
-								else
-								{
-									$( this ).dialog( "close" );
-									$('#go_exam').submit();
-								}
-							}
-						},
-						{
-							text: "取消",
-							click: function() {
-								$( this ).dialog( "close" );
-							}
-						}
-					]
-				});
 				$(".click_down").click(function(){
 					var toHeight = $(".exam_no_container").outerHeight();
 					var beginHeight = $(".exam_no_outer").outerHeight();
@@ -185,7 +155,6 @@ transitional.dtd">
 					}
 				});
 			});
-
 			function checkOptions() {
 				var op = $(this).find("input");
 				var label = $(this).find("." + (op.attr("id")));
@@ -198,46 +167,15 @@ transitional.dtd">
 					}
 				}
 			}
-			
-			$(document).ready(function() {
-				$('.portfolio_content').click(function()
-				{
-					//beginexam.action?examid=2
-					$("#dialog" ).dialog( "open" );					
-					$('#go_exam').attr('action','beginexam.action?examid='+$(this).attr('examid'));
-					event.preventDefault();
-				});
-			});
 		</script>
 	</head>
 	<body>
-
 		<div id="page_wrap">
 			<!-- Header Start -->
 			<div class="header">
-		    <#include "../commons/logo.ftl">
-		  	<#include "../commons/menubar.ftl">
-			<#include "../commons/smallmenu.ftl"> 
-				<!-- <nav>
-				<div id="myslidemenu" class="jqueryslidemenu">
-				<ul>
-				<li><a class="active" href="./index.html">首页</a></li>
-				<li><a href="./about.html">关于我们</a></li>
-				<li><a href="./index.html">舆情动态</a></li>
-
-				<li><a href="./portfolio.html">公开办事</a>
-				<ul>
-				<li><a href="./portfolio_3col.html">肉制品报告</a></li>
-				<li><a href="./portfolio_3col.html">标准备案</a></li>
-				<li><a href="./portfolio_2col.html">添加剂报告</a></li>
-				<li><a href="./portfolio_1col.html">委托加工备案</a></li>
-				</ul>
-				</li>
-				<li><a href="./blog.html">政策法规</a></li>
-				<li><a href="./contact.html">咨询服务</a></li>
-				</ul>
-				</div>
-				</nav> -->
+		  		<#include "../commons/logo.ftl">
+			  	<#include "../commons/menubar.ftl">
+				<#include "../commons/smallmenu.ftl"> 		
 			</div>
 			<!-- Header End -->
 
@@ -247,11 +185,10 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>站内消息</h2>
+					<h2>用户登录</h2>
 					<div class="sub_header_description">
-						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
-						<span><a href="./page.action?categoryid=1">用户中心 &raquo;</a></span>
-						<span class="page">站内消息</span>
+						<span><a href="./index.html">首页 &raquo;</a></span>
+						<span class="page">用户登录</span>
 					</div>
 
 				</div>
@@ -264,113 +201,55 @@ transitional.dtd">
 			<!-- Flex Slider End -->
 
 			<!-- Teaser Start -->
+			
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
-			<#if messagelist?exists>
-				<#if (messagelist?size>0) >			 
-					<#list messagelist as message>
-						<div class="mom_content notice_content">
-							<div class="mom_left"><span class="mom_year">${message.year?default("")} </span>${message.month?default("")}/${message.day?default("")} </div>
-							<div class="mom_icon">
-								<div class="mom_logo_div"><img src="./images/notice_red.png"/></div>
-							</div>
-							<div class="mom_inner_content">
-								<div class="mom_contetn_header">
-									<div class="mom_header_text">
-										${message.title?default("")}
-									</div>
-									<div class="mom_date">${message.pubdate?default("")}</div>
-								</div>
-								<div class="mom_contetn_body clearfix">
-									<div class="mom_body_text">
-										${message.absinfo?default("")}
-									</div>
-								</div>
-								<div class="mom_contetn_bottom">&nbsp;</div>
-							</div>
+				<div class="bbs_button clearfix">
+					<div class="bbs_button_group">
+						<img src="./images/iconmonstr-note-25-icon-16.png" /> 新建帖子
+					</div>
+				</div>
+				<div class="bbs_list_header clearfix">
+					<div class="bbs_list_title">主题</div>
+					<div class="bbs_list_reply">回复</div>
+					<div class="bbs_list_author">作者</div>
+					<div class="bbs_list_update">更新时间</div>
+				</div>
+				<#if topiclist?exists>
+					<#if (topiclist?size>0)>
+					<#list topiclist as topic>
+						<div class="bbs_list_body clearfix">
+							<a href="./bbs_topicdetail.action?id=${topic.id}">
+								<div class="bbs_list_body_title">${topic.title?default("空")}</div>
+							</a>							
+							<div class="bbs_list_body_reply">回复</div>
+							<div class="bbs_list_body_author">${topic.authername?default("佚名")}</div>
+							<div class="bbs_list_body_update">${topic.date?default("")}</div>
 						</div>
 					</#list>
-				</#if>	
-			</#if>
-			
-			<#if readmessagelist?exists>
-				<#if (readmessagelist?size>0) >			 
-					<#list readmessagelist as message>
-								<div class="mom_content notice_content">
-									<div class="mom_left"><span class="mom_year">${message.year?default("")} </span>${message.month?default("")}/${message.day?default("")} </div>
-									<div class="mom_icon">
-										<div class="mom_logo_div"><img src="./images/notice_gray.png"/></div>
-									</div>
-									<div class="mom_inner_content">
-										<div class="mom_contetn_header">
-											<div class="mom_header_text">
-												${message.title?default("")}
-											</div>
-											<div class="mom_date">${message.pubdate?default("")}</div>
-										</div>
-										<div class="mom_contetn_body clearfix">
-											<div class="mom_body_text">
-												${message.absinfo?default("")}
-											</div>
-										</div>
-										<div class="mom_contetn_bottom">&nbsp;</div>
-									</div>
-								</div>
-								
-							</#list>
-						</#if>
 					</#if>
-					<#if !readmessagelist?exists>
-						<#if !messagelist?exists>
-						<div class="mom_content notice_content">
-							<div class="mom_left"></div>
-							<div class="mom_icon">
-								<div class="mom_logo_div"></div>							
-							</div>
-							<div class="mom_inner_content">
-								<div class="mom_contetn_header">
-									<div class="mom_header_text">
-										暂无新信息
-									</div>
-									<div class="mom_date"></div>
-								</div>
-								<div class="mom_contetn_body clearfix">
-									<div class="mom_body_text">
-									
-									</div>
-								</div>
-								<div class="mom_contetn_bottom">&nbsp;</div>
-							</div>
+				</#if>
+				<div class="bbs_list_body clearfix">
+					<div class="bbs_list_body_title">是一個架了好幾年的社群網站，專門給西洋羅曼史粉絲們建置書目資料與互相交流閱讀心得。是一個架了好幾年的社群網站，專門給西洋羅曼史粉絲們建置書目資料與互相交流閱讀心得。</div>
+					<div class="bbs_list_body_reply">回复</div>
+					<div class="bbs_list_body_author">作者</div>
+					<div class="bbs_list_body_update">更新时间</div>
+				</div>
+				
+				
+				
+				<div class="clearfix">
+					<div class="bbs_pagnation">
+						<div style="width: 81px;float: left;">
+						<img src="./images/first-24.png" />&nbsp;&nbsp;
+						<img src="./images/prev-24.png" />&nbsp;&nbsp;
 						</div>
-						</#if>
-					</#if>
-					<#if (readmessagelist?size==0)>
-						<#if (messagelist?size==0)>
-							<div class="mom_content notice_content">
-								<div class="mom_left"></div>
-								<div class="mom_icon">
-									<div class="mom_logo_div"></div>							
-								</div>
-								<div class="mom_inner_content">
-									<div class="mom_contetn_header">
-										<div class="mom_header_text">
-											暂无新信息
-										</div>
-										<div class="mom_date"></div>
-									</div>
-									<div class="mom_contetn_body clearfix">
-										<div class="mom_body_text">
-										
-										</div>
-									</div>
-									<div class="mom_contetn_bottom">&nbsp;</div>
-								</div>	
-							</div>
-						</#if>
-					</#if>
-				
-				
-						
-										
+						<div style="width: 49px;float: left;color: #000;padding-top: 3px;">5/10</div>
+						<div style="width: 61px;float: left;">
+						<img src="./images/next-24.png" />&nbsp;&nbsp;
+						<img src="./images/last-24.png" />
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- Teaser End -->
 

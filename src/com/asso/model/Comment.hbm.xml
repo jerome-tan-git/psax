@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd//hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.asso.model.Comment" table="comment" catalog="asso">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="content" type="java.lang.String">
+            <column name="content" length="5000" />
+        </property>
+        <property name="auther" type="int">
+            <column name="auther" length="11" />
+        </property>       
+        <property name="date" type="java.lang.String">
+            <column name="date" length="20" />
+        </property>        
+        <property name="topicid" type="int">
+            <column name="topicid" length="11" />
+        </property>
+    </class>
+</hibernate-mapping>

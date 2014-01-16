@@ -41,6 +41,8 @@ public interface UserManager {
 
 	void delete(int userid) throws ClassNotFoundException, SQLException;
 
+	User loadUserByid(int _userid) throws ClassNotFoundException, SQLException;
+
 
 
 

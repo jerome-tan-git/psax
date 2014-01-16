@@ -104,6 +104,8 @@
 	</bean>
 	<bean id="docManager" class="com.asso.manager.impl.DocManagerImpl">		
 	</bean>
+	<bean id="bbsManager" class="com.asso.manager.impl.BbsManagerImpl">		
+	</bean>
 	<bean name="userDao" class="com.asso.dao.impl.UserDaoImpl">            
     </bean>
     <bean name="examDao" class="com.asso.dao.impl.ExamDaoImpl">            
@@ -117,6 +119,8 @@
     <bean name="formDao" class="com.asso.dao.impl.FormDaoImpl">            
     </bean>
     <bean name="docDao" class="com.asso.dao.impl.DocDaoImpl">            
+    </bean>
+    <bean name="bbsDao" class="com.asso.dao.impl.BbsDaoImpl">            
     </bean>
     <!-- 
 	<aop:config>
