@@ -6,7 +6,7 @@ String going_to = (String)session.getAttribute("returnURL");
 if(going_to != null) {
  	response.sendRedirect(going_to);
 }else{
-	response.sendRedirect("./index.html");
+	response.sendRedirect("./page.action?categoryid=0");
  }
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

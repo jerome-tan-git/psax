@@ -185,10 +185,10 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>用户登录</h2>
+					<h2>BBS论坛</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">用户登录</span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
+						<span class="page">BBS论坛</span>
 					</div>
 
 				</div>
@@ -212,7 +212,7 @@ transitional.dtd">
 					<div class="bbs_list_title">主题</div>
 					<div class="bbs_list_reply">回复</div>
 					<div class="bbs_list_author">作者</div>
-					<div class="bbs_list_update">更新时间</div>
+					<div class="bbs_list_update">创建时间</div>
 				</div>
 				<#if topiclist?exists>
 					<#if (topiclist?size>0)>
@@ -228,13 +228,6 @@ transitional.dtd">
 					</#list>
 					</#if>
 				</#if>
-				<div class="bbs_list_body clearfix">
-					<div class="bbs_list_body_title">是一個架了好幾年的社群網站，專門給西洋羅曼史粉絲們建置書目資料與互相交流閱讀心得。是一個架了好幾年的社群網站，專門給西洋羅曼史粉絲們建置書目資料與互相交流閱讀心得。</div>
-					<div class="bbs_list_body_reply">回复</div>
-					<div class="bbs_list_body_author">作者</div>
-					<div class="bbs_list_body_update">更新时间</div>
-				</div>
-				
 				
 				
 				<div class="clearfix">

@@ -83,10 +83,24 @@ public class BbsManagerImpl implements BbsManager {
 		}
 		return list;
 	}
+	@Override
+	public Topic loadTopicById(int _topicid) throws ClassNotFoundException, SQLException{
+		List<Topic> list = new ArrayList<Topic>();
+		list = bbsDao.loadTopicByTopicId(_topicid);		
+		return list.get(0);
+	}
+	@Override
+	public Comment loadCommentById(int _commentid) throws ClassNotFoundException, SQLException{
+		List<Comment> list = new ArrayList<Comment>();
+		list = bbsDao.loadCommentById(_commentid);	
+		return list.get(0);
+	}
 	
 	@Override
 	public int getCommentsCountByTopicId(int _topicid) throws ClassNotFoundException, SQLException{
 		return bbsDao.loadCommentsByTopicId(_topicid).size();		
 	}
+	
+	
 	
 }

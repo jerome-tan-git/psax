@@ -38,11 +38,13 @@
 		<action name="wip" class="com.asso.action.ChannelEdit" method="wip">  
 			<result name="success" type="freemarker">/WEB-INF/ccpage/wip.ftl</result>							 
 		</action> 
+		
 		<action name="page" class="com.asso.action.ChannelEdit">  
 			<result name="cat0" type="freemarker">/WEB-INF/ccpage/index.ftl</result>
 			<result name="cat1" type="freemarker">/WEB-INF/ftl/membercenter.ftl</result>
 			<result name="cat2" type="freemarker">/WEB-INF/ccpage/about_us.ftl</result>
-			<result name="cat15" type="freemarker">/WEB-INF/ccpage/exam_home.ftl</result>							 
+			<result name="cat15" type="freemarker">/WEB-INF/ccpage/exam_home.ftl</result>	
+			<result name="cat16" type="redirect">bbs_alltopiclist.action</result>							 
 		</action>
 		 
 		 
@@ -188,12 +190,16 @@
 		
 		
 		<action name="bbs_*" class="com.asso.action.BbsEdit" method="{1}">
-            <result name="input" type="freemarker">/WEB-INF/ftl/topicbuilt.ftl</result>
-            <result name="update" type="freemarker">/WEB-INF/ftl/topicbuilt.ftl</result>
+            <result name="input" type="freemarker">/WEB-INF/ftl/topicbuilt.ftl</result>            
             <result name="built" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>
-            <result name="list" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>
-            <result name="delete" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>   
-            <result name="detail" type="freemarker">/WEB-INF/ftl/topicdetail.ftl</result>            
+            <result name="list" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>               
+            <result name="detail" type="freemarker">/WEB-INF/ftl/topicdetail.ftl</result>
+            <result name="save" type="freemarker">/WEB-INF/ftl/topicdetail.ftl</result>
+            <result name="topic_update" type="freemarker">/WEB-INF/ftl/topicbuilt.ftl</result>
+            <result name="topic_updated" type="freemarker">/WEB-INF/ftl/topicbuilt.ftl</result>
+            <result name="comment_update" type="freemarker">/WEB-INF/ftl/commentbuilt.ftl</result>
+            <result name="comment_updated" type="freemarker">/WEB-INF/ftl/commentbuilt.ftl</result>
+            <result name="delete" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>            
             <interceptor-ref name="mystack" />
         </action>
 		

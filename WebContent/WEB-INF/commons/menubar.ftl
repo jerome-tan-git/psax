@@ -106,7 +106,7 @@
 						</div></a>
 					</div>
 					<div class="menu_item">
-						<a href="./wip.action">
+						<a href="./page.action?categoryid=16">
 						<div class="menu_text">
 							BBS论坛
 						</div></a>

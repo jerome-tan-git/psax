@@ -152,6 +152,8 @@ public class ChannelEdit extends ActionSupport implements ServletRequestAware,Se
 				return "cat2";
 			if(c==15)
 				return "cat15";
+			if(c==16)
+				return "cat16";
 			
 			if(c==7)
 				return "cat7";

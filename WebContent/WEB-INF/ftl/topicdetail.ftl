@@ -222,10 +222,10 @@ transitional.dtd">
 			<div class="sub_header  exam_bg">
 
 				<div class="sub_header_title">
-					<h2>用户登录</h2>
+					<h2>BBS论坛</h2>
 					<div class="sub_header_description">
-						<span><a href="./index.html">首页 &raquo;</a></span>
-						<span class="page">用户登录</span>
+						<span><a href="./page.action?categoryid=0">首页 &raquo;</a></span>
+						<span class="page">BBS论坛</span>
 					</div>
 
 				</div>
@@ -253,62 +253,47 @@ transitional.dtd">
 						<div>&nbsp;</div>
 					</div>
 					<div class="bbs_thread_bottom_line">
-						<div class="bbs_thread_bottom_button">mm</div>
+						<a href="#001"><div class="bbs_thread_bottom_button">我要评论</div></a>
 					</div>
-				</div>				
-					<div class="bbs_thread_body clearfix">
-					<div class="bbs_thread_use">
-						<div class="bbs_thread_avatar">
-							<img src="./images/a_1.png" />
-						</div>
-						<div class="bbs_thread_name">aa</div>
-					</div>
-					<div class="bbs_thread_content">
-						<div>
-							a<br />
-							a<br />
-							a<br />
-							a<br />
-							a<br />
-							a<br />
-							a<br />
-							a<br />
-							a<br />
-							a<br />
-							a<br />
-						</div>
-						<div>&nbsp;</div>
-					</div>
-					<div class="bbs_thread_bottom_line">
-						<div class="bbs_thread_bottom_button">mm</div>
-					</div>
-				</div>					
-				<div class="bbs_thread_body clearfix">
-					<div class="bbs_thread_use">
-						<div class="bbs_thread_avatar">
-							<img src="./images/a_1.png" />
-						</div>
-						<div class="bbs_thread_name">aa</div>
-					</div>
-					<div class="bbs_thread_content">
-						<div>
-							a<br />
-							a<br />
-							a<br />
-							a<br />
-							
-						</div>
-						<div>&nbsp;</div>
-					</div>
-					<div class="bbs_thread_bottom_line">
-					<div class="bbs_thread_bottom_button">mm</div>
-					</div>
-				</div>
+				</div>	
+				<#if topic.comments?exists>
+					<#if (topic.comments?size>0)>
+						<#list topic.comments as comment>
+							<div class="bbs_thread_body clearfix">
+								<div class="bbs_thread_use">
+								<#if comment.user?exists>
+								<#assign usr=comment.user>
+									<div class="bbs_thread_avatar">
+										<img src=${usr.portrait?default("./images/a_1.png")} />
+									</div>
+									<div class="bbs_thread_name">${usr.username}</div>
+								</#if>
+								</div>
+								<div class="bbs_thread_content">
+									<div>${comment.content}</div>
+									<div>&nbsp;</div>
+								</div>
+								<div class="bbs_thread_bottom_line">
+									<div class="bbs_thread_bottom_button">发表于：${comment.date}</div>
+								</div>
+							</div>			
+						</#list>					
+					</#if>				
+				</#if>			
+					
 				<div style="margin-left: 85px;margin-top: 30px;margin-right: 85px;">
-				<div class="bbs_reply_label">回 复</div>
-				<div><textarea id="reply"></textarea></div>
-				<div style="float: right;padding-top: 10px;"><button style="padding: 5px;padding-left: 27px;padding-right: 27px;">提 交</button></div>
+					<a name="001" id="001">
+						<div class="bbs_reply_label">回 复</div>
+						<form method="post" action="bbs_commentsave.action">
+						<input type="hidden" name="id" value="${topic.id}" />
+						<div><textarea id="reply" name="commentcontent"></textarea></div>
+						<div style="float: right;padding-top: 10px;">
+							<button type="submit" style="padding: 5px;padding-left: 27px;padding-right: 27px;">提 交</button>
+						</div>
+						<form>
+					</a>
 				</div>
+				
 			</div>
 			<!-- Teaser End -->
 

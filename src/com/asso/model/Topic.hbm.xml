@@ -23,6 +23,8 @@
         <property name="authername" type="java.lang.String">
             <column name="authername" length="50" />
         </property>
-        
+        <property name="lastupdate" type="java.lang.String">
+            <column name="lastupdate" length="20" />
+        </property> 
     </class>
 </hibernate-mapping>

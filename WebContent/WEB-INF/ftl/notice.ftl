@@ -368,8 +368,6 @@ transitional.dtd">
 						</#if>
 					</#if>
 				
-				
-						
 										
 			</div>
 			<!-- Teaser End -->

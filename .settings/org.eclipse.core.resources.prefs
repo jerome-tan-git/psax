@@ -11,6 +11,7 @@ encoding//WebContent/WEB-INF/commons/menubar.ftl=UTF-8
 encoding//WebContent/WEB-INF/commons/smallmenu.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/article.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/articles.ftl=UTF-8
+encoding//WebContent/WEB-INF/ftl/commentbuilt.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/common.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/downloadlist.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/editArticle.ftl=UTF-8

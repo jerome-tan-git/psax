@@ -110,7 +110,7 @@ public class BbsDaoImpl implements BbsDao {
         List<Comment> rlist = query.list();        
 	    return rlist;
 	}
-	
+
 	@Override
 	public List<Topic> loadTopicByTopicId(int _topicid){
 		Session s = sessionFactory.getCurrentSession();
@@ -121,6 +121,7 @@ public class BbsDaoImpl implements BbsDao {
 		List<Topic> rlist = query.list();              	    
 	    return rlist;
 	}
+	
 	@Override
 	public List<Comment> loadCommentById(int _commentid){
 		Session s = sessionFactory.getCurrentSession();

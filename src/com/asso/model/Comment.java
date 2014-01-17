@@ -8,8 +8,7 @@ public class Comment implements java.io.Serializable{
 	private String content;
 	private int auther;	
 	private String date;
-	private int topicid;
-	
+	private int topicid;	
 	private User user;
 	
 	public int getId() {
@@ -50,8 +49,8 @@ public class Comment implements java.io.Serializable{
 	}
 	
 	public String toString(){
-		return this.getId()+":"+this.getContent()+":"+this.getAuther()+":"+this.getDate()
-				+":"+this.getUser().toString();
+		return (this.getId()+":"+this.getContent()+":"+this.getAuther()+":"+this.getDate());
+//				+":"+this.getUser().toString();
 	}
 
 }

@@ -66,5 +66,7 @@ http://localhost:8080/psax/index
 http://localhost:8080/psax/bbs_toinput.action
 http://localhost:8080/psax/bbs_alltopiclist.action
 http://localhost:8080/psax/bbs_topicdetail.action?id=1
+bbs_intotopicupdate.action?topicid=
+bbs_intocommentupdate.action?commentid=
 
 

@@ -12,6 +12,7 @@ public class Topic implements java.io.Serializable{
 	private String date;
 	private String title;
 	private String authername;
+	private String lastupdate;
 	
 	private User user;
 	private List<Comment> comments;
@@ -41,8 +42,13 @@ public class Topic implements java.io.Serializable{
 	}
 	public void setAuther(int auther) {
 		this.auther = auther;
+	}	
+	public String getLastupdate() {
+		return lastupdate;
 	}
-	
+	public void setLastupdate(String lastupdate) {
+		this.lastupdate = lastupdate;
+	}
 	public String getAuthername() {
 		return authername;
 	}
