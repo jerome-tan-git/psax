@@ -68,72 +68,493 @@ public class test extends ActionSupport implements ServletRequestAware,SessionAw
 	
 	public String addform(){
 		Form form  = new Form();		
-		form.setDisplayname("仪器设备管理台账");
-		form.setFrontendtpl("instrumentsManageringList.ftl");
+		form.setDisplayname("企业基本信息情况表");
+		form.setFrontendtpl("corpBasicInfo.ftl");
 		
 		List<Fields> flist = new ArrayList<Fields>();
 		//1
 		Fields fs = new Fields();
-		fs.setFieldname("iml_instrumentName");
+		fs.setFieldname("cbi_corpName");
 		fs.setFieldtype(1);//?
 		flist.add(fs);
 		//2
 		fs = new Fields();
-		fs.setFieldname("iml_usingcode");
+		fs.setFieldname("cbi_corpHeadCount");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//3
 		fs = new Fields();
-		fs.setFieldname("iml_seriesNumber");
+		fs.setFieldname("cbi_corpAddress");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//4
 		fs = new Fields();
-		fs.setFieldname("iml_precision");
+		fs.setFieldname("cbi_corpCode");
 		fs.setFieldtype(1);		
 		flist.add(fs);
 		//5
 		fs = new Fields();
-		fs.setFieldname("iml_manufacturingCode");
+		fs.setFieldname("cbi_corpContactAddress");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//6
 		fs = new Fields();
-		fs.setFieldname("iml_manufacturer");
+		fs.setFieldname("cbi_corpContactCode");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//7
 		fs = new Fields();
-		fs.setFieldname("iml_usingDepartment");
+		fs.setFieldname("cbi_productionPlaceAttribute");
 		fs.setFieldtype(1);
 		flist.add(fs);	
 		//8
 		fs = new Fields();
-		fs.setFieldname("iml_checkPeriod");
+		fs.setFieldname("cbi_productionPlaceArea");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//9
 		fs = new Fields();
-		fs.setFieldname("iml_checkDate1");
+		fs.setFieldname("cbi_QSnumber1");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//10
 		fs = new Fields();
-		fs.setFieldname("iml_checkDate2");
+		fs.setFieldname("cbi_QSexpireDate1");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//11
 		fs = new Fields();
-		fs.setFieldname("iml_checkDate3");
+		fs.setFieldname("cbi_QSproductname1");
 		fs.setFieldtype(1);
 		flist.add(fs);
 		//12
 		fs = new Fields();
-		fs.setFieldname("iml_checkDate4");
+		fs.setFieldname("cbi_QSnumber2");
 		fs.setFieldtype(1);
 		flist.add(fs);
-		
+		//13
+		fs = new Fields();
+		fs.setFieldname("cbi_QSexpireDate2");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//14
+		fs = new Fields();
+		fs.setFieldname("cbi_QSproductname2");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//15
+		fs = new Fields();
+		fs.setFieldname("cbi_QSnumber3");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//16
+		fs = new Fields();
+		fs.setFieldname("cbi_QSexpireDate3");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//17
+		fs = new Fields();
+		fs.setFieldname("cbi_QSproductname3");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//18
+		fs = new Fields();
+		fs.setFieldname("cbi_QSnumber4");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//19
+		fs = new Fields();
+		fs.setFieldname("cbi_QSexpireDate4");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//20
+		fs = new Fields();
+		fs.setFieldname("cbi_QSproductname4");
+		fs.setFieldtype(1);
+		flist.add(fs);				
+		//21
+		fs = new Fields();
+		fs.setFieldname("cbi_QSnumber5");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//22
+		fs = new Fields();
+		fs.setFieldname("cbi_QSexpireDate5");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//23
+		fs = new Fields();
+		fs.setFieldname("cbi_QSproductname5");
+		fs.setFieldtype(1);
+		flist.add(fs);		
+		//24
+		fs = new Fields();
+		fs.setFieldname("cbi_exeStandard1");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//25
+		fs = new Fields();
+		fs.setFieldname("cbi_exeStandard2");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//26
+		fs = new Fields();
+		fs.setFieldname("cbi_exeStandard3");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//27
+		fs = new Fields();
+		fs.setFieldname("cbi_exeStandard4");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//28
+		fs = new Fields();
+		fs.setFieldname("cbi_exeStandard5");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//29
+		fs = new Fields();
+		fs.setFieldname("cbi_mainProduct1");
+		fs.setFieldtype(1);
+		flist.add(fs);		
+		//30
+		fs = new Fields();
+		fs.setFieldname("cbi_mainProduct2");
+		fs.setFieldtype(1);
+		flist.add(fs);		
+		//31
+		fs = new Fields();
+		fs.setFieldname("cbi_mainProduct3");
+		fs.setFieldtype(1);
+		flist.add(fs);		
+		//32
+		fs = new Fields();
+		fs.setFieldname("cbi_mainProduct4");
+		fs.setFieldtype(1);
+		flist.add(fs);
 		form.setFields(flist);
+		//33
+		fs = new Fields();
+		fs.setFieldname("cbi_mainProduct5");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//34
+		fs = new Fields();
+		fs.setFieldname("cbi_annuslProductionValue");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//35
+		fs = new Fields();
+		fs.setFieldname("cbi_legalRepresentativeName");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//36
+		fs = new Fields();
+		fs.setFieldname("cbi_legalRepresentativeGender");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//37
+		fs = new Fields();
+		fs.setFieldname("cbi_legalRepresentativeBirthday");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//38
+		fs = new Fields();
+		fs.setFieldname("cbi_legalRepresentativeEdu");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//39
+		fs = new Fields();
+		fs.setFieldname("cbi_legalRepresentativeTelephone");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//40
+		fs = new Fields();
+		fs.setFieldname("cbi_legalRepresentativeMPhone");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//41
+		fs = new Fields();
+		fs.setFieldname("cbi_corpChargeName");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//42
+		fs = new Fields();
+		fs.setFieldname("cbi_corpChargeGender");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//43
+		fs = new Fields();
+		fs.setFieldname("cbi_corpChargeBirthday");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//44
+		fs = new Fields();
+		fs.setFieldname("cbi_corpChargeEdu");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//45
+		fs = new Fields();
+		fs.setFieldname("cbi_corpChargeGrade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//46
+		fs = new Fields();
+		fs.setFieldname("cbi_corpChargeCertGrade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//47
+		fs = new Fields();
+		fs.setFieldname("cbi_corpChargeMPhone");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//48
+		fs = new Fields();
+		fs.setFieldname("cbi_corpChargeQQ");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//49
+		fs = new Fields();
+		fs.setFieldname("cbi_corpChargeEmail");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//50
+		fs = new Fields();
+		fs.setFieldname("cbi_prodChargeName");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//51
+		fs = new Fields();
+		fs.setFieldname("cbi_prodChargeGender");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//52
+		fs = new Fields();
+		fs.setFieldname("cbi_prodChargeBirthday");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//53
+		fs = new Fields();
+		fs.setFieldname("cbi_prodChargeEdu");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//54
+		fs = new Fields();
+		fs.setFieldname("cbi_prodChargeGrade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//55
+		fs = new Fields();
+		fs.setFieldname("cbi_prodChargeCertGrade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//56
+		fs = new Fields();
+		fs.setFieldname("cbi_prodChargeMPhone");
+		fs.setFieldtype(1);
+		flist.add(fs);		
+		//57
+		fs = new Fields();
+		fs.setFieldname("cbi_prodChargeQQ");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//58
+		fs = new Fields();
+		fs.setFieldname("cbi_prodChargeEmail");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		form.setFields(flist);
+		//59
+		fs = new Fields();
+		fs.setFieldname("cbi_qualityChargeName");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//60
+		fs = new Fields();
+		fs.setFieldname("cbi_qualityChargeGender");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//61
+		fs = new Fields();
+		fs.setFieldname("cbi_qualityChargeBirthday");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//62
+		fs = new Fields();
+		fs.setFieldname("cbi_qualityChargeEdu");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//63
+		fs = new Fields();
+		fs.setFieldname("cbi_qualityChargeGrade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//64
+		fs = new Fields();
+		fs.setFieldname("cbi_qualityChargeCertGrade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//65
+		fs = new Fields();
+		fs.setFieldname("cbi_qualityChargeMPhone");
+		fs.setFieldtype(1);
+		flist.add(fs);		
+		//66
+		fs = new Fields();
+		fs.setFieldname("cbi_qualityChargeQQ");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//67
+		fs = new Fields();
+		fs.setFieldname("cbi_qualityChargeEmail");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		form.setFields(flist);
+		//68
+		fs = new Fields();
+		fs.setFieldname("cbi_QA1Name");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//69
+		fs = new Fields();
+		fs.setFieldname("cbi_QA1Gender");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//70
+		fs = new Fields();
+		fs.setFieldname("cbi_QA1Birthday");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//71
+		fs = new Fields();
+		fs.setFieldname("cbi_QA1Edu");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//72
+		fs = new Fields();
+		fs.setFieldname("cbi_QA1Grade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//73
+		fs = new Fields();
+		fs.setFieldname("cbi_QA1CertGrade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//74
+		fs = new Fields();
+		fs.setFieldname("cbi_QA1MPhone");
+		fs.setFieldtype(1);
+		flist.add(fs);		
+		//75
+		fs = new Fields();
+		fs.setFieldname("cbi_QA1QQ");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//76
+		fs = new Fields();
+		fs.setFieldname("cbi_QA1Email");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		form.setFields(flist);
+		//77
+		fs = new Fields();
+		fs.setFieldname("cbi_QA2Name");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//78
+		fs = new Fields();
+		fs.setFieldname("cbi_QA2Gender");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//79
+		fs = new Fields();
+		fs.setFieldname("cbi_QA2Birthday");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//80
+		fs = new Fields();
+		fs.setFieldname("cbi_QA2Edu");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//81
+		fs = new Fields();
+		fs.setFieldname("cbi_QA2Grade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//82
+		fs = new Fields();
+		fs.setFieldname("cbi_QA2CertGrade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//83
+		fs = new Fields();
+		fs.setFieldname("cbi_QA2MPhone");
+		fs.setFieldtype(1);
+		flist.add(fs);		
+		//84
+		fs = new Fields();
+		fs.setFieldname("cbi_QA2QQ");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//85
+		fs = new Fields();
+		fs.setFieldname("cbi_QA2Email");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		form.setFields(flist);
+		//86
+		fs = new Fields();
+		fs.setFieldname("cbi_QA3Name");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//87
+		fs = new Fields();
+		fs.setFieldname("cbi_QA3Gender");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//88
+		fs = new Fields();
+		fs.setFieldname("cbi_QA3Birthday");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//89
+		fs = new Fields();
+		fs.setFieldname("cbi_QA3Edu");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//90
+		fs = new Fields();
+		fs.setFieldname("cbi_QA3Grade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//91
+		fs = new Fields();
+		fs.setFieldname("cbi_QA3CertGrade");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//92
+		fs = new Fields();
+		fs.setFieldname("cbi_Qa3MPhone");
+		fs.setFieldtype(1);
+		flist.add(fs);		
+		//93
+		fs = new Fields();
+		fs.setFieldname("cbi_QA3QQ");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		//94
+		fs = new Fields();
+		fs.setFieldname("cbi_QA3Email");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		form.setFields(flist);
+		//95
+		fs = new Fields();
+		fs.setFieldname("cbi_otherCertification");
+		fs.setFieldtype(1);
+		flist.add(fs);
+		form.setFields(flist);
+		
 		try {
 			fm.addForm(form);
 		} catch (ClassNotFoundException e) {

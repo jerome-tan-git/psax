@@ -3,8 +3,7 @@
  					<a style="color: #333;" href="./userlogout.action">登出</a>
  				<#else>
  					<a style="color: #333;" href="./gologin.action">登录</a>
- 				</#if>
- 				<!--<a href="./usercenter.action">用户中心</a>-->
+ 				</#if> 				
  				<a style="color: #333;" href="./page.action?categoryid=1">用户中心</a>
  			</div>
  			<div class="logo"> 		

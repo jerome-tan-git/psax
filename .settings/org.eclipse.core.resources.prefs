@@ -35,6 +35,7 @@ encoding//WebContent/WEB-INF/ftl/uploadlist.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/usercenter.ftl=UTF-8
 encoding//WebContent/WEB-INF/ftl/userlist.ftl=UTF-8
 encoding//WebContent/WEB-INF/tmpl/chemicalManageRecord.ftl=UTF-8
+encoding//WebContent/WEB-INF/tmpl/corpBasicInfo.ftl=UTF-8
 encoding//WebContent/WEB-INF/tmpl/iml.ftl=UTF-8
 encoding//WebContent/WEB-INF/tmpl/qualityMeetingNotes.ftl=UTF-8
 encoding//WebContent/WEB-INF/tmpl/qualityRecordsIndex.ftl=UTF-8

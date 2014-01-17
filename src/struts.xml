@@ -214,6 +214,10 @@
 		<action name="upload" class="com.asso.action.CKEUpload"  method="myExecute" />
 		
 		
+		<action name="testform" class="com.asso.action.test"  method="addform" >
+			<result name="success" type="freemarker">/WEB-INF/ftl/test.ftl</result>	                     	 
+		</action>
+		
 		<!-- 
 		
 		<action name="intoexam" class="com.asso.action.ExamItemsList" method="loadExamItemlistFByExamId">  

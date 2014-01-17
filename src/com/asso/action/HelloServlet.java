@@ -354,7 +354,7 @@ public class HelloServlet  extends HttpServlet{
 //	        	}
 //	        }
 
-	        Template t = cfg.getTemplate("tmpl/"+f.getFrontendtpl());
+	        Template t = cfg.getTemplate("tmpl/"+this.f.getFrontendtpl());
 //	        Template t = cfg.getTemplate("tmpl/chemicalManageRecord.ftl"); 
 	        t.setEncoding("utf-8");
 	        
