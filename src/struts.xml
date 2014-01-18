@@ -28,9 +28,10 @@
         </global-exception-mappings>
 		 -->
 		<global-results>           
-            <result name="exception">exception.jsp</result>
+            <!-- <result name="exception">exception.jsp</result>-->
             <result name="gologin" type="redirect">gologin.action</result>
-        </global-results>        
+        </global-results>   
+             
         <global-exception-mappings>            
             <exception-mapping exception="java.lang.Exception" result="exception"/>
         </global-exception-mappings>

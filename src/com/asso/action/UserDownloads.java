@@ -212,16 +212,21 @@ public class UserDownloads extends ActionSupport implements ServletRequestAware,
 	}
 	
 	private void build2DownloadFiles(){
-		this.formlist = new ArrayList<Form>();
+		List<Form> flist = new ArrayList<Form>();
 		try {
-			this.setFormlist(fm.loadForms());
+			flist = fm.loadForms();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		for(Form f:this.formlist){
+		this.formlist = new ArrayList<Form>();
+		for(Form f:flist){
 			System.out.println("---------->>>"+f.toString());
+			if(f.getDisplayname()!=null && f.getDisplayname().length()>0
+					&& f.getFrontendtpl()!=null && f.getFrontendtpl().length()>0
+					&& f.getPath()!=null && f.getPath().length()>0)
+				this.formlist.add(f);
 		}
 	}
 
