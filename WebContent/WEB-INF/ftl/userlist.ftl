@@ -160,15 +160,23 @@
 						
 						<div class="panel panel-default exam_container">
 							<div class="panel-heading clearfix">
-						  		<div class="exam_title_list pull-left ">站内信：
-						  			<!--<textarea> </textarea>-->
-						  			<input type="textarea" name="message"></input>
-						  			<input type="submit" value="发送"/>
+						  		<div class="exam_title_list pull-left ">
+						  		<div style="border-bottom: 1px solid #ccc;padding-bottom: 5px;padding-left: 10px;">站内信</div>
+						  			<div>
+						  			<div style="margin: 10px;">
+						  			<div style="width: 50px;float: left;padding-top: 5px;">标题: </div>
+						  			<input style="width: 500px;" name="msgtitle"></input>
+						  			</div>
+						  			<div style="margin: 10px;">
+						  			<div style="width: 50px;float: left;padding-top: 5px;">内容: </div>
+						  			<textarea rows=5 cols=70 name="msginfo"> </textarea>
+						  			</div>
+						  			<div><input type="submit" value="发送" style="float: right;margin-right: 10px;padding: 5px;padding-left: 20px; padding-right: 20px;"/></div>
+						  			</div>
+						  			<!--<input type="textarea" rows=10 cols=3 name="message"></input>-->
+						  			
 						  		</div>
-						  		<a href="#"><span class="glyphicon glyphicon-remove pull-right hand deleteExam" ></span></a>
-						  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-						  		<a href="#"><span class="glyphicon glyphicon-pencil pull-right hand deleteExam" ></span></a>
-						  		<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>							  	
+						  		
 							</div>
 						</div>
 						</form>

@@ -44,7 +44,10 @@ public class UserDownloads extends ActionSupport implements ServletRequestAware,
 	private List<Form> formlist;
 	private List<Message> messagelist;
 	private List<Message> readmessagelist;
-	private String message;
+//	private String message;
+	private String msgtitle;
+	private String msginfo;
+	
 //	private String[] userids;
 
 	public UserDownloads(){
@@ -92,12 +95,25 @@ public class UserDownloads extends ActionSupport implements ServletRequestAware,
 		this.readmessagelist = readmessagelist;
 	}
 
-	public String getMessage() {
-		return message;
+//	public String getMessage() {
+//		return message;
+//	}
+//	public void setMessage(String message) {
+//		this.message = message;
+//	}
+	public String getMsgtitle() {
+		return msgtitle;
 	}
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMsgtitle(String msgtitle) {
+		this.msgtitle = msgtitle;
 	}
+	public String getMsginfo() {
+		return msginfo;
+	}
+	public void setMsginfo(String msginfo) {
+		this.msginfo = msginfo;
+	}
+	
 //	public String[] getUserids() {
 //		return userids;
 //	}
@@ -106,13 +122,16 @@ public class UserDownloads extends ActionSupport implements ServletRequestAware,
 //	}
 
 	public String sendNotice(){
-		System.out.println("Got message---"+this.message);
+//		System.out.println("Got message---"+this.message);
+		System.out.println("Got message---"+this.msgtitle+", "+this.msginfo);
 		String[] ids = this.request.getParameterValues("userids");
 		if(ids!=null && ids.length>0){
 			for(String userid:ids){
 				System.out.println("GOT usrid-------"+userid);
 				Message message = new Message();
-				message.setTitle(this.message);
+//				message.setTitle(this.message);
+				message.setTitle(this.msgtitle);
+				message.setAbsinfo(this.msginfo);
 				message.setUserid(Integer.parseInt(userid));
 				message.setPubdate(CONSTANT.getTodayDate());
 				try {
@@ -127,6 +146,8 @@ public class UserDownloads extends ActionSupport implements ServletRequestAware,
 		}
 		return "success";
 	}
+
+
 	public String getNotice(){
 		System.out.println("-------------------getNotice-------------------");
 		if(this.session!=null){
