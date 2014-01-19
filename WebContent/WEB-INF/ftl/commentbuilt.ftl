@@ -233,18 +233,29 @@ transitional.dtd">
 			
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
 			
-			<form method="post" action="bbs_topicbuilt.action">
+			<form method="post" action="bbs_commentupdate.action">
 				<div class="clearfix">
-					<div class="bbs_new_title_label">标题:</div>
+					<div class="bbs_new_title_label">主题:</div>
 					<div class="bbs_new_title_input">
+						<!--
 						<input type="text" style="font-size: 15pt;color: #666;padding: 5px;width: 500px;" 
 							name="topictitle" >
 						</input>
+						-->
+						<div>标题：</div>
+						<div>${topic.title}</div>
+						<div>内容：</div>
+						<div>${topic.content}</div>
+						<div>发帖人：</div>
+						<div>${topic.authername}</div>
+						<div>发表时间：</div>
+						<div>${topic.date}</div>
 					</div>
 			
 					<div class="bbs_new_title_label">内容:</div>
 					<div class="bbs_new_title_input">						
-						<textarea id="bbs_content" name="topiccontent"> </textarea>
+						<textarea id="bbs_content" name="commentcontent">${comment.content}</textarea>
+						<input type="hidden" name="commentid" value="${comment.id}" />
 					</div> 
 				</div>
 				<div style="float: right;padding-right: 72px;padding-top: 10px;">

@@ -8,6 +8,7 @@ public class Comment implements java.io.Serializable{
 	private String content;
 	private int auther;	
 	private String date;
+	private String updatetime;
 	private int topicid;	
 	private User user;
 	
@@ -34,7 +35,13 @@ public class Comment implements java.io.Serializable{
 	}
 	public void setDate(String date) {
 		this.date = date;
-	}	
+	}		
+	public String getUpdatetime() {
+		return updatetime;
+	}
+	public void setUpdatetime(String updatetime) {
+		this.updatetime = updatetime;
+	}
 	public int getTopicid() {
 		return topicid;
 	}

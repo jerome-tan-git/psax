@@ -168,9 +168,14 @@ public class BbsEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	public String topicdetail(){
 		int tid = 0;
 		String topicid = this.request.getParameter("id");
-		if(topicid!=null && topicid.length()>0)
+		if(topicid!=null && topicid.length()>0){
 			tid = Integer.parseInt(topicid);
-		this.topic = new Topic();
+			this.topic = new Topic();
+		}else{
+			if(this.topic.getId()>0)
+				tid = this.topic.getId();
+		}			
+		
 		this.constituteTopic(tid);
 		return "detail";
 	}
@@ -216,10 +221,29 @@ public class BbsEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	}
 	public String intocommentupdate(){
 		this.loadComment(this.request.getParameter("commentid"));
+		System.out.println("________intocommentupdate_______");
+		System.out.println(this.comment.toString());
+		this.loadTopic(this.comment.getTopicid()+"");
 		return "comment_update";
 	}
 	public String commentupdate(){
-		
+		System.out.println("--------------------commentupdate----------");
+		System.out.println("commentid="+this.binfo.getCommentid());
+		System.out.println("Updated comment="+this.binfo.getCommentcontent());
+		this.comment = new Comment();		
+		this.loadComment(this.binfo.getCommentid());
+		this.comment.setContent(this.binfo.getCommentcontent());
+				try {
+					bm.update(this.comment);
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+//		this.alltopiclist();
+		this.topic = new Topic();
+		this.topic.setId(this.comment.getTopicid());
+		this.topicdetail();
 		return "comment_updated";
 	}
 	

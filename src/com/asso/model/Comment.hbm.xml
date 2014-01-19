@@ -20,5 +20,9 @@
         <property name="topicid" type="int">
             <column name="topicid" length="11" />
         </property>
+        <property name="updatetime" type="java.lang.String">
+            <column name="updatetime" length="20" />
+        </property>
+        
     </class>
 </hibernate-mapping>

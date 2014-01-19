@@ -3,5 +3,5 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 CKEDITOR.plugins.setLang( 'widget', 'zh', {
-	'move': 'Ф▀√Ф⌡ЁД╩╔Г╖╩Е▀∙'
+	'move': 'мор╥ртрф└с'
 } );

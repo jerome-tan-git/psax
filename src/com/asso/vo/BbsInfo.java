@@ -9,6 +9,7 @@ public class BbsInfo {
 	private String topicdate;
 	private int topicautherid;
 	private String commentcontent;
+	private String commentid;
 //	private String topicauthername;
 	
 	
@@ -54,6 +55,12 @@ public class BbsInfo {
 	}
 	public void setCommentcontent(String commentcontent) {
 		this.commentcontent = commentcontent;
+	}
+	public String getCommentid() {
+		return commentid;
+	}
+	public void setCommentid(String commentid) {
+		this.commentid = commentid;
 	}
 	
 	

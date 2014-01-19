@@ -273,8 +273,18 @@ transitional.dtd">
 									<div>${comment.content}</div>
 									<div>&nbsp;</div>
 								</div>
-								<div class="bbs_thread_bottom_line">
-									<div class="bbs_thread_bottom_button">发表于：${comment.date}</div>
+								<div class="bbs_thread_bottom_line">								
+									<div class="bbs_thread_bottom_button">
+									<!--
+									<#if Session.user_?exists>
+										<#assign suser=Session.user_>
+										<#if suser.id==usr.id>
+											<a href="./bbs_intocommentupdate.action?commentid=${comment.id}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										</#if>
+									</#if>
+									-->
+										发表于：${comment.date}
+									</div>
 								</div>
 							</div>			
 						</#list>					

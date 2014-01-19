@@ -196,10 +196,12 @@
             <result name="list" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>               
             <result name="detail" type="freemarker">/WEB-INF/ftl/topicdetail.ftl</result>
             <result name="save" type="freemarker">/WEB-INF/ftl/topicdetail.ftl</result>
+            <!-- 
             <result name="topic_update" type="freemarker">/WEB-INF/ftl/topicbuilt.ftl</result>
             <result name="topic_updated" type="freemarker">/WEB-INF/ftl/topicbuilt.ftl</result>
+             -->
             <result name="comment_update" type="freemarker">/WEB-INF/ftl/commentbuilt.ftl</result>
-            <result name="comment_updated" type="freemarker">/WEB-INF/ftl/commentbuilt.ftl</result>
+            <result name="comment_updated" type="freemarker">/WEB-INF/ftl/topicdetail.ftl</result>
             <result name="delete" type="freemarker">/WEB-INF/ftl/topiclist.ftl</result>            
             <interceptor-ref name="mystack" />
         </action>
