@@ -205,7 +205,7 @@ transitional.dtd">
 			<div class="section" id="content" class="tag_line" style="padding-top: 30px">
 				<div class="bbs_button clearfix">
 					<div class="bbs_button_group">
-						<img src="./images/iconmonstr-note-25-icon-16.png" /> 新建帖子
+						<a href="./bbs_toinput.action"><img src="./images/iconmonstr-note-25-icon-16.png" /> 新建帖子</a>
 					</div>
 				</div>
 				<div class="bbs_list_header clearfix">
