@@ -204,51 +204,192 @@ transitional.dtd">
 			
 				<form action="saveDoc.action" method="post" >
 
-				<h2 align="left">质量记录目录</h2>
-				<p class="STYLE1">(质量记录应妥善保存，保存时间不得少于3年)</p>
+				<h2 align="left">上海市浦东新区食品生产安全管理协会</h2>
+				<h2 align="left">企业基本信息情况</h2>
+				<p class="STYLE1">填写请参见背面样张，填写完整后请于20130130	前寄往背面地址表或电子版邮箱至pdspsax@163.com(未来电可索要电子版)</p>
 				
-				<table width="650" height="180" border="1" cellpadding="1" cellspacing="1">
-				
-				  <tr>
-				    <td width="120" bordercolor="#000000"><div align="center">记录编号</div></td>
-				    <td width="309" bordercolor="#000000"><div align="center">记录名称</div></td>
-				    <td width="221" bordercolor="#000000"><div align="center">使用部门/使用人</div></td>
-				  </tr>
-				  
-				  <tbody id='data_1_container'>
-				  <tr>
-				    <td height="30" bordercolor="#000000">
-				    	<div class="display" form_data="qri_recordIndex" ></div>
-					    <input class="editor" form_data="qri_recordIndex" name="qri_recordIndex" 
-					    	type="text" style="width:100px;height:20px" ></input>
-					</td>
-				    <td height="30" bordercolor="#000000">
-						<div class="display" form_data="qri_recordname" ></div>
-					    <input class="editor" form_data="qri_recordname" name="qri_recordname" 
-					    	type="text" style="width:100px;height:25px" ></input>
-					</td>
-				    <td height="30" bordercolor="#000000">
-						<div class="display" form_data="qri_user" ></div>
-					    <input class="editor" form_data="qri_user" name="qri_user" 
-					    	type="text" style="width:100px;height:25px" ></input>
-					</td>
-				  </tr>
-				  </tbody>
-				  
-				  <tr>
-				    <td height="30" colspan="2" bordercolor="#000000"><div align="right">编制：
-				    	<div class="display" form_data="qri_coder" ></div>	
-					    <input class="editor" form_data="qri_coder" name="qri_coder" 
-					    	type="text" style="width:100px;height:25px" ></input>
-				    </div></td>
-				    <td height="30" bordercolor="#000000">审核：
-				    	<div class="display" form_data="qri_checker" ></div>
-					    <input class="editor" form_data="qri_checker" name="qri_checker" 
-					    	type="text" style="width:100px;height:25px" ></input>
-				    </td>
-				  </tr>
-				
-				</table>
+				<table width="1033" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><p>厂(公司)名<br />
+      （生产许可证所注）</p>    </td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">企业人数</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><p>生产地址<br />
+      （生产许可证所注）</p>    </td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">邮编</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">通讯地址</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">邮编</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">生产场所属性</td>
+    <td colspan="4" bgcolor="#FFFFFF"><p>1. 自有产权工业用地</p>
+    <p>2. 租用产权工业用地</p>
+    <p>3. 其它_________________________</p></td>
+    <td bgcolor="#FFFFFF"><p>生产场所面积<br />
+      （平方米）</p>    </td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">QS获证号</td>
+    <td colspan="4" bgcolor="#FFFFFF">到期日</td>
+    <td colspan="5" bgcolor="#FFFFFF">QS获证产品名称（明细）</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">1.</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="5" bgcolor="#FFFFFF">1.</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">2.</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="5" bgcolor="#FFFFFF">2.</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">3.</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="5" bgcolor="#FFFFFF">3.</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">4.</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="5" bgcolor="#FFFFFF">4.</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">5.</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="5" bgcolor="#FFFFFF">5.</td>
+  </tr>
+  <tr>
+    <td colspan="2" rowspan="5" bgcolor="#FFFFFF">对应产品执行标准</td>
+    <td colspan="4" bgcolor="#FFFFFF">1.</td>
+    <td width="160" rowspan="5" bgcolor="#FFFFFF">主导产品</td>
+    <td colspan="3" bgcolor="#FFFFFF">1.</td>
+    <td width="97" rowspan="3" bgcolor="#FFFFFF"><p>年产值（万）</p>    </td>
+  </tr>
+  <tr>
+    <td colspan="4" bgcolor="#FFFFFF">2.</td>
+    <td colspan="3" bgcolor="#FFFFFF">2.</td>
+  </tr>
+  <tr>
+    <td colspan="4" bgcolor="#FFFFFF">3.</td>
+    <td colspan="3" bgcolor="#FFFFFF">3.</td>
+  </tr>
+  <tr>
+    <td colspan="4" bgcolor="#FFFFFF">4.</td>
+    <td colspan="3" bgcolor="#FFFFFF">4.</td>
+    <td rowspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4" bgcolor="#FFFFFF">5.</td>
+    <td colspan="3" bgcolor="#FFFFFF">5.</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">法定代表人姓名</td>
+    <td width="57" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">性别</td>
+    <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">出生年月</td>
+    <td width="132" bgcolor="#FFFFFF">&nbsp;</td>
+    <td width="73" bgcolor="#FFFFFF">学历</td>
+    <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">联系电话</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">手机</td>
+    <td colspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="103" bgcolor="#FFFFFF">人员</td>
+    <td width="54" bgcolor="#FFFFFF">姓名</td>
+    <td bgcolor="#FFFFFF">性别</td>
+    <td width="85" bgcolor="#FFFFFF">出生年月</td>
+    <td width="46" bgcolor="#FFFFFF">学历</td>
+    <td width="115" bgcolor="#FFFFFF"><p>专业技术<br />
+      （职称等级）</p>    </td>
+    <td bgcolor="#FFFFFF"><p>质量获证情况<br />
+    （等级）</p>    </td>
+    <td bgcolor="#FFFFFF">手机</td>
+    <td colspan="3" bgcolor="#FFFFFF">QQ号/邮箱</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">企业负责人</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="19" bgcolor="#FFFFFF"><p>生产负责人</p>    </td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">质量负责人</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td rowspan="3" bgcolor="#FFFFFF">化验员</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><p>企业其它获证情况</p>    </td>
+    <td colspan="9" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+</table>
 
 					<input type="button" value="   b   " onclick="addNewLine('data_1','edit')"/>
 					<input type="hidden" value="${docid}" name="docid" />

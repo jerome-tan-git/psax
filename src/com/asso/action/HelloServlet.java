@@ -331,7 +331,12 @@ public class HelloServlet  extends HttpServlet{
 	        Map root = new HashMap();	        
 	        root.put("jsonText3", this.jsonText3); 
 	        root.put("docid", this.doc.getDocid()); 
-	        
+	        // 处理模版  
+	        root.put("Request", request);  
+	        root.put("Session", request.getSession());  
+	        //root.put("JspTaglibs", new TaglibFactory(request.getSession()  
+	                //.getServletContext()));  
+	       
 	        response.setCharacterEncoding("utf-8");
 	        Writer out = response.getWriter();
 //	        Enumeration<String> e = request.getParameterNames();
@@ -358,9 +363,7 @@ public class HelloServlet  extends HttpServlet{
 //	        Template t = cfg.getTemplate("tmpl/chemicalManageRecord.ftl"); 
 	        t.setEncoding("utf-8");
 	        
-	        
-	        
-	        
+	   
 	        //System.out.println(t.toString());
 	        //response.setContentType("text/html; charset=" + t.getEncoding());
 	        
