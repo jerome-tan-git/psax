@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +25,7 @@ import com.asso.model.Doc;
 import com.asso.model.FieldValue;
 import com.asso.model.Fields;
 import com.asso.model.Form;
+import com.asso.model.User;
 import com.asso.vo.FormInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -318,6 +318,11 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 		if(this.request.getParameter("docid")!=null && this.request.getParameter("docid").length()>0){
 			docid = Integer.parseInt(this.request.getParameter("docid"));
 			System.out.println("docid--->"+this.request.getParameter("docid"));			
+		}
+		User u = new User(); 
+		u = (User) this.request.getSession().getAttribute("user_");
+		if(u!=null){
+			System.out.println("userID--------------------"+u.getId());
 		}
 		
 		System.out.println("GOT finfo----");	

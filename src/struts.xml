@@ -208,7 +208,7 @@
 		
 		
 		<action name="saveDoc" class="com.asso.action.FormEdit" method="updateDoc">  
-			<result name="success" type="freemarker">/WEB-INF/ftl/login.ftl</result>	                     	 
+			<result name="success" type="freemarker">/WEB-INF/ftl/membercenter.ftl</result>	                     	 
 		</action>
 		
 		

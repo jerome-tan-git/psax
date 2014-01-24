@@ -312,22 +312,7 @@ public class HelloServlet  extends HttpServlet{
 	    }
 	    
 	    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{      
-	    	System.out.println("request-----------docid="+request.getParameter("docid"));
-	    	System.out.println("request-----------mode="+request.getParameter("mode"));
-	
-	    	if(request.getParameter("formid")!=null && Integer.parseInt(request.getParameter("formid"))>0){
-	    		//new doc
-	    		int formid = Integer.parseInt(request.getParameter("formid"));
-	    		this.assembleNewDocJsonText(formid);	    		
-	    	}else{
-	    		String strdid = request.getParameter("docid");
-	    		String smode = request.getParameter("mode");
-	    		if(strdid!=null && Integer.parseInt(strdid)>0){
-		    		//display .or. edit
-	    			this.assembleJsonText(Integer.parseInt(strdid),smode);
-		    	}
-	    	}    	
-	        
+	    		        
 	        Map root = new HashMap();	        
 	        root.put("jsonText3", this.jsonText3); 
 	        root.put("docid", this.doc.getDocid()); 
@@ -336,7 +321,7 @@ public class HelloServlet  extends HttpServlet{
 	        root.put("Session", request.getSession());  
 	        //root.put("JspTaglibs", new TaglibFactory(request.getSession()  
 	                //.getServletContext()));  
-	       
+	     
 	        response.setCharacterEncoding("utf-8");
 	        Writer out = response.getWriter();
 //	        Enumeration<String> e = request.getParameterNames();
@@ -366,6 +351,25 @@ public class HelloServlet  extends HttpServlet{
 	   
 	        //System.out.println(t.toString());
 	        //response.setContentType("text/html; charset=" + t.getEncoding());
+	        
+	        ///////////////////////////////////////////////////////////////////////////////////////////////////
+	        System.out.println("request-----------docid="+request.getParameter("docid"));
+	    	System.out.println("request-----------mode="+request.getParameter("mode"));
+	
+	    	if(request.getParameter("formid")!=null && Integer.parseInt(request.getParameter("formid"))>0){
+	    		//new doc
+	    		int formid = Integer.parseInt(request.getParameter("formid"));
+	    		this.assembleNewDocJsonText(formid);	    		
+	    	}else{
+	    		String strdid = request.getParameter("docid");
+	    		String smode = request.getParameter("mode");
+	    		if(strdid!=null && Integer.parseInt(strdid)>0){
+		    		//display .or. edit
+	    			this.assembleJsonText(Integer.parseInt(strdid),smode);
+		    	}
+	    	}    	
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////	        
+	        
 	        
 	        try{
 	            t.process(root, out);
