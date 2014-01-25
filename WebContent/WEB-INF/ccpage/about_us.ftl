@@ -245,7 +245,13 @@ transitional.dtd">
 			        <p class="about_us with_arrow">详见上海市浦东新区食品生产安全管理协会咨询服务项目。</p>
 			        
 				</div>
+				<br /><br />
+			     <h3>组织架构</h3>
 			    
+			    <div class="description">
+			        <img src="./images/org.JPG" />
+			        
+				</div>
 			</div>
 			</div>
 		<!-- Teaser End -->
