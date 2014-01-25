@@ -276,7 +276,16 @@ transitional.dtd">
 					<div class="member_block_title">基本信息</div>
 				</div>
 				</a>
-				<a href="./usercenter.action">				
+				<#if Session.user_?exists>
+					<#assign user=Session.user_>						
+					<#if hasCorpForm(user.id)==1>
+						<a href="./hello?mode=edit">
+					<#else>
+						<a href="./hello?formid=9">
+					</#if>
+				<#else>
+					<a href="./hello?formid=9">
+				</#if>								
 				<div class="member_block qyxx">
 					<div class="member_block_icon qyxx">&nbsp;</div>
 					<div class="member_block_icon_bg qyxx_bg">&nbsp;</div>

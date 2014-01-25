@@ -48,4 +48,7 @@ public interface DocManager {
 	Doc loadLastDocWithFieldValueListByUser(int _userid)
 			throws ClassNotFoundException, SQLException;
 
+	List<Doc> loadDocsByUser(int _userid) throws ClassNotFoundException,
+			SQLException;
+
 }

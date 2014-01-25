@@ -1701,7 +1701,7 @@ input.userinfo
 /**===========================bbs**/
 .bbs_list_header
 {
-	background-color: #233D91;
+	background-color: #64CA06;
 	padding: 10px 10px 10px 10px;
 	color: #fff;
 }
@@ -1796,7 +1796,7 @@ input.userinfo
 	float:left;
 }
 .bbs_thread_title{
-	background-color: rgb(124, 146, 238);
+	background-color:#64CA06;
 color: black;
 padding: 10px 10px 10px 10px;
 font-size: 13pt;

@@ -16,6 +16,7 @@ public class MyFreemarkerManager extends FreemarkerManager{
 //		configuration.setSharedVariable("rand", new TestLoad());
 		configuration.setSharedVariable("decode", new PicURLparse());
 		configuration.setSharedVariable("stats", new UserStats());
+		configuration.setSharedVariable("hasCorpForm", new CorpForm());
 		
 		return configuration;
 	}

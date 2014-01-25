@@ -196,6 +196,12 @@ public class DocManagerImpl implements DocManager {
 					
 		return rzdoc;		
 	}
+	@Override
+	public List<Doc> loadDocsByUser(int _userid) throws ClassNotFoundException, SQLException{
+		List<Doc> doclist = new ArrayList<Doc>();
+		doclist = docDao.loadDocsByUser(_userid);					
+		return doclist;		
+	}
 
 	@Override
 	public List<Doc> loadDocs(int _formid) throws ClassNotFoundException,
