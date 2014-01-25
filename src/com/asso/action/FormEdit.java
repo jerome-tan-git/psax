@@ -313,17 +313,36 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 	
 	
 	public String updateDoc(){
-		int docid = 0;
-		int fvindex = 0;
-		if(this.request.getParameter("docid")!=null && this.request.getParameter("docid").length()>0){
-			docid = Integer.parseInt(this.request.getParameter("docid"));
-			System.out.println("docid--->"+this.request.getParameter("docid"));			
-		}
+		
 		User u = new User(); 
 		u = (User) this.request.getSession().getAttribute("user_");
 		if(u!=null){
 			System.out.println("userID--------------------"+u.getId());
 		}
+		
+		int docid = 0;
+		int fvindex = 0;
+		
+		String smode = request.getParameter("mode");
+		if(smode!=null && smode.length()>0 && smode.equals("edit")){			
+				try {
+					this.doc = dm.loadLastDocWithFieldValueListByUser(u.getId());
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				docid = this.doc.getDocid();
+				System.out.println("docid--->"+docid);
+						
+		}else{
+			if(this.request.getParameter("docid")!=null && this.request.getParameter("docid").length()>0){
+				docid = Integer.parseInt(this.request.getParameter("docid"));
+				System.out.println("docid--->"+this.request.getParameter("docid"));			
+			}
+			
+		}
+		
 		
 		System.out.println("GOT finfo----");	
 		Map<String, List<String>> datamap = new HashMap<String, List<String>>();
@@ -336,7 +355,7 @@ public class FormEdit extends ActionSupport implements ModelDriven<Object>,Servl
 				continue;
 			System.out.println("KEY---"+reqo.toString());
 			String[] x = this.request.getParameterValues(reqo);
-			System.out.println("x.lngth="+x.length);
+			System.out.println("@@!!!!!!@@------request.getParameterValues.length="+x.length);
 			if(x!=null && x.length>0)
 			{
 				fvindex = x.length;//fvindex = 1 仅提交一条数据, fvindex > 1 提交多条数据，需要清空旧数据，重新给index

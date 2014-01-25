@@ -1469,6 +1469,10 @@ font-size: 14pt;
 {
 	background: url('./images/iconmonstr-network-6-icon-64.png') no-repeat;
 }
+.member_block_icon.qyxx
+{
+	background: url('./images/iconmonstr-text-file-4-icon-64.png') no-repeat;
+}
 .member_block_icon.tz
 {
 	background: url('./images/iconmonstr-warning-4-icon-64.png') no-repeat;
@@ -1507,6 +1511,10 @@ font-size: 14pt;
 {
 	background: url('./images/xz_bg_.png') repeat-x;
 }
+.member_block.qyxx
+{
+	background: url('./images/qyxx_bg_.png') repeat-x;
+}
 .member_block.ks
 {
 	background: url('./images/kszx_bg_.png') repeat-x;
@@ -1538,6 +1546,10 @@ font-size: 14pt;
 .member_block_icon_bg.ks_bg
 {
 	background: url('./images/iconmonstr-pen-4-icon-256.png') no-repeat;
+}
+.member_block_icon_bg.qyxx_bg
+{
+	background: url('./images/qyxx-256.png') no-repeat;
 }
 .member_block_icon_bg.qygl_bg
 {

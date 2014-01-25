@@ -53,6 +53,7 @@ http://localhost:8080/psax/hello?docid=5&mode=edit
 http://localhost:8080/psax/hello?formid=5
 http://localhost:8080/psax/hello?docid=14&mode=dis
 http://localhost:8080/psax/hello?docid=14&mode=edit
+http://localhost:8080/psax/hello?mode=edit
 
 http://localhost:8080/psax/hello?formid=6
 http://localhost:8080/psax/hello?formid=9

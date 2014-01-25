@@ -1,6 +1,7 @@
 package com.asso.manager.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -179,6 +180,21 @@ public class DocManagerImpl implements DocManager {
 			d.setFvlist(fvl);
 		}			
 		return docs;		
+	}
+	@Override
+	public Doc loadLastDocWithFieldValueListByUser(int _userid) throws ClassNotFoundException, SQLException{
+		List<Doc> doclist = new ArrayList<Doc>();
+		doclist = docDao.loadDocsByUser(_userid);
+		Doc rzdoc = new Doc();
+		if(doclist.size()>0){
+			rzdoc = doclist.get(doclist.size()-1);
+			System.out.println("DAO-----loadLastDocWithFieldValueListByUser------rzdoc.getDocid()="+rzdoc.getDocid());
+			List<FieldValue> fvl = docDao.loadFieldValueListByDocId(rzdoc.getDocid());
+			System.out.println("DAO-----loadLastDocWithFieldValueListByUser------fvl.size()="+fvl.size());
+			rzdoc.setFvlist(fvl);
+		}
+					
+		return rzdoc;		
 	}
 
 	@Override

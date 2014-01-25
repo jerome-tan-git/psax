@@ -276,6 +276,13 @@ transitional.dtd">
 					<div class="member_block_title">基本信息</div>
 				</div>
 				</a>
+				<a href="./usercenter.action">				
+				<div class="member_block qyxx">
+					<div class="member_block_icon qyxx">&nbsp;</div>
+					<div class="member_block_icon_bg qyxx_bg">&nbsp;</div>
+					<div class="member_block_title">企业信息</div>
+				</div>
+				</a>
 			</div>
 			<!-- Teaser End -->
 

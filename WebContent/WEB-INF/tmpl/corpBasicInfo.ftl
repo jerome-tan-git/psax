@@ -54,6 +54,14 @@ transitional.dtd">
 				width: 100px;
 				height: 100px;
 			}
+				input.editor
+				{
+					border: 0px solid #ccc;
+					height: 27px;
+					border-bottom: 1px solid #ccc;
+					margin-left:5px;
+					margin-bottom:5px;
+				}
 
 		</style>
 		<script type="text/javascript">
@@ -160,12 +168,29 @@ transitional.dtd">
 		</script>
 		
 		<script>
-			var form_data= eval(${jsonText3});
+			var form_data= eval(${jsonText3});			
 		</script>
 		<style>
 			table{border-collapse:collapse;border-spacing:0;border-left:1px solid #888;border-top:1px solid #888;background:#fff;}
-			th,td{border-right:1px solid #888;border-bottom:1px solid #888;padding:5px 15px;}
+			th,td{border-right:1px solid #888;border-bottom:1px solid #888;padding:5px;}
 			th{font-weight:bold;background:#ccc;}
+			input.long
+			{
+				width:300px;
+			}
+			input.middle
+			{
+				width:150px;
+			}
+			input.short
+			{
+				width:100px;
+			}
+			input.exshort
+			{
+				width:50px;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -212,38 +237,38 @@ transitional.dtd">
 				  <tr>
 				    <td colspan="2" bgcolor="#FFFFFF"><p>厂(公司)名<br />
 				      （生产许可证所注）</p>    </td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_corpName" ></div>			    
-					    <input class="editor" form_data="cbi_corpName" name="cbi_corpName" type="text"></input>
+					    <input class="editor long" form_data="cbi_corpName" name="cbi_corpName" type="text"></input>
 				    </td>
 				    <td bgcolor="#FFFFFF">企业人数</td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 					    <div class="display" form_data="cbi_corpHeadCount" ></div>			    
-						<input class="editor" form_data="cbi_corpHeadCount" name="cbi_corpHeadCount" type="text"></input>
+						<input class="editor long" form_data="cbi_corpHeadCount" name="cbi_corpHeadCount" type="text"></input>
 				    </td>
 				  </tr>
 				  <tr>
 				    <td colspan="2" bgcolor="#FFFFFF"><p>生产地址<br />（生产许可证所注）</p></td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 					    <div class="display" form_data="cbi_corpAddress" ></div>			    
-						<input class="editor" form_data="cbi_corpAddress" name="cbi_corpAddress" type="text"></input>
+						<input class="editor long" form_data="cbi_corpAddress" name="cbi_corpAddress" type="text"></input>
 				    </td>
 				    <td bgcolor="#FFFFFF">邮编</td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 					    <div class="display" form_data="cbi_corpCode" ></div>			    
-						<input class="editor" form_data="cbi_corpCode" name="cbi_corpCode" type="text"></input>				    
+						<input class="editor long" form_data="cbi_corpCode" name="cbi_corpCode" type="text"></input>				    
 				    </td>
 				  </tr>
 				  <tr>
 				    <td colspan="2" bgcolor="#FFFFFF">通讯地址</td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				        <div class="display" form_data="cbi_corpContactAddress" ></div>			    
-						<input class="editor" form_data="cbi_corpContactAddress" name="cbi_corpContactAddress" type="text"></input>
+						<input class="editor long" form_data="cbi_corpContactAddress" name="cbi_corpContactAddress" type="text"></input>
 				    </td>
 				    <td bgcolor="#FFFFFF">邮编</td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				        <div class="display" form_data="cbi_corpContactCode" ></div>			    
-						<input class="editor" form_data="cbi_corpContactCode" name="cbi_corpContactCode" type="text"></input>
+						<input class="editor long" form_data="cbi_corpContactCode" name="cbi_corpContactCode" type="text"></input>
 				    </td>
 				  </tr>
 				  <tr>
@@ -251,22 +276,27 @@ transitional.dtd">
 				    	
 					    <td colspan="4" bgcolor="#FFFFFF">
 					        <div class="display" form_data="cbi_productionPlaceAttribute" ></div>
-						    <p>1. 自有产权工业用地
-						    <input type="radio" class="editor" form_data="cbi_productionPlaceAttribute" name="cbi_productionPlaceAttribute" value="自有产权工业用地" />
+						    <p><input type="radio" class="editor" form_data="cbi_productionPlaceAttribute" name="cbi_productionPlaceAttribute" value="自有产权工业用地" />
+						    <input type="radio" class="display" form_data="cbi_productionPlaceAttribute" name="cbi_productionPlaceAttribute" value="自有产权工业用地" /> 1. 自有产权工业用地
+						    
 						    </p>
-						    <div class="display" form_data="cbi_productionPlaceAttribute" ></div>
-						    <p>2. 租用产权工业用地
-						    <input type="radio" class="editor" form_data="cbi_productionPlaceAttribute" name="cbi_productionPlaceAttribute" value="租用产权工业用地" />
+
+						    <p><input type="radio" class="editor" form_data="cbi_productionPlaceAttribute" name="cbi_productionPlaceAttribute" value="租用产权工业用地" />
+						    <input type="radio" class="display" form_data="cbi_productionPlaceAttribute" name="cbi_productionPlaceAttribute" value="租用产权工业用地" />2. 租用产权工业用地
+						    
 						    </p>
 						        <div class="display" form_data="cbi_productionPlaceAttribute" ></div>
-						    <p>3. 其它
-						    <input type="radio" class="editor" form_data="cbi_productionPlaceAttribute" name="cbi_productionPlaceAttribute" value="其它" />
+						    <p><input type="radio" class="editor" form_data="cbi_productionPlaceAttribute" name="cbi_productionPlaceAttribute" value="其它" />
+						    	<input type="radio" class="display" form_data="cbi_productionPlaceAttribute" name="cbi_productionPlaceAttribute" value="其它" />3. 其它
+						    	<span class="display" form_data="cbi_productionPlaceAttiOthers" ></span>			    
+								<input class="editor long" form_data="cbi_productionPlaceAttiOthers" name="cbi_productionPlaceAttiOthers" type="text"></input>
+						    
 						    </p>
 					    </td>
 				    <td bgcolor="#FFFFFF"><p>生产场所面积<br />（平方米）</p></td>
 				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
 				    	<div class="display" form_data="cbi_productionPlaceArea" ></div>			    
-						<input class="editor" form_data="cbi_productionPlaceArea" name="cbi_productionPlaceArea" type="text"></input>
+						<input class="editor long" form_data="cbi_productionPlaceArea" name="cbi_productionPlaceArea" type="text"></input>
 				    </td>
 				  </tr>
 				  <tr>
@@ -276,163 +306,148 @@ transitional.dtd">
 				  </tr>
 				  <tr>
 				    <td colspan="2" bgcolor="#FFFFFF">1.
-				    	<div class="display" form_data="cbi_QSnumber1" ></div>			    
-						<input class="editor" form_data="cbi_QSnumber1" name="cbi_QSnumber1" type="text"></input>
+				    	<span class="display" form_data="cbi_QSnumber1" ></span>			    
+						<input class="editor short" form_data="cbi_QSnumber1" name="cbi_QSnumber1" type="text"></input>
 				    </td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_QSexpireDate1" ></div>			    
-						<input class="editor" form_data="cbi_QSexpireDate1" name="cbi_QSexpireDate1" type="text"></input>				    
+						<input class="editor long" form_data="cbi_QSexpireDate1" name="cbi_QSexpireDate1" type="text"></input>				    
 				    </td>
-				    <td colspan="5" bgcolor="#FFFFFF">1.
-				    	<div class="display" form_data="cbi_QSproductname1" ></div>			    
-						<input class="editor" form_data="cbi_QSproductname1" name="cbi_QSproductname1" type="text"></input>				    
+				    <td colspan="5" bgcolor="#FFFFFF">1.<span class="display" form_data="cbi_QSproductname1" ></span>			    
+						<input class="editor long" form_data="cbi_QSproductname1" name="cbi_QSproductname1" type="text"></input>				    
 				    </td>
 				  </tr>
 				  <tr>
-				    <td colspan="2" bgcolor="#FFFFFF">2.
-				    	<div class="display" form_data="cbi_QSnumber2" ></div>			    
-						<input class="editor" form_data="cbi_QSnumber2" name="cbi_QSnumber2" type="text"></input>				    
+				    <td colspan="2" bgcolor="#FFFFFF">2.<span class="display" form_data="cbi_QSnumber2" ></span>			    
+						<input class="editor short" form_data="cbi_QSnumber2" name="cbi_QSnumber2" type="text"></input>				    
 				    </td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_QSexpireDate2" ></div>			    
-						<input class="editor" form_data="cbi_QSexpireDate2" name="cbi_QSexpireDate2" type="text"></input>				    
+						<input class="editor long" form_data="cbi_QSexpireDate2" name="cbi_QSexpireDate2" type="text"></input>				    
 				    </td>
-				    <td colspan="5" bgcolor="#FFFFFF">2.
-				    	<div class="display" form_data="cbi_QSproductname2" ></div>			    
-						<input class="editor" form_data="cbi_QSproductname2" name="cbi_QSproductname2" type="text"></input>		
+				    <td colspan="5" bgcolor="#FFFFFF">2.<span class="display" form_data="cbi_QSproductname2" ></span>			    
+						<input class="editor long" form_data="cbi_QSproductname2" name="cbi_QSproductname2" type="text"></input>		
 				    </td>
 				  </tr>
 				  <tr>
-				    <td colspan="2" bgcolor="#FFFFFF">3.
-				    	<div class="display" form_data="cbi_QSnumber3" ></div>			    
-						<input class="editor" form_data="cbi_QSnumber3" name="cbi_QSnumber3" type="text"></input>
+				    <td colspan="2" bgcolor="#FFFFFF">3.<span class="display" form_data="cbi_QSnumber3" ></span>			    
+						<input class="editor short" form_data="cbi_QSnumber3" name="cbi_QSnumber3" type="text"></input>
 				    </td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_QSexpireDate3" ></div>			    
-						<input class="editor" form_data="cbi_QSexpireDate3" name="cbi_QSexpireDate3" type="text"></input>
+						<input class="editor long" form_data="cbi_QSexpireDate3" name="cbi_QSexpireDate3" type="text"></input>
 				    </td>
-				    <td colspan="5" bgcolor="#FFFFFF">3.
-				    	<div class="display" form_data="cbi_QSproductname3" ></div>			    
-						<input class="editor" form_data="cbi_QSproductname3" name="cbi_QSproductname3" type="text"></input>
+				    <td colspan="5" bgcolor="#FFFFFF">3.<span class="display" form_data="cbi_QSproductname3" ></span>			    
+						<input class="editor long" form_data="cbi_QSproductname3" name="cbi_QSproductname3" type="text"></input>
 				    </td>
 				  </tr>
 				  <tr>
-				    <td colspan="2" bgcolor="#FFFFFF">4.
-				    	<div class="display" form_data="cbi_QSnumber4" ></div>			    
-						<input class="editor" form_data="cbi_QSnumber4" name="cbi_QSnumber4" type="text"></input>
+				    <td colspan="2" bgcolor="#FFFFFF">4.<span class="display" form_data="cbi_QSnumber4" ></span>			    
+						<input class="editor short" form_data="cbi_QSnumber4" name="cbi_QSnumber4" type="text"></input>
 				    </td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_QSexpireDate4" ></div>			    
-						<input class="editor" form_data="cbi_QSexpireDate4" name="cbi_QSexpireDate4" type="text"></input>
+						<input class="editor long" form_data="cbi_QSexpireDate4" name="cbi_QSexpireDate4" type="text"></input>
 				    </td>
-				    <td colspan="5" bgcolor="#FFFFFF">4.
-				    	<div class="display" form_data="cbi_QSproductname4" ></div>			    
-						<input class="editor" form_data="cbi_QSproductname4" name="cbi_QSproductname4" type="text"></input>
+				    <td colspan="5" bgcolor="#FFFFFF">4.<span class="display" form_data="cbi_QSproductname4" ></span>			    
+						<input class="editor long" form_data="cbi_QSproductname4" name="cbi_QSproductname4" type="text"></input>
 				    </td>
 				  </tr>
 				  <tr>
-				    <td colspan="2" bgcolor="#FFFFFF">5.
-				    	<div class="display" form_data="cbi_QSnumber5" ></div>			    
-						<input class="editor" form_data="cbi_QSnumber5" name="cbi_QSnumber5" type="text"></input>
+				    <td colspan="2" bgcolor="#FFFFFF">5.<span class="display" form_data="cbi_QSnumber5" ></span>			    
+						<input class="editor short" form_data="cbi_QSnumber5" name="cbi_QSnumber5" type="text"></input>
 				    </td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_QSexpireDate5" ></div>			    
-						<input class="editor" form_data="cbi_QSexpireDate5" name="cbi_QSexpireDate5" type="text"></input>
+						<input class="editor long" form_data="cbi_QSexpireDate5" name="cbi_QSexpireDate5" type="text"></input>
 				    </td>
-				    <td colspan="5" bgcolor="#FFFFFF">5.
-				    	<div class="display" form_data="cbi_QSproductname5" ></div>			    
-						<input class="editor" form_data="cbi_QSproductname5" name="cbi_QSproductname5" type="text"></input>
+				    <td colspan="5" bgcolor="#FFFFFF">5.<span class="display" form_data="cbi_QSproductname5" ></span>			    
+						<input class="editor long" form_data="cbi_QSproductname5" name="cbi_QSproductname5" type="text"></input>
 				    </td>
 				  </tr>
 				  <tr>
 				    <td colspan="2" rowspan="5" bgcolor="#FFFFFF">对应产品执行标准</td>
-				    <td colspan="4" bgcolor="#FFFFFF">1.
-				    	<div class="display" form_data="cbi_exeStandard1" ></div>			    
-						<input class="editor" form_data="cbi_exeStandard1" name="cbi_exeStandard1" type="text"></input>				    
+				    <td colspan="4" bgcolor="#FFFFFF">1.<span class="display" form_data="cbi_exeStandard1" ></span>			    
+						<input class="editor long" form_data="cbi_exeStandard1" name="cbi_exeStandard1" type="text"></input>				    
 				    </td>
 				    <td width="160" rowspan="5" bgcolor="#FFFFFF">主导产品</td>
-				    <td colspan="3" bgcolor="#FFFFFF">1.
-				      	<div class="display" form_data="cbi_mainProduct1" ></div>			    
+				    <td colspan="3" bgcolor="#FFFFFF">1.<span class="display" form_data="cbi_mainProduct1" ></span>			    
 						<input class="editor" form_data="cbi_mainProduct1" name="cbi_mainProduct1" type="text"></input>
 				    </td>
 				    <td width="97" rowspan="3" bgcolor="#FFFFFF"><p>年产值（万）</p>    </td>
 				  </tr>
 				  <tr>
-				    <td colspan="4" bgcolor="#FFFFFF">2.
-				      	<div class="display" form_data="cbi_exeStandard2" ></div>			    
-						<input class="editor" form_data="cbi_exeStandard2" name="cbi_exeStandard2" type="text"></input>
+				    <td colspan="4" bgcolor="#FFFFFF">2.<span class="display" form_data="cbi_exeStandard2" ></span>			    
+						<input class="editor long" form_data="cbi_exeStandard2" name="cbi_exeStandard2" type="text"></input>
 				    </td>
-				    <td colspan="3" bgcolor="#FFFFFF">2.
-				      	<div class="display" form_data="cbi_mainProduct2" ></div>			    
+				    <td colspan="3" bgcolor="#FFFFFF">2.<span class="display" form_data="cbi_mainProduct2" ></span>			    
 						<input class="editor" form_data="cbi_mainProduct2" name="cbi_mainProduct2" type="text"></input>				    
 				    </td>
 				  </tr>
 				  <tr>
-				    <td colspan="4" bgcolor="#FFFFFF">3.
-				      	<div class="display" form_data="cbi_exeStandard3" ></div>			    
-						<input class="editor" form_data="cbi_exeStandard3" name="cbi_exeStandard3" type="text"></input>
+				    <td colspan="4" bgcolor="#FFFFFF">3.<span class="display" form_data="cbi_exeStandard3" ></span>			    
+						<input class="editor long" form_data="cbi_exeStandard3" name="cbi_exeStandard3" type="text"></input>
 				    </td>
-				    <td colspan="3" bgcolor="#FFFFFF">3.
-				      	<div class="display" form_data="cbi_mainProduct3" ></div>			    
+				    <td colspan="3" bgcolor="#FFFFFF">3.<span class="display" form_data="cbi_mainProduct3" ></span>			    
 						<input class="editor" form_data="cbi_mainProduct3" name="cbi_mainProduct3" type="text"></input>				    
 				    </td>
 				  </tr>
 				  <tr>
 				    <td colspan="4" bgcolor="#FFFFFF">4.
-				      	<div class="display" form_data="cbi_exeStandard4" ></div>			    
-						<input class="editor" form_data="cbi_exeStandard4" name="cbi_exeStandard4" type="text"></input>
+				      	<span class="display" form_data="cbi_exeStandard4" ></span>			    
+						<input class="editor long" form_data="cbi_exeStandard4" name="cbi_exeStandard4" type="text"></input>
 				    </td>
 				    <td colspan="3" bgcolor="#FFFFFF">4.
-				      	<div class="display" form_data="cbi_mainProduct4" ></div>			    
+				      	<span class="display" form_data="cbi_mainProduct4" ></span>			    
 						<input class="editor" form_data="cbi_mainProduct4" name="cbi_mainProduct4" type="text"></input>				    
 				    </td>
-				    <td rowspan="2" bgcolor="#FFFFFF">&nbsp;
+				    <td rowspan="2" bgcolor="#FFFFFF">
 				      	<div class="display" form_data="cbi_annuslProductionValue" ></div>			    
 						<input class="editor" form_data="cbi_annuslProductionValue" name="cbi_annuslProductionValue" type="text"></input>
 				    </td>
 				  </tr>
 				  <tr>
 				    <td colspan="4" bgcolor="#FFFFFF">5.
-				      	<div class="display" form_data="cbi_exeStandard5" ></div>			    
-						<input class="editor" form_data="cbi_exeStandard5" name="cbi_exeStandard5" type="text"></input>
+				      	<span class="display" form_data="cbi_exeStandard5" ></span>			    
+						<input class="editor long" form_data="cbi_exeStandard5" name="cbi_exeStandard5" type="text"></input>
 				    </td>
 				    <td colspan="3" bgcolor="#FFFFFF">5.
-				      	<div class="display" form_data="cbi_mainProduct5" ></div>			    
+				      	<span class="display" form_data="cbi_mainProduct5" ></span>			    
 						<input class="editor" form_data="cbi_mainProduct5" name="cbi_mainProduct5" type="text"></input>				    
 				    </td>
 				  </tr>
 				  <tr>
 				    <td colspan="2" bgcolor="#FFFFFF">法定代表人姓名</td>
-				    <td width="57" bgcolor="#FFFFFF">&nbsp;
+				    <td width="57" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_legalRepresentativeName" ></div>			    
-						<input class="editor" form_data="cbi_legalRepresentativeName" name="cbi_legalRepresentativeName" type="text"></input>
+						<input class="editor short" form_data="cbi_legalRepresentativeName" name="cbi_legalRepresentativeName" type="text"></input>
 				    </td>
 				    <td bgcolor="#FFFFFF">性别</td>
-				    <td colspan="2" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="2" bgcolor="#FFFFFF">
 						<div class="display" form_data="cbi_legalRepresentativeGender" ></div>			    
-						<input class="editor" form_data="cbi_legalRepresentativeGender" name="cbi_legalRepresentativeGender" type="text"></input>				    
+						<input class="editor short" form_data="cbi_legalRepresentativeGender" name="cbi_legalRepresentativeGender" type="text"></input>				    
 				    </td>
 				    <td bgcolor="#FFFFFF">出生年月</td>
-				    <td width="132" bgcolor="#FFFFFF">&nbsp;
+				    <td width="132" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_legalRepresentativeBirthday" ></div>			    
-						<input class="editor" form_data="cbi_legalRepresentativeBirthday" name="cbi_legalRepresentativeBirthday" type="text"></input>
+						<input class="editor short" form_data="cbi_legalRepresentativeBirthday" name="cbi_legalRepresentativeBirthday" type="text"></input>
 				    </td>
 				    <td width="73" bgcolor="#FFFFFF">学历</td>
-				    <td colspan="2" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="2" bgcolor="#FFFFFF">
 						<div class="display" form_data="cbi_legalRepresentativeEdu" ></div>			    
-						<input class="editor" form_data="cbi_legalRepresentativeEdu" name="cbi_legalRepresentativeEdu" type="text"></input>				    
+						<input class="editor short" form_data="cbi_legalRepresentativeEdu" name="cbi_legalRepresentativeEdu" type="text"></input>				    
 				    </td>
 				  </tr>
 				  <tr>
 				    <td colspan="2" bgcolor="#FFFFFF">联系电话</td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_legalRepresentativeTelephone" ></div>			    
-						<input class="editor" form_data="cbi_legalRepresentativeTelephone" name="cbi_legalRepresentativeTelephone" type="text"></input>
+						<input class="editor long" form_data="cbi_legalRepresentativeTelephone" name="cbi_legalRepresentativeTelephone" type="text"></input>
 				    </td>
 				    <td bgcolor="#FFFFFF">手机</td>
-				    <td colspan="4" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="4" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_legalRepresentativeMPhone" ></div>			    
-						<input class="editor" form_data="cbi_legalRepresentativeMPhone" name="cbi_legalRepresentativeMPhone" type="text"></input>
+						<input class="editor long" form_data="cbi_legalRepresentativeMPhone" name="cbi_legalRepresentativeMPhone" type="text"></input>
 				    </td>
 				  </tr>
 				  <tr>
@@ -450,112 +465,234 @@ transitional.dtd">
 				  </tr>
 				  <tr>
 				    <td bgcolor="#FFFFFF">企业负责人</td>
-				    <td bgcolor="#FFFFFF">&nbsp;
+				    <td bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_corpChargeName" ></div>			    
-						<input class="editor" form_data="cbi_corpChargeName" name="cbi_corpChargeName" type="text"  style="width:40px;height:20px" ></input>
+						<input class="editor exshort" form_data="cbi_corpChargeName" name="cbi_corpChargeName" type="text"   ></input>
 				    </td>
-				    <td bgcolor="#FFFFFF">&nbsp;
+				    <td bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_corpChargeGender" ></div>			    
-						<input class="editor" form_data="cbi_corpChargeGender" name="cbi_corpChargeGender" type="text"  style="width:20px;height:20px" ></input>
+						<input class="editor exshort" form_data="cbi_corpChargeGender" name="cbi_corpChargeGender" type="text"   ></input>
 				    </td>
-				    <td bgcolor="#FFFFFF">&nbsp;
+				    <td bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_corpChargeBirthday" ></div>			    
-						<input class="editor" form_data="cbi_corpChargeBirthday" name="cbi_corpChargeBirthday" type="text"  style="width:50px;height:20px" ></input>
+						<input class="editor exshort" form_data="cbi_corpChargeBirthday" name="cbi_corpChargeBirthday" type="text"  ></input>
 				    </td>
-				    <td bgcolor="#FFFFFF">&nbsp;
+				    <td bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_corpChargeEdu" ></div>			    
-						<input class="editor" form_data="cbi_corpChargeEdu" name="cbi_corpChargeEdu" type="text"  style="width:50px;height:20px" ></input>
+						<input class="editor short" form_data="cbi_corpChargeEdu" name="cbi_corpChargeEdu" type="text"  ></input>
 				    </td>
-				    <td bgcolor="#FFFFFF">&nbsp;
+				    <td bgcolor="#FFFFFF">
 					    <div class="display" form_data="cbi_corpChargeGrade" ></div>			    
-						<input class="editor" form_data="cbi_corpChargeGrade" name="cbi_corpChargeGrade" type="text"  style="width:50px;height:20px" ></input>
+						<input class="editor exshort" form_data="cbi_corpChargeGrade" name="cbi_corpChargeGrade" type="text"   ></input>
 				    </td>
-				    <td bgcolor="#FFFFFF">&nbsp;
+				    <td bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_corpChargeCertGrade" ></div>			    
-						<input class="editor" form_data="cbi_corpChargeCertGrade" name="cbi_corpChargeCertGrade" type="text"  style="width:30px;height:20px" ></input>
+						<input class="editor exshort" form_data="cbi_corpChargeCertGrade" name="cbi_corpChargeCertGrade" type="text"  ></input>
 				    </td>
-				    <td bgcolor="#FFFFFF">&nbsp;
+				    <td bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_corpChargeMPhone" ></div>			    
-						<input class="editor" form_data="cbi_corpChargeMPhone" name="cbi_corpChargeMPhone" type="text"  style="width:50px;height:20px" ></input>
+						<input class="editor short" form_data="cbi_corpChargeMPhone" name="cbi_corpChargeMPhone" type="text"   ></input>
 				    </td>
-				    <td colspan="3" bgcolor="#FFFFFF">&nbsp;
+				    <td colspan="3" bgcolor="#FFFFFF">
 				    	<div class="display" form_data="cbi_corpChargeEmail" ></div>			    
-						<input class="editor" form_data="cbi_corpChargeEmail" name="cbi_corpChargeEmail" type="text"  style="width:50px;height:20px" ></input>
+						<input class="editor middle" form_data="cbi_corpChargeEmail" name="cbi_corpChargeEmail" type="text"  ></input>
 				    </td>
 				  </tr>
 				  <tr>
 				    <td height="19" bgcolor="#FFFFFF"><p>生产负责人</p>    </td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_prodChargeName" ></div>			    
+						<input class="editor exshort" form_data="cbi_prodChargeName" name="cbi_prodChargeName" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+				    	<div class="display" form_data="cbi_prodChargeGender" ></div>			    
+						<input class="editor exshort" form_data="cbi_prodChargeGender" name="cbi_prodChargeGender" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_prodChargeBirthday" ></div>			    
+						<input class="editor exshort" form_data="cbi_prodChargeBirthday" name="cbi_prodChargeBirthday" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_prodChargeEdu" ></div>			    
+						<input class="editor short" form_data="cbi_prodChargeEdu" name="cbi_prodChargeEdu" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_prodChargeGrade" ></div>			    
+						<input class="editor exshort" form_data="cbi_prodChargeGrade" name="cbi_prodChargeGrade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_prodChargeCertGrade" ></div>			    
+						<input class="editor exshort" form_data="cbi_prodChargeCertGrade" name="cbi_prodChargeCertGrade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_prodChargeMPhone" ></div>			    
+						<input class="editor short" form_data="cbi_prodChargeMPhone" name="cbi_prodChargeMPhone" type="text"  ></input>
+					</td>
+				    <td colspan="3" bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_prodChargeEmail" ></div>			    
+						<input class="editor middle" form_data="cbi_prodChargeEmail" name="cbi_prodChargeEmail" type="text"  ></input>
+					</td>
 				  </tr>
 				  <tr>
 				    <td bgcolor="#FFFFFF">质量负责人</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_qualityChargeName" ></div>			    
+						<input class="editor exshort" form_data="cbi_qualityChargeName" name="cbi_qualityChargeName" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+				    	<div class="display" form_data="cbi_qualityChargeGender" ></div>			    
+						<input class="editor exshort" form_data="cbi_qualityChargeGender" name="cbi_qualityChargeGender" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_qualityChargeBirthday" ></div>			    
+						<input class="editor exshort" form_data="cbi_qualityChargeBirthday" name="cbi_qualityChargeBirthday" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_qualityChargeEdu" ></div>			    
+						<input class="editor short" form_data="cbi_qualityChargeEdu" name="cbi_qualityChargeEdu" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_qualityChargeGrade" ></div>			    
+						<input class="editor exshort" form_data="cbi_qualityChargeGrade" name="cbi_qualityChargeGrade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_qualityChargeCertGrade" ></div>			    
+						<input class="editor exshort" form_data="cbi_qualityChargeCertGrade" name="cbi_qualityChargeCertGrade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_qualityChargeMPhone" ></div>			    
+						<input class="editor short" form_data="cbi_qualityChargeMPhone" name="cbi_qualityChargeMPhone" type="text"  ></input>
+					</td>
+				    <td colspan="3" bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_qualityChargeEmail" ></div>			    
+						<input class="editor middle" form_data="cbi_qualityChargeEmail" name="cbi_qualityChargeEmail" type="text"  ></input>
+					</td>
 				  </tr>
 				  <tr>
 				    <td rowspan="3" bgcolor="#FFFFFF">化验员</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA1Name" ></div>			    
+						<input class="editor exshort" form_data="cbi_QA1Name" name="cbi_QA1Name" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+				    	<div class="display" form_data="cbi_QA1Gender" ></div>			    
+						<input class="editor exshort" form_data="cbi_QA1Gender" name="cbi_QA1Gender" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA1Birthday" ></div>			    
+						<input class="editor exshort" form_data="cbi_QA1Birthday" name="cbi_QA1Birthday" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA1Edu" ></div>			    
+						<input class="editor short" form_data="cbi_QA1Edu" name="cbi_QA1Edu" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA1Grade" ></div>			    
+						<input class="editor exshort" form_data="cbi_QA1Grade" name="cbi_QA1Grade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA1CertGrade" ></div>			    
+						<input class="editor exshort" form_data="cbi_QA1CertGrade" name="cbi_QA1CertGrade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA1MPhone" ></div>			    
+						<input class="editor short" form_data="cbi_QA1MPhone" name="cbi_QA1MPhone" type="text"  ></input>
+					</td>
+				    <td colspan="3" bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA1Email" ></div>			    
+						<input class="editor middle" form_data="cbi_QA1Email" name="cbi_QA1Email" type="text"  ></input>
+					</td>
 				  </tr>
 				  <tr>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA2Name" ></div>			    
+						<input class="editor exshort" form_data="cbi_QA2Name" name="cbi_QA2Name" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+				    	<div class="display" form_data="cbi_QA2Gender" ></div>			    
+						<input class="editor exshort" form_data="cbi_QA2Gender" name="cbi_QA2Gender" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA2Birthday" ></div>			    
+						<input class="editor exshort" form_data="cbi_QA2Birthday" name="cbi_QA2Birthday" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA2Edu" ></div>			    
+						<input class="editor short" form_data="cbi_QA2Edu" name="cbi_QA2Edu" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA2Grade" >&nbsp;</div>			    
+						<input class="editor exshort" form_data="cbi_QA2Grade" name="cbi_QA2Grade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA2CertGrade" >&nbsp;</div>			    
+						<input class="editor exshort" form_data="cbi_QA2CertGrade" name="cbi_QA2CertGrade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA2MPhone" >&nbsp;</div>			    
+						<input class="editor short" form_data="cbi_QA2MPhone" name="cbi_QA2MPhone" type="text"  ></input>
+					</td>
+				    <td colspan="3" bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA2Email" >&nbsp;</div>			    
+						<input class="editor middle" form_data="cbi_QA2Email" name="cbi_QA2Email" type="text"  ></input>
+					</td>
 				  </tr>
 				  <tr>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td bgcolor="#FFFFFF">&nbsp;</td>
-				    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+				     <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA3Name" >&nbsp;</div>			    
+						<input class="editor exshort" form_data="cbi_QA3Name" name="cbi_QA3Name" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+				    	<div class="display" form_data="cbi_QA3Gender" >&nbsp;</div>			    
+						<input class="editor exshort" form_data="cbi_QA3Gender" name="cbi_QA3Gender" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA3Birthday" >&nbsp;</div>			    
+						<input class="editor exshort" form_data="cbi_QA3Birthday" name="cbi_QA3Birthday" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA3Edu" >&nbsp;</div>			    
+						<input class="editor short" form_data="cbi_QA3Edu" name="cbi_QA3Edu" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA3Grade" >&nbsp;</div>			    
+						<input class="editor exshort" form_data="cbi_QA3Grade" name="cbi_QA3Grade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA3CertGrade" >&nbsp;</div>			    
+						<input class="editor exshort" form_data="cbi_QA3CertGrade" name="cbi_QA3CertGrade" type="text"  ></input>
+					</td>
+				    <td bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_Qa3MPhone" >&nbsp;</div>			    
+						<input class="editor short" form_data="cbi_Qa3MPhone" name="cbi_Qa3MPhone" type="text"  ></input>
+					</td>
+				    <td colspan="3" bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_QA3Email" ></div>			    
+						<input class="editor middle" form_data="cbi_QA3Email" name="cbi_QA3Email" type="text"  ></input>
+					</td>
 				  </tr>
 				  <tr>
-				    <td colspan="2" bgcolor="#FFFFFF"><p>企业其它获证情况</p>    </td>
-				    <td colspan="9" bgcolor="#FFFFFF">&nbsp;</td>
+				    <td colspan="2" bgcolor="#FFFFFF"><p>企业其它获证情况</p></td>
+				    <td colspan="9" bgcolor="#FFFFFF">
+						<div class="display" form_data="cbi_otherCertification" ></div>			    
+						<input class="editor long" form_data="cbi_otherCertification" name="cbi_otherCertification" type="text"></input>
+					</td>
 				  </tr>
 				</table>
-				<p class="STYLE1">填表日期：
-				<div class="display" form_data="cbi_formMadeDate" ></div>
-				<input class="editor" form_data="cbi_formMadeDate" name="cbi_formMadeDate" type="text" ></input>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<div style="width: 300px;float: left;margin-top:5px;">填表日期：
+					<div class="display" form_data="cbi_formMadeDate" ></div>
+					<input class="editor" form_data="cbi_formMadeDate" name="cbi_formMadeDate" type="text" ></input>
+				</div>
+				<div style="width: 300px;float: left;margin-top:5px;">
 				填表人：
-				<div class="display" form_data="cbi_formMaker" ></div>
-				<input class="editor" form_data="cbi_formMaker" name="cbi_formMaker" type="text"></input>
-				</p>
-				
-					<input type="button" value="   b   " onclick="addNewLine('data_1','edit')"/>
+					<div class="display" form_data="cbi_formMaker" ></div>
+					<input class="editor" form_data="cbi_formMaker" name="cbi_formMaker" type="text"></input>
+				</div>
+					<div style="float:right">
 					<input type="hidden" value="${docid}" name="docid" />
 					
- 					<input type="submit" value="保存" />
+ 					<input type="submit" value="保存" style="margin-top: 30px;margin-right: 9px;padding: 5px 15px;" />
+ 					</div>
 				</form>
 				
 				

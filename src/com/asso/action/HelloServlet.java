@@ -1,14 +1,20 @@
 package com.asso.action;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.sql.SQLException;
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
-import javax.annotation.Resource;
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import util.CONSTANT;
 import util.SpringFactory;
@@ -20,12 +26,14 @@ import com.asso.model.Doc;
 import com.asso.model.FieldValue;
 import com.asso.model.Fields;
 import com.asso.model.Form;
+import com.asso.model.User;
 
-import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.cache.WebappTemplateLoader;
-import freemarker.template.*;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 public class HelloServlet  extends HttpServlet{
 	
@@ -161,12 +169,14 @@ public class HelloServlet  extends HttpServlet{
 			return 0;
 	}
 	
-	private void assembleNewDocJsonText(int _formid){
+	
+	private void assembleNewDocJsonText(int _formid, int _userid){
 		
 		String time = CONSTANT.getNowTime();
 		this.doc = new Doc();
 		doc.setFormid(_formid);
 		doc.setCreatedate(time);
+		doc.setUserid(_userid);
 		try {
 			dm.addDoc(this.doc);
 		} catch (ClassNotFoundException e) {
@@ -293,6 +303,94 @@ public class HelloServlet  extends HttpServlet{
 		System.out.println("--------------------------------------------------------------");
 	}
 
+	private void assembleJsonTextForUpdateUserForm(int _userid, String _mode){
+		
+		this.doc = new Doc();
+		try {
+			this.doc = dm.loadLastDocWithFieldValueListByUser(_userid);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		if(this.doc!=null){			
+			try {
+				this.f = fm.loadFormWithFieldsById(this.doc.getFormid());
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~assembleJsonTextForUpdateUserForm~got form~~~~~~~~~~~~~~~~~~~~~~~~toString---"+f.toString());
+		}		
+		List<FieldValue> fvs = doc.getFvlist();		
+		this.indexes = new HashSet<Integer>();
+		if(fvs!=null){
+			System.out.println("----Total fieldvalue size(thisdoc)----"+doc.getFvlist().size());
+			for(FieldValue fv : fvs)
+				indexes.add(fv.getFieldvalueindex());
+		}else{
+			System.out.println("No List<FieldValue> in DOC, Pls INV...");
+		}				
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~assembleJsonTextForUpdateUserForm~GOT indexes~~~~~~~~~~~~~~~~"+indexes.toString());
+		
+		
+		Map jmap = new HashMap();  
+		jmap.put("options", "options_");
+	    jmap.put("title",f.getDisplayname());
+	    if(_mode.equals("edit"))
+	    	jmap.put("type","edit");
+	    else{
+	    	jmap.put("type","display");
+	    	if(!_mode.equals("display"));
+	    		System.out.println("No mode chosen!");
+	    }
+		
+			if(this.indexes.size()<=1){
+				for(FieldValue fv:fvs){
+					int fvfid = fv.getFieldid();
+					String value = fv.getValue();
+					String key = "";
+					for(Fields fd:this.f.getFields()){
+						if(fd.getFieldid()==fvfid)
+							key = fd.getFieldname();
+					}
+					System.out.println("key---"+key+",value---"+value);
+					jmap.put(key,value);
+				}			
+			}else{
+				List<Map<String,String>> groupmap = new ArrayList<Map<String,String>>();	    		
+	    		for(Integer index:indexes){
+	    			System.out.println("----index="+index);
+	    			HashMap<String,String> unit = new HashMap<String,String>();
+	    			
+	    			List<FieldValue> uniFvs = new ArrayList<FieldValue>();//get teamFieldValue belonging to this index
+					for(FieldValue fv :doc.getFvlist()){
+						if(fv.getFieldvalueindex()==index)
+							uniFvs.add(fv);
+					}
+					for(FieldValue fv:uniFvs){//show teamFieldValue with fieldname						
+						int fvfid = fv.getFieldid();
+						String value = fv.getValue();
+						String key = "";
+						for(Fields fd:this.f.getFields()){
+							if(fd.getFieldid()==fvfid)
+								key = fd.getFieldname();
+						}
+						System.out.println("key---"+key+",value---"+value);
+						unit.put(key,value);	//SET the unit form data/value
+					}
+	    			groupmap.add(unit);
+	    		}	    		
+	    		jmap.put("data_1", groupmap);//set the only groupname="data_1"
+			}
+		
+		this.jsonText3=JSON.toJSONString(jmap, true); 
+		System.out.println(this.jsonText3);
+		System.out.println("--------------------------------------------------------------");
+	}
 
 	private Configuration cfg; 
     	
@@ -313,6 +411,40 @@ public class HelloServlet  extends HttpServlet{
 	    
 	    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{      
 	    		        
+	    	 ///////////////////////////////////////////////////////////////////////////////////////////////////
+	       
+	    	User user = new User();
+	    	if(request.getSession().getAttribute("user_")!=null){
+	    		System.out.println("session-----------user="+request.getSession().getAttribute("user_").toString());
+	    		user = (User) request.getSession().getAttribute("user_");
+	    	}
+	
+	    	if(request.getParameter("formid")!=null && Integer.parseInt(request.getParameter("formid"))>0){
+	    		//new doc
+	    		int formid = Integer.parseInt(request.getParameter("formid"));
+	    		this.assembleNewDocJsonText(formid,user.getId());	    		
+	    	}else{
+	    		String strdid ="";
+	    		String smode = "";
+	    		if(request.getParameter("docid")!=null && request.getParameter("docid").length()>0){
+	    			System.out.println("request-----------docid="+request.getParameter("docid"));
+	    			strdid = request.getParameter("docid");
+	    		}
+	    		if(request.getParameter("mode")!=null && request.getParameter("mode").length()>0){
+	    			System.out.println("request-----------mode="+request.getParameter("mode"));	    		
+	    			smode = request.getParameter("mode");
+	    		}
+	    		//display .or. edit
+	    		this.assembleJsonTextForUpdateUserForm(user.getId(),smode);
+	 	    	
+//	    		if(strdid!=null && Integer.parseInt(strdid)>0){
+//		    		//display .or. edit
+//	    			this.assembleJsonText(Integer.parseInt(strdid),smode,user.getId());//for other form used, not member info form(cbi)
+//	    			
+//		    	}
+	    	}    	
+		   ///////////////////////////////////////////////////////////////////////////////////////////////////	
+	    	
 	        Map root = new HashMap();	        
 	        root.put("jsonText3", this.jsonText3); 
 	        root.put("docid", this.doc.getDocid()); 
@@ -352,23 +484,23 @@ public class HelloServlet  extends HttpServlet{
 	        //System.out.println(t.toString());
 	        //response.setContentType("text/html; charset=" + t.getEncoding());
 	        
-	        ///////////////////////////////////////////////////////////////////////////////////////////////////
-	        System.out.println("request-----------docid="+request.getParameter("docid"));
-	    	System.out.println("request-----------mode="+request.getParameter("mode"));
-	
-	    	if(request.getParameter("formid")!=null && Integer.parseInt(request.getParameter("formid"))>0){
-	    		//new doc
-	    		int formid = Integer.parseInt(request.getParameter("formid"));
-	    		this.assembleNewDocJsonText(formid);	    		
-	    	}else{
-	    		String strdid = request.getParameter("docid");
-	    		String smode = request.getParameter("mode");
-	    		if(strdid!=null && Integer.parseInt(strdid)>0){
-		    		//display .or. edit
-	    			this.assembleJsonText(Integer.parseInt(strdid),smode);
-		    	}
-	    	}    	
-		   ///////////////////////////////////////////////////////////////////////////////////////////////////	        
+//	        ///////////////////////////////////////////////////////////////////////////////////////////////////
+//	        System.out.println("request-----------docid="+request.getParameter("docid"));
+//	    	System.out.println("request-----------mode="+request.getParameter("mode"));
+//	
+//	    	if(request.getParameter("formid")!=null && Integer.parseInt(request.getParameter("formid"))>0){
+//	    		//new doc
+//	    		int formid = Integer.parseInt(request.getParameter("formid"));
+//	    		this.assembleNewDocJsonText(formid);	    		
+//	    	}else{
+//	    		String strdid = request.getParameter("docid");
+//	    		String smode = request.getParameter("mode");
+//	    		if(strdid!=null && Integer.parseInt(strdid)>0){
+//		    		//display .or. edit
+//	    			this.assembleJsonText(Integer.parseInt(strdid),smode);
+//		    	}
+//	    	}    	
+//		   ///////////////////////////////////////////////////////////////////////////////////////////////////	        
 	        
 	        
 	        try{

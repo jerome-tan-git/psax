@@ -45,4 +45,7 @@ public interface DocManager {
 
 	int getDocIdByCreateDate(String _date);
 
+	Doc loadLastDocWithFieldValueListByUser(int _userid)
+			throws ClassNotFoundException, SQLException;
+
 }
