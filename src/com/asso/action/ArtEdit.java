@@ -502,14 +502,15 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	}
 	
 	public String listJsonArticleByCategoryId(){
-		int page = 1;
+		
 		int catid = 1;//default
 		if(this.request.getParameter("category")!=null)
 			catid = Integer.parseInt(this.request.getParameter("category"));
 		this.listArticleByCatid(catid);
 		this.filterDate();
 		this.sortArtlistByDate();
-		
+		//for pagination
+		int page = 1;
 		if(this.request.getParameter("page")!=null)
 			page = Integer.parseInt(this.request.getParameter("page"));
 		int index0 = (page-1)*CONSTANT.articleImageListLength + 1;
@@ -568,8 +569,8 @@ public class ArtEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		if(this.request.getParameter("categoryid")!=null)
 			catid = Integer.parseInt(this.request.getParameter("categoryid"));
 		this.buildCatPathByCatId(catid);
-//		this.catpath = new CategoryPath();
-//		this.catpath.setCatId(catid);
+
+//		this.listJsonArticleByCategoryId();//20140126
 		return "list"; 
 	}
 	

@@ -245,11 +245,13 @@ transitional.dtd">
 				<div class="member_block tz">
 					<div class="member_block_icon tz">&nbsp;</div>
 					<div class="member_block_icon_bg tz_bg">&nbsp;</div>
-					<#if Session.user_?exists>
-					<#assign user=Session.user_>						
-					<div class="unread">${stats(user.id)}&nbsp;<img src="./images/iconmonstr-email-4-icon-16.png" /></div>
-					<#else>
-					<div class="unread">&nbsp;</div>
+					<#if Session?exists>
+						<#if Session.user_?exists>
+						<#assign user=Session.user_>						
+						<div class="unread">${stats(user.id)}&nbsp;<img src="./images/iconmonstr-email-4-icon-16.png" /></div>
+						<#else>
+						<div class="unread">&nbsp;</div>
+						</#if>
 					</#if>
 					<div class="member_block_title">通知</div>
 				</div>
@@ -276,15 +278,17 @@ transitional.dtd">
 					<div class="member_block_title">基本信息</div>
 				</div>
 				</a>
-				<#if Session.user_?exists>
-					<#assign user=Session.user_>						
-					<#if hasCorpForm(user.id)==1>
-						<a href="./hello?mode=edit">
+				<#if Session?exists>
+					<#if Session.user_?exists>
+						<#assign user=Session.user_>						
+						<#if hasCorpForm(user.id)==1>
+							<a href="./hello?mode=edit">
+						<#else>
+							<a href="./hello?formid=9">
+						</#if>
 					<#else>
 						<a href="./hello?formid=9">
 					</#if>
-				<#else>
-					<a href="./hello?formid=9">
 				</#if>								
 				<div class="member_block qyxx">
 					<div class="member_block_icon qyxx">&nbsp;</div>

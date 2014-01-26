@@ -39,6 +39,11 @@ public class BbsEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	private List<Topic> topiclist;
 	private User user;
 	
+	private int page;
+	private int totalpage;
+	private int lastpage;
+	private int nextpage;
+	
 	private HttpServletRequest request;	
 	private Map session;
 
@@ -97,6 +102,30 @@ public class BbsEdit extends ActionSupport implements ModelDriven<Object>,Servle
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getTotalpage() {
+		return totalpage;
+	}
+	public void setTotalpage(int totalpage) {
+		this.totalpage = totalpage;
+	}
+	public int getLastpage() {
+		return lastpage;
+	}
+	public void setLastpage(int lastpage) {
+		this.lastpage = lastpage;
+	}
+	public int getNextpage() {
+		return nextpage;
+	}
+	public void setNextpage(int nextpage) {
+		this.nextpage = nextpage;
 	}
 
 
@@ -307,9 +336,11 @@ public class BbsEdit extends ActionSupport implements ModelDriven<Object>,Servle
 		}
 		
 		System.out.println("list size = "+this.topiclist.size());
-		this.sortTopiclistByDate(this.topiclist);		
+		this.sortTopiclistByDate(this.topiclist);
+		this.pagination();
 		return "list";
 	}
+	
 	
 	private void sortTopiclistByDate(List<Topic> _list){
 		List<String> toSort = new ArrayList<String>();
@@ -328,6 +359,44 @@ public class BbsEdit extends ActionSupport implements ModelDriven<Object>,Servle
 			sortedTopiclist.add(_list.get(seq));
 		this.setTopiclist(sortedTopiclist);
 	}
+	
+	private void pagination(){		
+		this.totalpage = this.topiclist.size()/CONSTANT.bbsTopicVolumn;
+		if(this.totalpage*CONSTANT.bbsTopicVolumn<this.topiclist.size())
+			this.totalpage += 1;
+		
+		this.page = 1;
+		String pagenum = this.request.getParameter("page");
+		if(pagenum!=null && pagenum.length()>0){
+			this.page=Integer.parseInt(pagenum);
+			if(this.page>this.totalpage)
+				this.page=this.totalpage;
+			if(this.page<1)
+				this.page=1;
+		}
+		
+		this.lastpage = 1;
+		if(this.page>1 && this.page<=this.totalpage && this.totalpage>1)
+			this.lastpage = this.page-1;
+		
+		this.nextpage = 1;
+		if(this.page<(this.totalpage-1) && this.totalpage>1)
+			this.nextpage = this.page+1;
+		else
+			this.nextpage = this.totalpage;
+		
+		List<Topic> tl = new ArrayList<Topic>();
+		int index0 = (this.page-1)*CONSTANT.bbsTopicVolumn;
+		int index1 = this.page*CONSTANT.bbsTopicVolumn;
+		for(int i=0;i<this.topiclist.size(); i++){
+			if(i>=index0 && i<index1)
+				tl.add(this.topiclist.get(i));
+		}
+		this.setTopiclist(tl);
+	}
+	
+	
+	
 	@Override
 	public String execute(){
 		

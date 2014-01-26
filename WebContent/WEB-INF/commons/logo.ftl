@@ -1,9 +1,11 @@
 			<div style="margin-top: 7px;float: right;margin-right: 15px;">	
- 				<#if Session.user_?exists>
- 					<a href="./userlogout.action" style="color: #333;" >登出</a>
- 				<#else>
- 					<a href="./gologin.action" style="color: #333;" >登录</a>
- 				</#if> 				
+ 				<#if Session?exists>
+	 				<#if Session.user_?exists>
+	 					<a href="./userlogout.action" style="color: #333;" >登出</a>
+	 				<#else>
+	 					<a href="./gologin.action" style="color: #333;" >登录</a>
+	 				</#if> 				
+ 				</#if>
  				<a style="color: #333;" href="./page.action?categoryid=1">用户中心</a>
  			</div>
  			

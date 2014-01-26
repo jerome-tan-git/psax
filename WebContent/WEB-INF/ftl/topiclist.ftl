@@ -232,15 +232,25 @@ transitional.dtd">
 				
 				<div class="clearfix">
 					<div class="bbs_pagnation">
-						<div style="width: 81px;float: left;">
-						<img src="./images/first-24.png" />&nbsp;&nbsp;
-						<img src="./images/prev-24.png" />&nbsp;&nbsp;
+					<#if (totalpage>1)>
+						<div style="width: 81px;float: left;">						
+							<a href="./bbs_alltopiclist.action?page=1">
+								<img src="./images/first-24.png" />&nbsp;&nbsp;
+							</a>
+							<a href="./bbs_alltopiclist.action?page=${lastpage}">
+								<img src="./images/prev-24.png" />&nbsp;&nbsp;
+							</a>
 						</div>
-						<div style="width: 49px;float: left;color: #000;padding-top: 3px;">5/10</div>
+						<div style="width: 49px;float: left;color: #000;padding-top: 3px;">${page}/${totalpage}</div>
 						<div style="width: 61px;float: left;">
-						<img src="./images/next-24.png" />&nbsp;&nbsp;
-						<img src="./images/last-24.png" />
+							<a href="./bbs_alltopiclist.action?page=${nextpage}">
+								<img src="./images/next-24.png" />&nbsp;&nbsp;
+							</a>
+							<a href="./bbs_alltopiclist.action?page=${totalpage}">
+								<img src="./images/last-24.png" />
+							</a>						
 						</div>
+					</#if>
 					</div>
 				</div>
 			</div>

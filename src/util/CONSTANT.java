@@ -36,6 +36,7 @@ public class CONSTANT {
 	public final static int momentMaxLength = 280;
 	public final static int articleAbsMaxLength = 45;
 	public final static int articleImageListLength = 5;
+	public final static int bbsTopicVolumn = 3;//每页显示BBS topic数目
 	
 	public final static String noContent = "暂无";
 	

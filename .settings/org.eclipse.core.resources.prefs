@@ -40,6 +40,7 @@ encoding//WebContent/WEB-INF/tmpl/iml.ftl=UTF-8
 encoding//WebContent/WEB-INF/tmpl/qualityMeetingNotes.ftl=UTF-8
 encoding//WebContent/WEB-INF/tmpl/qualityRecordsIndex.ftl=UTF-8
 encoding//WebContent/js/backend.js=UTF-8
+encoding//WebContent/js/jquery.waterfall.js=UTF-8
 encoding//WebContent/js/uploadfile_list.js=UTF-8
 encoding//WebContent/list_block.css=UTF-8
 encoding//WebContent/style.css=UTF-8

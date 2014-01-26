@@ -9,55 +9,55 @@
  * Last Update 	: 2013-5-23
  *
  **************************************************************
- * 1. ¸ù¾İÒ³Ãæ´óĞ¡×Ô¶¯ÅÅÁĞ
- * 2. ×Ô¶¨ÒåÒì²½ÇëÇóº¯Êı£¨·µ»ØJSON£¬json¸ñÊ½ÓëhtmlÄ£°å¶ÔÓ¦¼´¿É£¬Ä¬ÈÏ¸ñÊ½Çë¿´demo json.js£©
- * 3. ×Ô¶¨ÒåhtmlÄ£°å
- * 4. Í¼Æ¬×Ô¶¯°´±ÈÀıËõ·Å
- * 5. ÊÇ·ñÏÔÊ¾·ÖÒ³(Î´Íê³É)
- * usage: url±ØÌî£¬ÆäËü²»´«½«Ê¹ÓÃÄ¬ÈÏÅäÖÃ
+ * 1. æ ¹æ®é¡µé¢å¤§å°è‡ªåŠ¨æ’åˆ—
+ * 2. è‡ªå®šä¹‰å¼‚æ­¥è¯·æ±‚å‡½æ•°ï¼ˆè¿”å›JSONï¼Œjsonæ ¼å¼ä¸htmlæ¨¡æ¿å¯¹åº”å³å¯ï¼Œé»˜è®¤æ ¼å¼è¯·çœ‹demo json.jsï¼‰
+ * 3. è‡ªå®šä¹‰htmlæ¨¡æ¿
+ * 4. å›¾ç‰‡è‡ªåŠ¨æŒ‰æ¯”ä¾‹ç¼©æ”¾
+ * 5. æ˜¯å¦æ˜¾ç¤ºåˆ†é¡µ(æœªå®Œæˆ)
+ * usage: urlå¿…å¡«ï¼Œå…¶å®ƒä¸ä¼ å°†ä½¿ç”¨é»˜è®¤é…ç½®
 	$('#id').waterfall({
-		itemClass: 'wf_item',	// ×©¿éÀàÃû
-		imgClass: 'thumb_img',	// Í¼Æ¬ÀàÃû
-		colWidth: 235,			// ÁĞ¿í
-		marginLeft: 15,			// Ã¿ÁĞµÄ×ó¼ä¿í
-		marginTop: 15,			// Ã¿ÁĞµÄÉÏ¼ä¿í
-		perNum: 'auto',			// Ã¿´ÎÏÂÀ­Ê±ÏÔÊ¾¶àÉÙ¸ö(Ä¬ÈÏÊÇÁĞÊı)
-		isAnimation: true,		// ÊÇ·ñÊ¹ÓÃ¶¯»­Ğ§¹û
-		ajaxTimes: 'infinite',	// ÏŞÖÆ¼ÓÔØµÄ´ÎÊı(int) ×Ö·û´®'infinite'±íÊ¾ÎŞÏŞ¼ÓÔØ 
-		url: null,				// Êı¾İÀ´Ô´(ajax¼ÓÔØ£¬·µ»Øjson¸ñÊ½)£¬´«ÈëÁËajaxFunc²ÎÊı£¬´Ë²ÎÊı½«ÎŞĞ§
-		ajaxFunc: null,			// ×Ô¶¨ÒåÒì²½º¯Êı, µÚÒ»¸ö²ÎÊıÎª³É¹¦»Øµ÷º¯Êı£¬µÚ¶ş¸ö²ÎÊıÎªÊ§°Ü»Øµ÷º¯Êı
-								// µ±Ö´ĞĞ³É¹¦»Øµ÷º¯ÊıÊ±£¬´«Èë·µ»ØµÄJSONÊı¾İ×÷Îª²ÎÊı
-		createHtml: null		// ×Ô¶¨ÒåÉú³Éhtml×Ö·û´®º¯Êı,²ÎÊıÎªÒ»¸öĞÅÏ¢¼¯ºÏ£¬·µ»ØÒ»¸öhtml×Ö·û´®
+		itemClass: 'wf_item',	// ç –å—ç±»å
+		imgClass: 'thumb_img',	// å›¾ç‰‡ç±»å
+		colWidth: 235,			// åˆ—å®½
+		marginLeft: 15,			// æ¯åˆ—çš„å·¦é—´å®½
+		marginTop: 15,			// æ¯åˆ—çš„ä¸Šé—´å®½
+		perNum: 'auto',			// æ¯æ¬¡ä¸‹æ‹‰æ—¶æ˜¾ç¤ºå¤šå°‘ä¸ª(é»˜è®¤æ˜¯åˆ—æ•°)
+		isAnimation: true,		// æ˜¯å¦ä½¿ç”¨åŠ¨ç”»æ•ˆæœ
+		ajaxTimes: 'infinite',	// é™åˆ¶åŠ è½½çš„æ¬¡æ•°(int) å­—ç¬¦ä¸²'infinite'è¡¨ç¤ºæ— é™åŠ è½½ 
+		url: null,				// æ•°æ®æ¥æº(ajaxåŠ è½½ï¼Œè¿”å›jsonæ ¼å¼)ï¼Œä¼ å…¥äº†ajaxFuncå‚æ•°ï¼Œæ­¤å‚æ•°å°†æ— æ•ˆ
+		ajaxFunc: null,			// è‡ªå®šä¹‰å¼‚æ­¥å‡½æ•°, ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºæˆåŠŸå›è°ƒå‡½æ•°ï¼Œç¬¬äºŒä¸ªå‚æ•°ä¸ºå¤±è´¥å›è°ƒå‡½æ•°
+								// å½“æ‰§è¡ŒæˆåŠŸå›è°ƒå‡½æ•°æ—¶ï¼Œä¼ å…¥è¿”å›çš„JSONæ•°æ®ä½œä¸ºå‚æ•°
+		createHtml: null		// è‡ªå®šä¹‰ç”Ÿæˆhtmlå­—ç¬¦ä¸²å‡½æ•°,å‚æ•°ä¸ºä¸€ä¸ªä¿¡æ¯é›†åˆï¼Œè¿”å›ä¸€ä¸ªhtmlå­—ç¬¦ä¸²
 	});
  *
  */
  
 ;(function($, window, document){
 	$.fn.waterfall = function(options){
-		var // ÅäÖÃĞÅÏ¢
+		var // é…ç½®ä¿¡æ¯
 			opts = $.extend({}, $.fn.waterfall.defaults, options), 
 			
 			isIE6 = !-[1,] && !window.XMLHttpRequest,
 		
-			ajaxTimes = 0,		// ÒÑÏò·şÎñÆ÷ÇëÇóµÄ´ÎÊı
-			isLoading = false,	// ÊÇ·ñÕıÔÚ¼ÓÔØÊı¾İ
-			isFinish = false,	// trueÊ±²»ÔÙÏò·şÎñÆ÷·¢ËÍÇëÇó
+			ajaxTimes = 0,		// å·²å‘æœåŠ¡å™¨è¯·æ±‚çš„æ¬¡æ•°
+			isLoading = false,	// æ˜¯å¦æ­£åœ¨åŠ è½½æ•°æ®
+			isFinish = false,	// trueæ—¶ä¸å†å‘æœåŠ¡å™¨å‘é€è¯·æ±‚
 			
-			colsHeight = [],	// ÓÃÓÚ´æ´¢Ã¿ÁĞµÄ¸ß¶È
-			minColsIndex = 0,	// ×îµÍÄÇÁĞµÄÏÂ±ê
+			colsHeight = [],	// ç”¨äºå­˜å‚¨æ¯åˆ—çš„é«˜åº¦
+			minColsIndex = 0,	// æœ€ä½é‚£åˆ—çš„ä¸‹æ ‡
 			
-			jsonCache = [],		// ·şÎñÆ÷·µ»ØµÄJSON»º´æÊı¾İ
+			jsonCache = [],		// æœåŠ¡å™¨è¿”å›çš„JSONç¼“å­˜æ•°æ®
 			
-			wf_box_top = 0,		// $wf_box µÄÏà¶ÔÊÓÍ¼µÄÎ»ÖÃ¸ß¶È
-			wf_item_top = 0,	// ÆÙ²¼Á÷¿éµÄtop, leftÖµ
+			wf_box_top = 0,		// $wf_box çš„ç›¸å¯¹è§†å›¾çš„ä½ç½®é«˜åº¦
+			wf_item_top = 0,	// ç€‘å¸ƒæµå—çš„top, leftå€¼
 			wf_item_left = 0,
 			
-			// Ò»Ğ©jQ¶ÔÏó
+			// ä¸€äº›jQå¯¹è±¡
 			$wf_box, $wf_col, 
 			$wf_col_temp, $wf_col_items,
 			$wf_result, $backTop,
 			
-			// Òì²½ÇëÇóº¯Êı
+			// å¼‚æ­¥è¯·æ±‚å‡½æ•°
 			ajaxFunc = $.isFunction(opts.ajaxFunc) ?
 						opts.ajaxFunc :
 						function(success, error){
@@ -72,9 +72,9 @@
 								error: error
 							});
 						},
-			// Éú³Éhtml×Ö·û´®º¯Êı
-			createHtml = $.isFunction(opts.createHtml) ?¡¡
-					opts.createHtml¡¡:
+			// ç”Ÿæˆhtmlå­—ç¬¦ä¸²å‡½æ•°
+			createHtml = $.isFunction(opts.createHtml) ?ã€€
+					opts.createHtmlã€€:
 					function(data){
 						return '<div class="wf_item_inner">' +
 								  '<a href="'+ data.href +'" class="thumb" target="_blank">' +
@@ -96,9 +96,9 @@
 				db = document.body,
 				doc = dd || db;
 			
-			// ¸øIE6 fixed Ìá¹©Ò»¸ö"²»¶¶¶¯µÄ»·¾³"
-			// Ö»ĞèÒª html Óë body ±êÇ©ÆäÒ»Ê¹ÓÃ±³¾°¾²Ö¹¶¨Î»¼´¿ÉÈÃIE6ÏÂ¹ö¶¯ÌõÍÏ¶¯ÔªËØÒ²²»»á¶¶¶¯
-			// ×¢Òâ£ºIE6Èç¹û body ÒÑ¾­ÉèÖÃÁË±³¾°Í¼Ïñ¾²Ö¹¶¨Î»ºó»¹¸ø html ±êÇ©ÉèÖÃ»áÈÃ body ÉèÖÃµÄ±³¾°¾²Ö¹(fixed)Ê§Ğ§
+			// ç»™IE6 fixed æä¾›ä¸€ä¸ª"ä¸æŠ–åŠ¨çš„ç¯å¢ƒ"
+			// åªéœ€è¦ html ä¸ body æ ‡ç­¾å…¶ä¸€ä½¿ç”¨èƒŒæ™¯é™æ­¢å®šä½å³å¯è®©IE6ä¸‹æ»šåŠ¨æ¡æ‹–åŠ¨å…ƒç´ ä¹Ÿä¸ä¼šæŠ–åŠ¨
+			// æ³¨æ„ï¼šIE6å¦‚æœ body å·²ç»è®¾ç½®äº†èƒŒæ™¯å›¾åƒé™æ­¢å®šä½åè¿˜ç»™ html æ ‡ç­¾è®¾ç½®ä¼šè®© body è®¾ç½®çš„èƒŒæ™¯é™æ­¢(fixed)å¤±æ•ˆ
 			if (isIE6 && db.currentStyle.backgroundAttachment !== 'fixed') {
 				html.style.backgroundImage = 'url(about:blank)';
 				html.style.backgroundAttachment = 'fixed';
@@ -146,18 +146,18 @@
 		}();
 		
 		
-		// Òì²½»ñÈ¡Êı¾İ
+		// å¼‚æ­¥è·å–æ•°æ®
 		function getJSONData(){
-			if(!(isFinish || isLoading)){ // È·±£ÉÏÒ»´Î¼ÓÔØÍê±Ï²Å·¢ËÍĞÂµÄÇëÇó
-				// ¹ö¶¯ÌõÏÂÀ­Ê±ÅĞ¶ÏÊÇ·ñĞèÒªÏò·şÎñÆ÷ÇëÇóÊı¾İ»òÕßÊÇ´¦Àí»º´æÊı¾İ
+			if(!(isFinish || isLoading)){ // ç¡®ä¿ä¸Šä¸€æ¬¡åŠ è½½å®Œæ¯•æ‰å‘é€æ–°çš„è¯·æ±‚
+				// æ»šåŠ¨æ¡ä¸‹æ‹‰æ—¶åˆ¤æ–­æ˜¯å¦éœ€è¦å‘æœåŠ¡å™¨è¯·æ±‚æ•°æ®æˆ–è€…æ˜¯å¤„ç†ç¼“å­˜æ•°æ®
 				if(colsHeight.minHeight + wf_box_top < $(window).height() + $(window).scrollTop()){
-					// Èç¹û»º´æ»¹ÓĞÊı¾İ£¬Ö±½Ó´¦ÀíÊı¾İ
+					// å¦‚æœç¼“å­˜è¿˜æœ‰æ•°æ®ï¼Œç›´æ¥å¤„ç†æ•°æ®
 					if(jsonCache.length > 0){
 						dealData();
 					}else{
 						if(opts.ajaxTimes === 'infinite' || ajaxTimes < opts.ajaxTimes){
 							showMsg('loading');
-							// ´«²Î¸ø·şÎñÆ÷
+							// ä¼ å‚ç»™æœåŠ¡å™¨
 							opts.params.ajax = ++ajaxTimes;
 							ajaxFunc(
 								function(jsonData){
@@ -188,13 +188,13 @@
 			}
 		}
 		
-		// ´¦Àí·µ»ØµÄÊı¾İ
+		// å¤„ç†è¿”å›çš„æ•°æ®
 		function dealData(){
 			var perNum = typeof opts.perNum === 'number' ? opts.perNum : opts.colNum,
 				data = null,
 				wf_col_height = $wf_col.height(),
 				$wf_item, $wf_img, htmlStr;
-			// È·±£ËùÓĞÍ¼Æ¬¶¼ÒÑÖª¿í¸ß
+			// ç¡®ä¿æ‰€æœ‰å›¾ç‰‡éƒ½å·²çŸ¥å®½é«˜
 			loadImg(jsonCache, opts.imgUrlName, function(){
 				while(perNum-- > 0 && (data = jsonCache.pop())){
 					
@@ -217,7 +217,7 @@
 												}, 800);
 					}
 					
-					// ¸üĞÂÃ¿ÁĞµÄ¸ß¶È
+					// æ›´æ–°æ¯åˆ—çš„é«˜åº¦
 					colsHeight[minColsIndex] = wf_item_top + $wf_item.outerHeight();
 					if( colsHeight[minColsIndex] > colsHeight.maxHeight ){
 						colsHeight.maxHeight = colsHeight[minColsIndex];
@@ -228,27 +228,27 @@
 				isLoading = false;
 				$wf_result.hide();
 				
-				// ±£Ö¤ä¯ÀÀÆ÷ÓĞĞ§¹ö¶¯
+				// ä¿è¯æµè§ˆå™¨æœ‰æ•ˆæ»šåŠ¨
 				getJSONData();
 				
 			});
 		}
 		
-		// ÅÅÁĞÆÙ²¼Á÷µÄ¿é
+		// æ’åˆ—ç€‘å¸ƒæµçš„å—
 		function realign(){
 			var colNum = 0,
 				i = 0,
 				backTop_left =  0,
 				speed = 0;
 			
-			// ¼ÆËã³öµ±Ç°ÆÁÄ»¿ÉÒÔÅÅ¶àÉÙÁĞ
+			// è®¡ç®—å‡ºå½“å‰å±å¹•å¯ä»¥æ’å¤šå°‘åˆ—
 			colNum = Math.floor(($wf_box.width() + opts.marginLeft) / (opts.colWidth + opts.marginLeft));
 			
 			if(colNum > 0 && colNum !== opts.colNum){
 				opts.colNum = colNum;
 				$wf_col.width((opts.colWidth+opts.marginLeft) * opts.colNum - opts.marginLeft);
 				
-				// ÖØĞÂµ÷Õû´æ´¢ÁĞ
+				// é‡æ–°è°ƒæ•´å­˜å‚¨åˆ—
 				for(i=0; i<opts.colNum; i++){
 					colsHeight[i] = 0;
 				}
@@ -277,7 +277,7 @@
 				getJSONData();
 			}
 			
-			// ·µ»Ø¶¥²¿°´Å¥Î»ÖÃ
+			// è¿”å›é¡¶éƒ¨æŒ‰é’®ä½ç½®
 			backTop_left = $wf_col.offset().left + ($wf_col.width() + $wf_box.width()) / 2 - $backTop.width(); 
 			
 			fixedPosition($backTop[0], {
@@ -287,7 +287,7 @@
 			
 		}
 		
-		// ÏÔÊ¾½á¹ûĞÅÏ¢
+		// æ˜¾ç¤ºç»“æœä¿¡æ¯
 		function showMsg(type){
 			switch(type){
 				case 'loading':
@@ -295,11 +295,11 @@
 					$wf_result.html('').addClass('wf_loading').show();
 					break;
 				case 'error':
-					$wf_result.removeClass('wf_loading').show().html('Êı¾İ¸ñÊ½´íÎó£¬Çë·µ»Ø±ê×¼µÄJsonÊı¾İ»òJson¸ñÊ½×Ö·û´®£¡');
+					$wf_result.removeClass('wf_loading').show().html('æ•°æ®æ ¼å¼é”™è¯¯ï¼Œè¯·è¿”å›æ ‡å‡†çš„Jsonæ•°æ®æˆ–Jsonæ ¼å¼å­—ç¬¦ä¸²ï¼');
 					isFinish =  true;
 					break;
 				case 'finish':
-					$wf_result.removeClass('wf_loading').show().html('ÒÑ¼ÓÔØÍê±Ï£¬Ã»ÓĞ¸ü¶àÁË£¡');
+					$wf_result.removeClass('wf_loading').show().html('å·²åŠ è½½å®Œæ¯•ï¼Œæ²¡æœ‰æ›´å¤šäº†ï¼');
 					isFinish = true;
 					break;
 			}
@@ -309,14 +309,14 @@
 			if($(this).data('_wf_is_done_')) return true;
 			
 			$wf_box = $(this).addClass('waterfall').data('_wf_is_done_', true);
-			wf_box_top = $wf_box.offset().top;	// ±£´æ $wf_box µÄÏà¶ÔÊÓÍ¼µÄÎ»ÖÃ¸ß¶È
+			wf_box_top = $wf_box.offset().top;	// ä¿å­˜ $wf_box çš„ç›¸å¯¹è§†å›¾çš„ä½ç½®é«˜åº¦
 			
 			$wf_col = $wf_box.children('.wf_col');
 			$wf_col.length === 0 && ($wf_col = $('<div>').addClass('wf_col').appendTo($wf_box));
 			$wf_result = $('<div>').addClass('wf_result').appendTo($wf_box);
 			
-			// Ôö¼Ó·µ»Ø¶¥²¿°´Å¥
-			$backTop = $('<a></a>').attr('id', 'backTop').attr('title', '·µ»Ø¶¥²¿').appendTo(document.body);
+			// å¢åŠ è¿”å›é¡¶éƒ¨æŒ‰é’®
+			$backTop = $('<a></a>').attr('id', 'backTop').attr('title', 'è¿”å›é¡¶éƒ¨').appendTo(document.body);
 			$backTop.css('opacity', 0).bind('click', function(){
 				$('body,html').stop(true).animate({
 					scrollTop: wf_box_top
@@ -324,14 +324,14 @@
 			});
 			
 			$(document.body).css('overflow', 'scroll');
-			// ÅÅÁĞÒÑ¾­´æÔÚµÄÆÙ²¼Á÷¿é
+			// æ’åˆ—å·²ç»å­˜åœ¨çš„ç€‘å¸ƒæµå—
 			realign();
 			$(document.body).css('overflow', 'auto');
 			
-			// µÚÒ»´ÎÀ­È¡Í¼Æ¬Ê±£¬±£Ö¤Í¼Æ¬ÄÜÌîÂú´°³öÏÖ¹ö¶¯
+			// ç¬¬ä¸€æ¬¡æ‹‰å–å›¾ç‰‡æ—¶ï¼Œä¿è¯å›¾ç‰‡èƒ½å¡«æ»¡çª—å‡ºç°æ»šåŠ¨
 			getJSONData();
 			
-			// ×¢²á¹ö¶¯ÌõÊÂ¼ş
+			// æ³¨å†Œæ»šåŠ¨æ¡äº‹ä»¶
 			$(window).bind('scroll', function(){
 				if($(window).scrollTop() > wf_box_top){
 					$backTop.stop(true).animate({opacity: 1}, 500);
@@ -340,48 +340,48 @@
 				}
 				getJSONData();
 				
-			// ×¢²á´°¿Ú¸Ä±ä´óĞ¡ÊÂ¼ş
+			// æ³¨å†Œçª—å£æ”¹å˜å¤§å°äº‹ä»¶
 			}).bind('resize', function(){
 				throttle(realign);
 			});
 		});
 	};
 	
-	// Ä¬ÈÏÅäÖÃ
+	// é»˜è®¤é…ç½®
 	$.fn.waterfall.defaults = {
-		itemClass: 'wf_item',	// ×©¿éÀàÃû
-		imgClass: 'thumb_img',	// Í¼Æ¬ÀàÃû
-		colWidth: 235,			// ÁĞ¿í(int)
-		marginLeft: 15,			// Ã¿ÁĞµÄ×ó¼ä¿í(int)
-		marginTop: 15,			// Ã¿ÁĞµÄÉÏ¼ä¿í(int)
-		perNum: 'auto',			// Ã¿´ÎÏÂÀ­Ê±ÏÔÊ¾¶àÉÙ¸ö(Ä¬ÈÏÊÇÁĞÊı)
-		isAnimation: true,		// ÊÇ·ñÊ¹ÓÃ¶¯»­Ğ§¹û
-		ajaxTimes: 'infinite',	// ÏŞÖÆÒì²½ÇëÇóµÄ´ÎÊı(int) ×Ö·û´®'infinite'±íÊ¾ÎŞÏŞ¼ÓÔØ
-		imgUrlName: 'imgSrc',	// ÔÚjsonÀï±íÊ¾Í¼Æ¬Â·¾¶µÄÊôĞÔÃû³Æ(ÓÃÓÚÔ¤¼ÓÔØÍ¼Æ¬»ñÈ¡¸ß¿í)
-		params: {},				// ¼üÖµ¶Ô£¬·¢ËÍµ½·şÎñÆ÷µÄÊı¾İ¡£½«×Ô¶¯×ª»»ÎªÇëÇó×Ö·û´®¸ñÊ½¡£
-								// Èç {foo:["bar1", "bar2"]} ×ª»»Îª "&foo=bar1&foo=bar2"¡£
-		url: '',				// Êı¾İÀ´Ô´(ajax¼ÓÔØ£¬·µ»Øjson¸ñÊ½)£¬´«ÈëÁËajaxFunc²ÎÊı£¬´Ë²ÎÊı¿ÉÊ¡ÂÔ(string)
-		// ×Ô¶¨ÒåÒì²½º¯Êı, µÚÒ»¸ö²ÎÊıÎª³É¹¦»Øµ÷º¯Êı£¬µÚ¶ş¸ö²ÎÊıÎªÊ§°Ü»Øµ÷º¯Êı
-		// µ±Ö´ĞĞ³É¹¦»Øµ÷º¯ÊıÊ±£¬´«Èë·µ»ØµÄJSONÊı¾İ×÷Îª²ÎÊı
+		itemClass: 'wf_item',	// ç –å—ç±»å
+		imgClass: 'thumb_img',	// å›¾ç‰‡ç±»å
+		colWidth: 235,			// åˆ—å®½(int)
+		marginLeft: 15,			// æ¯åˆ—çš„å·¦é—´å®½(int)
+		marginTop: 15,			// æ¯åˆ—çš„ä¸Šé—´å®½(int)
+		perNum: 'auto',			// æ¯æ¬¡ä¸‹æ‹‰æ—¶æ˜¾ç¤ºå¤šå°‘ä¸ª(é»˜è®¤æ˜¯åˆ—æ•°)
+		isAnimation: true,		// æ˜¯å¦ä½¿ç”¨åŠ¨ç”»æ•ˆæœ
+		ajaxTimes: 'infinite',	// é™åˆ¶å¼‚æ­¥è¯·æ±‚çš„æ¬¡æ•°(int) å­—ç¬¦ä¸²'infinite'è¡¨ç¤ºæ— é™åŠ è½½
+		imgUrlName: 'imgSrc',	// åœ¨jsoné‡Œè¡¨ç¤ºå›¾ç‰‡è·¯å¾„çš„å±æ€§åç§°(ç”¨äºé¢„åŠ è½½å›¾ç‰‡è·å–é«˜å®½)
+		params: {},				// é”®å€¼å¯¹ï¼Œå‘é€åˆ°æœåŠ¡å™¨çš„æ•°æ®ã€‚å°†è‡ªåŠ¨è½¬æ¢ä¸ºè¯·æ±‚å­—ç¬¦ä¸²æ ¼å¼ã€‚
+								// å¦‚ {foo:["bar1", "bar2"]} è½¬æ¢ä¸º "&foo=bar1&foo=bar2"ã€‚
+		url: '',				// æ•°æ®æ¥æº(ajaxåŠ è½½ï¼Œè¿”å›jsonæ ¼å¼)ï¼Œä¼ å…¥äº†ajaxFuncå‚æ•°ï¼Œæ­¤å‚æ•°å¯çœç•¥(string)
+		// è‡ªå®šä¹‰å¼‚æ­¥å‡½æ•°, ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºæˆåŠŸå›è°ƒå‡½æ•°ï¼Œç¬¬äºŒä¸ªå‚æ•°ä¸ºå¤±è´¥å›è°ƒå‡½æ•°
+		// å½“æ‰§è¡ŒæˆåŠŸå›è°ƒå‡½æ•°æ—¶ï¼Œä¼ å…¥è¿”å›çš„JSONæ•°æ®ä½œä¸ºå‚æ•°
 		ajaxFunc: null,		// (function)
-		createHtml: null	// ×Ô¶¨ÒåÉú³Éhtml×Ö·û´®º¯Êı,²ÎÊıÎªÒ»¸öĞÅÏ¢¼¯ºÏ£¬·µ»ØÒ»¸öhtml×Ö·û´®(function)
+		createHtml: null	// è‡ªå®šä¹‰ç”Ÿæˆhtmlå­—ç¬¦ä¸²å‡½æ•°,å‚æ•°ä¸ºä¸€ä¸ªä¿¡æ¯é›†åˆï¼Œè¿”å›ä¸€ä¸ªhtmlå­—ç¬¦ä¸²(function)
 		
 	};
 	
 	
-	/*****************Ò»Ğ©È«¾Öº¯Êı*********************/
+	/*****************ä¸€äº›å…¨å±€å‡½æ•°*********************/
 	/**
-	 * Í¼Æ¬Í·Êı¾İ¼ÓÔØ¾ÍĞ÷ÊÂ¼ş
-	 * @²Î¿¼ 	http://www.planeart.cn/?p=1121
-	 * @param	{String}	Í¼Æ¬Â·¾¶
-	 * @param	{Function}	³ß´ç¾ÍĞ÷ (²ÎÊı1½ÓÊÕwidth; ²ÎÊı2½ÓÊÕheight)
-	 * @param	{Function}	¼ÓÔØÍê±Ï (¿ÉÑ¡. ²ÎÊı1½ÓÊÕwidth; ²ÎÊı2½ÓÊÕheight)
-	 * @param	{Function}	¼ÓÔØ´íÎó (¿ÉÑ¡)
+	 * å›¾ç‰‡å¤´æ•°æ®åŠ è½½å°±ç»ªäº‹ä»¶
+	 * @å‚è€ƒ 	http://www.planeart.cn/?p=1121
+	 * @param	{String}	å›¾ç‰‡è·¯å¾„
+	 * @param	{Function}	å°ºå¯¸å°±ç»ª (å‚æ•°1æ¥æ”¶width; å‚æ•°2æ¥æ”¶height)
+	 * @param	{Function}	åŠ è½½å®Œæ¯• (å¯é€‰. å‚æ•°1æ¥æ”¶width; å‚æ•°2æ¥æ”¶height)
+	 * @param	{Function}	åŠ è½½é”™è¯¯ (å¯é€‰)
 	 */
 	var imgReady = (function(){
 		var list = [], intervalId = null,
 		
-		// ÓÃÀ´Ö´ĞĞ¶ÓÁĞ
+		// ç”¨æ¥æ‰§è¡Œé˜Ÿåˆ—
 		tick = function () {
 			var i = 0;
 			for (; i < list.length; i++) {
@@ -390,7 +390,7 @@
 			!list.length && stop();
 		},
 
-		// Í£Ö¹ËùÓĞ¶¨Ê±Æ÷¶ÓÁĞ
+		// åœæ­¢æ‰€æœ‰å®šæ—¶å™¨é˜Ÿåˆ—
 		stop = function () {
 			clearInterval(intervalId);
 			intervalId = null;
@@ -408,21 +408,21 @@
 			
 			img.src = url;
 
-			// Èç¹ûÍ¼Æ¬±»»º´æ£¬ÔòÖ±½Ó·µ»Ø»º´æÊı¾İ
+			// å¦‚æœå›¾ç‰‡è¢«ç¼“å­˜ï¼Œåˆ™ç›´æ¥è¿”å›ç¼“å­˜æ•°æ®
 			if (img.complete) {
 				ready(img.width, img.height);
 				load && load(img.width, img.height);
 				return;
 			};
 			
-			// ¼ì²âÍ¼Æ¬´óĞ¡µÄ¸Ä±ä
+			// æ£€æµ‹å›¾ç‰‡å¤§å°çš„æ”¹å˜
 			width = img.width;
 			height = img.height;
 			check = function () {
 				newWidth = img.width;
 				newHeight = img.height;
 				if (newWidth !== width || newHeight !== height ||
-					// Èç¹ûÍ¼Æ¬ÒÑ¾­ÔÚÆäËûµØ·½¼ÓÔØ¿ÉÊ¹ÓÃÃæ»ı¼ì²â
+					// å¦‚æœå›¾ç‰‡å·²ç»åœ¨å…¶ä»–åœ°æ–¹åŠ è½½å¯ä½¿ç”¨é¢ç§¯æ£€æµ‹
 					newWidth * newHeight > 1024
 				) {
 					ready(newWidth, newHeight);
@@ -431,31 +431,31 @@
 			};
 			check();
 			
-			// ¼ÓÔØ´íÎóºóµÄÊÂ¼ş
+			// åŠ è½½é”™è¯¯åçš„äº‹ä»¶
 			img.onerror = function () {
 				error && error();
 				check.end = true;
 				img = img.onload = img.onerror = null;
 			};
 			
-			// ÍêÈ«¼ÓÔØÍê±ÏµÄÊÂ¼ş
+			// å®Œå…¨åŠ è½½å®Œæ¯•çš„äº‹ä»¶
 			img.onload = function () {
 				load && load(img.width, img.height);
 				!check.end && check();
-				// IE gif¶¯»­»áÑ­»·Ö´ĞĞonload£¬ÖÃ¿Õonload¼´¿É
+				// IE gifåŠ¨ç”»ä¼šå¾ªç¯æ‰§è¡Œonloadï¼Œç½®ç©ºonloadå³å¯
 				img = img.onload = img.onerror = null;
 			};
 
-			// ¼ÓÈë¶ÓÁĞÖĞ¶¨ÆÚÖ´ĞĞ
+			// åŠ å…¥é˜Ÿåˆ—ä¸­å®šæœŸæ‰§è¡Œ
 			if (!check.end) {
 				list.push(check);
-				// ÎŞÂÛºÎÊ±Ö»ÔÊĞí³öÏÖÒ»¸ö¶¨Ê±Æ÷£¬¼õÉÙä¯ÀÀÆ÷ĞÔÄÜËğºÄ
+				// æ— è®ºä½•æ—¶åªå…è®¸å‡ºç°ä¸€ä¸ªå®šæ—¶å™¨ï¼Œå‡å°‘æµè§ˆå™¨æ€§èƒ½æŸè€—
 				if (intervalId === null) intervalId = setInterval(tick, 40);
 			};
 		};
 	})();
 	
-	// ¿ìËÙ»ñÈ¡Í¼Æ¬Í·Êı¾İ£¬¼ÓÔØ¾ÍĞ÷ºóÖ´ĞĞ»Øµ÷º¯Êı
+	// å¿«é€Ÿè·å–å›¾ç‰‡å¤´æ•°æ®ï¼ŒåŠ è½½å°±ç»ªåæ‰§è¡Œå›è°ƒå‡½æ•°
 	function loadImg(jsonData, imgUrlName, callback){
 		var count = 0,
 			i = 0,
@@ -473,18 +473,18 @@
 			data.height = parseInt(data.height);
 			data.width = parseInt(data.width);
 			
-			// Èç¹ûÒÑÖªÍ¼Æ¬µÄ¸ß¶È£¬ÔòÌø¹ı
+			// å¦‚æœå·²çŸ¥å›¾ç‰‡çš„é«˜åº¦ï¼Œåˆ™è·³è¿‡
 			if(data.height >= 0 && data.width >= 0){
 				++count;
 			}else{
 				(function(data){
 					imgReady(data[imgUrlName], function(width,height){
-						// Í¼Æ¬Í·Êı¾İ¼ÓÔØ¾ÍĞ÷£¬±£´æ¿í¸ß
+						// å›¾ç‰‡å¤´æ•°æ®åŠ è½½å°±ç»ªï¼Œä¿å­˜å®½é«˜
 						data.width = width;
 						data.height = height;
 						++count;
 					}, null, function(){
-						// Í¼Æ¬¼ÓÔØÊ§°Ü£¬Ìæ»»³ÉÄ¬ÈÏÍ¼Æ¬
+						// å›¾ç‰‡åŠ è½½å¤±è´¥ï¼Œæ›¿æ¢æˆé»˜è®¤å›¾ç‰‡
 						data.width = 208;
 						data.height = 240;
 						data.imgSrc = 'images/default.jpg';
@@ -498,8 +498,8 @@
 	}
 	
 	/*
-	 * º¯Êı½ÚÁ÷£º±ÜÃâÒòÎª¸ßÆµÂÊµÄ¸ü¸Äµ¼ÖÂä¯ÀÀÆ÷¹ÒÆğ»ò±ÀÀ££¬ÈçonresizeÊÂ¼ş´¦Àí³ÌĞò³¢ÊÔ¸´ÔÓµÄDOM²Ù×÷
-	 * Ë¼Â·£ºÔÚÒ»¶¨Ê±¼äÄÚÖØ¸´Ö´ĞĞÄ³²Ù×÷Ö»Ö´ĞĞÒ»´Î¡£
+	 * å‡½æ•°èŠ‚æµï¼šé¿å…å› ä¸ºé«˜é¢‘ç‡çš„æ›´æ”¹å¯¼è‡´æµè§ˆå™¨æŒ‚èµ·æˆ–å´©æºƒï¼Œå¦‚onresizeäº‹ä»¶å¤„ç†ç¨‹åºå°è¯•å¤æ‚çš„DOMæ“ä½œ
+	 * æ€è·¯ï¼šåœ¨ä¸€å®šæ—¶é—´å†…é‡å¤æ‰§è¡ŒæŸæ“ä½œåªæ‰§è¡Œä¸€æ¬¡ã€‚
 	 */
 	function throttle(method, context){
 		clearTimeout(method.tid);
@@ -509,11 +509,11 @@
 		},100);
 	}
 	
-	// ·µ»Ø´ÓĞ¡µ½´óÅÅĞòµÄÊı×éµÄÏÂ±êµÄÊı×é
-	// e.g. ´«ÈëÊı×é[300,200,250,400] ·µ»Ø[1,2,0,3]
+	// è¿”å›ä»å°åˆ°å¤§æ’åºçš„æ•°ç»„çš„ä¸‹æ ‡çš„æ•°ç»„
+	// e.g. ä¼ å…¥æ•°ç»„[300,200,250,400] è¿”å›[1,2,0,3]
 	function getColsIndex(arr){
-		var clone = arr.slice(),	// Êı×é¸±±¾£¬±ÜÃâ¸Ä±äÔ­Êı×é
-			ret = [], 	// ¶ÔÓ¦ÏÂ±êÊı×é
+		var clone = arr.slice(),	// æ•°ç»„å‰¯æœ¬ï¼Œé¿å…æ”¹å˜åŸæ•°ç»„
+			ret = [], 	// å¯¹åº”ä¸‹æ ‡æ•°ç»„
 			len = arr.length,
 			i, j, temp;
 			
@@ -521,12 +521,12 @@
 			ret[i] = i;
 		}
 		
-		//Íâ²ãÑ­»·(Ã°ÅİÅÅĞò·¨£º´ÓĞ¡µ½´ó)
+		//å¤–å±‚å¾ªç¯(å†’æ³¡æ’åºæ³•ï¼šä»å°åˆ°å¤§)
 		for(i=0;i<len;i++){
-			//ÄÚ²ãÑ­»·
+			//å†…å±‚å¾ªç¯
 			for(j=i;j<len;j++){
 				if(clone[j] < clone[i]){
-					//½»»»Á½¸öÔªËØµÄÎ»ÖÃ
+					//äº¤æ¢ä¸¤ä¸ªå…ƒç´ çš„ä½ç½®
 					temp=clone[i];
 					clone[i]=clone[j];
 					clone[j]=temp;
